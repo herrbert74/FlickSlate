@@ -20,7 +20,7 @@ import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.ext.navigate
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
 import com.zsoltbertalan.flickslate.ui.component.ShowLoading
-import com.zsoltbertalan.flickslate.ui.component.TitleCard
+import com.zsoltbertalan.flickslate.ui.component.ShowCard
 
 @Composable
 fun GenreDetailScreen(
@@ -51,7 +51,7 @@ private fun LazyListScope.showMovies(
 	items(genreMovies.itemCount) { index ->
 		genreMovies[index].let {
 			it?.let {
-				TitleCard(
+				ShowCard(
 					modifier = Modifier.navigate(it.id, popTo),
 					title = it.title,
 					voteAverage = it.voteAverage,

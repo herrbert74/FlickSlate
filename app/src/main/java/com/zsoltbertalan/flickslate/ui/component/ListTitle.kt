@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.zsoltbertalan.flickslate.design.LocalAppColors
 
 @Composable
 fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
@@ -25,12 +26,10 @@ fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
 	Text(
 		modifier = modifier
 			.padding(16.dp),
-		style = MaterialTheme.typography.headlineSmall,
+		style = MaterialTheme.typography.titleMedium,
 		text = stringResource(id = titleRemember),
-		textDecoration = TextDecoration.Underline,
 		maxLines = 1,
-		color = Color.Black,
-		fontSize = 16.sp,
+		color = LocalAppColors.current.onBackground,
 	)
 }
 
@@ -43,11 +42,9 @@ fun ListTitle(modifier: Modifier = Modifier, title: String) {
 		modifier = modifier
 			.fillMaxWidth()
 			.padding(16.dp),
-		style = MaterialTheme.typography.headlineSmall,
+		style = MaterialTheme.typography.titleMedium,
 		text = titleRemember,
-		textDecoration = TextDecoration.Underline,
 		maxLines = 1,
-		color = Color.Black,
-		fontSize = 16.sp,
+		color = LocalAppColors.current.onBackground,
 	)
 }

@@ -47,7 +47,7 @@ fun TvDetailScreen(
 					modifier = modifier.padding(16.dp),
 					text = detail.value.title ?: ""
 				)
-				VerticalDivider(modifier = Modifier.padding(vertical = 16.dp), color = Color.Black)
+				VerticalDivider(modifier = Modifier.padding(vertical = 16.dp))
 				Text(
 					modifier = modifier.padding(16.dp),
 					text = detail.value.voteAverage.toString()

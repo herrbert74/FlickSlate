@@ -23,7 +23,7 @@ import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.ext.navigate
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
 import com.zsoltbertalan.flickslate.ui.component.ShowLoading
-import com.zsoltbertalan.flickslate.ui.component.TitleCard
+import com.zsoltbertalan.flickslate.ui.component.ShowCard
 
 @Composable
 fun MoviesScreen(
@@ -59,7 +59,7 @@ private fun LazyListScope.showPopularMovies(
 	items(popularMovies.itemCount) { index ->
 		popularMovies[index].let {
 			it?.let {
-				TitleCard(
+				ShowCard(
 					modifier = Modifier.navigate(it.id, popTo),
 					title = it.title,
 					voteAverage = it.voteAverage,
@@ -105,13 +105,14 @@ private fun LazyListScope.showUpcomingMovies(
 	upcomingMovies: LazyPagingItems<Movie>,
 	popTo: (Int) -> Unit,
 ) {
+	//region Custom colours
 	item {
 		ListTitle(titleId = R.string.upcoming_movies)
 		LazyRow {
 			items(upcomingMovies.itemCount) { index ->
 				upcomingMovies[index].let {
 					it?.let {
-						TitleCard(
+						ShowCard(
 							modifier = Modifier.navigate(it.id, popTo),
 							title = it.title,
 							voteAverage = it.voteAverage,
@@ -124,6 +125,8 @@ private fun LazyListScope.showUpcomingMovies(
 			}
 		}
 	}
+
+	//endregion
 
 	item {
 		Spacer(modifier = Modifier.width(20.dp))
@@ -166,7 +169,7 @@ private fun LazyListScope.showNowPlayingMovies(
 			items(nowPlayingMovies.itemCount) { index ->
 				nowPlayingMovies[index].let {
 					it?.let {
-						TitleCard(
+						ShowCard(
 							modifier = Modifier.navigate(it.id, popTo),
 							title = it.title,
 							voteAverage = it.voteAverage,

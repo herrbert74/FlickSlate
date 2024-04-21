@@ -6,6 +6,5 @@ import com.zsoltbertalan.flickslate.domain.model.Genre
 data class SearchState(
 	val genreResult: List<Genre> = emptyList(),
 	val searchTextField: String = "",
-	val listOfColors: List<Color> = emptyList(),
 	val searchResult: List<String> = emptyList(),
 )

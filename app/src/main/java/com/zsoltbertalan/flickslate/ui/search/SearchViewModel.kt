@@ -1,15 +1,8 @@
 package com.zsoltbertalan.flickslate.ui.search
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.design.LIGHT_INVERSE_PRIMARY
-import com.zsoltbertalan.flickslate.design.LIGHT_PRIMARY
-import com.zsoltbertalan.flickslate.design.LIGHT_SECONDARY
-import com.zsoltbertalan.flickslate.design.LIGHT_SECONDARY_CONTAINER
-import com.zsoltbertalan.flickslate.design.LIGHT_TERTIARY
-import com.zsoltbertalan.flickslate.design.LIGHT_TERTIARY_CONTAINER
 import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.api.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -92,7 +85,6 @@ class SearchViewModel @Inject constructor(
 				is Ok -> _searchStateData.update {
 					it.copy(
 						genreResult = response.value,
-						listOfColors = listOfColor
 					)
 				}
 
@@ -101,12 +93,4 @@ class SearchViewModel @Inject constructor(
 		}
 	}
 
-	private val listOfColor = listOf(
-		Color(LIGHT_PRIMARY),
-		Color(LIGHT_INVERSE_PRIMARY),
-		Color(LIGHT_SECONDARY),
-		Color(LIGHT_SECONDARY_CONTAINER),
-		Color(LIGHT_TERTIARY),
-		Color(LIGHT_TERTIARY_CONTAINER),
-	)
 }

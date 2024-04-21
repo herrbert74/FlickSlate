@@ -31,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.LocalAppColors
 import com.zsoltbertalan.flickslate.ui.component.GenreChips
 import com.zsoltbertalan.flickslate.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.util.extractColorsFromBitmap
@@ -75,25 +76,25 @@ fun MovieDetailScreen(
 				painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.backdropPath),
 				contentDescription = "",
 				modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16f / 9f),
+					.fillMaxWidth()
+					.aspectRatio(16f / 9f),
 				contentScale = ContentScale.Crop
 			)
 			Column(
 				modifier = Modifier
-                    .background(
-                        brush = Brush.linearGradient(
-                            0.0f to Color(color1.value), 0.8f to Color(color2.value)
-                        ),
-                    )
-                    .padding(bottom = 50.dp)
+					.background(
+						brush = Brush.linearGradient(
+							0.0f to Color(color1.value), 0.8f to Color(color2.value)
+						),
+					)
+					.padding(bottom = 50.dp)
 			) {
 				Row(modifier = Modifier.height(50.dp)) {
 					Text(
 						modifier = modifier.padding(16.dp), text = detail.title ?: ""
 					)
 					VerticalDivider(
-						modifier = Modifier.padding(vertical = 16.dp), color = Color.Black
+						modifier = Modifier.padding(vertical = 16.dp)
 					)
 					Text(
 						modifier = modifier.padding(16.dp), text = detail.voteAverage.toString()

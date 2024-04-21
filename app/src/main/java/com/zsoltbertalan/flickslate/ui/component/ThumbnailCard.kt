@@ -17,7 +17,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -46,12 +45,11 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 		is AsyncImagePainter.State.Success -> {
 			Card(
 				modifier = modifier
-					.padding(start = 16.dp, top = 16.dp, end = 8.dp, bottom = 24.dp)
+					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 					.width(120.dp)
 					.height(200.dp),
 				shape = RoundedCornerShape(8.dp),
 				elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
-				colors = CardDefaults.cardColors(containerColor = Color.White)
 			) {
 				Image(
 					painter = painterRem,
@@ -65,7 +63,7 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 		is AsyncImagePainter.State.Error -> {
 			Box(
 				modifier = modifier
-					.padding(start = 16.dp, top = 16.dp, end = 8.dp, bottom = 24.dp)
+					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 					.width(120.dp)
 					.height(200.dp),
 			) {
@@ -81,7 +79,7 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 		is AsyncImagePainter.State.Loading -> {
 			Box(
 				modifier = modifier
-					.padding(start = 16.dp, top = 16.dp, end = 8.dp, bottom = 24.dp)
+					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 					.width(120.dp)
 					.height(200.dp),
 			) {

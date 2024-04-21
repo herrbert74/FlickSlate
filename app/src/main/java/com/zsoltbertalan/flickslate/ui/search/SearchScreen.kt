@@ -27,13 +27,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +46,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.LocalAppColors
+import com.zsoltbertalan.flickslate.design.LocalAdditionalColorsPalette
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
 
@@ -65,18 +66,17 @@ fun SearchScreen(
 		SearchField(uiState = searchState, searchEvent = searchEvent)
 		SearchResultUi(uiState = searchState)
 
+		lightColorScheme()
 		if (searchState.genreResult.isNotEmpty()) {
 			ListTitle(titleId = R.string.genre)
 			GenreList(
 				list = searchState.genreResult,
-				listOfColors = searchState.listOfColors,
 				popTo = popTo
 			)
 		}
 	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchField(
 	modifier: Modifier = Modifier,
@@ -166,7 +166,16 @@ private fun SearchResultUi(
 }
 
 @Composable
-private fun GenreList(list: List<Genre>, listOfColors: List<Color>, popTo: (Int, String) -> Unit) {
+private fun GenreList(list: List<Genre>, popTo: (Int, String) -> Unit) {
+
+	val listOfColors: List<Color> = listOf(
+		LocalAppColors.current.primaryContainer,
+		LocalAppColors.current.secondaryContainer,
+		LocalAppColors.current.tertiaryContainer,
+		LocalAdditionalColorsPalette.current.quaternaryContainer,
+		LocalAdditionalColorsPalette.current.quinaryContainer,
+		LocalAdditionalColorsPalette.current.senaryContainer,
+	)
 	val listRem by rememberSaveable {
 		mutableStateOf(list)
 	}
@@ -193,7 +202,7 @@ private fun GenreList(list: List<Genre>, listOfColors: List<Color>, popTo: (Int,
 						.size(100.dp),
 					contentAlignment = Alignment.Center
 				) {
-					Text(text = it, fontWeight = FontWeight.Bold)
+					Text(text = it, fontWeight = FontWeight.Bold, color = LocalAppColors.current.onPrimaryContainer)
 				}
 			}
 		}

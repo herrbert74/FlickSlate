@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.LocalAppColors
 
 @Composable
 fun ShowLoading(modifier: Modifier = Modifier, text: String = stringResource(id = R.string.loading)) {
@@ -23,7 +24,7 @@ fun ShowLoading(modifier: Modifier = Modifier, text: String = stringResource(id 
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center,
 	) {
-		Text(text = text, color = Color.Black)
+		Text(text = text, color = LocalAppColors.current.onSurface)
 		Spacer(modifier = Modifier.height(4.dp))
 		CircularProgressIndicator(color = Colors.primary)
 	}
