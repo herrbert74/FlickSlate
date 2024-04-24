@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalFixedColors
+import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.FixedColors
 import com.zsoltbertalan.flickslate.design.titleMediumBold
 
 @Composable
@@ -21,7 +21,7 @@ fun TitleText(modifier: Modifier = Modifier, title: String, isFirst: Boolean = f
 		text = title,
 		maxLines = 2,
 		overflow = TextOverflow.Ellipsis,
-		color = if (isFirst) LocalFixedColors.current.onQuinaryFixed else LocalAppColors.current.onSurface,
+		color = if (isFirst) FixedColors.onQuinaryFixed else Colors.onSurface,
 		style = MaterialTheme.typography.titleMediumBold
 	)
 }

@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.FixedColors
 import com.zsoltbertalan.flickslate.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalFixedColors
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.ext.movieCardWidth
 
@@ -62,9 +62,9 @@ fun ShowDetailCard(
 		elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
 		colors =
 		if (isFirst)
-			CardDefaults.cardColors(containerColor = LocalFixedColors.current.quinaryFixed)
+			CardDefaults.cardColors(containerColor = FixedColors.quinaryFixed)
 		else
-			CardDefaults.cardColors(containerColor = LocalAppColors.current.surfaceContainerHighest)
+			CardDefaults.cardColors(containerColor = Colors.surfaceContainerHighest)
 	) {
 		Column(
 			modifier = Modifier

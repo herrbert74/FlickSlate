@@ -45,9 +45,8 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
+import com.zsoltbertalan.flickslate.design.AdditionalColors
 import com.zsoltbertalan.flickslate.design.Colors
-import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalAdditionalColors
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
 
@@ -169,12 +168,12 @@ private fun SearchResultUi(
 private fun GenreList(list: List<Genre>, popTo: (Int, String) -> Unit) {
 
 	val listOfColors: List<Color> = listOf(
-		LocalAppColors.current.primaryContainer,
-		LocalAppColors.current.secondaryContainer,
-		LocalAppColors.current.tertiaryContainer,
-		LocalAdditionalColors.current.quaternaryContainer,
-		LocalAdditionalColors.current.quinaryContainer,
-		LocalAdditionalColors.current.senaryContainer,
+		Colors.primaryContainer,
+		Colors.secondaryContainer,
+		Colors.tertiaryContainer,
+		AdditionalColors.quaternaryContainer,
+		AdditionalColors.quinaryContainer,
+		AdditionalColors.senaryContainer,
 	)
 	val listRem by rememberSaveable {
 		mutableStateOf(list)
@@ -202,7 +201,7 @@ private fun GenreList(list: List<Genre>, popTo: (Int, String) -> Unit) {
 						.size(100.dp),
 					contentAlignment = Alignment.Center
 				) {
-					Text(text = it, fontWeight = FontWeight.Bold, color = LocalAppColors.current.onPrimaryContainer)
+					Text(text = it, fontWeight = FontWeight.Bold, color = Colors.onPrimaryContainer)
 				}
 			}
 		}

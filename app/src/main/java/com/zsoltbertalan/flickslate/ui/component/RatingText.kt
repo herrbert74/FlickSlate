@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalFixedColors
+import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.FixedColors
 
 @Composable
 fun RatingText(modifier: Modifier = Modifier, rating: Float, isFirst: Boolean = false) {
@@ -23,6 +23,6 @@ fun RatingText(modifier: Modifier = Modifier, rating: Float, isFirst: Boolean = 
 		fontSize = 14.sp,
 		maxLines = 1,
 		style = MaterialTheme.typography.headlineSmall,
-		color = if (isFirst) LocalFixedColors.current.tertiaryFixed else LocalAppColors.current.tertiary,
+		color = if (isFirst) FixedColors.tertiaryFixed else Colors.tertiary,
 	)
 }

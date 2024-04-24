@@ -11,12 +11,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.zsoltbertalan.flickslate.design.LocalAppColors
+import com.zsoltbertalan.flickslate.design.Colors
 
 @Composable
 fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
@@ -29,7 +26,7 @@ fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
 		style = MaterialTheme.typography.titleMedium,
 		text = stringResource(id = titleRemember),
 		maxLines = 1,
-		color = LocalAppColors.current.onBackground,
+		color = Colors.onBackground,
 	)
 }
 
@@ -45,6 +42,6 @@ fun ListTitle(modifier: Modifier = Modifier, title: String) {
 		style = MaterialTheme.typography.titleMedium,
 		text = titleRemember,
 		maxLines = 1,
-		color = LocalAppColors.current.onBackground,
+		color = Colors.onBackground,
 	)
 }

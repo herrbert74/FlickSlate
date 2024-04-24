@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalFixedColors
+import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.FixedColors
 
 @Composable
 fun DescriptionText(modifier: Modifier = Modifier, description: String, isFirst: Boolean = false) {
@@ -21,7 +21,7 @@ fun DescriptionText(modifier: Modifier = Modifier, description: String, isFirst:
 		text = description,
 		maxLines = 3,
 		style = MaterialTheme.typography.bodyLarge,
-		color = if (isFirst) LocalFixedColors.current.onQuinaryFixed else LocalAppColors.current.onSurface,
+		color = if (isFirst) FixedColors.onQuinaryFixed else Colors.onSurface,
 		overflow = TextOverflow.Ellipsis,
 		fontSize = 14.sp,
 	)
