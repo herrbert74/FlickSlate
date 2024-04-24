@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.design.LocalAppColors
+import com.zsoltbertalan.flickslate.design.LocalFixedColors
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.ext.movieCardWidth
 
@@ -25,6 +26,7 @@ fun ShowCard(
 	overview: String?,
 	posterPath: String?,
 	cardType: MovieCardType = MovieCardType.FULL,
+	isFirst: Boolean = false,
 ) {
 	Box(
 		modifier = modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 0.dp)
@@ -33,7 +35,8 @@ fun ShowCard(
 			title = title,
 			overview = overview,
 			voteAverage = voteAverage,
-			cardType = cardType
+			cardType = cardType,
+			isFirst = isFirst,
 		)
 		posterPath?.let {
 			ThumbnailCard(posterThumbnail = it)
@@ -47,7 +50,8 @@ fun ShowDetailCard(
 	title: String?,
 	overview: String?,
 	voteAverage: Float?,
-	cardType: MovieCardType
+	cardType: MovieCardType,
+	isFirst: Boolean = false,
 ) {
 	Card(
 		modifier = modifier
@@ -56,7 +60,11 @@ fun ShowDetailCard(
 			.height(200.dp),
 		shape = RoundedCornerShape(8.dp),
 		elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-		colors = CardDefaults.cardColors(containerColor = LocalAppColors.current.surfaceContainerHighest)
+		colors =
+		if (isFirst)
+			CardDefaults.cardColors(containerColor = LocalFixedColors.current.quinaryFixed)
+		else
+			CardDefaults.cardColors(containerColor = LocalAppColors.current.surfaceContainerHighest)
 	) {
 		Column(
 			modifier = Modifier
@@ -64,13 +72,13 @@ fun ShowDetailCard(
 				.padding(start = 140.dp)
 		) {
 			voteAverage?.let {
-				RatingText(rating = it)
+				RatingText(rating = it, isFirst = isFirst)
 			}
 			title?.let {
-				TitleText(title = it)
+				TitleText(title = it, isFirst = isFirst)
 			}
 			overview?.let {
-				DescriptionText(description = it)
+				DescriptionText(description = it, isFirst = isFirst)
 			}
 		}
 	}

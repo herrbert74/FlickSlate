@@ -9,10 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zsoltbertalan.flickslate.design.Colors
+import com.zsoltbertalan.flickslate.design.LocalAppColors
+import com.zsoltbertalan.flickslate.design.LocalFixedColors
 
 @Composable
-fun RatingText(modifier: Modifier = Modifier, rating: Float) {
+fun RatingText(modifier: Modifier = Modifier, rating: Float, isFirst: Boolean = false) {
 	Text(
 		modifier = modifier
 			.fillMaxWidth()
@@ -22,6 +23,6 @@ fun RatingText(modifier: Modifier = Modifier, rating: Float) {
 		fontSize = 14.sp,
 		maxLines = 1,
 		style = MaterialTheme.typography.headlineSmall,
-		color = Colors.tertiary,
+		color = if (isFirst) LocalFixedColors.current.tertiaryFixed else LocalAppColors.current.tertiary,
 	)
 }

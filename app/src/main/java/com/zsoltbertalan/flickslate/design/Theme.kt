@@ -53,7 +53,7 @@ val FlickSlateLightColorScheme = lightColorScheme(
 	surfaceContainerHighest = surfaceContainerHighestLight,
 )
 
-private val FlickSlateDarkColorScheme = darkColorScheme(
+val FlickSlateDarkColorScheme = darkColorScheme(
 	primary = primaryDark,
 	onPrimary = onPrimaryDark,
 	primaryContainer = primaryContainerDark,
@@ -107,15 +107,18 @@ private val LocalAppDimens = staticCompositionLocalOf {
 @Composable
 fun ProvideColors(
 	colorScheme: ColorScheme,
-	additionalColorsPalette: AdditionalColorsPalette,
+	additionalColorScheme: AdditionalColorScheme,
+	fixedColorScheme: FixedColorScheme = LocalFixedColors.current,
 	content: @Composable () -> Unit,
 ) {
-	val colorPalette = remember { colorScheme }
-	val customColorPalette = remember { additionalColorsPalette }
+	val colorCache = remember { colorScheme }
+	val customColorCache = remember { additionalColorScheme }
+	val fixedColorCache = remember { fixedColorScheme }
 
 	CompositionLocalProvider(
-		LocalAdditionalColorsPalette provides customColorPalette,
-		LocalAppColors provides colorPalette,
+		LocalAppColors provides colorCache,
+		LocalAdditionalColors provides customColorCache,
+		LocalFixedColors provides fixedColorCache,
 		content = content
 	)
 }
@@ -142,14 +145,14 @@ fun FlickSlateTheme(
 
 	// logic for which custom palette to use
 	val customColorsPalette =
-		if (isDarkTheme) DarkAdditionalColorsPalette
-		else LightAdditionalColorsPalette
+		if (isDarkTheme) DarkAdditionalColorScheme
+		else LightAdditionalColorScheme
 
 	val configuration = LocalConfiguration.current
 	val dimensions = if (configuration.smallestScreenWidthDp <= SMALLEST_WIDTH_600) smallDimensions else sw600Dimensions
 
 	ProvideDimens(dimensions = dimensions) {
-		ProvideColors(colorScheme = colorScheme, additionalColorsPalette = customColorsPalette) {
+		ProvideColors(colorScheme = colorScheme, additionalColorScheme = customColorsPalette) {
 			MaterialTheme(
 				colorScheme = colorScheme,
 				typography = FlickSlateTypography,
@@ -160,20 +163,18 @@ fun FlickSlateTheme(
 
 }
 
-object FlickSlateTheme {
-	val colorScheme: ColorScheme
-		@Composable
-		get() = LocalAppColors.current
-
-	val dimens: Dimensions
-		@Composable
-		get() = LocalAppDimens.current
-}
-
 val Dimens: Dimensions
 	@Composable
-	get() = FlickSlateTheme.dimens
+	get() = LocalAppDimens.current
 
 val Colors: ColorScheme
 	@Composable
-	get() = FlickSlateTheme.colorScheme
+	get() = LocalAppColors.current
+
+val AdditionalColors: AdditionalColorScheme
+	@Composable
+	get() = LocalAdditionalColors.current
+
+val FixedColors: FixedColorScheme
+	@Composable
+	get() = LocalFixedColors.current

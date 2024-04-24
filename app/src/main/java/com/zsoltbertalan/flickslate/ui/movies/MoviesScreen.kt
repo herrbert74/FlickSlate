@@ -65,7 +65,8 @@ private fun LazyListScope.showPopularMovies(
 					voteAverage = it.voteAverage,
 					overview = it.overview,
 					posterPath = it.posterPath,
-					cardType = MovieCardType.FULL
+					cardType = MovieCardType.FULL,
+					isFirst = index == 0
 				)
 			}
 

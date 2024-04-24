@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.design.Colors
 import com.zsoltbertalan.flickslate.design.LocalAppColors
-import com.zsoltbertalan.flickslate.design.LocalAdditionalColorsPalette
+import com.zsoltbertalan.flickslate.design.LocalAdditionalColors
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
 
@@ -172,9 +172,9 @@ private fun GenreList(list: List<Genre>, popTo: (Int, String) -> Unit) {
 		LocalAppColors.current.primaryContainer,
 		LocalAppColors.current.secondaryContainer,
 		LocalAppColors.current.tertiaryContainer,
-		LocalAdditionalColorsPalette.current.quaternaryContainer,
-		LocalAdditionalColorsPalette.current.quinaryContainer,
-		LocalAdditionalColorsPalette.current.senaryContainer,
+		LocalAdditionalColors.current.quaternaryContainer,
+		LocalAdditionalColors.current.quinaryContainer,
+		LocalAdditionalColors.current.senaryContainer,
 	)
 	val listRem by rememberSaveable {
 		mutableStateOf(list)

@@ -2,71 +2,9 @@
 
 package com.zsoltbertalan.flickslate.design
 
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-
-const val LIGHT_PRIMARY = 0xFF006D42
-const val LIGHT_ON_PRIMARY = 0xFFffffff
-const val LIGHT_PRIMARY_CONTAINER = 0xFF93F7BB
-const val LIGHT_ON_PRIMARY_CONTAINER = 0xFF002111
-const val LIGHT_SECONDARY = 0xFF00677C
-const val LIGHT_ON_SECONDARY = 0xFFffffff
-const val LIGHT_SECONDARY_CONTAINER = 0xFFB1EBFF
-const val LIGHT_ON_SECONDARY_CONTAINER = 0xFF001F27
-const val LIGHT_TERTIARY = 0xFF993F62
-const val LIGHT_ON_TERTIARY = 0xFFffffff
-const val LIGHT_TERTIARY_CONTAINER = 0xFFFFD9E3
-const val LIGHT_ON_TERTIARY_CONTAINER = 0xFF3E001E
-const val LIGHT_ERROR = 0xFFba1b1b
-const val LIGHT_ERROR_CONTAINER = 0xFFffdad4
-const val LIGHT_ON_ERROR = 0xFFffffff
-const val LIGHT_ON_ERROR_CONTAINER = 0xFF410001
-const val LIGHT_BACKGROUND = 0xFFf5fff3
-const val LIGHT_ON_BACKGROUND = 0xFF00210e
-const val LIGHT_SURFACE = 0xFFf5fff3
-const val LIGHT_ON_SURFACE = 0xFF00210e
-const val LIGHT_SURFACE_VARIANT = 0xFFdce5dc
-const val LIGHT_ON_SURFACE_VARIANT = 0xFF404942
-const val LIGHT_OUTLINE = 0xFF717972
-const val LIGHT_OUTLINE_VARIANT = 0xFFc0c9c0
-const val LIGHT_SCRIM = 0xFF000000
-const val LIGHT_INVERSE_SURFACE = 0xFF00391c
-const val LIGHT_INVERSE_ON_SURFACE = 0xFFc2ffd2
-const val LIGHT_INVERSE_PRIMARY = 0xFF77daa1
-const val LIGHT_SURFACE_TINT = 0xFF006d42
-
-const val DARK_PRIMARY = 0xFF77daa1
-const val DARK_ON_PRIMARY = 0xFF003920
-const val DARK_PRIMARY_CONTAINER = 0xFF005230
-const val DARK_ON_PRIMARY_CONTAINER = 0xFF93f7bb
-const val DARK_SECONDARY = 0xFF59d5f8
-const val DARK_ON_SECONDARY = 0xFF003642
-const val DARK_SECONDARY_CONTAINER = 0xFF004e5e
-const val DARK_ON_SECONDARY_CONTAINER = 0xFFb2ebff
-const val DARK_TERTIARY = 0xFFffb0c9
-const val DARK_ON_TERTIARY = 0xFF5e0f34
-const val DARK_TERTIARY_CONTAINER = 0xFF7c284a
-const val DARK_ON_TERTIARY_CONTAINER = 0xFFffd9e3
-const val DARK_ERROR = 0xFFffb4ab
-const val DARK_ERROR_CONTAINER = 0xFF93000a
-const val DARK_ON_ERROR = 0xFF680003
-const val DARK_ON_ERROR_CONTAINER = 0xFFffdad4
-const val DARK_BACKGROUND = 0xFF00210e
-const val DARK_ON_BACKGROUND = 0xFFDFE4DD
-const val DARK_SURFACE = 0xFF00210e
-const val DARK_ON_SURFACE = 0xFF99f7b5
-const val DARK_SURFACE_VARIANT = 0xFF404942
-const val DARK_ON_SURFACE_VARIANT = 0xFFc0c9c0
-const val DARK_OUTLINE = 0xFF8a938b
-const val DARK_INVERSE_ON_SURFACE = 0xFF00210e
-const val DARK_INVERSE_SURFACE = 0xFF99f7b5
-const val DARK_INVERSE_PRIMARY = 0xFF006d42
-const val DARK_OUTLINE_VARIANT = 0xFF404942
-const val DARK_SCRIM = 0xFF000000
-const val DARK_SURFACE_TINT = 0xFF77daa1
 
 //region Normal colors
 
@@ -147,7 +85,7 @@ val surfaceContainerHighestDark = Color(0xFF303631)
 //region Additional colours
 
 @Immutable
-data class AdditionalColorsPalette(
+data class AdditionalColorScheme(
 
 	val quaternaryContainer: Color = Color.Unspecified,
 	val quinaryContainer: Color = Color.Unspecified,
@@ -181,50 +119,52 @@ val onSenaryDark = Color(0xFF5D0055)
 val senaryContainerDark = Color(0xFFDB75C7)
 val onSenaryContainerDark = Color(0xFF170014)
 
-val LightAdditionalColorsPalette = AdditionalColorsPalette(
+val LightAdditionalColorScheme = AdditionalColorScheme(
 	quaternaryContainer = quaternaryContainerLight,
 	quinaryContainer = quinaryContainerLight,
 	senaryContainer = senaryContainerLight
 )
 
-val DarkAdditionalColorsPalette = AdditionalColorsPalette(
+val DarkAdditionalColorScheme = AdditionalColorScheme(
 	quaternaryContainer = quaternaryContainerDark,
 	quinaryContainer = quinaryContainerDark,
 	senaryContainer = senaryContainerDark
 )
 
-val LocalAdditionalColorsPalette = staticCompositionLocalOf { AdditionalColorsPalette() }
+val LocalAdditionalColors = staticCompositionLocalOf { AdditionalColorScheme() }
 
 //endregion
 
 //region Fixed colours
 
-data class FixedAccentColors(
+data class FixedColorScheme(
 	val primaryFixed: Color,
 	val onPrimaryFixed: Color,
 	val secondaryFixed: Color,
 	val onSecondaryFixed: Color,
 	val tertiaryFixed: Color,
 	val onTertiaryFixed: Color,
+	val quinaryFixed: Color,
+	val onQuinaryFixed: Color,
 	val primaryFixedDim: Color,
 	val secondaryFixedDim: Color,
 	val tertiaryFixedDim: Color,
 )
-val material3LightColors = lightColorScheme()
-val material3DarkColors = darkColorScheme()
 
-fun getFixedAccentColors() = FixedAccentColors(
-	primaryFixed = material3LightColors.primaryContainer,
-	onPrimaryFixed = material3LightColors.onPrimaryContainer,
-	secondaryFixed = material3LightColors.secondaryContainer,
-	onSecondaryFixed = material3LightColors.onSecondaryContainer,
-	tertiaryFixed = material3LightColors.tertiaryContainer,
-	onTertiaryFixed = material3LightColors.onTertiaryContainer,
-	primaryFixedDim = material3DarkColors.primary,
-	secondaryFixedDim = material3DarkColors.secondary,
-	tertiaryFixedDim = material3DarkColors.tertiary
+fun getFixedColors() = FixedColorScheme(
+	primaryFixed = primaryContainerLight,
+	onPrimaryFixed = onPrimaryContainerLight,
+	secondaryFixed = secondaryContainerLight,
+	onSecondaryFixed = onSecondaryContainerLight,
+	tertiaryFixed = tertiaryLight,
+	onTertiaryFixed = onTertiaryContainerLight,
+	quinaryFixed = quinaryContainerLight,
+	onQuinaryFixed = onQuinaryContainerLight,
+	primaryFixedDim = primaryDark,
+	secondaryFixedDim = secondaryDark,
+	tertiaryFixedDim = tertiaryDark
 )
 
-val LocalFixedAccentColors = staticCompositionLocalOf { getFixedAccentColors() }
+val LocalFixedColors = staticCompositionLocalOf { getFixedColors() }
 
 //endregion
