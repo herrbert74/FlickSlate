@@ -12,4 +12,5 @@
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="top_rated_tv">Top Rated TV</string>
     <string name="genre_movies">%1$s Based Movies</string>
+	<string name="search_prompt">Search for movies</string>
 </resources>

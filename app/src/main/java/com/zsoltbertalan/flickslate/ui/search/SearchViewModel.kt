@@ -42,7 +42,7 @@ class SearchViewModel @Inject constructor(
 			is SearchEvent.SearchQuery -> {
 				viewModelScope.launch {
 					_searchStateData.update {
-						it.copy(searchTextField = event.query)
+						it.copy(searchQuery = event.query)
 					}
 
 					if (event.query.isNotEmpty()) {
@@ -57,7 +57,7 @@ class SearchViewModel @Inject constructor(
 						_searchStateData.update {
 							it.copy(
 								searchResult = emptyList(),
-								searchTextField = ""
+								searchQuery = ""
 							)
 						}
 					}
@@ -72,7 +72,7 @@ class SearchViewModel @Inject constructor(
 				_searchStateData.update {
 					it.copy(
 						searchResult = emptyList(),
-						searchTextField = ""
+						searchQuery = ""
 					)
 				}
 			}

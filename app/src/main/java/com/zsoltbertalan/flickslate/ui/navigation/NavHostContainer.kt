@@ -71,15 +71,23 @@ fun NavHostContainer(
 			composable(Destination.SEARCH.route) {
 				val coroutineScope = rememberCoroutineScope()
 				val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
-				SearchScreen(searchState = searchState, popTo = { id, name ->
-					navController.navigate("genreDetail/${id}/${name}") {
-						popUpTo("search")
-					}
-				}, searchEvent = {
-					coroutineScope.launch {
-						searchViewModel.emitEvent(it)
-					}
-				})
+				SearchScreen(
+					searchState = searchState,
+					navigateToGenreDetails = { id, name ->
+						navController.navigate("genreDetail/${id}/${name}") {
+							popUpTo("search")
+						}
+					},
+					navigateToMovieDetails = { id ->
+						navController.navigate("detail/${id}") {
+							popUpTo("movies")
+						}
+					},
+					searchEvent = {
+						coroutineScope.launch {
+							searchViewModel.emitEvent(it)
+						}
+					})
 			}
 			composable(
 				MOVIE_DETAIL_ROUTE,

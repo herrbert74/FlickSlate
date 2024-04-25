@@ -26,7 +26,7 @@ data class MovieDto(
 fun List<MovieDto>.toMovieList(): List<Movie> = mapNullInputList(this) { movieDto -> movieDto.toMovie() }
 
 fun MovieDto.toMovie() = Movie(
-	this.id,
+	this.id ?: 0,
 	this.title ?: "",
 	this.overview,
 	this.vote_average,

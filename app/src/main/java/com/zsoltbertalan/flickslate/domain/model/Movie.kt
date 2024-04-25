@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Movie(
-	val id: Int? = null,
+	val id: Int = 0,
 	val title: String,
 	val overview: String? = null,
 	val voteAverage: Float? = null,

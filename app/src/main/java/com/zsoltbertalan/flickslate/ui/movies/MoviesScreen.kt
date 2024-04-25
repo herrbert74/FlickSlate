@@ -31,7 +31,7 @@ fun MoviesScreen(
 	popularMovies: LazyPagingItems<Movie>,
 	nowPlaying: LazyPagingItems<Movie>,
 	upcoming: LazyPagingItems<Movie>,
-	popTo: (Int) -> Unit,
+	navigateToDetail: (Int) -> Unit,
 ) {
 	LazyColumn(
 		modifier = modifier
@@ -42,15 +42,15 @@ fun MoviesScreen(
 			)
 			.fillMaxHeight()
 	) {
-		showUpcomingMovies(upcoming, popTo)
-		showNowPlayingMovies(nowPlaying, popTo)
-		showPopularMovies(popularMovies, popTo)
+		showUpcomingMovies(upcoming, navigateToDetail)
+		showNowPlayingMovies(nowPlaying, navigateToDetail)
+		showPopularMovies(popularMovies, navigateToDetail)
 	}
 }
 
 private fun LazyListScope.showPopularMovies(
 	popularMovies: LazyPagingItems<Movie>,
-	popTo: (Int) -> Unit,
+	navigateToDetail: (Int) -> Unit,
 ) {
 	item {
 		ListTitle(titleId = R.string.popular_movies)
@@ -60,7 +60,7 @@ private fun LazyListScope.showPopularMovies(
 		popularMovies[index].let {
 			it?.let {
 				ShowCard(
-					modifier = Modifier.navigate(it.id, popTo),
+					modifier = Modifier.navigate(it.id, navigateToDetail),
 					title = it.title,
 					voteAverage = it.voteAverage,
 					overview = it.overview,

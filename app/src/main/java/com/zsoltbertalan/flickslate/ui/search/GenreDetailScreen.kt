@@ -31,8 +31,8 @@ fun GenreDetailScreen(
 
 	LazyColumn(
 		modifier = Modifier
-            .background(Colors.background)
-            .fillMaxHeight()
+			.background(Colors.background)
+			.fillMaxHeight()
 	) {
 		showMovies(genreDetailList, genreName, popTo)
 	}

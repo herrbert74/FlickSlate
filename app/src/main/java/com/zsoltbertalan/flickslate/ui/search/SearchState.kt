@@ -1,10 +1,10 @@
 package com.zsoltbertalan.flickslate.ui.search
 
-import androidx.compose.ui.graphics.Color
 import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.domain.model.Movie
 
 data class SearchState(
 	val genreResult: List<Genre> = emptyList(),
-	val searchTextField: String = "",
-	val searchResult: List<String> = emptyList(),
+	val searchQuery: String = "",
+	val searchResult: List<Movie> = emptyList(),
 )
