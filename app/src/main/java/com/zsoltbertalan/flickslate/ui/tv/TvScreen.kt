@@ -29,7 +29,7 @@ fun TvScreen(
 ) {
 	LazyColumn(
 		modifier = modifier
-			.background(Colors.background)
+			.background(Colors.surface)
 			.fillMaxHeight()
 	) {
 		showTopRatedTv(topRatedTv, popTo)

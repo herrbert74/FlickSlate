@@ -2,11 +2,18 @@ package com.zsoltbertalan.flickslate.ui.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,22 +26,39 @@ import com.zsoltbertalan.flickslate.domain.model.Movie
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.ext.navigate
 import com.zsoltbertalan.flickslate.ui.component.ListTitle
-import com.zsoltbertalan.flickslate.ui.component.ShowLoading
 import com.zsoltbertalan.flickslate.ui.component.ShowCard
+import com.zsoltbertalan.flickslate.ui.component.ShowLoading
 
 @Composable
 fun GenreDetailScreen(
 	genreDetailList: LazyPagingItems<Movie>,
 	genreName: String,
+	popBackStack: () -> Boolean,
 	popTo: (Int) -> Unit,
 ) {
 
-	LazyColumn(
-		modifier = Modifier
-			.background(Colors.background)
-			.fillMaxHeight()
-	) {
-		showMovies(genreDetailList, genreName, popTo)
+	Scaffold(
+		modifier = Modifier.fillMaxSize(),
+		topBar = {
+			TopAppBar(title = { Text("Genre Details") },
+				navigationIcon = {
+					IconButton(onClick = { popBackStack() }) {
+						Icon(
+							imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+							contentDescription = "Finish",
+							tint = Colors.onSurface
+						)
+					}
+				})
+		}
+	) { paddingValues ->
+		LazyColumn(
+			modifier = Modifier
+				.background(Colors.surface)
+				.padding(paddingValues)
+		) {
+			showMovies(genreDetailList, genreName, popTo)
+		}
 	}
 }
 

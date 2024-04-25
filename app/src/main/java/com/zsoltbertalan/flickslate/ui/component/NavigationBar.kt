@@ -28,7 +28,7 @@ import com.zsoltbertalan.flickslate.ui.navigation.Destination
 fun FlickSlateBottomNavigationBar(
 	modifier: Modifier = Modifier,
 	navController: NavHostController,
-	itemList: List<Destination> = Destination.values().asList(),
+	itemList: List<Destination> = Destination.entries,
 ) {
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -66,7 +66,7 @@ fun FlickSlateNavigationBar(
 	content: @Composable RowScope.() -> Unit
 ) {
 	NavigationBar(
-		containerColor = Colors.background,
+		containerColor = Colors.surface,
 		modifier = modifier,
 		content = content
 	)

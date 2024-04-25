@@ -1,9 +1,6 @@
 package com.zsoltbertalan.flickslate.data.network.dto
 
-import com.zsoltbertalan.flickslate.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.domain.model.MoviesResponse
 import com.zsoltbertalan.flickslate.domain.model.TvDetail
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName")
@@ -17,7 +14,7 @@ data class TvDetailsResponse(
 	val backdrop_path: String? = null,
 	val original_language: String? = null,
 	val original_title: String? = null,
-	val title: String? = null,
+	val name: String? = null,
 	val genres: List<Genres>? = null,
 	val vote_average: Float? = null,
 	val overview: String? = null,
@@ -29,7 +26,7 @@ data class TvDetailsResponse(
 
 fun TvDetailsResponse.toTvDetail() = TvDetail(
 	this.id,
-	this.title,
+	this.name,
 	this.overview,
 	this.vote_average,
 	this.poster_path,

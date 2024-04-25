@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.design.Colors
 import com.zsoltbertalan.flickslate.design.FlickSlateTheme
@@ -21,14 +20,13 @@ fun FlickSlateTopAppBar(
 	TopAppBar(
 		title = {
 			Text(
-				style = FlickSlateTypography.headlineMedium,
+				style = FlickSlateTypography.titleLarge,
 				color = Colors.onSurface,
 				text = title,
-				fontSize = 22.sp,
 			)
 		},
 		colors = TopAppBarDefaults.topAppBarColors(
-			containerColor = Colors.background
+			containerColor = Colors.surface
 		),
 		modifier = modifier,
 	)

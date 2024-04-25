@@ -56,7 +56,7 @@ class FlickSlateActivity : ComponentActivity() {
 				}
 				Scaffold(
 					modifier = Modifier.fillMaxSize(),
-					topBar = { FlickSlateTopAppBar() },
+					topBar = { if (bottomBarState.value) FlickSlateTopAppBar() },
 					bottomBar = {
 						if (bottomBarState.value) {
 							FlickSlateBottomNavigationBar(

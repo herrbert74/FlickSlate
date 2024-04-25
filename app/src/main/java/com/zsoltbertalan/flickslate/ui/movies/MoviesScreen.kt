@@ -37,7 +37,7 @@ fun MoviesScreen(
 		modifier = modifier
 			.background(
 				brush = Brush.horizontalGradient(
-					listOf(Colors.background, Colors.surfaceDim),
+					listOf(Colors.surface, Colors.surfaceDim),
 				)
 			)
 			.fillMaxHeight()

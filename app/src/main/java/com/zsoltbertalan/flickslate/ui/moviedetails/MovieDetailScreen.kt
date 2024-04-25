@@ -7,11 +7,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,18 +39,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.design.Colors
-import com.zsoltbertalan.flickslate.design.LocalAppColors
+import com.zsoltbertalan.flickslate.design.Dimens
 import com.zsoltbertalan.flickslate.ui.component.GenreChips
 import com.zsoltbertalan.flickslate.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.util.extractColorsFromBitmap
 
 @Composable
 fun MovieDetailScreen(
-	modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel()
+	modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel(), popBackStack: () -> Boolean
 ) {
 	val detail = viewModel.movieStateData.collectAsStateWithLifecycle().value
 
-	val bg = Colors.background
+	val bg = Colors.surface
 	val bgDim = Colors.surfaceDim
 	val context = LocalContext.current
 	var color1 by remember { mutableStateOf(bg) }
@@ -70,56 +78,72 @@ fun MovieDetailScreen(
 		}
 	}
 
-	LazyColumn {
-		item {
-			Image(
-				painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.backdropPath),
-				contentDescription = "",
-				modifier = Modifier
-					.fillMaxWidth()
-					.aspectRatio(16f / 9f),
-				contentScale = ContentScale.Crop
-			)
-			Column(
-				modifier = Modifier
-					.background(
-						brush = Brush.linearGradient(
-							0.0f to Color(color1.value), 0.8f to Color(color2.value)
-						),
-					)
-					.padding(bottom = 50.dp)
-			) {
-				Row(modifier = Modifier.height(50.dp)) {
-					Text(
-						modifier = modifier.padding(16.dp), text = detail.title ?: ""
-					)
-					VerticalDivider(
-						modifier = Modifier.padding(vertical = 16.dp)
-					)
-					Text(
-						modifier = modifier.padding(16.dp), text = detail.voteAverage.toString()
-					)
-				}
+	Scaffold(
+		modifier = Modifier.fillMaxSize(),
+		topBar = {
+			TopAppBar(title = { Text("Movie Details") },
+				navigationIcon = {
+					IconButton(onClick = { popBackStack() }) {
+						Icon(
+							imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+							contentDescription = "Finish",
+							tint = Colors.onSurface
+						)
+					}
+				})
+		}
+	) { paddingValues ->
+		LazyColumn(Modifier.padding(paddingValues)) {
+			item {
+				Image(
+					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.backdropPath),
+					contentDescription = "",
+					modifier = Modifier
+						.fillMaxWidth()
+						.aspectRatio(16f / 9f),
+					contentScale = ContentScale.Crop
+				)
 				Column(
 					modifier = Modifier
-						.padding(horizontal = 16.dp)
+						.background(
+							brush = Brush.linearGradient(
+								0.0f to Color(color1.value), 0.8f to Color(color2.value)
+							),
+						)
+						.padding(bottom = 50.dp)
 				) {
-					Text(
-						text = "Genres"
-					)
-					detail.genres.takeIf { it.isNotEmpty() }?.let {
-						GenreChips(it)
+					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
+						Text(
+							modifier = modifier.padding(16.dp), text = detail.title ?: ""
+						)
+						VerticalDivider(
+							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
+						)
+						Text(
+							modifier = modifier.padding(16.dp), text = detail.voteAverage.toString()
+						)
 					}
-				}
-				Text(
-					modifier = modifier.padding(16.dp), text = "Story Line"
-				)
-				detail.overview?.let {
+					Column(
+						modifier = Modifier
+							.padding(horizontal = 16.dp)
+					) {
+						Text(
+							text = "Genres"
+						)
+						detail.genres.takeIf { it.isNotEmpty() }?.let {
+							GenreChips(it)
+						}
+					}
 					Text(
-						modifier = modifier.padding(16.dp), text = it
+						modifier = modifier.padding(16.dp), text = "Story Line"
 					)
+					detail.overview?.let {
+						Text(
+							modifier = modifier.padding(16.dp), text = it
+						)
+					}
+					Spacer(modifier = Modifier.height(200.dp))
 				}
-				Spacer(modifier = Modifier.height(200.dp))
 			}
 		}
 	}

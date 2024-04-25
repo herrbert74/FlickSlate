@@ -99,7 +99,7 @@ fun NavHostContainer(
 					slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Up)
 				}
 			) {
-				MovieDetailScreen()
+				MovieDetailScreen(popBackStack = { navController.popBackStack() })
 			}
 
 			composable(
@@ -108,7 +108,7 @@ fun NavHostContainer(
 			) {
 				val tvDetailViewModel = hiltViewModel<TvDetailViewModel>()
 				val detail = tvDetailViewModel.tvStateData.collectAsStateWithLifecycle()
-				TvDetailScreen(detail = detail)
+				TvDetailScreen(detail = detail) { navController.popBackStack() }
 			}
 
 			composable(
@@ -132,7 +132,8 @@ fun NavHostContainer(
 				val list = genreViewModel.genreDetailList.collectAsLazyPagingItems()
 				GenreDetailScreen(
 					genreDetailList = list,
-					genreName = genreViewModel.genreName
+					genreName = genreViewModel.genreName,
+					popBackStack = { navController.popBackStack() }
 				) { id ->
 					navController.navigate("detail/${id}")
 				}
