@@ -1,5 +1,8 @@
 package com.zsoltbertalan.flickslate.ui.moviedetails
 
+import android.content.Context
+import android.content.res.Configuration.UI_MODE_NIGHT_MASK
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.Color.parseColor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -44,6 +46,9 @@ import com.zsoltbertalan.flickslate.ui.component.GenreChips
 import com.zsoltbertalan.flickslate.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.util.extractColorsFromBitmap
 
+val Context.isDarkMode
+	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+
 @Composable
 fun MovieDetailScreen(
 	modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel(), popBackStack: () -> Boolean
@@ -62,21 +67,23 @@ fun MovieDetailScreen(
 
 	LaunchedEffect(imageUrl) {
 		imageUrl.value?.let {
-			val bitmap = convertImageUrlToBitmap(
-				imageUrl = BASE_IMAGE_PATH + it, context = context
-			)
+			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
 			if (bitmap != null) {
 				val vibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
 				)["vibrant"] ?: bg.toString()
 				color1 = Color(parseColor(vibrantColor))
 				val darkVibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
 				)["dark"] ?: bgDim.toString()
 				color2 = Color(parseColor(darkVibrantColor))
 			}
 		}
 	}
+
+
 
 	Scaffold(
 		modifier = Modifier.fillMaxSize(),

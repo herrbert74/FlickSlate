@@ -25,13 +25,15 @@ suspend fun convertImageUrlToBitmap(
 	}
 }
 
-fun extractColorsFromBitmap(bitmap: Bitmap): Map<String, String> {
+fun extractColorsFromBitmap(bitmap: Bitmap, isDarkMode: Boolean): Map<String, String> {
+	val palette = Palette.from(bitmap).generate()
+
 	return mapOf(
 		"vibrant" to parseColorSwatch(
-			color = Palette.from(bitmap).generate().lightVibrantSwatch
+			color = if (isDarkMode) palette.darkVibrantSwatch else palette.lightVibrantSwatch
 		),
 		"dark" to parseColorSwatch(
-			color = Palette.from(bitmap).generate().vibrantSwatch
+			color = if (isDarkMode) palette.darkMutedSwatch else palette.lightMutedSwatch
 		),
 	)
 }
