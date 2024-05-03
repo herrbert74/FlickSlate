@@ -7,6 +7,7 @@ plugins {
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.dagger.hilt.android)
+	alias(libs.plugins.realm)
 }
 
 val tmdbApiKey: String by project
@@ -111,6 +112,7 @@ dependencies {
 	implementation(libs.mvikotlin.logging)
 	implementation(libs.squareUp.okhttp3.loggingInterceptor)
 	implementation(libs.timber)
+	implementation(libs.realm.base)
 
 	implementation(libs.google.gson)
 	implementation(libs.squareUp.retrofit2.retrofit)

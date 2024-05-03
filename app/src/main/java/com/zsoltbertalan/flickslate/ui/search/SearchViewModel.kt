@@ -81,14 +81,16 @@ class SearchViewModel @Inject constructor(
 
 	private fun setupSearchScreen() {
 		viewModelScope.launch {
-			when (val response = genreRepository.getGenresList()) {
-				is Ok -> _searchStateData.update {
-					it.copy(
-						genreResult = response.value,
-					)
-				}
+			genreRepository.getGenresList().collect { response ->
+				when (response) {
+					is Ok -> _searchStateData.update {
+						it.copy(
+							genreResult = response.value,
+						)
+					}
 
-				else -> Unit // handle failure
+					else -> Unit // handle failure
+				}
 			}
 		}
 	}

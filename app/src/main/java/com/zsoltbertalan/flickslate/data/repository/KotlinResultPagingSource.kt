@@ -8,6 +8,14 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.ext.ApiResult
 
+fun <V : Any> createPager(
+	pageSize: Int = 30,
+	block: suspend (Int) -> ApiResult<Pair<List<V>, Int>>
+): Pager<Int, V> = Pager(
+	config = PagingConfig(pageSize = pageSize),
+	pagingSourceFactory = { KotlinResultPagingSource(block) }
+)
+
 class KotlinResultPagingSource<T : Any>(
 	private val block: suspend (Int) -> ApiResult<Pair<List<T>, Int>>
 ) : PagingSource<Int, T>() {
@@ -35,11 +43,3 @@ class KotlinResultPagingSource<T : Any>(
 		}
 	}
 }
-
-fun <V : Any> createPager(
-	pageSize: Int = 30,
-	block: suspend (Int) -> ApiResult<Pair<List<V>, Int>>
-): Pager<Int, V> = Pager(
-	config = PagingConfig(pageSize = pageSize),
-	pagingSourceFactory = { KotlinResultPagingSource(block) }
-)

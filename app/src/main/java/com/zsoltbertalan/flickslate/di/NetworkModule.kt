@@ -10,6 +10,7 @@ import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.domain.api.TvRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,11 +50,6 @@ class NetworkModule {
 
 	@Provides
 	@Singleton
-	fun provideGenreRepository(flickSlateService: FlickSlateService): GenreRepository =
-		GenreAccessor(flickSlateService)
-
-	@Provides
-	@Singleton
 	fun provideMoviesRepository(flickSlateService: FlickSlateService): MoviesRepository =
 		MoviesAccessor(flickSlateService)
 
@@ -66,5 +62,15 @@ class NetworkModule {
 	@Singleton
 	fun provideTvRepository(flickSlateService: FlickSlateService): TvRepository =
 		TvAccessor(flickSlateService)
+
+	@Module
+	@InstallIn(SingletonComponent::class)
+	interface InternalNetworkModule {
+
+		@Binds
+		@Singleton
+		fun bindGenreRepository(genreAccessor: GenreAccessor): GenreRepository
+
+	}
 
 }
