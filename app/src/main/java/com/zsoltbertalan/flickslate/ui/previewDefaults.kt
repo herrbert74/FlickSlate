@@ -8,10 +8,15 @@ import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
 import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvResponse
 import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsResponse
 import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
+import retrofit2.Response
 
 val defaultFlickSlateService = object : FlickSlateService {
 
-	override suspend fun getGenres(apiKey: String, language: String?): GenreResponse {
+	override suspend fun getGenres(
+		apiKey: String,
+		language: String?,
+		ifNoneMatch: String
+	): Response<GenreResponse> {
 		TODO("Not yet implemented")
 	}
 
