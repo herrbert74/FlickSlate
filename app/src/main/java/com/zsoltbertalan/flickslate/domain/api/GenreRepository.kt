@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GenreRepository {
 
-	fun getGenresList(): Flow<ApiResult<List<Genre>>>
+	suspend fun getGenresList(): Flow<ApiResult<List<Genre>>>
 	fun getGenreDetail(genreId: Int): Flow<PagingData<Movie>>
 
 }

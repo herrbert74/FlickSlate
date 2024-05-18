@@ -8,11 +8,14 @@ import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.recoverIf
 import com.zsoltbertalan.flickslate.ext.ApiResult
 import com.zsoltbertalan.flickslate.ext.apiRunCatching
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.withContext
 import okhttp3.internal.http.HTTP_NOT_MODIFIED
 import retrofit2.HttpException
 import retrofit2.Response
@@ -37,7 +40,7 @@ import retrofit2.Response
  */
 
 /**
- * For [retrofit2.Response] version see [fetchCacheThenNetworkResponse]. Response is needed when we want to extract
+ * For [retrofit2.Response] version see [fetchNetworkFirstResponse]. Response is needed when we want to extract
  * information from the header (like eTags) or the error body.
  *
  * Recovers from network errors if the cache contains any data by emitting null.
@@ -47,48 +50,48 @@ import retrofit2.Response
  * perform a network request (if instructed),
  * and if not null, emit the response after saving it to local database.
  * @param fetchFromLocal - A function to retrieve [DOMAIN] data from local database. Must be nullable!
- * @param shouldMakeNetworkRequest - Whether or not to make network request
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format
- * @param mapper - An extension function to convert [REMOTE] to [DOMAIN] format
  * @return Result<[DOMAIN]> type
  */
-inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
+@Suppress("unused")
+inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
-	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
 	crossinline makeNetworkRequest: suspend () -> REMOTE,
 	noinline saveResponseData: suspend (REMOTE) -> Unit = { },
 	crossinline mapper: REMOTE.() -> DOMAIN
 ) = flow<ApiResult<DOMAIN>> {
 
-	val localData = fetchFromLocal().first()
-	localData?.let { emit(Ok(it)) }
-	if (shouldMakeNetworkRequest(localData)) {
-		val result = apiRunCatching {
-			makeNetworkRequest()
-		}.andThen { dto ->
-			saveResponseData(dto)
-			Ok(dto)
-		}.map {
-			it.mapper()
-		}.recoverIf(
-			{ _ -> localData != null },
-			{ null }
-		).mapError {
-			it
-		}
-		if (result is Err || (result is Ok && result.component1() != null)) {
-			emitAll(
-				flowOf(
-					result.map { it!! }
-				)
+	var localData: DOMAIN? = null
+
+	val result = apiRunCatching {
+		makeNetworkRequest()
+	}.andThen { dto ->
+		saveResponseData(dto)
+		Ok(dto)
+	}.map {
+		it.mapper()
+	}.recoverIf(
+		{ _ ->
+			localData = fetchFromLocal().first()
+			localData != null
+		},
+		{ localData }
+	).mapError {
+		it
+	}
+
+	if (result is Err || (result is Ok && result.component1() != null)) {
+		emitAll(
+			flowOf(
+				result.map { it!! }
 			)
-		}
+		)
 	}
 }
 
 /**
- * [retrofit2.Response] version of [fetchCacheThenNetwork]. Response is needed when we want to extract information
+ * [retrofit2.Response] version of [fetchNetworkFirst]. Response is needed when we want to extract information
  * from the header (like eTags) or the error body. Otherwise use the simpler version above.
  *
  * Recovers from not modified HTTP response if we add eTag through @Header("If-None-Match") to the request, and it
@@ -99,50 +102,38 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
  * perform a network request (if instructed),
  * and if not null, emit the response after saving it to local database.
  * @param fetchFromLocal - A function to retrieve [DOMAIN] data from local database. Must be nullable!
- * @param shouldMakeNetworkRequest - Whether or not to make network request
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data wrapped in [retrofit2.Response]
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format wrapped in [retrofit2.Response]
- * @param mapper - An extension function to convert [REMOTE] to [DOMAIN] format
  * @return Result<[DOMAIN]> type
  */
 @Suppress("unused")
-inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
+inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
-	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,
 	noinline saveResponseData: suspend (Response<REMOTE>) -> Unit = { },
 	crossinline mapper: REMOTE.() -> DOMAIN
 ) = flow<ApiResult<DOMAIN>> {
 
 	val localData = fetchFromLocal().first()
-	localData?.let { emit(Ok(it)) }
-	if (shouldMakeNetworkRequest(localData)) {
-		val result = apiRunCatching {
-			makeNetworkRequest()
-		}.andThen { dto ->
-			saveResponseData(dto)
-			Ok(dto)
-		}.map {
-			it.body()?.mapper()
-		}.recoverIf(
-			{ throwable -> (throwable as? HttpException)?.code() == HTTP_NOT_MODIFIED || localData != null },
-			{ null }
-		).mapError {
-			it
-		}
-		if (result is Err || (result is Ok && result.component1() != null)) {
-			emitAll(
-				flowOf(
-					result.map { it!! }
-				)
+	val result = apiRunCatching {
+		makeNetworkRequest()
+	}.andThen { dto ->
+		saveResponseData(dto)
+		Ok(dto)
+	}.map {
+		it.body()!!.mapper()
+	}.recoverIf(
+		{ throwable -> (throwable as? HttpException)?.code() == HTTP_NOT_MODIFIED || localData != null },
+		{ null }
+	).mapError {
+		it
+	}
+	if (result is Err || (result is Ok && result.component1() != null)) {
+		emitAll(
+			flowOf(
+				result.map { it!! }
 			)
-		}
+		)
 	}
 
-}
-
-enum class STRATEGY {
-	CACHE_FIRST_NETWORK_SECOND,
-	CACHE_FIRST_NETWORK_LATER,
-	CACHE_FIRST_NETWORK_ONCE,
 }
