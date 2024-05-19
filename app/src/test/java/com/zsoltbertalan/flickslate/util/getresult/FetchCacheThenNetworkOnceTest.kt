@@ -4,23 +4,18 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
-import com.zsoltbertalan.flickslate.testhelper.GenreDtoMother
 import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Response
 
-class FetchCacheThenNetworkTest {
+class FetchCacheThenNetworkOnceTest {
 
 	@Test
-	fun `when cache has data and network has data then emit twice`() = runTest {
+	fun `when cache has data and network has data then emit once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
@@ -28,10 +23,10 @@ class FetchCacheThenNetworkTest {
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequest(),
 			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
-			Ok(GenreMother.createGenreList()),
 			Ok(GenreMother.createGenreList()),
 		)
 
@@ -45,7 +40,8 @@ class FetchCacheThenNetworkTest {
 		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequest(),
-			mapper = GenreResponse::toGenres
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -61,7 +57,8 @@ class FetchCacheThenNetworkTest {
 		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreResponse::toGenres
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -79,7 +76,8 @@ class FetchCacheThenNetworkTest {
 		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreResponse::toGenres
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.first() shouldBe Err(httpException)
@@ -87,17 +85,3 @@ class FetchCacheThenNetworkTest {
 	}
 
 }
-
-@Suppress("RedundantSuspendModifier")
-suspend fun makeNetworkRequest(): () -> GenreResponse =
-	{ GenreResponse(GenreDtoMother.createGenreDtoList()) }
-
-@Suppress("RedundantSuspendModifier")
-suspend fun failNetworkRequest(): () -> GenreResponse = { throw httpException }
-
-val httpException = HttpException(
-	Response.error<GenreResponse>(
-		404,
-		"Network error".toResponseBody("plain/text".toMediaTypeOrNull())
-	)
-)

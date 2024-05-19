@@ -2,12 +2,16 @@ package com.zsoltbertalan.flickslate.util.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.recoverIf
 import com.zsoltbertalan.flickslate.ext.ApiResult
 import com.zsoltbertalan.flickslate.ext.apiRunCatching
+import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
+import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
+import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
@@ -51,6 +55,7 @@ import retrofit2.Response
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format
  * @param mapper - An extension function to convert [REMOTE] to [DOMAIN] format
+ * @param strategy - How to deal with network requests and results. See [STRATEGY]
  * @return Result<[DOMAIN]> type
  */
 inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
@@ -58,12 +63,14 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
 	crossinline makeNetworkRequest: suspend () -> REMOTE,
 	noinline saveResponseData: suspend (REMOTE) -> Unit = { },
-	crossinline mapper: REMOTE.() -> DOMAIN
+	crossinline mapper: REMOTE.() -> DOMAIN,
+	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
 ) = flow<ApiResult<DOMAIN>> {
 
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
-	if (shouldMakeNetworkRequest(localData)) {
+	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
+	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
 		val result = apiRunCatching {
 			makeNetworkRequest()
 		}.andThen { dto ->
@@ -77,7 +84,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 		).mapError {
 			it
 		}
-		if (result is Err || (result is Ok && result.component1() != null)) {
+		if (shouldEmitNetworkResult(result, strategy, localData == null)) {
 			emitAll(
 				flowOf(
 					result.map { it!! }
@@ -103,6 +110,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data wrapped in [retrofit2.Response]
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format wrapped in [retrofit2.Response]
  * @param mapper - An extension function to convert [REMOTE] to [DOMAIN] format
+ * @param strategy - How to deal with network requests and results. See [STRATEGY]
  * @return Result<[DOMAIN]> type
  */
 @Suppress("unused")
@@ -111,12 +119,14 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,
 	noinline saveResponseData: suspend (Response<REMOTE>) -> Unit = { },
-	crossinline mapper: REMOTE.() -> DOMAIN
+	crossinline mapper: REMOTE.() -> DOMAIN,
+	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
 ) = flow<ApiResult<DOMAIN>> {
 
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
-	if (shouldMakeNetworkRequest(localData)) {
+	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
+	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
 		val result = apiRunCatching {
 			makeNetworkRequest()
 		}.andThen { dto ->
@@ -130,7 +140,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 		).mapError {
 			it
 		}
-		if (result is Err || (result is Ok && result.component1() != null)) {
+		if (shouldEmitNetworkResult(result, strategy, localData == null)) {
 			emitAll(
 				flowOf(
 					result.map { it!! }
@@ -141,8 +151,33 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 
 }
 
+fun <DOMAIN> shouldEmitNetworkResult(
+	result: Result<DOMAIN?, Throwable>,
+	strategy: STRATEGY,
+	isLocalNull: Boolean
+): Boolean {
+	return when (strategy) {
+		CACHE_FIRST_NETWORK_LATER -> isLocalNull
+		else -> result is Err || (result is Ok && result.component1() != null)
+	}
+}
+
+/**
+ * Cache first strategies to deal with network requests and results.
+ */
 enum class STRATEGY {
+	/**
+	 * Always emit network result.
+	 */
 	CACHE_FIRST_NETWORK_SECOND,
+
+	/**
+	 * Save but do not emit network result, unless there is no cache result.
+	 */
 	CACHE_FIRST_NETWORK_LATER,
+
+	/**
+	 * Make network request only if there is no cache result.
+	 */
 	CACHE_FIRST_NETWORK_ONCE,
 }

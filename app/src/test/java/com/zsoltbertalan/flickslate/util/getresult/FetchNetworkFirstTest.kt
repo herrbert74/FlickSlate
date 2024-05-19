@@ -69,17 +69,3 @@ class FetchNetworkFirstTest {
 	}
 
 }
-
-@Suppress("RedundantSuspendModifier")
-private suspend fun makeNetworkRequest(): () -> GenreResponse =
-	{ GenreResponse(GenreDtoMother.createGenreDtoList()) }
-
-@Suppress("RedundantSuspendModifier")
-private suspend fun failNetworkRequest(): () -> GenreResponse = { throw httpException }
-
-private val httpException = HttpException(
-	Response.error<GenreResponse>(
-		404,
-		"Network error".toResponseBody("plain/text".toMediaTypeOrNull())
-	)
-)
