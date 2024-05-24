@@ -45,18 +45,6 @@ class MovieDetailsTest {
 
 		hiltAndroidRule.inject()
 
-//		CoroutineScope(mainContext).launch {
-//			val flickSlateRootComponent = FlickSlateRootComponent(
-//				DefaultComponentContext(lifecycle = LifecycleRegistry()),
-//				mainContext,
-//				ioContext,
-//				moviesRepository,
-//			) {}
-//			composeTestRule.setContent {
-//				FlickSlateRootContent(flickSlateRootComponent)
-//			}
-//		}
-
 	}
 
 	@Test

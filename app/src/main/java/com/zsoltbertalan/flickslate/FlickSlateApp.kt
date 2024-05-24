@@ -8,11 +8,11 @@ import timber.log.Timber.Forest.plant
 @HiltAndroidApp
 class FlickSlateApp : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
-        if (BuildConfig.DEBUG) {
-            plant(Timber.DebugTree())
-        }
-    }
+	override fun onCreate() {
+		super.onCreate()
+		if (BuildConfig.DEBUG) {
+			plant(Timber.DebugTree())
+		}
+	}
 
 }

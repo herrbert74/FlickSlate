@@ -6,8 +6,8 @@ compileSdkVersion = "34"
 targetSdkVersion = "34"
 androidGradlePlugin = "8.3.2"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
-kotlin = "1.9.23"
-ksp = "1.9.23-1.0.19"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.21"
 coroutines = "1.8.0"
 serialization = "1.6.2"
 kotlinx-collections = "0.3.7"
@@ -15,14 +15,13 @@ androidx-activity = "1.9.0"
 androidx-lifecycle = "2.7.0"
 androidx-navigation = "2.7.7"
 androidx-hilt = "1.2.0"
-androidx-paging = "3.2.1"
+androidx-paging = "3.3.0"
 androidx-work = "2.9.0"
 androidx-test-core = "1.5.0"
 androidx-test-rules = "1.5.0"
 androidx-test-runner = "1.5.2"
 androidx-test-espresso = "3.5.1"
-androidx-compose-compiler = "1.5.12"
-androidx-compose-bom = "2024.04.01"
+androidx-compose-bom = "2024.05.00"
 #androidx-compose-material3 = "1.1.1" #This had search bar
 #androidx-compose-animation = "1.4.0" #For fixes since the bom
 #androidx-compose-foundation = "1.4.0" #For fixes since the bom
@@ -54,7 +53,8 @@ ktor = "2.3.6"
 ktorfit = "1.12.0"
 koin = "3.5.3"
 multiplatform-settings = "1.0.0"
-realm = "1.14.1"
+#realm = "1.16.0"
+realm = "2.0.0-SNAPSHOT"
 skie = "0.6.1"
 babestudios-base = "3.0.0"
 paletteKtx = "1.0.0"
@@ -140,6 +140,7 @@ androidx-hilt-navigationFragment = { module = "androidx.hilt:hilt-navigation-fra
 
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "androidx-paging" }
+androidx-paging-testing = { module = "androidx.paging:paging-testing", version.ref = "androidx-paging" }
 androidx-palette-ktx = { group = "androidx.palette", name = "palette-ktx", version.ref = "paletteKtx" }
 
 androidx-savedState  = "androidx.savedstate:savedstate:1.2.1"
@@ -299,10 +300,10 @@ flowBinding-viewPager2 = { module = "io.github.reactivecircus.flowbinding:flowbi
 flowBinding-material = { module = "io.github.reactivecircus.flowbinding:flowbinding-material", version.ref = "flowBinding" }
 
 view-collapsingToolbar = "me.onebone:toolbar-compose:2.3.5"
-coil = "io.coil-kt:coil-compose:2.5.0"
+coil = "io.coil-kt:coil-compose:2.6.0"
 
 # Multiplatform
-uriKmp = "com.eygraber:uri-kmp:0.0.13"
+uriKmp = "com.eygraber:uri-kmp:0.0.16"
 
 test-jUnit = "junit:junit:4.13.2"
 test-robolectric = "org.robolectric:robolectric:4.11.1"
@@ -340,6 +341,7 @@ mockk-android = ["test-mockk-android", "test-mockk-core", "test-mockk-dsl"]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "google-dagger" }

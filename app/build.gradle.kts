@@ -3,11 +3,13 @@
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.android.kotlin)
+	alias(libs.plugins.compose.compiler)
 	alias(libs.plugins.serialization)
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.dagger.hilt.android)
-	alias(libs.plugins.realm)
+//	alias(libs.plugins.realm)
+	id("io.realm.kotlin")
 }
 
 val tmdbApiKey: String by project
@@ -52,13 +54,11 @@ android {
 		compose = true
 	}
 
-	composeOptions {
-		kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-	}
-
 	//Needed for Mockk
-	testOptions { packaging { jniLibs { useLegacyPackaging = true } } }
-
+	testOptions {
+		packaging { jniLibs { useLegacyPackaging = true } }
+		unitTests.isReturnDefaultValues = true
+	}
 	packaging {
 		resources.excludes.add("MANIFEST.MF")
 		resources.excludes.add("META-INF/LICENSE")
@@ -137,6 +137,7 @@ dependencies {
 
 	implementation(libs.inject)
 
+	testImplementation(libs.androidx.paging.testing)
 	testImplementation(libs.androidx.test.coreKtx)
 	testImplementation(libs.androidx.test.ext.jUnit)
 	testImplementation(libs.test.mockk.core)
@@ -163,10 +164,13 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	kotlinOptions.freeCompilerArgs += "-opt-in=androidx.compose.ui.test.ExperimentalTestApi"
+	compilerOptions.freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.ui.test.ExperimentalTestApi")
+}

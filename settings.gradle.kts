@@ -5,6 +5,8 @@ pluginManagement {
 		gradlePluginPortal()
 		mavenCentral()
 		google()
+		// Only required for realm-kotlin snapshots
+		maven("https://oss.sonatype.org/content/repositories/snapshots")
 	}
 }
 dependencyResolutionManagement {
@@ -13,6 +15,8 @@ dependencyResolutionManagement {
 		mavenCentral()
 		google()
 		maven("https://jitpack.io")
+		// Only required for realm-kotlin snapshots
+		maven("https://oss.sonatype.org/content/repositories/snapshots")
 	}
 }
 
