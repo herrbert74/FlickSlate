@@ -8,11 +8,14 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.ext.ApiResult
 
+const val PAGING_PAGE_SIZE = 30
+const val PAGING_PREFETCH_DISTANCE = 5
+
 fun <V : Any> createPager(
-	pageSize: Int = 30,
+	pageSize: Int = PAGING_PAGE_SIZE,
 	block: suspend (Int) -> ApiResult<Pair<List<V>, Int>>
 ): Pager<Int, V> = Pager(
-	config = PagingConfig(pageSize = pageSize),
+	config = PagingConfig(pageSize = pageSize, prefetchDistance = PAGING_PREFETCH_DISTANCE),
 	pagingSourceFactory = { KotlinResultPagingSource(block) }
 )
 

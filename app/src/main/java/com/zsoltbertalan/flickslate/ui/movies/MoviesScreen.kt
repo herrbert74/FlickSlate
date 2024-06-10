@@ -106,7 +106,6 @@ private fun LazyListScope.showUpcomingMovies(
 	upcomingMovies: LazyPagingItems<Movie>,
 	popTo: (Int) -> Unit,
 ) {
-	//region Custom colours
 	item {
 		ListTitle(titleId = R.string.upcoming_movies)
 		LazyRow {
@@ -132,7 +131,6 @@ private fun LazyListScope.showUpcomingMovies(
 	item {
 		Spacer(modifier = Modifier.width(20.dp))
 	}
-
 
 	when {
 		upcomingMovies.loadState.refresh is LoadState.Loading -> {

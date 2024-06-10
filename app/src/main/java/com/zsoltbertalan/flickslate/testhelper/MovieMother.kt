@@ -15,6 +15,14 @@ object MovieMother {
 		createDefaultMovie(id = 3, title = "name4", overview = "Overview 3"),
 		createDefaultMovie(id = 4, title = "name5"),
 		createDefaultMovie(id = 5, title = "name6"),
+		createDefaultMovie(id = 6, title = "name6"),
+		createDefaultMovie(id = 7, title = "name6"),
+		createDefaultMovie(id = 8, title = "name6"),
+		createDefaultMovie(id = 9, title = "name6"),
+		createDefaultMovie(id = 10, title = "name6"),
+		createDefaultMovie(id = 11, title = "name6"),
+		createDefaultMovie(id = 12, title = "name6"),
+		createDefaultMovie(id = 12, title = "name6"),
 	)
 
 }
