@@ -96,13 +96,14 @@ class FetchCacheThenNetworkTest {
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
 		val results = mutableListOf<Outcome<List<Genre>>>()
+
 		val job = launch(backgroundScope.coroutineContext) {
 
 			fetchCacheThenNetwork(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayed(),
 				mapper = GenreResponse::toGenres,
-			).collect{
+			).collect {
 				results.add(it)
 			}
 
