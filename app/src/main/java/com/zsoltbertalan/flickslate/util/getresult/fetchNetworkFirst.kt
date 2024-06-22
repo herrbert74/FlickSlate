@@ -4,7 +4,6 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
-import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.recoverIf
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.ext.Outcome
@@ -64,7 +63,7 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
 	val result = runCatchingApi {
 		makeNetworkRequest()
 	}.andThen { dto ->
-		saveResponseData(dto)
+		runCatchingUnit { saveResponseData(dto) }
 		Ok(dto)
 	}.map {
 		it.mapper()
@@ -109,7 +108,8 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 	crossinline mapper: REMOTE.() -> DOMAIN
 ) = flow<Outcome<DOMAIN>> {
 
-	val localData = fetchFromLocal().first()
+	var localData: DOMAIN? = null
+
 	val result = runCatchingApi {
 		makeNetworkRequest()
 	}.andThen { response ->
@@ -122,11 +122,12 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 	}.map {
 		it?.mapper()
 	}.recoverIf(
-		{ failure -> failure == Failure.NotModified || localData != null },
-		{ null }
-	).mapError {
-		it
-	}
+		{ failure ->
+			localData = fetchFromLocal().first()
+			failure == Failure.NotModified || localData != null
+		},
+		{ localData }
+	)
 
 	if (result is Err || (result is Ok && result.component1() != null)) {
 		emitAll(
