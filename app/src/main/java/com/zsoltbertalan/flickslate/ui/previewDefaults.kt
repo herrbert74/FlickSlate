@@ -61,7 +61,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getTvDetails(series_id: Int, apiKey: String): TvDetailsResponse {
+	override suspend fun getTvDetails(seriesId: Int, apiKey: String): TvDetailsResponse {
 		TODO("Not yet implemented")
 	}
 

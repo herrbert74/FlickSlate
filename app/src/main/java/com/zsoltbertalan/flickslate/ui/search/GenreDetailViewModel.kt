@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GenreDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val genreRepository: GenreRepository,
+	genreRepository: GenreRepository,
 ) : ViewModel() {
 
 	private val genreId: Int = checkNotNull(savedStateHandle["genreId"])

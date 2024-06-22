@@ -17,7 +17,6 @@ import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
 import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvResponse
 import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsResponse
 import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
-import com.zsoltbertalan.flickslate.ext.ApiResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -77,7 +76,7 @@ interface FlickSlateService {
 
 	@GET(URL_TV_DETAILS)
 	suspend fun getTvDetails(
-		@Path("series_id") series_id: Int,
+		@Path("series_id") seriesId: Int,
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 	): TvDetailsResponse
 

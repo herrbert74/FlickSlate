@@ -4,18 +4,14 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
-import com.zsoltbertalan.flickslate.testhelper.GenreDtoMother
+import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Response
 
 class FetchNetworkFirstTest {
 
@@ -64,7 +60,7 @@ class FetchNetworkFirstTest {
 			mapper = GenreResponse::toGenres
 		)
 
-		flow.first() shouldBe Err(httpException)
+		flow.first() shouldBe Err(Failure.ServerError)
 
 	}
 

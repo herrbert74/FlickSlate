@@ -6,21 +6,21 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.ext.ApiResult
+import com.zsoltbertalan.flickslate.ext.Outcome
 
 const val PAGING_PAGE_SIZE = 30
 const val PAGING_PREFETCH_DISTANCE = 5
 
 fun <V : Any> createPager(
 	pageSize: Int = PAGING_PAGE_SIZE,
-	block: suspend (Int) -> ApiResult<Pair<List<V>, Int>>
+	block: suspend (Int) -> Outcome<Pair<List<V>, Int>>
 ): Pager<Int, V> = Pager(
 	config = PagingConfig(pageSize = pageSize, prefetchDistance = PAGING_PREFETCH_DISTANCE),
 	pagingSourceFactory = { KotlinResultPagingSource(block) }
 )
 
 class KotlinResultPagingSource<T : Any>(
-	private val block: suspend (Int) -> ApiResult<Pair<List<T>, Int>>
+	private val block: suspend (Int) -> Outcome<Pair<List<T>, Int>>
 ) : PagingSource<Int, T>() {
 
 	override fun getRefreshKey(state: PagingState<Int, T>): Int? {

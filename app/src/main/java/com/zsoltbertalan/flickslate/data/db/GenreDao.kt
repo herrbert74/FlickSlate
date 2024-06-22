@@ -1,7 +1,6 @@
 package com.zsoltbertalan.flickslate.data.db
 
 import com.zsoltbertalan.flickslate.domain.model.Genre
-import com.zsoltbertalan.flickslate.ext.apiRunCatching
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.ext.query
@@ -19,18 +18,14 @@ class GenreDao @Inject constructor(private val realm: Realm) : GenreDataSource {
 	}
 
 	override suspend fun insertGenres(genres: List<Genre>) {
-		apiRunCatching {
-			realm.write {
-				genres.map { copyToRealm(it.toDbo(), UpdatePolicy.ALL) }
-			}
+		realm.write {
+			genres.map { copyToRealm(it.toDbo(), UpdatePolicy.ALL) }
 		}
 	}
 
 	override suspend fun insertEtag(etag: String) {
-		apiRunCatching {
-			realm.write {
-				copyToRealm(EtagDbo("genres", etag = etag), UpdatePolicy.ALL)
-			}
+		realm.write {
+			copyToRealm(EtagDbo("genres", etag = etag), UpdatePolicy.ALL)
 		}
 	}
 

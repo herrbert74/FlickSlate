@@ -9,8 +9,8 @@ import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.di.IoDispatcher
 import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.model.Genre
-import com.zsoltbertalan.flickslate.ext.ApiResult
-import com.zsoltbertalan.flickslate.ext.apiRunCatching
+import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.ext.runCatchingApi
 import com.zsoltbertalan.flickslate.util.getresult.fetchCacheThenNetworkResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +25,7 @@ class GenreAccessor @Inject constructor(
 	@IoDispatcher val dispatcher: CoroutineDispatcher
 ) : GenreRepository {
 
-	override fun getGenresList(): Flow<ApiResult<List<Genre>>> {
+	override fun getGenresList(): Flow<Outcome<List<Genre>>> {
 		return fetchCacheThenNetworkResponse(
 			fetchFromLocal = { genreDataSource.getGenres() },
 			makeNetworkRequest = {
@@ -45,8 +45,8 @@ class GenreAccessor @Inject constructor(
 	override fun getGenreDetail(
 		genreId: Int,
 	) = createPager { page ->
-		apiRunCatching {
-			flickSlateService.getGenreMovie(with_genres = genreId, page = page)
+		flickSlateService.runCatchingApi {
+			getGenreMovie(with_genres = genreId, page = page)
 		}.map { Pair(it.toMoviesResponse().movies, it.total_pages ?: 0) }
 	}.flow
 

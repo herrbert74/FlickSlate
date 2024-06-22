@@ -2,13 +2,13 @@ package com.zsoltbertalan.flickslate.util.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
-import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.recoverIf
-import com.zsoltbertalan.flickslate.ext.ApiResult
-import com.zsoltbertalan.flickslate.ext.apiRunCatching
+import com.zsoltbertalan.flickslate.domain.model.Failure
+import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.ext.runCatchingApi
+import com.zsoltbertalan.flickslate.ext.runCatchingUnit
 import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
 import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
 import com.zsoltbertalan.flickslate.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
@@ -17,15 +17,13 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import okhttp3.internal.http.HTTP_NOT_MODIFIED
-import retrofit2.HttpException
 import retrofit2.Response
 
 /**
  * A collection of generic Repository functions to handle common tasks like making network requests, fetching and
  * saving data from and to a database.
  *
- * Various caching strategies are handled by the different functions in this file (Not fully implemented yet).
+ * Various caching strategies are handled by the different functions in this folder.
  *
  * Based on Flower:
  * https://github.com/hadiyarajesh/flower/blob/master/flower-core/src/commonMain/kotlin/com/hadiyarajesh/flower_core/DBBoundResource.kt
@@ -65,13 +63,16 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 	noinline saveResponseData: suspend (REMOTE) -> Unit = { },
 	crossinline mapper: REMOTE.() -> DOMAIN,
 	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
-) = flow<ApiResult<DOMAIN>> {
+) = flow<Outcome<DOMAIN>> {
 
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
+
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
+
 	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
-		val result = apiRunCatching {
+
+		val result = runCatchingApi {
 			makeNetworkRequest()
 		}.andThen { dto ->
 			saveResponseData(dto)
@@ -81,9 +82,8 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 		}.recoverIf(
 			{ _ -> localData != null },
 			{ null }
-		).mapError {
-			it
-		}
+		)
+
 		if (shouldEmitNetworkResult(result, strategy, localData == null)) {
 			emitAll(
 				flowOf(
@@ -92,6 +92,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 			)
 		}
 	}
+
 }
 
 /**
@@ -121,25 +122,29 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 	noinline saveResponseData: suspend (Response<REMOTE>) -> Unit = { },
 	crossinline mapper: REMOTE.() -> DOMAIN,
 	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
-) = flow<ApiResult<DOMAIN>> {
+) = flow<Outcome<DOMAIN>> {
 
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
 	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
-		val result = apiRunCatching {
+
+		val result = runCatchingApi {
 			makeNetworkRequest()
-		}.andThen { dto ->
-			saveResponseData(dto)
-			Ok(dto)
+		}.andThen { response ->
+			if (response.isSuccessful) {
+				runCatchingUnit { saveResponseData(response) }
+				Ok(response.body())
+			} else {
+				Err(response.handleCode())
+			}
 		}.map {
-			it.body()?.mapper()
+			it?.mapper()
 		}.recoverIf(
-			{ throwable -> (throwable as? HttpException)?.code() == HTTP_NOT_MODIFIED || localData != null },
+			{ failure -> failure == Failure.NotModified || localData != null },
 			{ null }
-		).mapError {
-			it
-		}
+		)
+
 		if (shouldEmitNetworkResult(result, strategy, localData == null)) {
 			emitAll(
 				flowOf(
@@ -152,7 +157,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 }
 
 fun <DOMAIN> shouldEmitNetworkResult(
-	result: Result<DOMAIN?, Throwable>,
+	result: Outcome<DOMAIN?>,
 	strategy: STRATEGY,
 	isLocalNull: Boolean
 ): Boolean {

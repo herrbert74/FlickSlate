@@ -4,6 +4,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
+import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.first
@@ -80,7 +81,7 @@ class FetchCacheThenNetworkOnceTest {
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
-		flow.first() shouldBe Err(httpException)
+		flow.first() shouldBe Err(Failure.ServerError)
 
 	}
 
