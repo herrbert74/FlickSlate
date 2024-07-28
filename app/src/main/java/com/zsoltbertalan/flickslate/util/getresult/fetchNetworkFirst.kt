@@ -75,7 +75,7 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
 		{ localData }
 	)
 
-	if (result is Err || (result is Ok && result.component1() != null)) {
+	if (result.isErr || (result.isOk && result.component1() != null)) {
 		emitAll(
 			flowOf(
 				result.map { it!! }
@@ -129,7 +129,7 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 		{ localData }
 	)
 
-	if (result is Err || (result is Ok && result.component1() != null)) {
+	if (result.isErr || (result.isOk && result.component1() != null)) {
 		emitAll(
 			flowOf(
 				result.map { it!! }

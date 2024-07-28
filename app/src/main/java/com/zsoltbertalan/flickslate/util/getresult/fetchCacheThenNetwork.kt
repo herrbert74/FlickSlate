@@ -163,7 +163,7 @@ fun <DOMAIN> shouldEmitNetworkResult(
 ): Boolean {
 	return when (strategy) {
 		CACHE_FIRST_NETWORK_LATER -> isLocalNull
-		else -> result is Err || (result is Ok && result.component1() != null)
+		else -> result.isErr || (result.isOk && result.component1() != null)
 	}
 }
 

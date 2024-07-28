@@ -2,7 +2,6 @@ package com.zsoltbertalan.flickslate.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.api.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,12 +25,12 @@ class SearchViewModel @Inject constructor(
 	val searchStateData = _searchStateData.asStateFlow()
 
 	private val _searchEvent = MutableSharedFlow<SearchEvent>()
-	val searchEvent = _searchEvent.asSharedFlow()
+	private val searchEvent = _searchEvent.asSharedFlow()
 
 	suspend fun emitEvent(event: SearchEvent) = _searchEvent.emit(event)
 
 	init {
-		_searchEvent.onEach {
+		searchEvent.onEach {
 			listenEvent(it)
 		}.launchIn(viewModelScope)
 		setupSearchScreen()
@@ -46,8 +45,9 @@ class SearchViewModel @Inject constructor(
 					}
 
 					if (event.query.isNotEmpty()) {
-						when (val response = searchRepository.getSearchResult(event.query)) {
-							is Ok -> _searchStateData.update {
+						val response = searchRepository.getSearchResult(event.query)
+						when {
+							response.isOk -> _searchStateData.update {
 								it.copy(searchResult = response.value)
 							}
 
@@ -82,8 +82,8 @@ class SearchViewModel @Inject constructor(
 	private fun setupSearchScreen() {
 		viewModelScope.launch {
 			genreRepository.getGenresList().collect { response ->
-				when (response) {
-					is Ok -> _searchStateData.update {
+				when {
+					response.isOk -> _searchStateData.update {
 						it.copy(
 							genreResult = response.value,
 						)

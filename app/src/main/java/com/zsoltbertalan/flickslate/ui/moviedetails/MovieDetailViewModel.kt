@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.ui.moviedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.model.MovieDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,8 +28,9 @@ class MovieDetailViewModel @Inject constructor(
 
 	private fun getMovieDetail() {
 		viewModelScope.launch {
-			when (val response = moviesRepository.getMovieDetails(movieId)) {
-				is Ok -> {
+			val response = moviesRepository.getMovieDetails(movieId)
+			when  {
+				response.isOk -> {
 					_movieStateData.value = response.value
 				}
 

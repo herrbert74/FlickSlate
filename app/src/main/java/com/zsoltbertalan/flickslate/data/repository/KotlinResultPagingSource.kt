@@ -4,8 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.ext.Outcome
 
 const val PAGING_PAGE_SIZE = 30
@@ -33,13 +31,14 @@ class KotlinResultPagingSource<T : Any>(
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
 		val page = params.key ?: 1
 		return try {
-			when (val result = block(page)) {
-				is Err -> throw Exception()
-				is Ok -> LoadResult.Page(
+			val result = block(page)
+			when {
+				result.isOk -> LoadResult.Page(
 					data = result.value.first,
 					prevKey = if (page == 1) null else page - 1,
 					nextKey = if (page == result.value.second) null else page + 1
 				)
+				else -> throw Exception()
 			}
 		} catch (e: Exception) {
 			LoadResult.Error(e)

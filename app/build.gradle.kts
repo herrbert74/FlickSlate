@@ -8,8 +8,7 @@ plugins {
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.dagger.hilt.android)
-//	alias(libs.plugins.realm)
-	id("io.realm.kotlin")
+	alias(libs.plugins.realm)
 }
 
 val tmdbApiKey: String by project
@@ -23,9 +22,9 @@ android {
 		versionCode = libs.versions.versionCode.get().toInt()
 		versionName = libs.versions.versionName.toString()
 		vectorDrawables.useSupportLibrary = true
-		minSdk = 24
-		compileSdk = 34
-		targetSdk = 34
+		minSdk = libs.versions.minSdkVersion.get().toInt()
+		compileSdk = libs.versions.compileSdkVersion.get().toInt()
+		targetSdk = libs.versions.targetSdkVersion.get().toInt()
 		buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
 		testInstrumentationRunner = "com.zsoltbertalan.flickslate.FlickSlateAndroidJUnitRunner"
 	}
@@ -105,11 +104,6 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlin.parcelize.runtime)
-	implementation(libs.mvikotlin.core)
-	implementation(libs.mvikotlin.coroutines)
-	implementation(libs.mvikotlin.main)
-	implementation(libs.mvikotlin.rx)
-	implementation(libs.mvikotlin.logging)
 	implementation(libs.squareUp.okhttp3.loggingInterceptor)
 	implementation(libs.timber)
 	implementation(libs.realm.base)
@@ -142,7 +136,6 @@ dependencies {
 	testImplementation(libs.androidx.test.ext.jUnit)
 	testImplementation(libs.test.mockk.core)
 	testImplementation(libs.kotlinx.coroutines.test)
-	testImplementation(libs.mvikotlin.coroutines)
 	testImplementation(libs.essenty.stateKeeper.android)
 	testImplementation(libs.test.kotest.assertions.core)
 
