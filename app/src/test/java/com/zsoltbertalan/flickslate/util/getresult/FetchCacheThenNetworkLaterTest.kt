@@ -6,8 +6,10 @@ import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
-import com.zsoltbertalan.flickslate.ext.Outcome
-import com.zsoltbertalan.flickslate.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.common.util.Outcome
+import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY
+import com.zsoltbertalan.flickslate.common.util.getresult.fetchCacheThenNetwork
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first

@@ -6,8 +6,8 @@ import com.zsoltbertalan.flickslate.data.network.dto.toTvDetail
 import com.zsoltbertalan.flickslate.data.network.dto.toTvList
 import com.zsoltbertalan.flickslate.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.domain.model.TvDetail
-import com.zsoltbertalan.flickslate.ext.Outcome
-import com.zsoltbertalan.flickslate.ext.runCatchingApi
+import com.zsoltbertalan.flickslate.common.util.Outcome
+import com.zsoltbertalan.flickslate.common.util.runCatchingApi
 import javax.inject.Inject
 
 class TvAccessor @Inject constructor(
@@ -21,7 +21,7 @@ class TvAccessor @Inject constructor(
 	}.flow
 
 	override suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail> {
-		return com.zsoltbertalan.flickslate.ext.runCatchingApi {
+		return com.zsoltbertalan.flickslate.common.util.runCatchingApi {
 			flickSlateService.getTvDetails(seriesId = seriesId).toTvDetail()
 		}
 	}

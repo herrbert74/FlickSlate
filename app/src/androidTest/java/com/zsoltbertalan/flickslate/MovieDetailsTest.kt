@@ -10,10 +10,10 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.zsoltbertalan.flickslate.di.IoDispatcher
-import com.zsoltbertalan.flickslate.di.MainDispatcher
+import com.zsoltbertalan.flickslate.common.async.IoDispatcher
+import com.zsoltbertalan.flickslate.common.async.MainDispatcher
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.ui.FlickSlateActivity
+import com.zsoltbertalan.flickslate.presentation.ui.FlickSlateActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.CoroutineDispatcher

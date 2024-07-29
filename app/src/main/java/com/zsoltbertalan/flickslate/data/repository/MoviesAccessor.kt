@@ -6,8 +6,8 @@ import com.zsoltbertalan.flickslate.data.network.dto.toMovieDetail
 import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.ext.Outcome
-import com.zsoltbertalan.flickslate.ext.runCatchingApi
+import com.zsoltbertalan.flickslate.common.util.Outcome
+import com.zsoltbertalan.flickslate.common.util.runCatchingApi
 import javax.inject.Inject
 import javax.inject.Singleton
 

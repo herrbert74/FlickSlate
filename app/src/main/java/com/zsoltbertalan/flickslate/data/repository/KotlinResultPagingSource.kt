@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.common.util.Outcome
 
 const val PAGING_PAGE_SIZE = 30
 const val PAGING_PREFETCH_DISTANCE = 5

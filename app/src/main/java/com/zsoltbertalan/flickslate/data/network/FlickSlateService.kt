@@ -1,15 +1,6 @@
 package com.zsoltbertalan.flickslate.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
-import com.zsoltbertalan.flickslate.URL_DISCOVER_MOVIE
-import com.zsoltbertalan.flickslate.URL_GENRE
-import com.zsoltbertalan.flickslate.URL_MOVIES_NOW_PLAYING
-import com.zsoltbertalan.flickslate.URL_MOVIES_POPULAR
-import com.zsoltbertalan.flickslate.URL_MOVIES_SEARCH
-import com.zsoltbertalan.flickslate.URL_MOVIES_UPCOMING
-import com.zsoltbertalan.flickslate.URL_MOVIE_DETAILS
-import com.zsoltbertalan.flickslate.URL_TV_DETAILS
-import com.zsoltbertalan.flickslate.URL_TV_TOP_RATED
 import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailResponse
 import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
@@ -22,6 +13,16 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
+
+const val URL_GENRE = "genre/movie/list"
+const val URL_MOVIES_POPULAR = "movie/popular"
+const val URL_MOVIES_NOW_PLAYING = "movie/now_playing"
+const val URL_MOVIES_UPCOMING = "movie/upcoming"
+const val URL_MOVIES_SEARCH = "search/movie"
+const val URL_MOVIE_DETAILS = "movie/{movie_id}"
+const val URL_TV_TOP_RATED = "tv/top_rated"
+const val URL_TV_DETAILS = "tv/{series_id}"
+const val URL_DISCOVER_MOVIE = "discover/movie"
 
 interface FlickSlateService {
 

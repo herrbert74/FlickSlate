@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.mappers
 
-import com.zsoltbertalan.flickslate.testhelper.MovieDtoMother
+import com.zsoltbertalan.flickslate.common.testhelper.MovieDtoMother
 import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.domain.model.MoviesResponse
 import io.kotest.matchers.shouldBe

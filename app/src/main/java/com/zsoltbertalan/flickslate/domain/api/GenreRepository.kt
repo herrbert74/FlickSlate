@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.domain.api
 import androidx.paging.PagingData
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.domain.model.Movie
-import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.common.util.Outcome
 import kotlinx.coroutines.flow.Flow
 
 interface GenreRepository {

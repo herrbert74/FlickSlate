@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.domain.api
 import androidx.paging.PagingData
 import com.zsoltbertalan.flickslate.domain.model.Tv
 import com.zsoltbertalan.flickslate.domain.model.TvDetail
-import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.common.util.Outcome
 import kotlinx.coroutines.flow.Flow
 
 interface TvRepository {

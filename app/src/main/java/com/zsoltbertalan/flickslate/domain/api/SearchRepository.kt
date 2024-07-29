@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.domain.api
 
 import com.zsoltbertalan.flickslate.domain.model.Movie
-import com.zsoltbertalan.flickslate.ext.Outcome
+import com.zsoltbertalan.flickslate.common.util.Outcome
 
 interface SearchRepository {
 
