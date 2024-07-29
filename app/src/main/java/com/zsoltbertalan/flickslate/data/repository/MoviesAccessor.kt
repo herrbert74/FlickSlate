@@ -8,10 +8,11 @@ import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.ext.Outcome
 import com.zsoltbertalan.flickslate.ext.runCatchingApi
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MoviesAccessor(private val flickSlateService: FlickSlateService) : MoviesRepository {
+class MoviesAccessor @Inject constructor(private val flickSlateService: FlickSlateService) : MoviesRepository {
 
 	override fun getPopularMovies(language: String) = createPager { page ->
 		flickSlateService.runCatchingApi {

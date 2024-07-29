@@ -48,28 +48,25 @@ class NetworkModule {
 		return retroFit.create(FlickSlateService::class.java)
 	}
 
-	@Provides
-	@Singleton
-	fun provideMoviesRepository(flickSlateService: FlickSlateService): MoviesRepository =
-		MoviesAccessor(flickSlateService)
-
-	@Provides
-	@Singleton
-	fun provideSearchRepository(flickSlateService: FlickSlateService): SearchRepository =
-		SearchAccessor(flickSlateService)
-
-	@Provides
-	@Singleton
-	fun provideTvRepository(flickSlateService: FlickSlateService): TvRepository =
-		TvAccessor(flickSlateService)
-
 	@Module
 	@InstallIn(SingletonComponent::class)
-	interface InternalNetworkModule {
+	interface RepositoryModule {
 
 		@Binds
 		@Singleton
 		fun bindGenreRepository(genreAccessor: GenreAccessor): GenreRepository
+
+		@Binds
+		@Singleton
+		fun bindMoviesRepository(moviesAccessor: MoviesAccessor): MoviesRepository
+
+		@Binds
+		@Singleton
+		fun bindSearchRepository(searchAccessor: SearchAccessor): SearchRepository
+
+		@Binds
+		@Singleton
+		fun bindTvRepository(tvAccessor: TvAccessor): TvRepository
 
 	}
 

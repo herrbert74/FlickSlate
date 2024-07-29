@@ -28,7 +28,6 @@ class MoviesViewModelTest {
 
 	private val dispatcher = StandardTestDispatcher()
 
-	private lateinit var moviesData: List<Movie>
 	private lateinit var pagingData: PagingData<Movie>
 
 	@Before
@@ -36,7 +35,6 @@ class MoviesViewModelTest {
 		pagingData = PagingData.from(
 			MovieMother.createMovieList()
 		)
-		moviesData = MovieMother.createMovieList()
 		Dispatchers.setMain(dispatcher)
 		coEvery { moviesRepository.getPopularMovies(any()) } answers { flowOf(pagingData) }
 		coEvery { moviesRepository.getUpcomingMovies(any()) } answers { flowOf(pagingData) }

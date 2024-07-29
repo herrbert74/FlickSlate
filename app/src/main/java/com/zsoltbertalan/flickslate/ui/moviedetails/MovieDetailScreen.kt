@@ -61,8 +61,8 @@ fun MovieDetailScreen(
 	var color1 by remember { mutableStateOf(bg) }
 	var color2 by remember { mutableStateOf(bgDim) }
 
-	val imageUrl = rememberSaveable(detail.backdropPath) {
-		mutableStateOf(detail.backdropPath)
+	val imageUrl = rememberSaveable(detail.movieDetail?.backdropPath) {
+		mutableStateOf(detail.movieDetail?.backdropPath)
 	}
 
 	LaunchedEffect(imageUrl) {
@@ -100,10 +100,11 @@ fun MovieDetailScreen(
 				})
 		}
 	) { paddingValues ->
+		if(detail.movieDetail != null)
 		LazyColumn(Modifier.padding(paddingValues)) {
 			item {
 				Image(
-					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.backdropPath),
+					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
 					contentDescription = "",
 					modifier = Modifier
 						.fillMaxWidth()
@@ -121,13 +122,13 @@ fun MovieDetailScreen(
 				) {
 					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
 						Text(
-							modifier = modifier.padding(16.dp), text = detail.title ?: ""
+							modifier = modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
 						)
 						VerticalDivider(
 							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
 						)
 						Text(
-							modifier = modifier.padding(16.dp), text = detail.voteAverage.toString()
+							modifier = modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
 						)
 					}
 					Column(
@@ -137,14 +138,14 @@ fun MovieDetailScreen(
 						Text(
 							text = "Genres"
 						)
-						detail.genres.takeIf { it.isNotEmpty() }?.let {
+						detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
 							GenreChips(it)
 						}
 					}
 					Text(
 						modifier = modifier.padding(16.dp), text = "Story Line"
 					)
-					detail.overview?.let {
+					detail.movieDetail.overview?.let {
 						Text(
 							modifier = modifier.padding(16.dp), text = it
 						)

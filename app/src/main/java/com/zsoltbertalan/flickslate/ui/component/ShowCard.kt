@@ -10,6 +10,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.design.Colors
@@ -29,7 +30,9 @@ fun ShowCard(
 	isFirst: Boolean = false,
 ) {
 	Box(
-		modifier = modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 0.dp)
+		modifier = modifier
+			.padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 0.dp)
+
 	) {
 		ShowDetailCard(
 			title = title,
@@ -70,6 +73,7 @@ fun ShowDetailCard(
 			modifier = Modifier
 				.movieCardWidth(cardType)
 				.padding(start = 140.dp)
+				.testTag("MovieColumn")
 		) {
 			voteAverage?.let {
 				RatingText(rating = it, isFirst = isFirst)
