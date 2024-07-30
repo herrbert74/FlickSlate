@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.common.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import okhttp3.internal.http.HTTP_BAD_REQUEST

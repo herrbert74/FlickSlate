@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.common.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -9,9 +9,9 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.util.runCatchingApi
 import com.zsoltbertalan.flickslate.common.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
-import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
-import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
+import com.zsoltbertalan.flickslate.data.repository.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
+import com.zsoltbertalan.flickslate.data.repository.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
+import com.zsoltbertalan.flickslate.data.repository.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

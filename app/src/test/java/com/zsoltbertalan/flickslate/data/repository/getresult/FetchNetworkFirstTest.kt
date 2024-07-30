@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -8,7 +8,6 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
-import com.zsoltbertalan.flickslate.common.util.getresult.fetchNetworkFirstResponse
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -18,16 +17,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchNetworkFirstResponseTest {
+class FetchNetworkFirstTest {
 
 	@Test
 	fun `when network has data then emit once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchNetworkFirstResponse(
+		val flow = fetchNetworkFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = makeNetworkRequestResponse(),
+			makeNetworkRequest = makeNetworkRequest(),
 			mapper = GenreResponse::toGenres,
 		)
 
@@ -41,9 +40,9 @@ class FetchNetworkFirstResponseTest {
 	fun `when network has NO data and cache has data then emit once`() = runTest {
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchNetworkFirstResponse(
+		val flow = fetchNetworkFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestResponse(),
+			makeNetworkRequest = failNetworkRequest(),
 			mapper = GenreResponse::toGenres
 		)
 
@@ -59,9 +58,9 @@ class FetchNetworkFirstResponseTest {
 
 		val fetchFromLocal = { flowOf(null) }
 
-		val flow = fetchNetworkFirstResponse(
+		val flow = fetchNetworkFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestResponse(),
+			makeNetworkRequest = failNetworkRequest(),
 			mapper = GenreResponse::toGenres
 		)
 
@@ -78,9 +77,9 @@ class FetchNetworkFirstResponseTest {
 
 		val job = launch(backgroundScope.coroutineContext) {
 
-			fetchNetworkFirstResponse(
+			fetchNetworkFirst(
 				fetchFromLocal = fetchFromLocal,
-				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
+				makeNetworkRequest = makeNetworkRequestDelayed(),
 				mapper = GenreResponse::toGenres,
 			).collect {
 				results.add(it)

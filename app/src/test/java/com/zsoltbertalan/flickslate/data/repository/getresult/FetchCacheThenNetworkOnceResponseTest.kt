@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -8,8 +8,6 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
-import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY
-import com.zsoltbertalan.flickslate.common.util.getresult.fetchCacheThenNetworkResponse
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -19,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchCacheThenNetworkLaterResponseTest {
+class FetchCacheThenNetworkOnceResponseTest {
 
 	@Test
 	fun `when cache has data and network has data then emit once`() = runTest {
@@ -30,7 +28,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
 			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -48,7 +46,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
 			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -65,7 +63,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestResponse(),
 			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -84,7 +82,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestResponse(),
 			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError)
@@ -104,7 +102,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
 				mapper = GenreResponse::toGenres,
-				strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
+				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 			).collect {
 				results.add(it)
 			}

@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -8,7 +8,6 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
-import com.zsoltbertalan.flickslate.common.util.getresult.fetchNetworkFirst
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -18,17 +17,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchNetworkFirstTest {
+class FetchCacheThenNetworkOnceTest {
 
 	@Test
-	fun `when network has data then emit once`() = runTest {
+	fun `when cache has data and network has data then emit once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchNetworkFirst(
+		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequest(),
 			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -38,13 +38,32 @@ class FetchNetworkFirstTest {
 	}
 
 	@Test
-	fun `when network has NO data and cache has data then emit once`() = runTest {
+	fun `when cache has NO data and network has data then emit once`() = runTest {
+
+		val fetchFromLocal = { flowOf(null) }
+
+		val flow = fetchCacheThenNetwork(
+			fetchFromLocal = fetchFromLocal,
+			makeNetworkRequest = makeNetworkRequest(),
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+		)
+
+		flow.toList() shouldBe listOf(
+			Ok(GenreMother.createGenreList())
+		)
+
+	}
+
+	@Test
+	fun `when cache has data and network has NO data then emit once`() = runTest {
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchNetworkFirst(
+		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreResponse::toGenres
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -55,14 +74,15 @@ class FetchNetworkFirstTest {
 
 
 	@Test
-	fun `when network has NO data and cache has NO data then emit error`() = runTest {
+	fun `when cache has NO data and network has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
 
-		val flow = fetchNetworkFirst(
+		val flow = fetchCacheThenNetwork(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreResponse::toGenres
+			mapper = GenreResponse::toGenres,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError)
@@ -70,7 +90,7 @@ class FetchNetworkFirstTest {
 	}
 
 	@Test
-	fun `when fetch is cancelled then do not emit`() = runTest {
+	fun `when cache has data and fetch is cancelled then emit only once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
@@ -78,10 +98,11 @@ class FetchNetworkFirstTest {
 
 		val job = launch(backgroundScope.coroutineContext) {
 
-			fetchNetworkFirst(
+			fetchCacheThenNetwork(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayed(),
 				mapper = GenreResponse::toGenres,
+				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 			).collect {
 				results.add(it)
 			}
@@ -91,7 +112,9 @@ class FetchNetworkFirstTest {
 		delay(500)
 		job.cancel()
 
-		results shouldBe emptyList()
+		results shouldBe listOf(
+			Ok(GenreMother.createGenreList()),
+		)
 
 	}
 

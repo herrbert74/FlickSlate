@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.util.getresult
+package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -8,8 +8,6 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
-import com.zsoltbertalan.flickslate.common.util.getresult.STRATEGY
-import com.zsoltbertalan.flickslate.common.util.getresult.fetchCacheThenNetworkResponse
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -19,18 +17,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchCacheThenNetworkOnceResponseTest {
+class FetchNetworkFirstResponseTest {
 
 	@Test
-	fun `when cache has data and network has data then emit once`() = runTest {
+	fun `when network has data then emit once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchNetworkFirstResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
 			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
 		flow.toList() shouldBe listOf(
@@ -40,32 +37,13 @@ class FetchCacheThenNetworkOnceResponseTest {
 	}
 
 	@Test
-	fun `when cache has NO data and network has data then emit once`() = runTest {
-
-		val fetchFromLocal = { flowOf(null) }
-
-		val flow = fetchCacheThenNetworkResponse(
-			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
-		)
-
-		flow.toList() shouldBe listOf(
-			Ok(GenreMother.createGenreList())
-		)
-
-	}
-
-	@Test
-	fun `when cache has data and network has NO data then emit once`() = runTest {
+	fun `when network has NO data and cache has data then emit once`() = runTest {
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchNetworkFirstResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestResponse(),
-			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			mapper = GenreResponse::toGenres
 		)
 
 		flow.toList() shouldBe listOf(
@@ -76,15 +54,14 @@ class FetchCacheThenNetworkOnceResponseTest {
 
 
 	@Test
-	fun `when cache has NO data and network has NO data then emit error`() = runTest {
+	fun `when network has NO data and cache has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchNetworkFirstResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestResponse(),
-			mapper = GenreResponse::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			mapper = GenreResponse::toGenres
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError)
@@ -92,7 +69,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 	}
 
 	@Test
-	fun `when cache has data and fetch is cancelled then emit only once`() = runTest {
+	fun `when fetch is cancelled then do not emit`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
@@ -100,11 +77,10 @@ class FetchCacheThenNetworkOnceResponseTest {
 
 		val job = launch(backgroundScope.coroutineContext) {
 
-			fetchCacheThenNetworkResponse(
+			fetchNetworkFirstResponse(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
 				mapper = GenreResponse::toGenres,
-				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 			).collect {
 				results.add(it)
 			}
@@ -114,9 +90,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		delay(500)
 		job.cancel()
 
-		results shouldBe listOf(
-			Ok(GenreMother.createGenreList()),
-		)
+		results shouldBe emptyList()
 
 	}
 

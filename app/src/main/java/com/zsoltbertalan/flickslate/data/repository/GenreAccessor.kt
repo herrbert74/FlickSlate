@@ -11,7 +11,7 @@ import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.common.util.runCatchingApi
-import com.zsoltbertalan.flickslate.common.util.getresult.fetchCacheThenNetworkResponse
+import com.zsoltbertalan.flickslate.data.repository.getresult.fetchCacheThenNetworkResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
