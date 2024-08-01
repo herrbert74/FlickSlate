@@ -103,6 +103,7 @@ dependencies {
 	implementation(libs.decompose.extensionsJetBrains)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
+	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.kotlin.parcelize.runtime)
 	implementation(libs.squareUp.okhttp3.loggingInterceptor)
 	implementation(libs.timber)

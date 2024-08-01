@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.data.repository.getresult
 
+import com.zsoltbertalan.flickslate.data.network.dto.ErrorBody
 import com.zsoltbertalan.flickslate.domain.model.Failure
+import kotlinx.serialization.json.Json
 import okhttp3.internal.http.HTTP_BAD_REQUEST
 import okhttp3.internal.http.HTTP_NOT_FOUND
 import okhttp3.internal.http.HTTP_NOT_MODIFIED
@@ -14,7 +16,11 @@ import java.net.UnknownHostException
  */
 fun Throwable.handle() = when (this) {
 	is UnknownHostException -> Failure.UnknownHostFailure
-	is HttpException -> Failure.ServerError
+	is HttpException -> {
+		val errorJson = this.response()?.errorBody()?.string() ?: ""
+		val errorBody = Json.decodeFromString<ErrorBody>(errorJson)
+		Failure.ServerError(errorBody.status_message)
+	}
 	is IOException -> Failure.IoFailure
 	else -> throw this
 }
@@ -23,8 +29,8 @@ fun Throwable.handle() = when (this) {
  * Handle all unsuccessful Responses.
  */
 fun <T> Response<T>.handleCode() = when {
-	this.code() == HTTP_BAD_REQUEST -> Failure.ServerError
-	this.code() == HTTP_NOT_FOUND -> Failure.ServerError
+	this.code() == HTTP_BAD_REQUEST -> Failure.ServerError("Bad request")
+	this.code() == HTTP_NOT_FOUND -> Failure.ServerError("Not found")
 	this.code() == HTTP_NOT_MODIFIED -> Failure.NotModified
 	else -> Failure.UnknownApiError
 }

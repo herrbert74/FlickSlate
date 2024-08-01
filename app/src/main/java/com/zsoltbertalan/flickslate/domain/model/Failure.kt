@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.domain.model
 
 sealed class Failure {
 
-	data object ServerError : Failure()
+	data class ServerError(val message: String) : Failure()
 	data object UnknownApiError : Failure()
 	data object IoFailure : Failure()
 	data object UnknownHostFailure : Failure()

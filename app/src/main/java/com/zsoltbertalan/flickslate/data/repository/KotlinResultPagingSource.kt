@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.zsoltbertalan.flickslate.common.util.Outcome
+import com.zsoltbertalan.flickslate.domain.model.Failure
 
 const val PAGING_PAGE_SIZE = 30
 const val PAGING_PREFETCH_DISTANCE = 5
@@ -28,6 +29,12 @@ class KotlinResultPagingSource<T : Any>(
 		}
 	}
 
+	/**
+	 * Executes the loading block, with which this source was initialised.
+	 *
+	 * Because [androidx.paging.PagingSource.LoadResult] can only handle [Throwable]s,
+	 * we have to wrap the [Failure] message into an Exception and rethrow it to handle them together with other Errors.
+	 */
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
 		val page = params.key ?: 1
 		return try {
@@ -38,7 +45,10 @@ class KotlinResultPagingSource<T : Any>(
 					prevKey = if (page == 1) null else page - 1,
 					nextKey = if (page == result.value.second) null else page + 1
 				)
-				else -> throw Exception()
+				else -> {
+					val serverError = result.error as Failure.ServerError
+					throw Exception(serverError.message)
+				}
 			}
 		} catch (e: Exception) {
 			LoadResult.Error(e)

@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.zsoltbertalan.flickslate.R
-import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.domain.model.Movie
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
-import com.zsoltbertalan.flickslate.presentation.util.navigate
 import com.zsoltbertalan.flickslate.presentation.component.ListTitle
-import com.zsoltbertalan.flickslate.presentation.component.ShowLoading
 import com.zsoltbertalan.flickslate.presentation.component.ShowCard
+import com.zsoltbertalan.flickslate.presentation.component.ShowLoading
+import com.zsoltbertalan.flickslate.presentation.design.Colors
+import com.zsoltbertalan.flickslate.presentation.util.navigate
 
 @Composable
 fun MoviesScreen(
@@ -96,7 +96,8 @@ private fun LazyListScope.showPopularMovies(
 
 		popularMovies.loadState.refresh is LoadState.Error -> {
 			item {
-				Text(text = "Not Loading")
+				val stateError = (popularMovies.loadState.refresh as LoadState.Error)
+				Text(text = stateError.error.message ?: "Not loading" )
 			}
 		}
 	}
@@ -151,7 +152,8 @@ private fun LazyListScope.showUpcomingMovies(
 
 		upcomingMovies.loadState.refresh is LoadState.Error -> {
 			item {
-				Text(text = "Not Loading")
+				val stateError = (upcomingMovies.loadState.refresh as LoadState.Error)
+				Text(text = stateError.error.message ?: "Not loading" )
 			}
 		}
 	}
@@ -205,7 +207,8 @@ private fun LazyListScope.showNowPlayingMovies(
 
 		nowPlayingMovies.loadState.refresh is LoadState.Error -> {
 			item {
-				Text(text = "Not Loading")
+				val stateError = (nowPlayingMovies.loadState.refresh as LoadState.Error)
+				Text(text = stateError.error.message ?: "Not loading" )
 			}
 		}
 	}
