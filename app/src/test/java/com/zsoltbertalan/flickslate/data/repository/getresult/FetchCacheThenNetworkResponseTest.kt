@@ -5,17 +5,13 @@ import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
-import com.zsoltbertalan.flickslate.common.testhelper.GenreDtoMother
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Test
-import retrofit2.Response
 
 class FetchCacheThenNetworkResponseTest {
 
@@ -60,7 +56,7 @@ class FetchCacheThenNetworkResponseTest {
 
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestResponse(),
+			makeNetworkRequest = failNetworkRequestWithResponse(),
 			mapper = GenreResponse::toGenres
 		)
 
@@ -70,33 +66,19 @@ class FetchCacheThenNetworkResponseTest {
 
 	}
 
-
 	@Test
 	fun `when cache has NO data and network has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
-
+		println("nonce")
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestResponse(),
+			makeNetworkRequest = failNetworkRequestWithResponse(),
 			mapper = GenreResponse::toGenres
 		)
 
-		flow.first() shouldBe Err(Failure.ServerError)
+		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
 
 	}
 
 }
-
-suspend fun makeNetworkRequestDelayedResponse(): suspend () -> Response<GenreResponse> = suspend {
-	delay(1000)
-	Response.success(GenreResponse(GenreDtoMother.createGenreDtoList()))
-}
-
-@Suppress("RedundantSuspendModifier")
-suspend fun makeNetworkRequestResponse(): () -> Response<GenreResponse> =
-	{ Response.success(GenreResponse(GenreDtoMother.createGenreDtoList())) }
-
-@Suppress("RedundantSuspendModifier")
-suspend fun failNetworkRequestResponse(): () -> Response<GenreResponse> =
-	{ Response.error(400, "This is  synthetic error".toResponseBody()) }

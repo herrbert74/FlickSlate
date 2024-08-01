@@ -7,7 +7,6 @@ import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
 import com.zsoltbertalan.flickslate.common.util.Outcome
-import com.zsoltbertalan.flickslate.common.testhelper.GenreDtoMother
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
@@ -16,11 +15,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Response
 
 class FetchCacheThenNetworkTest {
 
@@ -86,7 +81,7 @@ class FetchCacheThenNetworkTest {
 			mapper = GenreResponse::toGenres
 		)
 
-		flow.first() shouldBe Err(Failure.ServerError)
+		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
 
 	}
 
@@ -120,21 +115,3 @@ class FetchCacheThenNetworkTest {
 
 }
 
-suspend fun makeNetworkRequestDelayed(): suspend () -> GenreResponse = suspend {
-	delay(1000)
-	GenreResponse(GenreDtoMother.createGenreDtoList())
-}
-
-fun makeNetworkRequest(): suspend () -> GenreResponse = suspend {
-	GenreResponse(GenreDtoMother.createGenreDtoList())
-}
-
-@Suppress("RedundantSuspendModifier")
-suspend fun failNetworkRequest(): () -> GenreResponse = { throw httpException }
-
-val httpException = HttpException(
-	Response.error<GenreResponse>(
-		404,
-		"Network error".toResponseBody("plain/text".toMediaTypeOrNull())
-	)
-)

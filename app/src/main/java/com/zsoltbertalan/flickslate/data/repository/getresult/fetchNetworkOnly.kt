@@ -67,7 +67,7 @@ suspend inline fun <REMOTE, DOMAIN> fetchNetworkOnlyResponse(
 		if (response.isSuccessful) {
 			Ok(response.body()!!)
 		} else {
-			Err(response.handleCode())
+			Err(response.handle())
 		}
 	}.map {
 		it.mapper()

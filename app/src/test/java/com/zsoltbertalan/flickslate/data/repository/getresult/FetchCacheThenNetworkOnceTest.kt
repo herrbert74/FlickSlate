@@ -85,7 +85,7 @@ class FetchCacheThenNetworkOnceTest {
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
-		flow.first() shouldBe Err(Failure.ServerError)
+		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
 
 	}
 

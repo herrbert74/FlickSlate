@@ -18,7 +18,8 @@ typealias Outcome<T> = Result<T, Failure>
  * CancellationException, @return [Outcome].
  */
 inline fun <V> runCatchingApi(block: () -> V) = runCatching(block)
-	.mapError { it.handle() }
+	.mapError { println("handling")
+		it.handle() }
 
 /**
  * [runCatching] version that handles expected Exceptions and rethrows everything else, including Errors and
@@ -26,7 +27,10 @@ inline fun <V> runCatchingApi(block: () -> V) = runCatching(block)
  * To be called on a receiver, for example DataSource.runCatchingApi {...}.
  */
 inline fun <T, V> T.runCatchingApi(block: T.() -> V) = runCatching(block)
-	.mapError { it.handle() }
+	.mapError {
+		println("handling")
+		it.handle()
+	}
 
 /**
  * [runCatching] version that handles all Throwables, and logs them.

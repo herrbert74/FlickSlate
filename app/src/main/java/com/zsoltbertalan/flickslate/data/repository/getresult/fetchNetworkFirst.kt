@@ -117,7 +117,7 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 			runCatchingUnit { saveResponseData(response) }
 			Ok(response.body())
 		} else {
-			Err(response.handleCode())
+			Err(response.handle())
 		}
 	}.map {
 		it?.mapper()

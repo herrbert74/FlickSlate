@@ -28,9 +28,10 @@ fun Throwable.handle() = when (this) {
 /**
  * Handle all unsuccessful Responses.
  */
-fun <T> Response<T>.handleCode() = when {
-	this.code() == HTTP_BAD_REQUEST -> Failure.ServerError("Bad request")
-	this.code() == HTTP_NOT_FOUND -> Failure.ServerError("Not found")
+fun <T> Response<T>.handle() = when {
 	this.code() == HTTP_NOT_MODIFIED -> Failure.NotModified
-	else -> Failure.UnknownApiError
+	else -> {
+		val errorJson = this.errorBody()?.string() ?: ""
+		Failure.ServerError(errorJson)
+	}
 }
