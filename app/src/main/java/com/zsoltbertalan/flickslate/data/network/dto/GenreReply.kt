@@ -4,8 +4,8 @@ import com.zsoltbertalan.flickslate.domain.model.Genre
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GenreResponse(
+data class GenreReply(
 	val genres: List<Genres> = emptyList(),
 )
 
-fun GenreResponse.toGenres(): List<Genre> = this.genres.toGenreList()
+fun GenreReply.toGenres(): List<Genre> = this.genres.toGenreList()

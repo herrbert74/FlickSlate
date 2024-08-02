@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.data.repository
 import com.github.michaelbull.result.map
 import com.zsoltbertalan.flickslate.data.db.GenreDataSource
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.common.async.IoDispatcher
@@ -38,7 +38,7 @@ class GenreAccessor @Inject constructor(
 				val genres = genreResponse.body()?.toGenres().orEmpty()
 				genreDataSource.insertGenres(genres)
 			},
-			mapper = GenreResponse::toGenres,
+			mapper = GenreReply::toGenres,
 		).flowOn(dispatcher)
 	}
 

@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
-import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
 import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailResponse
 import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
 import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
@@ -31,7 +31,7 @@ interface FlickSlateService {
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Header("If-None-Match") ifNoneMatch: String = ""
-	): Response<GenreResponse>
+	): Response<GenreReply>
 
 	@GET(URL_MOVIES_POPULAR)
 	suspend fun getPopularMovies(

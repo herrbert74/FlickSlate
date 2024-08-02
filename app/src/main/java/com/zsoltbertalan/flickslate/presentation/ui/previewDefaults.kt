@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.presentation.ui
 
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
 import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailResponse
 import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
 import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
@@ -16,7 +16,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		ifNoneMatch: String
-	): Response<GenreResponse> {
+	): Response<GenreReply> {
 		TODO("Not yet implemented")
 	}
 

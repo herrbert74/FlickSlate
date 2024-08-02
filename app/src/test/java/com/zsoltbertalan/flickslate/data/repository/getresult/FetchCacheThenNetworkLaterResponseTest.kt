@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.data.network.dto.GenreResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
@@ -27,7 +27,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreResponse::toGenres,
+			mapper = GenreReply::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
 		)
 
@@ -45,7 +45,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreResponse::toGenres,
+			mapper = GenreReply::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
 		)
 
@@ -62,7 +62,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreResponse::toGenres,
+			mapper = GenreReply::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
 		)
 
@@ -81,7 +81,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreResponse::toGenres,
+			mapper = GenreReply::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
 		)
 
@@ -101,7 +101,7 @@ class FetchCacheThenNetworkLaterResponseTest {
 			fetchCacheThenNetworkResponse(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
-				mapper = GenreResponse::toGenres,
+				mapper = GenreReply::toGenres,
 				strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER
 			).collect {
 				results.add(it)
