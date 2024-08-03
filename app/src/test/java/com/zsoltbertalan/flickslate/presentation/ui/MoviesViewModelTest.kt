@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.presentation.ui
 
 import androidx.paging.PagingData
+import com.zsoltbertalan.flickslate.common.testhelper.MovieMother
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.model.Movie
-import com.zsoltbertalan.flickslate.common.testhelper.MovieMother
 import com.zsoltbertalan.flickslate.presentation.ui.movies.MoviesViewModel
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.mockk.coEvery
@@ -60,5 +60,3 @@ class MoviesViewModelTest {
 	}
 
 }
-
-

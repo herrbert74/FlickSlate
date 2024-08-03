@@ -24,7 +24,7 @@ object MovieMother {
 		createDefaultMovie(id = 10, title = "name6"),
 		createDefaultMovie(id = 11, title = "name6"),
 		createDefaultMovie(id = 12, title = "name6"),
-		createDefaultMovie(id = 12, title = "name6"),
+		createDefaultMovie(id = 13, title = "name6"),
 	)
 
 	fun createPopularMovieList() = listOf(
@@ -41,7 +41,24 @@ object MovieMother {
 		createDefaultMovie(id = 10, title = "name6"),
 		createDefaultMovie(id = 11, title = "name6"),
 		createDefaultMovie(id = 12, title = "name6"),
+		createDefaultMovie(id = 13, title = "name6"),
+	)
+
+	fun createNowPlayingMovieList() = listOf(
+		createDefaultMovie(id = 0, title = "name101", overview = "Overview 0"),
+		createDefaultMovie(id = 1, title = "name102"),
+		createDefaultMovie(id = 2, title = "name103", overview = "Overview 2"),
+		createDefaultMovie(id = 3, title = "name104", overview = "Overview 3"),
+		createDefaultMovie(id = 4, title = "name105"),
+		createDefaultMovie(id = 5, title = "name106"),
+		createDefaultMovie(id = 6, title = "name6"),
+		createDefaultMovie(id = 7, title = "name6"),
+		createDefaultMovie(id = 8, title = "name6"),
+		createDefaultMovie(id = 9, title = "name6"),
+		createDefaultMovie(id = 10, title = "name6"),
+		createDefaultMovie(id = 11, title = "name6"),
 		createDefaultMovie(id = 12, title = "name6"),
+		createDefaultMovie(id = 13, title = "name6"),
 	)
 
 	fun createUpcomingMovieList() = listOf(
@@ -58,7 +75,7 @@ object MovieMother {
 		createDefaultMovie(id = 10, title = "name6"),
 		createDefaultMovie(id = 11, title = "name6"),
 		createDefaultMovie(id = 12, title = "name6"),
-		createDefaultMovie(id = 12, title = "name6"),
+		createDefaultMovie(id = 13, title = "name6"),
 	)
 
 	fun createMovieDetail(
