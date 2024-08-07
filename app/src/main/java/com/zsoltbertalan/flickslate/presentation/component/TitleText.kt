@@ -13,7 +13,7 @@ import com.zsoltbertalan.flickslate.presentation.design.FixedColors
 import com.zsoltbertalan.flickslate.presentation.design.titleMediumBold
 
 @Composable
-fun TitleText(modifier: Modifier = Modifier, title: String, isFirst: Boolean = false) {
+fun TitleText(title: String, modifier: Modifier = Modifier, isFirst: Boolean = false) {
 	Text(
 		modifier = modifier
 			.fillMaxWidth()

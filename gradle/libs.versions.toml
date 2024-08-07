@@ -35,7 +35,7 @@ google-firebase-crashlytics = "18.3.5"
 google-firebase-database = "31.2.3"
 google-firebase-config = "31.2.3"
 moshi = "1.15.1"
-okhttp = "5.0.0-alpha.12"
+okhttp = "5.0.0-alpha.14"
 retrofit = "2.11.0"
 #facebook = "16.1.2"
 chucker = "4.0.0"
@@ -289,6 +289,7 @@ realm-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.4.9" }
 
 kotlinResult-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlinResult" }
 kotlinResult-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlinResult" }

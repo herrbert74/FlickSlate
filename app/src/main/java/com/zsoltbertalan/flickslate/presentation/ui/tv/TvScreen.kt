@@ -23,8 +23,8 @@ import com.zsoltbertalan.flickslate.presentation.component.ShowCard
 
 @Composable
 fun TvScreen(
-	modifier: Modifier = Modifier,
 	topRatedTv: LazyPagingItems<Tv>,
+	modifier: Modifier = Modifier,
 	popTo: (Int) -> Unit,
 ) {
 	LazyColumn(

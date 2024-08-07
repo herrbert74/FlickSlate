@@ -13,7 +13,7 @@ import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.presentation.design.FixedColors
 
 @Composable
-fun RatingText(modifier: Modifier = Modifier, rating: Float, isFirst: Boolean = false) {
+fun RatingText(rating: Float, modifier: Modifier = Modifier, isFirst: Boolean = false) {
 	Text(
 		modifier = modifier
 			.fillMaxWidth()

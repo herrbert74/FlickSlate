@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.presentation.design.Colors
 
 @Composable
-fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
+fun ListTitle(@StringRes titleId: Int, modifier: Modifier = Modifier) {
 	val titleRemember by remember {
 		mutableIntStateOf(titleId)
 	}
@@ -31,7 +31,7 @@ fun ListTitle(modifier: Modifier = Modifier, @StringRes titleId: Int) {
 }
 
 @Composable
-fun ListTitle(modifier: Modifier = Modifier, title: String) {
+fun ListTitle(title: String, modifier: Modifier = Modifier) {
 	val titleRemember by remember {
 		mutableStateOf(title)
 	}

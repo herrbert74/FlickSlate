@@ -36,15 +36,16 @@ const val GENRE_DETAIL_ROUTE = "genreDetail/{genreId}/{genreName}"
 fun NavHostContainer(
 	navController: NavHostController,
 	paddingValues: PaddingValues,
+	modifier: Modifier = Modifier,
+	viewModel: MoviesViewModel = hiltViewModel<MoviesViewModel>(),
+	searchViewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
+	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
 ) {
-	val viewModel = hiltViewModel<MoviesViewModel>()
-	val searchViewModel = hiltViewModel<SearchViewModel>()
-	val tvViewModel = hiltViewModel<TvViewModel>()
 
 	NavHost(
 		navController = navController,
 		startDestination = Destination.MOVIE.route,
-		modifier = Modifier.padding(paddingValues),
+		modifier = modifier.padding(paddingValues),
 		builder = {
 			composable(Destination.MOVIE.route) {
 				val popularMovies = viewModel.popularMoviesList.collectAsLazyPagingItems()

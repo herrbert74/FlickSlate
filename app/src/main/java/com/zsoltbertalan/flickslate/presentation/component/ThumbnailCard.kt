@@ -34,7 +34,7 @@ private const val IMAGE_REQUEST_WIDTH = 200
 private const val IMAGE_REQUEST_HEIGHT = 380
 
 @Composable
-fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
+fun ThumbnailCard(posterThumbnail: String, modifier: Modifier = Modifier) {
 	val painter = rememberAsyncImagePainter(
 		model = ImageRequest.Builder(LocalContext.current)
 			.data("$BASE_IMAGE_PATH$posterThumbnail")
@@ -57,14 +57,14 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 			Image(
 				painter = painterRem,
 				contentDescription = "",
-				modifier = modifier.fillMaxHeight(),
+				modifier = Modifier.fillMaxHeight(),
 				contentScale = ContentScale.Crop
 			)
 		}
 
 		is AsyncImagePainter.State.Error ->
 			Box(
-				modifier = modifier
+				modifier = Modifier
 					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 					.width(120.dp)
 					.height(IMAGE_REQUEST_WIDTH.dp),
@@ -78,7 +78,7 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 			}
 
 		is AsyncImagePainter.State.Loading -> Box(
-			modifier = modifier
+			modifier = Modifier
 				.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 				.width(120.dp)
 				.height(IMAGE_REQUEST_WIDTH.dp),

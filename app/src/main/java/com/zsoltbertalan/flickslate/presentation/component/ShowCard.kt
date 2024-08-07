@@ -21,11 +21,11 @@ import com.zsoltbertalan.flickslate.presentation.util.movieCardWidth
 
 @Composable
 fun ShowCard(
-	modifier: Modifier = Modifier,
 	title: String?,
 	voteAverage: Float?,
 	overview: String?,
 	posterPath: String?,
+	modifier: Modifier = Modifier,
 	cardType: MovieCardType = MovieCardType.FULL,
 	isFirst: Boolean = false,
 ) {
@@ -49,11 +49,11 @@ fun ShowCard(
 
 @Composable
 fun ShowDetailCard(
-	modifier: Modifier = Modifier,
 	title: String?,
 	overview: String?,
 	voteAverage: Float?,
 	cardType: MovieCardType,
+	modifier: Modifier = Modifier,
 	isFirst: Boolean = false,
 ) {
 	Card(
@@ -90,7 +90,7 @@ fun ShowDetailCard(
 
 @Preview
 @Composable
-fun ShowDetailCardPreview() {
+private fun ShowDetailCardPreview() {
 	FlickSlateTheme {
 		ShowDetailCard(
 			title = "Brazil",

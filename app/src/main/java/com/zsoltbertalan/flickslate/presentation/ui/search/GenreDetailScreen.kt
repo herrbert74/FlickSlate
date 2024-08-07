@@ -34,11 +34,12 @@ fun GenreDetailScreen(
 	genreDetailList: LazyPagingItems<Movie>,
 	genreName: String,
 	popBackStack: () -> Boolean,
+	modifier: Modifier = Modifier,
 	popTo: (Int) -> Unit,
 ) {
 
 	Scaffold(
-		modifier = Modifier.fillMaxSize(),
+		modifier = modifier.fillMaxSize(),
 		topBar = {
 			TopAppBar(title = { Text("Genre Details") },
 				navigationIcon = {

@@ -26,8 +26,8 @@ import com.zsoltbertalan.flickslate.presentation.navigation.Destination
 
 @Composable
 fun FlickSlateBottomNavigationBar(
-	modifier: Modifier = Modifier,
 	navController: NavHostController,
+	modifier: Modifier = Modifier,
 	itemList: List<Destination> = Destination.entries,
 ) {
 

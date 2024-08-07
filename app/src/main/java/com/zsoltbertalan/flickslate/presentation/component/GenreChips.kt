@@ -18,9 +18,9 @@ import com.zsoltbertalan.flickslate.domain.model.Genre
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GenreChips(genres: List<Genre>) {
+fun GenreChips(genres: List<Genre>, modifier: Modifier = Modifier) {
 	FlowRow(
-		Modifier
+		modifier
 			.fillMaxWidth(1f)
 			.wrapContentHeight(align = Alignment.Top),
 		horizontalArrangement = Arrangement.Start,
@@ -45,9 +45,10 @@ fun GenreChips(genres: List<Genre>) {
 
 @Preview
 @Composable
-fun GenreChipsPreview() {
+private fun GenreChipsPreview() {
 	FlickSlateTheme {
 		GenreChips(
+			modifier = Modifier,
 			genres = listOf(
 				Genre(name = "Action"),
 				Genre(name = "Adventure"),

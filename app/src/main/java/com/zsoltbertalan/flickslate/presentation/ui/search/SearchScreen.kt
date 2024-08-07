@@ -52,11 +52,11 @@ import com.zsoltbertalan.flickslate.presentation.component.ListTitle
 
 @Composable
 fun SearchScreen(
-	modifier: Modifier = Modifier,
 	searchState: SearchState,
 	searchEvent: (SearchEvent) -> Unit,
 	navigateToGenreDetails: (Int, String) -> Unit,
 	navigateToMovieDetails: (Int) -> Unit,
+	modifier: Modifier = Modifier,
 ) {
 
 	var isSearchBarActive by rememberSaveable { mutableStateOf(false) }
@@ -141,8 +141,8 @@ private const val SCALE_PIVOT_X = 0.5f
 
 @Composable
 private fun SearchResultUi(
-	modifier: Modifier = Modifier,
 	uiState: SearchState,
+	modifier: Modifier = Modifier,
 	navigateToMovieDetails: (Int) -> Unit
 ) {
 	val isResultReady by remember(
@@ -207,17 +207,17 @@ private fun GenreList(list: List<Genre>, navigateToGenreDetails: (Int, String) -
 			item.name?.let {
 				Box(
 					modifier = Modifier
-						.clickable {
-							item.id?.let {
-								navigateToGenreDetails(it, item.name)
-							}
-						}
 						.padding(4.dp)
 						.background(
 							color = listOfColors[index % listOfColors.size],
 							shape = RoundedCornerShape(8.dp)
 						)
-						.size(100.dp),
+						.size(100.dp)
+						.clickable {
+							item.id?.let {
+								navigateToGenreDetails(it, item.name)
+							}
+						},
 					contentAlignment = Alignment.Center
 				) {
 					Text(text = it, fontWeight = FontWeight.Bold, color = Colors.onPrimaryContainer)

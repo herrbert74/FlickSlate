@@ -12,7 +12,10 @@ detekt {
             required.set false //true by default, despite what docs say
         }
     }
-    config = files("$rootDir/config/detekt/default-detekt-config.yml")
+    config = files(
+            "$rootDir/config/detekt/default-detekt-config.yml",
+            "$rootDir/config/detekt/compose-detekt-config.yml"
+    )
     input = files(
             "src/main/java",
             "src/test/java",

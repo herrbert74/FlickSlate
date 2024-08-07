@@ -13,7 +13,7 @@ import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.presentation.design.FixedColors
 
 @Composable
-fun DescriptionText(modifier: Modifier = Modifier, description: String, isFirst: Boolean = false) {
+fun DescriptionText(description: String, modifier: Modifier = Modifier, isFirst: Boolean = false) {
 	Text(
 		modifier = modifier
 			.fillMaxWidth()

@@ -131,6 +131,7 @@ dependencies {
 	kspTest(libs.google.dagger.hilt.androidCompiler)
 	kspAndroidTest(libs.google.dagger.hilt.androidCompiler)
 
+	detektPlugins(libs.detekt.compose)
 	implementation(libs.coil)
 
 	implementation(libs.inject)

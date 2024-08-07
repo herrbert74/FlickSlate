@@ -27,10 +27,10 @@ import com.zsoltbertalan.flickslate.presentation.util.navigate
 
 @Composable
 fun MoviesScreen(
-	modifier: Modifier = Modifier,
 	popularMovies: LazyPagingItems<Movie>,
 	nowPlaying: LazyPagingItems<Movie>,
 	upcoming: LazyPagingItems<Movie>,
+	modifier: Modifier = Modifier,
 	navigateToDetail: (Int) -> Unit,
 ) {
 	LazyColumn(

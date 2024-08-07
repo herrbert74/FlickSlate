@@ -85,10 +85,8 @@ fun MovieDetailScreen(
 		}
 	}
 
-
-
 	Scaffold(
-		modifier = Modifier.fillMaxSize(),
+		modifier = modifier.fillMaxSize(),
 		topBar = {
 			TopAppBar(title = { Text("Movie Details") },
 				navigationIcon = {
@@ -124,13 +122,13 @@ fun MovieDetailScreen(
 				) {
 					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
 						Text(
-							modifier = modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
+							modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
 						)
 						VerticalDivider(
 							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
 						)
 						Text(
-							modifier = modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
+							modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
 						)
 					}
 					Column(
@@ -145,11 +143,11 @@ fun MovieDetailScreen(
 						}
 					}
 					Text(
-						modifier = modifier.padding(16.dp), text = "Story Line"
+						modifier = Modifier.padding(16.dp), text = "Story Line"
 					)
 					detail.movieDetail.overview?.let {
 						Text(
-							modifier = modifier.padding(16.dp), text = it
+							modifier = Modifier.padding(16.dp), text = it
 						)
 					}
 					Spacer(modifier = Modifier.height(200.dp))
