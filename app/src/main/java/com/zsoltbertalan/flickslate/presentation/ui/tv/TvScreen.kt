@@ -66,20 +66,18 @@ private fun LazyListScope.showTopRatedTv(
 	}
 
 	when {
-		topRatedTv.loadState.refresh is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.top_rated_tv)
-				)
-			}
+		topRatedTv.loadState.refresh is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.top_rated_tv)
+			)
 		}
 
-		topRatedTv.loadState.append is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.top_rated_tv)
-				)
-			}
+		topRatedTv.loadState.append is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.top_rated_tv)
+			)
 		}
+
 	}
+
 }

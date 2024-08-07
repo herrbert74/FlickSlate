@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.data.network.dto
 
 import kotlinx.serialization.Serializable
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class TopRatedTvResponse(
 	val page: Int? = null,

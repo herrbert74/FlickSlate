@@ -38,7 +38,7 @@ class SearchViewModel @Inject constructor(
 
 	private fun listenEvent(event: SearchEvent) {
 		when (event) {
-			is SearchEvent.SearchQuery -> {
+			is SearchEvent.SearchQuery ->
 				viewModelScope.launch {
 					_searchStateData.update {
 						it.copy(searchQuery = event.query)
@@ -62,20 +62,19 @@ class SearchViewModel @Inject constructor(
 						}
 					}
 				}
-			}
+
 
 			is SearchEvent.OpenGenre -> {
 
 			}
 
-			is SearchEvent.SearchClear -> {
-				_searchStateData.update {
-					it.copy(
-						searchResult = emptyList(),
-						searchQuery = ""
-					)
-				}
+			is SearchEvent.SearchClear -> _searchStateData.update {
+				it.copy(
+					searchResult = emptyList(),
+					searchQuery = ""
+				)
 			}
+
 		}
 	}
 

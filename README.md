@@ -2,13 +2,11 @@
 
 An Android app using the [TMDB API](https://developer.themoviedb.org/docs/getting-started).
 
-## 📚 Tech stack
-
 The goal of FlickSlate is to showcase best practices and learn some new techniques.
 
 It also showcases some of the techniques used in my articles about [caching](https://herrbert74.github.io/posts/caching-strategies-in-android/) and [architecture](https://herrbert74.github.io/posts/architecture-related-decisions-introduction/)
 
-### 🧑🏻‍💻 Multiplatform development
+## 📚 Tech stack
 
 - Application entirely written in [Kotlin](https://kotlinlang.org)
 - UI developed in [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)

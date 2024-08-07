@@ -50,9 +50,8 @@ class FlickSlateActivity : ComponentActivity() {
 					MOVIE_DETAIL_ROUTE, TV_DETAIL_ROUTE, GENRE_DETAIL_ROUTE -> bottomBarState.value =
 						false
 
-					else -> {
-						if (!bottomBarState.value) bottomBarState.value = true
-					}
+					else -> if (!bottomBarState.value) bottomBarState.value = true
+
 				}
 				Scaffold(
 					modifier = Modifier.fillMaxSize(),

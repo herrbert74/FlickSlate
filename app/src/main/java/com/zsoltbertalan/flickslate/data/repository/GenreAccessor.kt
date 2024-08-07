@@ -46,7 +46,7 @@ class GenreAccessor @Inject constructor(
 		genreId: Int,
 	) = createPager { page ->
 		flickSlateService.runCatchingApi {
-			getGenreMovie(with_genres = genreId, page = page)
+			getGenreMovie(withGenres = genreId, page = page)
 		}.map { Pair(it.toMoviesResponse().movies, it.total_pages ?: 0) }
 	}.flow
 

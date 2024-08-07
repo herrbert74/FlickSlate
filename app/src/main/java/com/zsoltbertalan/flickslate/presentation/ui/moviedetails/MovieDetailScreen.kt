@@ -49,6 +49,8 @@ import com.zsoltbertalan.flickslate.presentation.util.extractColorsFromBitmap
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
 
+private const val HEADER_IMAGE_ASPECT_RATIO = 16f / 9f
+
 @Composable
 fun MovieDetailScreen(
 	modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel(), popBackStack: () -> Boolean
@@ -108,14 +110,14 @@ fun MovieDetailScreen(
 					contentDescription = "",
 					modifier = Modifier
 						.fillMaxWidth()
-						.aspectRatio(16f / 9f),
+						.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
 					contentScale = ContentScale.Crop
 				)
 				Column(
 					modifier = Modifier
 						.background(
 							brush = Brush.linearGradient(
-								0.0f to Color(color1.value), 0.8f to Color(color2.value)
+								listOf( Color(color1.value), Color(color2.value))
 							),
 						)
 						.padding(bottom = 50.dp)

@@ -93,26 +93,18 @@ private fun LazyListScope.showMovies(
 	}
 
 	when {
-		genreMovies.loadState.refresh is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.genre_movies, genreName)
-				)
-			}
+		genreMovies.loadState.refresh is LoadState.Loading -> item {
+			ShowLoading(text = stringResource(id = R.string.genre_movies, genreName))
 		}
 
-		genreMovies.loadState.append is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.genre_movies, genreName)
-				)
-			}
+		genreMovies.loadState.append is LoadState.Loading -> item {
+			ShowLoading(text = stringResource(id = R.string.genre_movies, genreName))
 		}
 
-		genreMovies.loadState.refresh is LoadState.Error -> {
-			item {
-				Text(text = "Not Loading")
-			}
+		genreMovies.loadState.refresh is LoadState.Error -> item {
+			Text(text = "Not Loading")
 		}
+
 	}
+
 }

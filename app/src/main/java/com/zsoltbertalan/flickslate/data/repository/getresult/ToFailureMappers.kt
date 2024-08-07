@@ -3,8 +3,6 @@ package com.zsoltbertalan.flickslate.data.repository.getresult
 import com.zsoltbertalan.flickslate.data.network.dto.ErrorBody
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import kotlinx.serialization.json.Json
-import okhttp3.internal.http.HTTP_BAD_REQUEST
-import okhttp3.internal.http.HTTP_NOT_FOUND
 import okhttp3.internal.http.HTTP_NOT_MODIFIED
 import retrofit2.HttpException
 import retrofit2.Response

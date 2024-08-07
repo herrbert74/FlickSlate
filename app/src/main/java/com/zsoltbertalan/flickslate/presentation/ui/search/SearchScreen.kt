@@ -137,6 +137,8 @@ private fun ShowSearchBar(
 
 }
 
+private const val SCALE_PIVOT_X = 0.5f
+
 @Composable
 private fun SearchResultUi(
 	modifier: Modifier = Modifier,
@@ -153,7 +155,7 @@ private fun SearchResultUi(
 		) + expandVertically(
 			expandFrom = Alignment.Top
 		) + scaleIn(
-			transformOrigin = TransformOrigin(0.5f, 0f)
+			transformOrigin = TransformOrigin(SCALE_PIVOT_X, 0f)
 		) + fadeIn(initialAlpha = 0.3f),
 		exit = slideOutVertically() + shrinkVertically() + scaleOut()
 	) {

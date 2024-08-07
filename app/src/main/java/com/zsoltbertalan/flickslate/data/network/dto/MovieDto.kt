@@ -4,7 +4,7 @@ import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.domain.model.Movie
 import kotlinx.serialization.Serializable
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class MovieDto(
 	val popularity: Float? = null,

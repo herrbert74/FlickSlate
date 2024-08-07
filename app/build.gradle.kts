@@ -9,7 +9,10 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.realm)
+	alias(libs.plugins.detekt)
 }
+
+apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 val tmdbApiKey: String by project
 

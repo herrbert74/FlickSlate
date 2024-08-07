@@ -65,7 +65,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getGenreMovie(with_genres: Int, page: Int?, apiKey: String): MoviesResponseDto {
+	override suspend fun getGenreMovie(withGenres: Int, page: Int?, apiKey: String): MoviesResponseDto {
 		TODO("Not yet implemented")
 	}
 }

@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.data.network.dto
 import com.zsoltbertalan.flickslate.domain.model.MoviesResponse
 import kotlinx.serialization.Serializable
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class NowPlayingMoviesResponse(
 	val page: Int? = null,

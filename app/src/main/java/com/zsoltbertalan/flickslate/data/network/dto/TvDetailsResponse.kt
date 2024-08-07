@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.data.network.dto
 import com.zsoltbertalan.flickslate.domain.model.TvDetail
 import kotlinx.serialization.Serializable
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class TvDetailsResponse(
 	val popularity: Float? = null,

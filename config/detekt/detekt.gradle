@@ -1,0 +1,25 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+detekt {
+    reports {
+        xml {
+            required.set false
+        }
+        txt {
+            required.set false
+        }
+        sarif {
+            required.set false //true by default, despite what docs say
+        }
+    }
+    config = files("$rootDir/config/detekt/default-detekt-config.yml")
+    input = files(
+            "src/main/java",
+            "src/test/java",
+            "src/androidTest/java",
+            "src/main/kotlin",
+            "src/test/kotlin",
+            "src/androidTest/kotlin"
+    )
+    //filters = ".*/resources/.*,.*/build/.*"
+}

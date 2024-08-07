@@ -123,7 +123,6 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 	crossinline mapper: REMOTE.() -> DOMAIN,
 	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
 ) = flow<Outcome<DOMAIN>> {
-	println("fetchCacheThenNetworkResponse: n")
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
@@ -131,7 +130,6 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 		val result = runCatchingApi {
 			makeNetworkRequest()
 		}.andThen { response ->
-			println("fetchCacheThenNetworkResponse: ${response.errorBody()?.string()}")
 			if (response.isSuccessful) {
 				runCatchingUnit { saveResponseData(response) }
 				Ok(response.body())
@@ -139,7 +137,6 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 				Err(response.handle())
 			}
 		}.map {
-			println("fetchCacheThenNetworkResponse: mapping")
 			it?.mapper()
 		}.recoverIf(
 			{ failure -> failure == Failure.NotModified || localData != null },

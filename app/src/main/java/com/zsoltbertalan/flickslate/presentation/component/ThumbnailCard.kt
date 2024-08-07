@@ -30,43 +30,44 @@ import com.zsoltbertalan.flickslate.presentation.design.Colors
 
 const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/original"
 
+private const val IMAGE_REQUEST_WIDTH = 200
+private const val IMAGE_REQUEST_HEIGHT = 380
+
 @Composable
 fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 	val painter = rememberAsyncImagePainter(
 		model = ImageRequest.Builder(LocalContext.current)
 			.data("$BASE_IMAGE_PATH$posterThumbnail")
 			.diskCachePolicy(CachePolicy.ENABLED)
-			.size(200, 380)
+			.size(IMAGE_REQUEST_WIDTH, IMAGE_REQUEST_HEIGHT)
 			.build()
 	)
 	val painterRem by remember(posterThumbnail) {
 		mutableStateOf(painter)
 	}
 	when (painterRem.state) {
-		is AsyncImagePainter.State.Success -> {
-			Card(
-				modifier = modifier
-					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
-					.width(120.dp)
-					.height(200.dp),
-				shape = RoundedCornerShape(8.dp),
-				elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
-			) {
-				Image(
-					painter = painterRem,
-					contentDescription = "",
-					modifier = modifier.fillMaxHeight(),
-					contentScale = ContentScale.Crop
-				)
-			}
+		is AsyncImagePainter.State.Success -> Card(
+			modifier = modifier
+				.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
+				.width(120.dp)
+				.height(IMAGE_REQUEST_WIDTH.dp),
+			shape = RoundedCornerShape(8.dp),
+			elevation = CardDefaults.elevatedCardElevation(defaultElevation = 10.dp),
+		) {
+			Image(
+				painter = painterRem,
+				contentDescription = "",
+				modifier = modifier.fillMaxHeight(),
+				contentScale = ContentScale.Crop
+			)
 		}
 
-		is AsyncImagePainter.State.Error -> {
+		is AsyncImagePainter.State.Error ->
 			Box(
 				modifier = modifier
 					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
 					.width(120.dp)
-					.height(200.dp),
+					.height(IMAGE_REQUEST_WIDTH.dp),
 			) {
 				Icon(
 					modifier = Modifier
@@ -75,21 +76,18 @@ fun ThumbnailCard(modifier: Modifier = Modifier, posterThumbnail: String) {
 					contentDescription = null,
 				)
 			}
-		}
 
-		is AsyncImagePainter.State.Loading -> {
-			Box(
-				modifier = modifier
-					.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
-					.width(120.dp)
-					.height(200.dp),
-			) {
-				CircularProgressIndicator(
-					modifier = Modifier
-						.align(Alignment.Center),
-					color = Colors.primary
-				)
-			}
+		is AsyncImagePainter.State.Loading -> Box(
+			modifier = modifier
+				.padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 24.dp)
+				.width(120.dp)
+				.height(IMAGE_REQUEST_WIDTH.dp),
+		) {
+			CircularProgressIndicator(
+				modifier = Modifier
+					.align(Alignment.Center),
+				color = Colors.primary
+			)
 		}
 
 		else -> Unit

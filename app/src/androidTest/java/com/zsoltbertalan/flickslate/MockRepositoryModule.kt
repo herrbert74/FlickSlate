@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 @TestInstallIn(components = [SingletonComponent::class], replaces = [NetworkModule.RepositoryModule::class])
-class RepositoryModule {
+class MockRepositoryModule {
 
 	@Provides
 	@Singleton

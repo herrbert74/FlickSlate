@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.domain.model.Tv
 import com.babestudios.base.data.mapNullInputList
 import kotlinx.serialization.Serializable
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class TvDto(
 	val popularity: Float? = null,

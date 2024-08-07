@@ -5,27 +5,31 @@ import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
 import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
 import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
 
+private const val TOTAL_RESULTS = 300
+
+private const val TOTAL_PAGES = 3
+
 object MovieDtoMother {
 
 	fun createMoviesResponseDto() = MoviesResponseDto(
-		0, 3, 300,
+		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name1", overview = "Overview 0"),
 			createDefaultMovieDto(id = 1, title = "name2"),
 			createDefaultMovieDto(id = 2, title = "name3", overview = "Overview 2"),
-			createDefaultMovieDto(id = 3, title = "name4", overview = "Overview 3"),
+			createDefaultMovieDto(id = TOTAL_PAGES, title = "name4", overview = "Overview 3"),
 			createDefaultMovieDto(id = 4, title = "name5"),
 			createDefaultMovieDto(id = 5, title = "name6"),
 		)
 	)
 
 	fun createPopularMovieList() = MoviesResponseDto(
-		0, 3, 300,
+		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name101", overview = "Overview 0"),
 			createDefaultMovieDto(id = 1, title = "name102"),
 			createDefaultMovieDto(id = 2, title = "name103", overview = "Overview 2"),
-			createDefaultMovieDto(id = 3, title = "name104", overview = "Overview 3"),
+			createDefaultMovieDto(id = TOTAL_PAGES, title = "name104", overview = "Overview 3"),
 			createDefaultMovieDto(id = 4, title = "name105"),
 			createDefaultMovieDto(id = 5, title = "name106"),
 			createDefaultMovieDto(id = 6, title = "name6"),
@@ -40,12 +44,12 @@ object MovieDtoMother {
 	)
 
 	fun createNowPlayingMovieList() = NowPlayingMoviesResponse(
-		0, 3, 300,
+		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name101", overview = "Overview 0"),
 			createDefaultMovieDto(id = 1, title = "name102"),
 			createDefaultMovieDto(id = 2, title = "name103", overview = "Overview 2"),
-			createDefaultMovieDto(id = 3, title = "name104", overview = "Overview 3"),
+			createDefaultMovieDto(id = TOTAL_PAGES, title = "name104", overview = "Overview 3"),
 			createDefaultMovieDto(id = 4, title = "name105"),
 			createDefaultMovieDto(id = 5, title = "name106"),
 			createDefaultMovieDto(id = 6, title = "name6"),
@@ -60,12 +64,12 @@ object MovieDtoMother {
 	)
 
 	fun createUpcomingMovieList() = UpcomingMoviesResponse(
-		0, 3, 300,
+		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name201", overview = "Overview 0"),
 			createDefaultMovieDto(id = 1, title = "name202"),
 			createDefaultMovieDto(id = 2, title = "name203", overview = "Overview 2"),
-			createDefaultMovieDto(id = 3, title = "name204", overview = "Overview 3"),
+			createDefaultMovieDto(id = TOTAL_PAGES, title = "name204", overview = "Overview 3"),
 			createDefaultMovieDto(id = 4, title = "name205"),
 			createDefaultMovieDto(id = 5, title = "name206"),
 			createDefaultMovieDto(id = 6, title = "name6"),

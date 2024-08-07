@@ -70,7 +70,6 @@ class FetchCacheThenNetworkResponseTest {
 	fun `when cache has NO data and network has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
-		println("nonce")
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),

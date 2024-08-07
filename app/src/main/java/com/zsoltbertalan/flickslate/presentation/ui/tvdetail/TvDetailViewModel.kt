@@ -30,9 +30,7 @@ class TvDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			val response = tvRepository.getTvDetails(seriesId)
 			when {
-				response.isOk -> {
-					_tvStateData.value = response.value
-				}
+				response.isOk -> _tvStateData.value = response.value
 
 				else -> Unit // handle error
 			}

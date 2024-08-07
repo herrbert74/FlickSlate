@@ -83,7 +83,7 @@ interface FlickSlateService {
 
 	@GET(URL_DISCOVER_MOVIE)
 	suspend fun getGenreMovie(
-		@Query("with_genres") with_genres: Int,
+		@Query("with_genres") withGenres: Int,
 		@Query("page") page: Int?,
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 	): MoviesResponseDto

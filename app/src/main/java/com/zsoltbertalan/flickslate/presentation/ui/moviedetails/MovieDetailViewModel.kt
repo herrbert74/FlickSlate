@@ -32,24 +32,21 @@ class MovieDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			val movieDetailsResult = moviesRepository.getMovieDetails(movieId)
 			when {
-				movieDetailsResult.isOk -> {
-					_movieStateData.update {
-						it.copy(
-							movieDetail = movieDetailsResult.value,
-							failure = null
-						)
-					}
+				movieDetailsResult.isOk -> _movieStateData.update {
+					it.copy(
+						movieDetail = movieDetailsResult.value,
+						failure = null
+					)
 				}
 
-				else -> {
-					_movieStateData.update {
-						it.copy(
-							movieDetail = null,
-							failure = movieDetailsResult.error
-						)
-					}
+				else -> _movieStateData.update {
+					it.copy(
+						movieDetail = null,
+						failure = movieDetailsResult.error
+					)
 				}
 			}
+
 		}
 	}
 }

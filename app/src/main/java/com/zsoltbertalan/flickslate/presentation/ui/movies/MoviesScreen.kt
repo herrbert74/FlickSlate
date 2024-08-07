@@ -78,28 +78,24 @@ private fun LazyListScope.showPopularMovies(
 	}
 
 	when {
-		popularMovies.loadState.refresh is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.popular_movies)
-				)
-			}
+		popularMovies.loadState.refresh is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.popular_movies)
+			)
 		}
 
-		popularMovies.loadState.append is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.popular_movies)
-				)
-			}
+
+		popularMovies.loadState.append is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.popular_movies)
+			)
 		}
 
-		popularMovies.loadState.refresh is LoadState.Error -> {
-			item {
-				val stateError = (popularMovies.loadState.refresh as LoadState.Error)
-				Text(text = stateError.error.message ?: "Not loading" )
-			}
+		popularMovies.loadState.refresh is LoadState.Error -> item {
+			val stateError = (popularMovies.loadState.refresh as LoadState.Error)
+			Text(text = stateError.error.message ?: "Not loading")
 		}
+
 	}
 }
 
@@ -134,29 +130,25 @@ private fun LazyListScope.showUpcomingMovies(
 	}
 
 	when {
-		upcomingMovies.loadState.refresh is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.upcoming_movies)
-				)
-			}
+		upcomingMovies.loadState.refresh is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.upcoming_movies)
+			)
 		}
 
-		upcomingMovies.loadState.append is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.upcoming_movies)
-				)
-			}
+		upcomingMovies.loadState.append is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.upcoming_movies)
+			)
 		}
 
-		upcomingMovies.loadState.refresh is LoadState.Error -> {
-			item {
-				val stateError = (upcomingMovies.loadState.refresh as LoadState.Error)
-				Text(text = stateError.error.message ?: "Not loading" )
-			}
+		upcomingMovies.loadState.refresh is LoadState.Error -> item {
+			val stateError = (upcomingMovies.loadState.refresh as LoadState.Error)
+			Text(text = stateError.error.message ?: "Not loading")
 		}
+
 	}
+
 }
 
 private fun LazyListScope.showNowPlayingMovies(
@@ -189,27 +181,24 @@ private fun LazyListScope.showNowPlayingMovies(
 	}
 
 	when {
-		nowPlayingMovies.loadState.refresh is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.now_playing_movies)
-				)
-			}
+		nowPlayingMovies.loadState.refresh is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.now_playing_movies)
+			)
 		}
 
-		nowPlayingMovies.loadState.append is LoadState.Loading -> {
-			item {
-				ShowLoading(
-					text = stringResource(id = R.string.now_playing_movies)
-				)
-			}
+		nowPlayingMovies.loadState.append is LoadState.Loading -> item {
+			ShowLoading(
+				text = stringResource(id = R.string.now_playing_movies)
+			)
 		}
 
-		nowPlayingMovies.loadState.refresh is LoadState.Error -> {
-			item {
-				val stateError = (nowPlayingMovies.loadState.refresh as LoadState.Error)
-				Text(text = stateError.error.message ?: "Not loading" )
-			}
+
+		nowPlayingMovies.loadState.refresh is LoadState.Error -> item {
+			val stateError = (nowPlayingMovies.loadState.refresh as LoadState.Error)
+			Text(text = stateError.error.message ?: "Not loading")
 		}
+
 	}
+
 }

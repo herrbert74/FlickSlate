@@ -10,6 +10,8 @@ import com.zsoltbertalan.flickslate.domain.model.Failure
 const val PAGING_PAGE_SIZE = 30
 const val PAGING_PREFETCH_DISTANCE = 5
 
+class PagingException(message: String) : Exception(message)
+
 fun <V : Any> createPager(
 	pageSize: Int = PAGING_PAGE_SIZE,
 	block: suspend (Int) -> Outcome<Pair<List<V>, Int>>
@@ -45,13 +47,15 @@ class KotlinResultPagingSource<T : Any>(
 					prevKey = if (page == 1) null else page - 1,
 					nextKey = if (page == result.value.second) null else page + 1
 				)
+
 				else -> {
 					val serverError = result.error as Failure.ServerError
-					throw Exception(serverError.message)
+					throw PagingException(serverError.message)
 				}
 			}
-		} catch (e: Exception) {
+		} catch (e: PagingException) {
 			LoadResult.Error(e)
 		}
 	}
+
 }

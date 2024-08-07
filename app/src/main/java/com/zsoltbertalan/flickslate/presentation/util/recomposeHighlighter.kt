@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.presentation.util
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
-import kotlin.math.min
 import kotlinx.coroutines.delay
+import kotlin.math.min
 
 /**
  * A [Modifier] that draws a border around elements that are recomposing. The border increases in
@@ -37,13 +37,13 @@ private val recomposeModifier =
 		totalCompositions[0]++
 
 		// The value of totalCompositions at the last timeout.
-		val totalCompositionsAtLastTimeout = remember { mutableStateOf(0L) }
+		val totalCompositionsAtLastTimeout = remember { mutableLongStateOf(0L) }
 
 		// Start the timeout, and reset everytime there's a recomposition. (Using totalCompositions
 		// as the key is really just to cause the timer to restart every composition).
 		LaunchedEffect(totalCompositions[0]) {
 			delay(3000)
-			totalCompositionsAtLastTimeout.value = totalCompositions[0]
+			totalCompositionsAtLastTimeout.longValue = totalCompositions[0]
 		}
 
 		Modifier.drawWithCache {
@@ -54,7 +54,7 @@ private val recomposeModifier =
 				// Below is to draw the highlight, if necessary. A lot of the logic is copied from
 				// Modifier.border
 				val numCompositionsSinceTimeout =
-					totalCompositions[0] - totalCompositionsAtLastTimeout.value
+					totalCompositions[0] - totalCompositionsAtLastTimeout.longValue
 
 				val hasValidBorderParams = size.minDimension > 0f
 				if (!hasValidBorderParams || numCompositionsSinceTimeout <= 0) {
@@ -63,20 +63,22 @@ private val recomposeModifier =
 
 				val (color, strokeWidthPx) =
 					when (numCompositionsSinceTimeout) {
+
 						// We need at least one composition to draw, so draw the smallest border
 						// color in blue.
 						1L -> Color.Blue to 1f
+
 						// 2 compositions is _probably_ okay.
 						2L -> Color.Green to 2.dp.toPx()
+
 						// 3 or more compositions before timeout may indicate an issue. lerp the
 						// color from yellow to red, and continually increase the border size.
-						else -> {
-							lerp(
+						else -> lerp(
 								Color.Yellow.copy(alpha = 0.8f),
 								Color.Red.copy(alpha = 0.5f),
 								min(1f, (numCompositionsSinceTimeout - 1).toFloat() / 100f)
 							) to numCompositionsSinceTimeout.toInt().dp.toPx()
-						}
+
 					}
 
 				val halfStroke = strokeWidthPx / 2
