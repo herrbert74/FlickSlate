@@ -52,16 +52,16 @@ class MoviesRepositoryTest {
 
 	@Test
 	fun `when getUpcomingMovies called then returns correct result`() = runTest {
-		val popularMoviesFlow = moviesAccessor.getUpcomingMovies("en")
+		val upcomingMoviesFlow = moviesAccessor.getUpcomingMovies("en")
 		val pagingData = MovieMother.createUpcomingMovieList()
-		popularMoviesFlow.asSnapshot()[0] shouldBeEqualUsingFields pagingData[0]
+		upcomingMoviesFlow.asSnapshot()[0] shouldBeEqualUsingFields pagingData[0]
 	}
 
 	@Test
 	fun `when getNowPlayingMovies called then returns correct result`() = runTest {
-		val popularMoviesFlow = moviesAccessor.getNowPlayingMovies("en")
+		val nowPlayingMoviesFlow = moviesAccessor.getNowPlayingMovies("en")
 		val pagingData = MovieMother.createNowPlayingMovieList()
-		popularMoviesFlow.asSnapshot()[0] shouldBeEqualUsingFields pagingData[0]
+		nowPlayingMoviesFlow.asSnapshot()[0] shouldBeEqualUsingFields pagingData[0]
 	}
 
 }

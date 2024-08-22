@@ -6,7 +6,7 @@ compileSdkVersion = "34"
 targetSdkVersion = "34"
 androidGradlePlugin = "8.5.1"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
-kotlin = "2.0.0"
+kotlin = "2.0.10"
 ksp = "2.0.0-1.0.22"
 coroutines = "1.8.1"
 serialization = "1.6.3"
@@ -15,8 +15,8 @@ androidx-activity = "1.9.1"
 androidx-lifecycle = "2.8.4"
 androidx-navigation = "2.7.7"
 androidx-hilt = "1.2.0"
-androidx-paging = "3.3.1"
-androidx-work = "2.9.0"
+androidx-paging = "3.3.2"
+androidx-work = "2.9.1"
 androidx-test-core = "1.6.1"
 androidx-test-rules = "1.6.1"
 androidx-test-runner = "1.6.1"
@@ -100,14 +100,14 @@ kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
 androidx-activity-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-activity-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-annotation = "androidx.annotation:annotation:1.8.1"
+androidx-annotation = "androidx.annotation:annotation:1.8.2"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
 androidx-appCompatResources = "androidx.appcompat:appcompat-resources:1.7.0"
 androidx-browser = "androidx.browser:browser:1.8.0"
 androidx-cardView = "androidx.cardview:cardview:1.0.0"
-androidx-collection = "androidx.collection:collection:1.4.2"
+androidx-collection = "androidx.collection:collection:1.4.3"
 androidx-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-constraintLayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13"
+androidx-constraintLayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha14"
 androidx-core = "androidx.core:core:1.13.1" #Bundle
 androidx-coreKtx = "androidx.core:core-ktx:1.13.1" #Bundle
 androidx-datastore = "androidx.datastore:datastore-preferences:1.1.1"
@@ -343,7 +343,7 @@ mockk-android = ["test-mockk-android", "test-mockk-core", "test-mockk-dsl"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

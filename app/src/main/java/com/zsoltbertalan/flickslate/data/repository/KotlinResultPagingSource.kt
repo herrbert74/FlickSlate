@@ -49,8 +49,8 @@ class KotlinResultPagingSource<T : Any>(
 				)
 
 				else -> {
-					val serverError = result.error as Failure.ServerError
-					throw PagingException(serverError.message)
+					val serverError = result.error as? Failure.ServerError
+					throw PagingException(serverError?.message ?: "Something went wrong")
 				}
 			}
 		} catch (e: PagingException) {

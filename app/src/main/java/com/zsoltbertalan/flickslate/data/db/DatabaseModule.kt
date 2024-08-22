@@ -1,11 +1,13 @@
 package com.zsoltbertalan.flickslate.data.db
 
+import com.zsoltbertalan.flickslate.common.async.IoDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -25,8 +27,9 @@ class DatabaseModule {
     @Provides
     @Singleton
     internal fun provideGenreDataSource(
-        realm: Realm
+        realm: Realm,
+        @IoDispatcher ioContext: CoroutineDispatcher,
     ): GenreDataSource {
-        return GenreDao(realm)
+        return GenreDao(realm, ioContext)
     }
 }
