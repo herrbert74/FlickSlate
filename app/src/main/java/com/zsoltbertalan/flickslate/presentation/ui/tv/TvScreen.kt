@@ -1,83 +1,61 @@
 package com.zsoltbertalan.flickslate.presentation.ui.tv
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
-import com.zsoltbertalan.flickslate.domain.model.Tv
-import com.zsoltbertalan.flickslate.R
-import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
-import com.zsoltbertalan.flickslate.presentation.util.navigate
-import com.zsoltbertalan.flickslate.presentation.component.ListTitle
-import com.zsoltbertalan.flickslate.presentation.component.ShowLoading
+import com.zsoltbertalan.flickslate.domain.model.Tv
 import com.zsoltbertalan.flickslate.presentation.component.ShowCard
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginatedLazyColumn
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginationState
+import com.zsoltbertalan.flickslate.presentation.util.navigate
 
 @Composable
 fun TvScreen(
-	topRatedTv: LazyPagingItems<Tv>,
+	paginatedState: PaginationState<Int, Tv>,
 	modifier: Modifier = Modifier,
 	popTo: (Int) -> Unit,
 ) {
-	LazyColumn(
+	PaginatedLazyColumn(
+		paginatedState,
+		firstPageProgressIndicator = { FirstPageProgressIndicator() },
+		newPageProgressIndicator = { NewPageProgressIndicator() },
+		firstPageErrorIndicator = { e ->
+			FirstPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
+				}
+			)
+		},
+		newPageErrorIndicator = { e ->
+			NewPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
+				}
+			)
+		},
 		modifier = modifier
-			.background(Colors.surface)
-			.fillMaxHeight()
+			.fillMaxHeight(),
 	) {
-		showTopRatedTv(topRatedTv, popTo)
-	}
-}
-
-private fun LazyListScope.showTopRatedTv(
-	topRatedTv: LazyPagingItems<Tv>,
-	popTo: (Int) -> Unit,
-) {
-
-	item {
-		ListTitle(titleId = R.string.top_rated_tv)
-	}
-
-	items(topRatedTv.itemCount) { index ->
-		topRatedTv[index].let {
-			it?.let {
-				ShowCard(
-					modifier = Modifier.navigate(it.id, popTo),
-					title = it.name,
-					voteAverage = it.voteAverage,
-					overview = it.overview,
-					posterPath = it.posterPath,
-					cardType = MovieCardType.FULL
-				)
-			}
-
-		}
-	}
-
-	item {
-		Spacer(modifier = Modifier.height(20.dp))
-	}
-
-	when {
-		topRatedTv.loadState.refresh is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.top_rated_tv)
+		itemsIndexed(
+			paginatedState.allItems,
+		) { _, item ->
+			ShowCard(
+				modifier = Modifier.navigate(item.id, popTo),
+				title = item.name,
+				voteAverage = item.voteAverage,
+				overview = item.overview,
+				posterPath = item.posterPath,
+				cardType = MovieCardType.FULL
 			)
 		}
-
-		topRatedTv.loadState.append is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.top_rated_tv)
-			)
-		}
-
 	}
 
 }

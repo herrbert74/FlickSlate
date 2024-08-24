@@ -1,12 +1,10 @@
 package com.zsoltbertalan.flickslate.presentation.ui.search
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -16,22 +14,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
-import com.zsoltbertalan.flickslate.R
-import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.domain.model.Movie
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
-import com.zsoltbertalan.flickslate.presentation.util.navigate
 import com.zsoltbertalan.flickslate.presentation.component.ListTitle
 import com.zsoltbertalan.flickslate.presentation.component.ShowCard
-import com.zsoltbertalan.flickslate.presentation.component.ShowLoading
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginatedLazyColumn
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginationState
+import com.zsoltbertalan.flickslate.presentation.design.Colors
+import com.zsoltbertalan.flickslate.presentation.util.navigate
 
 @Composable
 fun GenreDetailScreen(
-	genreDetailList: LazyPagingItems<Movie>,
+	genreMoviesPaginatedState: PaginationState<Int, Movie>,
 	genreName: String,
 	popBackStack: () -> Boolean,
 	modifier: Modifier = Modifier,
@@ -53,59 +51,51 @@ fun GenreDetailScreen(
 				})
 		}
 	) { paddingValues ->
-		LazyColumn(
+
+		Column(
 			modifier = Modifier
-				.background(Colors.surface)
 				.padding(paddingValues)
 		) {
-			showMovies(genreDetailList, genreName, popTo)
-		}
-	}
-}
 
-private fun LazyListScope.showMovies(
-	genreMovies: LazyPagingItems<Movie>,
-	genreName: String,
-	popTo: (Int) -> Unit,
-) {
+			ListTitle(title = genreName)
 
-	item {
-		ListTitle(title = genreName)
-	}
-
-	items(genreMovies.itemCount) { index ->
-		genreMovies[index].let {
-			it?.let {
-				ShowCard(
-					modifier = Modifier.navigate(it.id, popTo),
-					title = it.title,
-					voteAverage = it.voteAverage,
-					overview = it.overview,
-					posterPath = it.posterPath,
-					cardType = MovieCardType.FULL
-				)
+			PaginatedLazyColumn(
+				genreMoviesPaginatedState,
+				firstPageProgressIndicator = { FirstPageProgressIndicator() },
+				newPageProgressIndicator = { NewPageProgressIndicator() },
+				firstPageErrorIndicator = { e ->
+					FirstPageErrorIndicator(
+						exception = e,
+						onRetryClick = {
+							genreMoviesPaginatedState.retryLastFailedRequest()
+						}
+					)
+				},
+				newPageErrorIndicator = { e ->
+					NewPageErrorIndicator(
+						exception = e,
+						onRetryClick = {
+							genreMoviesPaginatedState.retryLastFailedRequest()
+						}
+					)
+				},
+				modifier = Modifier
+					.fillMaxHeight(),
+			) {
+				itemsIndexed(
+					genreMoviesPaginatedState.allItems,
+				) { _, item ->
+					ShowCard(
+						modifier = Modifier.navigate(item.id, popTo),
+						title = item.title,
+						voteAverage = item.voteAverage,
+						overview = item.overview,
+						posterPath = item.posterPath,
+						cardType = MovieCardType.FULL
+					)
+				}
 			}
-
 		}
-	}
-
-	item {
-		Spacer(modifier = Modifier.height(20.dp))
-	}
-
-	when {
-		genreMovies.loadState.refresh is LoadState.Loading -> item {
-			ShowLoading(text = stringResource(id = R.string.genre_movies, genreName))
-		}
-
-		genreMovies.loadState.append is LoadState.Loading -> item {
-			ShowLoading(text = stringResource(id = R.string.genre_movies, genreName))
-		}
-
-		genreMovies.loadState.refresh is LoadState.Error -> item {
-			Text(text = "Not Loading")
-		}
-
 	}
 
 }

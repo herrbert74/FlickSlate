@@ -24,7 +24,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): MoviesResponseDto {
+	): Response<MoviesResponseDto> {
 		TODO("Not yet implemented")
 	}
 
@@ -32,7 +32,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): NowPlayingMoviesResponse {
+	): Response<NowPlayingMoviesResponse> {
 		TODO("Not yet implemented")
 	}
 
@@ -40,7 +40,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): UpcomingMoviesResponse {
+	): Response<UpcomingMoviesResponse> {
 		TODO("Not yet implemented")
 	}
 
@@ -57,7 +57,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getTopRatedTv(apiKey: String, language: String?, page: Int?): TopRatedTvResponse {
+	override suspend fun getTopRatedTv(apiKey: String, language: String?, page: Int?): Response<TopRatedTvResponse> {
 		TODO("Not yet implemented")
 	}
 
@@ -65,7 +65,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getGenreMovie(withGenres: Int, page: Int?, apiKey: String): MoviesResponseDto {
+	override suspend fun getGenreMovie(apiKey: String, withGenres: Int, page: Int?): Response<MoviesResponseDto> {
 		TODO("Not yet implemented")
 	}
 }

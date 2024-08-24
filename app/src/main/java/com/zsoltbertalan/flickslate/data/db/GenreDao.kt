@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GenreDao @Inject constructor(
 	private val realm: Realm,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,

@@ -86,8 +86,8 @@ object MovieDtoMother {
 
 private fun createDefaultMovieDto(
 	id: Int = 0,
-	title: String = "Heisenberg",
-	overview: String = "Overview",
+	title: String = "Brazil",
+	overview: String = "Best film ever",
 	voteAverage: Float = 8.7800f,
 	posterPath: String = "app1",
 	backdropPath: String = ""

@@ -1,39 +1,55 @@
 package com.zsoltbertalan.flickslate.presentation.ui.movies
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.domain.model.Movie
 import com.zsoltbertalan.flickslate.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.presentation.component.ListTitle
 import com.zsoltbertalan.flickslate.presentation.component.ShowCard
-import com.zsoltbertalan.flickslate.presentation.component.ShowLoading
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.FirstPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageErrorIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.NewPageProgressIndicator
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginatedLazyColumn
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginatedLazyRow
+import com.zsoltbertalan.flickslate.presentation.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.presentation.design.Colors
 import com.zsoltbertalan.flickslate.presentation.util.navigate
 
 @Composable
 fun MoviesScreen(
-	popularMovies: LazyPagingItems<Movie>,
-	nowPlaying: LazyPagingItems<Movie>,
-	upcoming: LazyPagingItems<Movie>,
+	popularMoviesPaginatedState: PaginationState<Int, Movie>,
+	nowPlayingMoviesPaginatedState: PaginationState<Int, Movie>,
+	upcomingMoviesPaginatedState: PaginationState<Int, Movie>,
 	modifier: Modifier = Modifier,
 	navigateToDetail: (Int) -> Unit,
 ) {
-	LazyColumn(
+
+	PaginatedLazyColumn(
+		popularMoviesPaginatedState,
+		firstPageProgressIndicator = { FirstPageProgressIndicator() },
+		newPageProgressIndicator = { NewPageProgressIndicator() },
+		firstPageErrorIndicator = { e ->
+			FirstPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					popularMoviesPaginatedState.retryLastFailedRequest()
+				}
+			)
+		},
+		newPageErrorIndicator = { e ->
+			NewPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					popularMoviesPaginatedState.retryLastFailedRequest()
+				}
+			)
+		},
 		modifier = modifier
 			.background(
 				brush = Brush.horizontalGradient(
@@ -42,163 +58,127 @@ fun MoviesScreen(
 			)
 			.fillMaxHeight()
 	) {
-		showUpcomingMovies(upcoming, navigateToDetail)
-		showNowPlayingMovies(nowPlaying, navigateToDetail)
-		showPopularMovies(popularMovies, navigateToDetail)
+
+		item {
+			ListTitle(titleId = R.string.upcoming_movies)
+		}
+
+		item {
+			ShowUpcomingMovies(upcomingMoviesPaginatedState, navigateToDetail)
+		}
+
+		item {
+			ListTitle(titleId = R.string.now_playing_movies)
+		}
+
+		item {
+			ShowNowPlayingMovies(nowPlayingMoviesPaginatedState, navigateToDetail)
+		}
+
+		item {
+			ListTitle(titleId = R.string.popular_movies)
+		}
+
+		itemsIndexed(
+			popularMoviesPaginatedState.allItems,
+		) { _, item ->
+			ShowCard(
+				modifier = Modifier.navigate(item.id, navigateToDetail),
+				title = item.title,
+				voteAverage = item.voteAverage,
+				overview = item.overview,
+				posterPath = item.posterPath,
+				cardType = MovieCardType.FULL
+			)
+		}
 	}
 }
 
-private fun LazyListScope.showPopularMovies(
-	popularMovies: LazyPagingItems<Movie>,
+@Composable
+private fun ShowUpcomingMovies(
+	paginatedState: PaginationState<Int, Movie>,
 	navigateToDetail: (Int) -> Unit,
 ) {
-	item {
-		ListTitle(titleId = R.string.popular_movies)
-	}
-
-	items(popularMovies.itemCount) { index ->
-		popularMovies[index].let {
-			it?.let {
-				ShowCard(
-					modifier = Modifier.navigate(it.id, navigateToDetail),
-					title = it.title,
-					voteAverage = it.voteAverage,
-					overview = it.overview,
-					posterPath = it.posterPath,
-					cardType = MovieCardType.FULL,
-					isFirst = index == 0
-				)
-			}
-
-		}
-	}
-
-	item {
-		Spacer(modifier = Modifier.height(20.dp))
-	}
-
-	when {
-		popularMovies.loadState.refresh is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.popular_movies)
-			)
-		}
 
 
-		popularMovies.loadState.append is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.popular_movies)
-			)
-		}
-
-		popularMovies.loadState.refresh is LoadState.Error -> item {
-			val stateError = (popularMovies.loadState.refresh as LoadState.Error)
-			Text(text = stateError.error.message ?: "Not loading")
-		}
-
-	}
-}
-
-private fun LazyListScope.showUpcomingMovies(
-	upcomingMovies: LazyPagingItems<Movie>,
-	popTo: (Int) -> Unit,
-) {
-	item {
-		ListTitle(titleId = R.string.upcoming_movies)
-		LazyRow {
-			items(upcomingMovies.itemCount) { index ->
-				upcomingMovies[index].let {
-					it?.let {
-						ShowCard(
-							modifier = Modifier.navigate(it.id, popTo),
-							title = it.title,
-							voteAverage = it.voteAverage,
-							overview = it.overview,
-							posterPath = it.posterPath,
-							cardType = MovieCardType.HALF
-						)
-					}
+	PaginatedLazyRow(
+		paginatedState,
+		firstPageProgressIndicator = { FirstPageProgressIndicator() },
+		newPageProgressIndicator = { NewPageProgressIndicator() },
+		firstPageErrorIndicator = { e ->
+			FirstPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
 				}
-			}
-		}
-	}
-
-	//endregion
-
-	item {
-		Spacer(modifier = Modifier.width(20.dp))
-	}
-
-	when {
-		upcomingMovies.loadState.refresh is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.upcoming_movies)
+			)
+		},
+		newPageErrorIndicator = { e ->
+			NewPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
+				}
+			)
+		},
+		modifier = Modifier,
+	) {
+		itemsIndexed(
+			paginatedState.allItems,
+		) { _, item ->
+			ShowCard(
+				modifier = Modifier.navigate(item.id, navigateToDetail),
+				title = item.title,
+				voteAverage = item.voteAverage,
+				overview = item.overview,
+				posterPath = item.posterPath,
+				cardType = MovieCardType.HALF
 			)
 		}
-
-		upcomingMovies.loadState.append is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.upcoming_movies)
-			)
-		}
-
-		upcomingMovies.loadState.refresh is LoadState.Error -> item {
-			val stateError = (upcomingMovies.loadState.refresh as LoadState.Error)
-			Text(text = stateError.error.message ?: "Not loading")
-		}
-
 	}
 
 }
 
-private fun LazyListScope.showNowPlayingMovies(
-	nowPlayingMovies: LazyPagingItems<Movie>,
-	popTo: (Int) -> Unit,
+@Composable
+private fun ShowNowPlayingMovies(
+	paginatedState: PaginationState<Int, Movie>,
+	navigateToDetail: (Int) -> Unit,
 ) {
 
-	item {
-		ListTitle(titleId = R.string.now_playing_movies)
-		LazyRow {
-			items(nowPlayingMovies.itemCount) { index ->
-				nowPlayingMovies[index].let {
-					it?.let {
-						ShowCard(
-							modifier = Modifier.navigate(it.id, popTo),
-							title = it.title,
-							voteAverage = it.voteAverage,
-							overview = it.overview,
-							posterPath = it.posterPath,
-							cardType = MovieCardType.HALF
-						)
-					}
+	PaginatedLazyRow(
+		paginatedState,
+		firstPageProgressIndicator = { FirstPageProgressIndicator() },
+		newPageProgressIndicator = { NewPageProgressIndicator() },
+		firstPageErrorIndicator = { e ->
+			FirstPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
 				}
-			}
-		}
-	}
-
-	item {
-		Spacer(modifier = Modifier.width(20.dp))
-	}
-
-	when {
-		nowPlayingMovies.loadState.refresh is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.now_playing_movies)
+			)
+		},
+		newPageErrorIndicator = { e ->
+			NewPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					paginatedState.retryLastFailedRequest()
+				}
+			)
+		},
+		modifier = Modifier,
+	) {
+		itemsIndexed(
+			paginatedState.allItems,
+		) { _, item ->
+			ShowCard(
+				modifier = Modifier.navigate(item.id, navigateToDetail),
+				title = item.title,
+				voteAverage = item.voteAverage,
+				overview = item.overview,
+				posterPath = item.posterPath,
+				cardType = MovieCardType.HALF
 			)
 		}
-
-		nowPlayingMovies.loadState.append is LoadState.Loading -> item {
-			ShowLoading(
-				text = stringResource(id = R.string.now_playing_movies)
-			)
-		}
-
-
-		nowPlayingMovies.loadState.refresh is LoadState.Error -> item {
-			val stateError = (nowPlayingMovies.loadState.refresh as LoadState.Error)
-			Text(text = stateError.error.message ?: "Not loading")
-		}
-
 	}
 
 }

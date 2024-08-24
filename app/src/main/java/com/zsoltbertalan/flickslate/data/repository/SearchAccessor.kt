@@ -16,7 +16,7 @@ class SearchAccessor @Inject constructor(private val flickSlateService: FlickSla
 				query = query,
 				language = "en",
 				page = page
-			).toMoviesResponse().movies
+			).toMoviesResponse().pagingList
 		}
 
 }

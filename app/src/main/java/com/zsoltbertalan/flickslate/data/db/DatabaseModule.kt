@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.data.db
 
 import com.zsoltbertalan.flickslate.common.async.IoDispatcher
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,22 +15,50 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
-    @Provides
-    @Singleton
-    fun provideRealmConfiguration() = RealmConfiguration.Builder(
-        schema = setOf(GenreDbo::class, EtagDbo::class)
-    ).build()
+	@Provides
+	@Singleton
+	fun provideRealmConfiguration() = RealmConfiguration.Builder(
+		schema = setOf(
+			GenreDbo::class,
+			EtagDbo::class,
+			GenreMoviesDbo::class,
+			GenreMoviesPageDbo::class,
+			PopularMoviesDbo::class,
+			PopularMoviesPageDbo::class,
+			NowPlayingMoviesDbo::class,
+			NowPlayingMoviesPageDbo::class,
+			UpcomingMoviesDbo::class,
+			UpcomingMoviesPageDbo::class,
+			TvDbo::class,
+			TvPageDbo::class,
+		)
+	).build()
 
-    @Provides
-    @Singleton
-    fun provideRealm(realmConfiguration: RealmConfiguration) = Realm.open(realmConfiguration)
+	@Provides
+	@Singleton
+	fun provideRealm(realmConfiguration: RealmConfiguration) = Realm.open(realmConfiguration)
 
-    @Provides
-    @Singleton
-    internal fun provideGenreDataSource(
-        realm: Realm,
-        @IoDispatcher ioContext: CoroutineDispatcher,
-    ): GenreDataSource {
-        return GenreDao(realm, ioContext)
-    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface BindingDatabaseModule {
+
+	@Binds
+	fun bindGenreDataSource(genreDao: GenreDao): GenreDataSource
+
+	@Binds
+	fun bindGenreMoviesDataSource(genreMoviesDao: GenreMoviesDao): GenreMoviesDataSource
+
+	@Binds
+	fun bindTvDataSource(tvDao: TvDao): TvDataSource
+
+	@Binds
+	fun bindPopularMoviesDataSource(popularMoviesDao: PopularMoviesDao): PopularMoviesDataSource
+
+	@Binds
+	fun bindUpcomingMoviesDataSource(upcomingMoviesDao: UpcomingMoviesDao): UpcomingMoviesDataSource
+
+	@Binds
+	fun bindNowPlayingMoviesDataSource(nowPlayingMoviesDao: NowPlayingMoviesDao): NowPlayingMoviesDataSource
 }

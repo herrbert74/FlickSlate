@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.data.network.dto
 
+import com.zsoltbertalan.flickslate.domain.model.PagingReply
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
@@ -11,4 +12,5 @@ data class TopRatedTvResponse(
 	val results: List<TvDto>? = null,
 )
 
-fun TopRatedTvResponse.toTvList() = this.results?.toTvList()?: emptyList()
+fun TopRatedTvResponse.toTvList() =
+	PagingReply(this.results?.toTvList()?: emptyList(), page == total_pages)

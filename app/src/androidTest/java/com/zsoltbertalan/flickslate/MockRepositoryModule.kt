@@ -1,15 +1,15 @@
 package com.zsoltbertalan.flickslate
 
-import androidx.paging.PagingData
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.common.testhelper.MovieMother
+import com.zsoltbertalan.flickslate.common.testhelper.TvMother
 import com.zsoltbertalan.flickslate.data.network.NetworkModule
 import com.zsoltbertalan.flickslate.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.domain.api.TvRepository
-import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
-import com.zsoltbertalan.flickslate.common.testhelper.MovieMother
-import com.zsoltbertalan.flickslate.common.testhelper.TvMother
+import com.zsoltbertalan.flickslate.domain.model.PagingReply
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -35,20 +35,15 @@ class MockRepositoryModule {
 	@Singleton
 	fun provideMoviesRepository(): MoviesRepository {
 		val m = mockk<MoviesRepository> {
-			val popularPagingData = PagingData.from(
-				MovieMother.createPopularMovieList()
-			)
-			val upcomingPagingData = PagingData.from(
-				MovieMother.createUpcomingMovieList()
-			)
-			val pagingData = PagingData.from(
-				MovieMother.createMovieList()
-			)
-			coEvery { getPopularMovies(any()) } returns flowOf(popularPagingData)
-			coEvery { getUpcomingMovies(any()) } returns flowOf(upcomingPagingData)
-			coEvery { getNowPlayingMovies(any()) } returns flowOf(pagingData)
+			val popularPagingData = PagingReply(MovieMother.createPopularMovieList(), true)
+			val upcomingPagingData = PagingReply(MovieMother.createUpcomingMovieList(), true)
+			val pagingData = PagingReply(MovieMother.createMovieList(), true)
 
+			coEvery { getPopularMovies(any()) } returns flowOf(Ok(popularPagingData))
+			coEvery { getUpcomingMovies(any()) } returns flowOf(Ok(upcomingPagingData))
+			coEvery { getNowPlayingMovies(any()) } returns flowOf(Ok(pagingData))
 		}
+
 		m.also {
 			coEvery { it.getMovieDetails(any()) } returns Ok(MovieMother.createMovieDetail())
 		}
@@ -67,10 +62,8 @@ class MockRepositoryModule {
 	@Singleton
 	fun provideTvRepository(): TvRepository {
 		return mockk {
-			val pagingData = PagingData.from(
-				TvMother.createTvList()
-			)
-			coEvery { getTopRatedTv(any()) } returns flowOf(pagingData)
+			val pagingData = PagingReply(TvMother.createTvList(), true)
+			coEvery { getTopRatedTv(any()) } returns flowOf(Ok(pagingData))
 		}
 	}
 

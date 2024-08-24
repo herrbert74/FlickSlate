@@ -14,7 +14,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.zsoltbertalan.flickslate.presentation.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.presentation.ui.movies.MoviesScreen
 import com.zsoltbertalan.flickslate.presentation.ui.movies.MoviesViewModel
@@ -48,13 +47,13 @@ fun NavHostContainer(
 		modifier = modifier.padding(paddingValues),
 		builder = {
 			composable(Destination.MOVIE.route) {
-				val popularMovies = viewModel.popularMoviesList.collectAsLazyPagingItems()
-				val nowPlaying = viewModel.nowPlayingMoviesList.collectAsLazyPagingItems()
-				val upcoming = viewModel.upcomingMoviesList.collectAsLazyPagingItems()
+				val popularMovies = viewModel.popularMoviesPaginationState
+				val nowPlaying = viewModel.nowPlayingMoviesPaginationState
+				val upcoming = viewModel.upcomingMoviesPaginationState
 				MoviesScreen(
-					popularMovies = popularMovies,
-					nowPlaying = nowPlaying,
-					upcoming = upcoming,
+					popularMoviesPaginatedState = popularMovies,
+					nowPlayingMoviesPaginatedState = nowPlaying,
+					upcomingMoviesPaginatedState = upcoming,
 				) { id ->
 					navController.navigate("detail/${id}") {
 						popUpTo("movies")
@@ -62,8 +61,8 @@ fun NavHostContainer(
 				}
 			}
 			composable(Destination.TV.route) {
-				val topRatedTv = tvViewModel.topRatedTvList.collectAsLazyPagingItems()
-				TvScreen(topRatedTv = topRatedTv) { id ->
+				val topRatedTv = tvViewModel.tvPaginationState
+				TvScreen(paginatedState = topRatedTv) { id ->
 					navController.navigate("tvDetail/${id}") {
 						popUpTo("tv")
 					}
@@ -130,9 +129,9 @@ fun NavHostContainer(
 				}
 			) {
 				val genreViewModel = hiltViewModel<GenreDetailViewModel>()
-				val list = genreViewModel.genreDetailList.collectAsLazyPagingItems()
+				val list = genreViewModel.genreMoviesPaginationState
 				GenreDetailScreen(
-					genreDetailList = list,
+					genreMoviesPaginatedState = list,
 					genreName = genreViewModel.genreName,
 					popBackStack = { navController.popBackStack() }
 				) { id ->

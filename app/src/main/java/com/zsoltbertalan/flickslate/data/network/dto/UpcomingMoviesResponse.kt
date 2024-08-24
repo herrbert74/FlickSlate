@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.data.network.dto
 
-import com.zsoltbertalan.flickslate.domain.model.MoviesResponse
+import com.zsoltbertalan.flickslate.domain.model.PagingReply
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
@@ -13,4 +13,5 @@ data class UpcomingMoviesResponse(
 	val dates: Dates? = null,
 )
 
-fun UpcomingMoviesResponse.toMoviesResponse() = MoviesResponse(this.results?.toMovieList()?: emptyList())
+fun UpcomingMoviesResponse.toMoviesResponse() =
+	PagingReply(this.results?.toMovieList() ?: emptyList(), page == total_pages)
