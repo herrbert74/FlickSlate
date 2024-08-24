@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.common.testhelper
 
-import com.zsoltbertalan.flickslate.data.network.dto.Genres
+import com.zsoltbertalan.flickslate.data.network.dto.GenreDto
 
 object GenreDtoMother {
 
@@ -21,4 +21,4 @@ object GenreDtoMother {
 private fun createDefaultGenreDto(
 	id: Int,
 	name: String
-) = Genres(id, name)
+) = GenreDto(id, name)

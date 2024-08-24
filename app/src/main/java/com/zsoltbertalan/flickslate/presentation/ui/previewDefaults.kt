@@ -1,13 +1,13 @@
 package com.zsoltbertalan.flickslate.presentation.ui
 
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
-import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailResponse
-import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
-import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
-import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvResponse
-import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsResponse
-import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailsDto
+import com.zsoltbertalan.flickslate.data.network.dto.MoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsDto
+import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesReplyDto
 import retrofit2.Response
 
 val defaultFlickSlateService = object : FlickSlateService {
@@ -16,7 +16,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		ifNoneMatch: String
-	): Response<GenreReply> {
+	): Response<GenreReplyDto> {
 		TODO("Not yet implemented")
 	}
 
@@ -24,7 +24,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): Response<MoviesResponseDto> {
+	): Response<MoviesReplyDto> {
 		TODO("Not yet implemented")
 	}
 
@@ -32,7 +32,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): Response<NowPlayingMoviesResponse> {
+	): Response<NowPlayingMoviesReplyDto> {
 		TODO("Not yet implemented")
 	}
 
@@ -40,7 +40,7 @@ val defaultFlickSlateService = object : FlickSlateService {
 		apiKey: String,
 		language: String?,
 		page: Int?
-	): Response<UpcomingMoviesResponse> {
+	): Response<UpcomingMoviesReplyDto> {
 		TODO("Not yet implemented")
 	}
 
@@ -49,23 +49,23 @@ val defaultFlickSlateService = object : FlickSlateService {
 		language: String?,
 		query: String,
 		page: Int?
-	): MoviesResponseDto {
+	): MoviesReplyDto {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getMovieDetails(movieId: Int, apiKey: String): MovieDetailResponse {
+	override suspend fun getMovieDetails(movieId: Int, apiKey: String): MovieDetailsDto {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getTopRatedTv(apiKey: String, language: String?, page: Int?): Response<TopRatedTvResponse> {
+	override suspend fun getTopRatedTv(apiKey: String, language: String?, page: Int?): Response<TopRatedTvReplyDto> {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getTvDetails(seriesId: Int, apiKey: String): TvDetailsResponse {
+	override suspend fun getTvDetails(seriesId: Int, apiKey: String): TvDetailsDto {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getGenreMovie(apiKey: String, withGenres: Int, page: Int?): Response<MoviesResponseDto> {
+	override suspend fun getGenreMovie(apiKey: String, withGenres: Int, page: Int?): Response<MoviesReplyDto> {
 		TODO("Not yet implemented")
 	}
 }

@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.domain.model.Movie
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-class NowPlayingMoviesDbo() : RealmObject {
+class NowPlayingMovieDbo() : RealmObject {
 
 	constructor(
 		id: Int = 0,
@@ -35,7 +35,7 @@ class NowPlayingMoviesDbo() : RealmObject {
 
 }
 
-fun Movie.toNowPlayingMoviesDbo(page:Int): NowPlayingMoviesDbo = NowPlayingMoviesDbo(
+fun Movie.toNowPlayingMoviesDbo(page:Int): NowPlayingMovieDbo = NowPlayingMovieDbo(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,
@@ -45,7 +45,7 @@ fun Movie.toNowPlayingMoviesDbo(page:Int): NowPlayingMoviesDbo = NowPlayingMovie
 	page = page,
 )
 
-fun NowPlayingMoviesDbo.toMovie(): Movie = Movie(
+fun NowPlayingMovieDbo.toMovie(): Movie = Movie(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,

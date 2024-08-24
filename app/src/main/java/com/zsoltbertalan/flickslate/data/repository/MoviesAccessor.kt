@@ -6,9 +6,9 @@ import com.zsoltbertalan.flickslate.data.db.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.data.db.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.data.db.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
-import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
-import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
+import com.zsoltbertalan.flickslate.data.network.dto.MoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesReplyDto
 import com.zsoltbertalan.flickslate.data.network.dto.toMovieDetail
 import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.data.repository.getresult.fetchCacheThenNetworkResponse
@@ -58,7 +58,7 @@ class MoviesAccessor @Inject constructor(
 				)
 				popularMoviesDataSource.insertPopularMovies(moviesReply?.pagingList.orEmpty(), page)
 			},
-			mapper = MoviesResponseDto::toMoviesResponse,
+			mapper = MoviesReplyDto::toMoviesResponse,
 		)
 	}
 
@@ -81,7 +81,7 @@ class MoviesAccessor @Inject constructor(
 				)
 				upcomingMoviesDataSource.insertUpcomingMovies(moviesReply?.pagingList.orEmpty(), page)
 			},
-			mapper = UpcomingMoviesResponse::toMoviesResponse,
+			mapper = UpcomingMoviesReplyDto::toMoviesResponse,
 		)
 	}
 
@@ -104,7 +104,7 @@ class MoviesAccessor @Inject constructor(
 				)
 				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply?.pagingList.orEmpty(), page)
 			},
-			mapper = NowPlayingMoviesResponse::toMoviesResponse,
+			mapper = NowPlayingMoviesReplyDto::toMoviesResponse,
 		)
 	}
 

@@ -5,12 +5,13 @@ import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-data class TopRatedTvResponse(
+data class UpcomingMoviesReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,
-	val results: List<TvDto>? = null,
+	val results: List<MovieDto>? = null,
+	val dates: DatesDto? = null,
 )
 
-fun TopRatedTvResponse.toTvList() =
-	PagingReply(this.results?.toTvList()?: emptyList(), page == total_pages)
+fun UpcomingMoviesReplyDto.toMoviesResponse() =
+	PagingReply(this.results?.toMovieList() ?: emptyList(), page == total_pages)

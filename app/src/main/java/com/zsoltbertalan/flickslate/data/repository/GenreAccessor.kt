@@ -5,8 +5,8 @@ import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.data.db.GenreDataSource
 import com.zsoltbertalan.flickslate.data.db.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
-import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.MoviesReplyDto
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.data.network.dto.toMoviesResponse
 import com.zsoltbertalan.flickslate.data.repository.getresult.fetchCacheThenNetworkResponse
@@ -42,7 +42,7 @@ class GenreAccessor @Inject constructor(
 				val genres = genreResponse.body()?.toGenres().orEmpty()
 				genreDataSource.insertGenres(genres)
 			},
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 		).flowOn(dispatcher)
 	}
 
@@ -73,7 +73,7 @@ class GenreAccessor @Inject constructor(
 				)
 				genreMoviesDataSource.insertGenreMovies(moviesReply?.pagingList.orEmpty(), page)
 			},
-			mapper = MoviesResponseDto::toMoviesResponse,
+			mapper = MoviesReplyDto::toMoviesResponse,
 		)
 	}
 

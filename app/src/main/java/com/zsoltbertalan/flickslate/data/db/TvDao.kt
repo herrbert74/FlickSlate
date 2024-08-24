@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.common.async.IoDispatcher
 import com.zsoltbertalan.flickslate.common.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.domain.model.PageData
 import com.zsoltbertalan.flickslate.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.domain.model.Tv
+import com.zsoltbertalan.flickslate.domain.model.TvShow
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,15 +22,15 @@ class TvDao @Inject constructor(
 
 	override suspend fun purgeDatabase() {
 		realm.write {
-			val moviesToDelete = this.query(TvDbo::class).find()
+			val moviesToDelete = this.query(TvShowDbo::class).find()
 			delete(moviesToDelete)
 		}
 	}
 
-	override suspend fun insertTv(tvList: List<Tv>, page: Int) {
+	override suspend fun insertTv(tvShowList: List<TvShow>, page: Int) {
 		runCatchingUnit {
 			realm.write {
-				tvList.map { copyToRealm(it.toTvDbo(page), UpdatePolicy.ALL) }
+				tvShowList.map { copyToRealm(it.toTvDbo(page), UpdatePolicy.ALL) }
 			}
 		}
 	}
@@ -43,8 +43,8 @@ class TvDao @Inject constructor(
 		}
 	}
 
-	override fun getTv(page: Int): Flow<PagingReply<Tv>?> {
-		return realm.query(TvDbo::class, "page = $0", page).asFlow()
+	override fun getTv(page: Int): Flow<PagingReply<TvShow>?> {
+		return realm.query(TvShowDbo::class, "page = $0", page).asFlow()
 			.map { change ->
 				val pageData = getPageData(page)
 				val isLastPage = pageData?.totalPages == page

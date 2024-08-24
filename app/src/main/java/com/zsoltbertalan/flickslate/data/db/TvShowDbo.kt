@@ -1,14 +1,14 @@
 package com.zsoltbertalan.flickslate.data.db
 
-import com.zsoltbertalan.flickslate.domain.model.Movie
+import com.zsoltbertalan.flickslate.domain.model.TvShow
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-class UpcomingMoviesDbo() : RealmObject {
+class TvShowDbo() : RealmObject {
 
 	constructor(
 		id: Int = 0,
-		title: String = "",
+		name: String = "",
 		overview: String? = null,
 		voteAverage: Float? = null,
 		posterPath: String? = null,
@@ -16,7 +16,7 @@ class UpcomingMoviesDbo() : RealmObject {
 		page: Int = 0,
 	) : this() {
 		this.id = id
-		this.title = title
+		this.name = name
 		this.overview = overview
 		this.voteAverage = voteAverage
 		this.posterPath = posterPath
@@ -26,7 +26,7 @@ class UpcomingMoviesDbo() : RealmObject {
 
 	@PrimaryKey
 	var id: Int = 0
-	var title: String = ""
+	var name: String = ""
 	var overview: String? = null
 	var voteAverage: Float? = null
 	var posterPath: String? = null
@@ -35,9 +35,9 @@ class UpcomingMoviesDbo() : RealmObject {
 
 }
 
-fun Movie.toUpcomingMoviesDbo(page:Int): UpcomingMoviesDbo = UpcomingMoviesDbo(
+fun TvShow.toTvDbo(page:Int): TvShowDbo = TvShowDbo(
 	id = this.id,
-	title = this.title,
+	name = this.name,
 	overview = this.overview,
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,
@@ -45,9 +45,9 @@ fun Movie.toUpcomingMoviesDbo(page:Int): UpcomingMoviesDbo = UpcomingMoviesDbo(
 	page = page,
 )
 
-fun UpcomingMoviesDbo.toMovie(): Movie = Movie(
+fun TvShowDbo.toMovie(): TvShow = TvShow(
 	id = this.id,
-	title = this.title,
+	name = this.name,
 	overview = this.overview,
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,

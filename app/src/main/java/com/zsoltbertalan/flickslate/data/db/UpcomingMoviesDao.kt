@@ -22,7 +22,7 @@ class UpcomingMoviesDao @Inject constructor(
 
 	override suspend fun purgeDatabase() {
 		realm.write {
-			val moviesToDelete = this.query(UpcomingMoviesDbo::class).find()
+			val moviesToDelete = this.query(UpcomingMovieDbo::class).find()
 			delete(moviesToDelete)
 		}
 	}
@@ -44,7 +44,7 @@ class UpcomingMoviesDao @Inject constructor(
 	}
 
 	override fun getUpcomingMovies(page: Int): Flow<PagingReply<Movie>?> {
-		return realm.query(UpcomingMoviesDbo::class, "page = $0", page).asFlow()
+		return realm.query(UpcomingMovieDbo::class, "page = $0", page).asFlow()
 			.map { change ->
 				val pageData = getPageData(page)
 				val isLastPage = pageData?.totalPages == page

@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.domain.model
 
-data class Tv(
+data class TvShow(
 	val id: Int = 0,
 	val name: String = "",
 	val overview: String? = null,

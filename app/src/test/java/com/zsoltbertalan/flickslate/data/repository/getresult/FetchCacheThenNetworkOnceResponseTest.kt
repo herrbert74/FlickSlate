@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.domain.model.Genre
@@ -27,7 +27,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
@@ -45,7 +45,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
@@ -62,7 +62,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
@@ -81,7 +81,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 		)
 
@@ -101,7 +101,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 			fetchCacheThenNetworkResponse(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
-				mapper = GenreReply::toGenres,
+				mapper = GenreReplyDto::toGenres,
 				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
 			).collect {
 				results.add(it)

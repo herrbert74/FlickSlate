@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.common.testhelper
 
-import com.zsoltbertalan.flickslate.domain.model.Tv
+import com.zsoltbertalan.flickslate.domain.model.TvShow
 
 /**
  * This is an example of an ObjectMother that can be used in both Unit and Android UI tests.
@@ -34,7 +34,7 @@ private fun createDefaultTv(
 	voteAverage: Float = 0.7800f,
 	posterPath: String = "app1",
 	backdropPath: String = ""
-): Tv = Tv(
+): TvShow = TvShow(
 	id = id,
 	name = name,
 	overview = overview,

@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
 import com.zsoltbertalan.flickslate.data.network.dto.toGenres
 import com.zsoltbertalan.flickslate.domain.model.Failure
 import com.zsoltbertalan.flickslate.common.testhelper.GenreMother
@@ -23,7 +23,7 @@ class FetchCacheThenNetworkResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReply::toGenres,
+			mapper = GenreReplyDto::toGenres,
 		)
 
 		flow.toList() shouldBe listOf(
@@ -41,7 +41,7 @@ class FetchCacheThenNetworkResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReply::toGenres
+			mapper = GenreReplyDto::toGenres
 		)
 
 		flow.toList() shouldBe listOf(
@@ -57,7 +57,7 @@ class FetchCacheThenNetworkResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReply::toGenres
+			mapper = GenreReplyDto::toGenres
 		)
 
 		flow.toList() shouldBe listOf(
@@ -73,7 +73,7 @@ class FetchCacheThenNetworkResponseTest {
 		val flow = fetchCacheThenNetworkResponse(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReply::toGenres
+			mapper = GenreReplyDto::toGenres
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))

@@ -3,14 +3,14 @@ package com.zsoltbertalan.flickslate.data.repository
 import com.zsoltbertalan.flickslate.common.util.Outcome
 import com.zsoltbertalan.flickslate.data.db.TvDataSource
 import com.zsoltbertalan.flickslate.data.network.FlickSlateService
-import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvResponse
+import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvReplyDto
 import com.zsoltbertalan.flickslate.data.network.dto.toTvDetail
 import com.zsoltbertalan.flickslate.data.network.dto.toTvList
 import com.zsoltbertalan.flickslate.data.repository.getresult.fetchCacheThenNetworkResponse
 import com.zsoltbertalan.flickslate.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.domain.model.PageData
 import com.zsoltbertalan.flickslate.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.domain.model.Tv
+import com.zsoltbertalan.flickslate.domain.model.TvShow
 import com.zsoltbertalan.flickslate.domain.model.TvDetail
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class TvAccessor @Inject constructor(
 	private val tvDataSource: TvDataSource,
 ) : TvRepository {
 
-	override fun getTopRatedTv(page: Int): Flow<Outcome<PagingReply<Tv>>> {
+	override fun getTopRatedTv(page: Int): Flow<Outcome<PagingReply<TvShow>>> {
 		return fetchCacheThenNetworkResponse(
 			fetchFromLocal = { tvDataSource.getTv(page) },
 			makeNetworkRequest = { flickSlateService.getTopRatedTv(page = page) },
@@ -39,7 +39,7 @@ class TvAccessor @Inject constructor(
 				)
 				tvDataSource.insertTv(tvReply?.pagingList.orEmpty(), page)
 			},
-			mapper = TopRatedTvResponse::toTvList,
+			mapper = TopRatedTvReplyDto::toTvList,
 		)
 	}
 	override suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail> {

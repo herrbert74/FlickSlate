@@ -1,17 +1,17 @@
 package com.zsoltbertalan.flickslate.data.repository.getresult
 
 import com.zsoltbertalan.flickslate.common.testhelper.GenreDtoMother
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
 import kotlinx.coroutines.delay
 import retrofit2.HttpException
 
-fun makeNetworkRequest(): suspend () -> GenreReply = suspend {
-	GenreReply(GenreDtoMother.createGenreDtoList())
+fun makeNetworkRequest(): suspend () -> GenreReplyDto = suspend {
+	GenreReplyDto(GenreDtoMother.createGenreDtoList())
 }
 
-suspend fun makeNetworkRequestDelayed(): suspend () -> GenreReply = suspend {
+suspend fun makeNetworkRequestDelayed(): suspend () -> GenreReplyDto = suspend {
 	delay(1000)
-	GenreReply(GenreDtoMother.createGenreDtoList())
+	GenreReplyDto(GenreDtoMother.createGenreDtoList())
 }
 
-fun failNetworkRequest(): () -> GenreReply = { throw HttpException(failNetworkRequestResponse()()) }
+fun failNetworkRequest(): () -> GenreReplyDto = { throw HttpException(failNetworkRequestResponse()()) }

@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.data.network.dto
 
 import com.babestudios.base.data.mapNullInputList
-import com.zsoltbertalan.flickslate.domain.model.Tv
+import com.zsoltbertalan.flickslate.domain.model.TvShow
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
@@ -21,9 +21,9 @@ data class TvDto(
 	val overview: String? = null,
 )
 
-fun List<TvDto>.toTvList(): List<Tv> = mapNullInputList(this) { tvDto -> tvDto.toTv() }
+fun List<TvDto>.toTvList(): List<TvShow> = mapNullInputList(this) { tvDto -> tvDto.toTv() }
 
-fun TvDto.toTv() = Tv(
+fun TvDto.toTv() = TvShow(
 	this.id ?: 0,
 	this.name ?: "",
 	this.overview,

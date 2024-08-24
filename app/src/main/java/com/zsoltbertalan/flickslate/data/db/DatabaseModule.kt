@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.data.db
 
-import com.zsoltbertalan.flickslate.common.async.IoDispatcher
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -8,7 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -21,15 +19,15 @@ class DatabaseModule {
 		schema = setOf(
 			GenreDbo::class,
 			EtagDbo::class,
-			GenreMoviesDbo::class,
+			GenreMovieDbo::class,
 			GenreMoviesPageDbo::class,
-			PopularMoviesDbo::class,
+			PopularMovieDbo::class,
 			PopularMoviesPageDbo::class,
-			NowPlayingMoviesDbo::class,
+			NowPlayingMovieDbo::class,
 			NowPlayingMoviesPageDbo::class,
-			UpcomingMoviesDbo::class,
+			UpcomingMovieDbo::class,
 			UpcomingMoviesPageDbo::class,
-			TvDbo::class,
+			TvShowDbo::class,
 			TvPageDbo::class,
 		)
 	).build()

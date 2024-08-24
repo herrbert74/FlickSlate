@@ -1,14 +1,14 @@
 package com.zsoltbertalan.flickslate.data.db
 
-import com.zsoltbertalan.flickslate.domain.model.Tv
+import com.zsoltbertalan.flickslate.domain.model.Movie
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 
-class TvDbo() : RealmObject {
+class PopularMovieDbo() : RealmObject {
 
 	constructor(
 		id: Int = 0,
-		name: String = "",
+		title: String = "",
 		overview: String? = null,
 		voteAverage: Float? = null,
 		posterPath: String? = null,
@@ -16,7 +16,7 @@ class TvDbo() : RealmObject {
 		page: Int = 0,
 	) : this() {
 		this.id = id
-		this.name = name
+		this.title = title
 		this.overview = overview
 		this.voteAverage = voteAverage
 		this.posterPath = posterPath
@@ -26,7 +26,7 @@ class TvDbo() : RealmObject {
 
 	@PrimaryKey
 	var id: Int = 0
-	var name: String = ""
+	var title: String = ""
 	var overview: String? = null
 	var voteAverage: Float? = null
 	var posterPath: String? = null
@@ -35,9 +35,9 @@ class TvDbo() : RealmObject {
 
 }
 
-fun Tv.toTvDbo(page:Int): TvDbo = TvDbo(
+fun Movie.toPopularMoviesDbo(page:Int): PopularMovieDbo = PopularMovieDbo(
 	id = this.id,
-	name = this.name,
+	title = this.title,
 	overview = this.overview,
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,
@@ -45,9 +45,9 @@ fun Tv.toTvDbo(page:Int): TvDbo = TvDbo(
 	page = page,
 )
 
-fun TvDbo.toMovie(): Tv = Tv(
+fun PopularMovieDbo.toMovie(): Movie = Movie(
 	id = this.id,
-	name = this.name,
+	title = this.title,
 	overview = this.overview,
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,

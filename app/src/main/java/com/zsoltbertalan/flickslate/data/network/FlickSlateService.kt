@@ -1,13 +1,13 @@
 package com.zsoltbertalan.flickslate.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
-import com.zsoltbertalan.flickslate.data.network.dto.GenreReply
-import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailResponse
-import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
-import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
-import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvResponse
-import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsResponse
-import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
+import com.zsoltbertalan.flickslate.data.network.dto.GenreReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.MovieDetailsDto
+import com.zsoltbertalan.flickslate.data.network.dto.MoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.TopRatedTvReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.TvDetailsDto
+import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesReplyDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -31,28 +31,28 @@ interface FlickSlateService {
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Header("If-None-Match") ifNoneMatch: String = ""
-	): Response<GenreReply>
+	): Response<GenreReplyDto>
 
 	@GET(URL_MOVIES_POPULAR)
 	suspend fun getPopularMovies(
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
-	): Response<MoviesResponseDto>
+	): Response<MoviesReplyDto>
 
 	@GET(URL_MOVIES_NOW_PLAYING)
 	suspend fun getNowPlayingMovies(
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
-	): Response<NowPlayingMoviesResponse>
+	): Response<NowPlayingMoviesReplyDto>
 
 	@GET(URL_MOVIES_UPCOMING)
 	suspend fun getUpcomingMovies(
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
-	): Response<UpcomingMoviesResponse>
+	): Response<UpcomingMoviesReplyDto>
 
 	@GET(URL_MOVIES_SEARCH)
 	suspend fun searchMovies(
@@ -60,32 +60,32 @@ interface FlickSlateService {
 		@Query("language") language: String? = "en",
 		@Query("query") query: String,
 		@Query("page") page: Int?
-	): MoviesResponseDto
+	): MoviesReplyDto
 
 	@GET(URL_MOVIE_DETAILS)
 	suspend fun getMovieDetails(
 		@Path("movie_id") movieId: Int,
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-	): MovieDetailResponse
+	): MovieDetailsDto
 
 	@GET(URL_TV_TOP_RATED)
 	suspend fun getTopRatedTv(
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
-	): Response<TopRatedTvResponse>
+	): Response<TopRatedTvReplyDto>
 
 	@GET(URL_TV_DETAILS)
 	suspend fun getTvDetails(
 		@Path("series_id") seriesId: Int,
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-	): TvDetailsResponse
+	): TvDetailsDto
 
 	@GET(URL_DISCOVER_MOVIE)
 	suspend fun getGenreMovie(
 		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("with_genres") withGenres: Int,
 		@Query("page") page: Int?,
-	): Response<MoviesResponseDto>
+	): Response<MoviesReplyDto>
 
 }

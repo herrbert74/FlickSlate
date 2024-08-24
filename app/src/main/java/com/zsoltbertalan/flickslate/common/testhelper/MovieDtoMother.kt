@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.common.testhelper
 
 import com.zsoltbertalan.flickslate.data.network.dto.MovieDto
-import com.zsoltbertalan.flickslate.data.network.dto.MoviesResponseDto
-import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesResponse
-import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesResponse
+import com.zsoltbertalan.flickslate.data.network.dto.MoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.NowPlayingMoviesReplyDto
+import com.zsoltbertalan.flickslate.data.network.dto.UpcomingMoviesReplyDto
 
 private const val TOTAL_RESULTS = 300
 
@@ -11,7 +11,7 @@ private const val TOTAL_PAGES = 3
 
 object MovieDtoMother {
 
-	fun createMoviesResponseDto() = MoviesResponseDto(
+	fun createMoviesResponseDto() = MoviesReplyDto(
 		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name1", overview = "Overview 0"),
@@ -23,7 +23,7 @@ object MovieDtoMother {
 		)
 	)
 
-	fun createPopularMovieList() = MoviesResponseDto(
+	fun createPopularMovieList() = MoviesReplyDto(
 		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name101", overview = "Overview 0"),
@@ -43,7 +43,7 @@ object MovieDtoMother {
 		)
 	)
 
-	fun createNowPlayingMovieList() = NowPlayingMoviesResponse(
+	fun createNowPlayingMovieList() = NowPlayingMoviesReplyDto(
 		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name101", overview = "Overview 0"),
@@ -63,7 +63,7 @@ object MovieDtoMother {
 		)
 	)
 
-	fun createUpcomingMovieList() = UpcomingMoviesResponse(
+	fun createUpcomingMovieList() = UpcomingMoviesReplyDto(
 		0, TOTAL_PAGES, TOTAL_RESULTS,
 		listOf(
 			createDefaultMovieDto(id = 0, title = "name201", overview = "Overview 0"),
