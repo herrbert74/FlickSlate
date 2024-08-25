@@ -1,6 +1,17 @@
 package com.zsoltbertalan.flickslate.data.db
 
-import dagger.Binds
+import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMovieDbo
+import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMoviesPageDbo
+import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMovieDbo
+import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMoviesPageDbo
+import com.zsoltbertalan.flickslate.movies.data.db.model.UpcomingMovieDbo
+import com.zsoltbertalan.flickslate.movies.data.db.model.UpcomingMoviesPageDbo
+import com.zsoltbertalan.flickslate.search.data.db.model.EtagDbo
+import com.zsoltbertalan.flickslate.search.data.db.model.GenreDbo
+import com.zsoltbertalan.flickslate.search.data.db.model.GenreMovieDbo
+import com.zsoltbertalan.flickslate.search.data.db.model.GenreMoviesPageDbo
+import com.zsoltbertalan.flickslate.tv.data.db.model.TvPageDbo
+import com.zsoltbertalan.flickslate.tv.data.db.model.TvShowDbo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,25 +49,3 @@ class DatabaseModule {
 
 }
 
-@Module
-@InstallIn(SingletonComponent::class)
-interface BindingDatabaseModule {
-
-	@Binds
-	fun bindGenreDataSource(genreDao: GenreDao): GenreDataSource
-
-	@Binds
-	fun bindGenreMoviesDataSource(genreMoviesDao: GenreMoviesDao): GenreMoviesDataSource
-
-	@Binds
-	fun bindTvDataSource(tvDao: TvDao): TvDataSource
-
-	@Binds
-	fun bindPopularMoviesDataSource(popularMoviesDao: PopularMoviesDao): PopularMoviesDataSource
-
-	@Binds
-	fun bindUpcomingMoviesDataSource(upcomingMoviesDao: UpcomingMoviesDao): UpcomingMoviesDataSource
-
-	@Binds
-	fun bindNowPlayingMoviesDataSource(nowPlayingMoviesDao: NowPlayingMoviesDao): NowPlayingMoviesDataSource
-}

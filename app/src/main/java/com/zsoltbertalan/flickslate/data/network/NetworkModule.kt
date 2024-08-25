@@ -1,14 +1,8 @@
 package com.zsoltbertalan.flickslate.data.network
 
-import com.zsoltbertalan.flickslate.data.repository.GenreAccessor
-import com.zsoltbertalan.flickslate.data.repository.MoviesAccessor
-import com.zsoltbertalan.flickslate.data.repository.SearchAccessor
-import com.zsoltbertalan.flickslate.data.repository.TvAccessor
-import com.zsoltbertalan.flickslate.domain.api.GenreRepository
-import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.domain.api.SearchRepository
-import com.zsoltbertalan.flickslate.domain.api.TvRepository
-import dagger.Binds
+import com.zsoltbertalan.flickslate.movies.network.MoviesService
+import com.zsoltbertalan.flickslate.search.network.SearchService
+import com.zsoltbertalan.flickslate.search.network.TvService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,30 +38,20 @@ class NetworkModule {
 
 	@Provides
 	@Singleton
-	internal fun provideFlickSlateService(retroFit: Retrofit): FlickSlateService {
-		return retroFit.create(FlickSlateService::class.java)
+	internal fun provideMoviesService(retroFit: Retrofit): MoviesService {
+		return retroFit.create(MoviesService::class.java)
 	}
 
-	@Module
-	@InstallIn(SingletonComponent::class)
-	interface RepositoryModule {
+	@Provides
+	@Singleton
+	internal fun provideSearchService(retroFit: Retrofit): SearchService {
+		return retroFit.create(SearchService::class.java)
+	}
 
-		@Binds
-		@Singleton
-		fun bindGenreRepository(genreAccessor: GenreAccessor): GenreRepository
-
-		@Binds
-		@Singleton
-		fun bindMoviesRepository(moviesAccessor: MoviesAccessor): MoviesRepository
-
-		@Binds
-		@Singleton
-		fun bindSearchRepository(searchAccessor: SearchAccessor): SearchRepository
-
-		@Binds
-		@Singleton
-		fun bindTvRepository(tvAccessor: TvAccessor): TvRepository
-
+	@Provides
+	@Singleton
+	internal fun provideTvService(retroFit: Retrofit): TvService {
+		return retroFit.create(TvService::class.java)
 	}
 
 }

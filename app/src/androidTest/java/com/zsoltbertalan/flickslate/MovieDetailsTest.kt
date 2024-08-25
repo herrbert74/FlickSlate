@@ -1,19 +1,16 @@
 package com.zsoltbertalan.flickslate
 
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.zsoltbertalan.flickslate.common.async.IoDispatcher
-import com.zsoltbertalan.flickslate.common.async.MainDispatcher
-import com.zsoltbertalan.flickslate.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.presentation.ui.FlickSlateActivity
+import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
+import com.zsoltbertalan.flickslate.shared.async.MainDispatcher
+import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
+import com.zsoltbertalan.flickslate.main.FlickSlateActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.CoroutineDispatcher

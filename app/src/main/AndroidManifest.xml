@@ -16,7 +16,7 @@
 		android:theme="@style/Theme.FlickSlate"
 		tools:targetApi="31">
 		<activity
-			android:name=".presentation.ui.FlickSlateActivity"
+			android:name=".main.FlickSlateActivity"
 			android:exported="true"
 			android:theme="@style/Theme.FlickSlate">
 			<intent-filter>
