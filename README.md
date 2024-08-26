@@ -21,10 +21,40 @@ FlickSlate architecture is Clean(ish) Architecture as [recommended by Google](ht
 
 Let's take a look in each major part of the application:
 
-* **presentation** - Contains the **ui**, the **design** and the **navigation**. 
-* **domain** - Contains the **domain model** and the **api interface** It depends only on itself and all interaction it does is via _dependency
-  inversion_.
-* **data** - The module containing the data (**db**, **network**) from the app. Also holds the **repository** implementation.
+* **main** - Contains the entry points to the application, plus Jetpack ***navigation**.
+* **feature** modules (and submodules for **domain**, **data**, **repository**, and **ui**):
+  * **movies**
+  * **tv**
+  * **search**
+* **shared** - Contains the shared parts. Notice that some parts can be both **feature** specific or **layer** specific, as required.
+  * **domain** - Contains the **shared** **domain model**, the **api interface**, and optionally **use cases**. Domain depends only on itself and all interaction it does is via _dependency
+    inversion_.
+  * **data** - The module containing the **shared** data for the app. Data modules contain the (**db**, **network**, etc) modules.
+  * **compose** - Contains shared modules related to compose ui: the **component**, the **design** and the **navigation**.
+  * **async**, the **testhelper** and the **util** modules.
+
+In my view this reflects the optimal structure of a **medium small** app (5-10 KLOC, 3-5 features).
+
+## 👀 Others
+
+* Network calls are using caching strategies and fetcher functions as detailed in my [Caching Strategies in Android ](https://herrbert74.github.io/posts/caching-strategies-in-android) article.
+* Many calls are doing paging and caching at the same time. It uses custom paging, so **do not** use this in production **yet**.
+
+## 💩 Known problems
+
+* Paging might have subtle bugs due to the shortcomings of the TMDB API:
+  * It returns the cached versions of the pages, which are retained for a day, but regenerated at different times.
+  * As a result, it can happen that two movies swap pages, but because only one of them is updated, one movie will be duplicated, the other will disappear.
+  * I haven't tested it, but this could break paging, where we scroll to the end of a long list, but because more than the threshold number of movies are missing, the fetch is not triggered.
+  * Similar problems are unresolved and unanswered on the TMDB forums, so I cannot be bothered to file an issue.
+  * The API doesn't respect the no-store header either.
+
+## 	🚧 Under construction
+
+* Modularisation
+* New features (TBD)
+* Improved test coverage
+* CI through Github Actions
 
 ## 📃 License
 
