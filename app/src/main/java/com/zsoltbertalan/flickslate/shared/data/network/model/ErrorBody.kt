@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.data.network.model
+package com.zsoltbertalan.flickslate.shared.data.network.model
 
 import kotlinx.serialization.Serializable
 

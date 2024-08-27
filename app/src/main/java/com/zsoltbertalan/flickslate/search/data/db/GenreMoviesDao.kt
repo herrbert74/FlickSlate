@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.search.data.db
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.domain.model.PageData
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.search.data.db.model.GenreMovieDbo
 import com.zsoltbertalan.flickslate.search.data.db.model.GenreMoviesPageDbo
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesDbo

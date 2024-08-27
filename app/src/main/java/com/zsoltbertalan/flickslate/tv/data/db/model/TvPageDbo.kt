@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.db.model
 
-import com.zsoltbertalan.flickslate.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 

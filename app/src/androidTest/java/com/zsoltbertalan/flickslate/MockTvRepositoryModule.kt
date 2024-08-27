@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.repository.TvRepositoryModule

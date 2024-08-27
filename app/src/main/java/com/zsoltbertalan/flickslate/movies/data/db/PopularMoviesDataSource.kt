@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.domain.model.PageData
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.coroutines.flow.Flow
 
 interface PopularMoviesDataSource {

@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.domain.model.Failure
+import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
 import dagger.hilt.android.lifecycle.HiltViewModel

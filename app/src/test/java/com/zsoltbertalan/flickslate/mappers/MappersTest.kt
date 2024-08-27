@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.mappers
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieDtoMother
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import io.kotest.matchers.shouldBe
 import org.junit.Before
 import org.junit.Test

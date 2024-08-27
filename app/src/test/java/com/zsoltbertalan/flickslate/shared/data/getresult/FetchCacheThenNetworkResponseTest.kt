@@ -4,7 +4,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
 import com.zsoltbertalan.flickslate.search.data.network.model.toGenres
-import com.zsoltbertalan.flickslate.domain.model.Failure
+import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.testhelper.GenreMother
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.first

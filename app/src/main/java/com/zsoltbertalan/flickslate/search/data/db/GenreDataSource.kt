@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.search.data.db
 
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import kotlinx.coroutines.flow.Flow
 
 interface GenreDataSource {

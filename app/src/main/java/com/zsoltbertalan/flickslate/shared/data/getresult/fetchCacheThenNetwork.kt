@@ -5,7 +5,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.recoverIf
-import com.zsoltbertalan.flickslate.domain.model.Failure
+import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit

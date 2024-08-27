@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")

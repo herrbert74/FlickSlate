@@ -1,8 +1,8 @@
-package com.zsoltbertalan.flickslate.data.network
+package com.zsoltbertalan.flickslate.shared.data.network
 
-import com.zsoltbertalan.flickslate.movies.network.MoviesService
-import com.zsoltbertalan.flickslate.search.network.SearchService
-import com.zsoltbertalan.flickslate.search.network.TvService
+import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
+import com.zsoltbertalan.flickslate.search.data.network.SearchService
+import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.tv.repository
 
-import com.zsoltbertalan.flickslate.search.network.TvService
-import com.zsoltbertalan.flickslate.domain.model.PageData
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.tv.data.network.TvService
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenNetworkResponse
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.tv.data.db.TvDataSource

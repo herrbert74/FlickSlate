@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.search.network
+package com.zsoltbertalan.flickslate.tv.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto

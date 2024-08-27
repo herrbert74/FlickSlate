@@ -1,3 +1,3 @@
-package com.zsoltbertalan.flickslate.domain.model
+package com.zsoltbertalan.flickslate.shared.domain.model
 
 class PagingReply<V>(val pagingList: List<V>, val isLastPage: Boolean)

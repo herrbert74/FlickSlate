@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.search.data.network.model
 
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,8 +1,9 @@
-package com.zsoltbertalan.flickslate.search.network
+package com.zsoltbertalan.flickslate.search.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
 import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
+import com.zsoltbertalan.flickslate.tv.data.network.URL_DISCOVER_MOVIE
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header

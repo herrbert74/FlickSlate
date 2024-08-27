@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.domain.model
+package com.zsoltbertalan.flickslate.shared.domain.model
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

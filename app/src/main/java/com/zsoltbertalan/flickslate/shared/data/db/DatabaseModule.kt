@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.data.db
+package com.zsoltbertalan.flickslate.shared.data.db
 
 import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMovieDbo
 import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMoviesPageDbo

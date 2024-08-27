@@ -4,10 +4,10 @@ import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
-import com.zsoltbertalan.flickslate.movies.network.MoviesService
+import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
-import com.zsoltbertalan.flickslate.search.network.SearchService
-import com.zsoltbertalan.flickslate.search.network.TvService
+import com.zsoltbertalan.flickslate.search.data.network.SearchService
+import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TvDetailsDto
 import retrofit2.Response

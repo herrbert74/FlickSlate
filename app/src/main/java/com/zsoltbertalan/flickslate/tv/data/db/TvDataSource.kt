@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.db
 
-import com.zsoltbertalan.flickslate.domain.model.PageData
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import kotlinx.coroutines.flow.Flow
 

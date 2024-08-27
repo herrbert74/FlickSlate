@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.search.repository
 
-import com.zsoltbertalan.flickslate.domain.model.Genre
-import com.zsoltbertalan.flickslate.domain.model.PageData
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
@@ -11,7 +11,7 @@ import com.zsoltbertalan.flickslate.search.data.db.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
 import com.zsoltbertalan.flickslate.search.data.network.model.toGenres
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
-import com.zsoltbertalan.flickslate.search.network.SearchService
+import com.zsoltbertalan.flickslate.search.data.network.SearchService
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenNetworkResponse
 import com.zsoltbertalan.flickslate.shared.util.Outcome

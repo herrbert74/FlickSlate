@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

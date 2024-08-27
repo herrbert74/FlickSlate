@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.shared.data.getresult
 
 import com.zsoltbertalan.flickslate.shared.testhelper.GenreDtoMother
-import com.zsoltbertalan.flickslate.data.network.model.ErrorBody
+import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
 import kotlinx.coroutines.delay
 import kotlinx.serialization.encodeToString

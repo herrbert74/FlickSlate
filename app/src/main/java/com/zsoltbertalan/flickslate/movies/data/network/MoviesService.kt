@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.movies.network
+package com.zsoltbertalan.flickslate.movies.data.network
 
 import com.zsoltbertalan.flickslate.BuildConfig
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto

@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.shared.testhelper
 
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 
 object GenreMother {
 

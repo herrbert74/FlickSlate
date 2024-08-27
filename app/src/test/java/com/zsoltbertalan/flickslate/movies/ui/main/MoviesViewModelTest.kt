@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.movies.ui.main
 
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual

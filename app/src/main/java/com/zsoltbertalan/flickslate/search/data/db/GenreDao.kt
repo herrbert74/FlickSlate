@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.search.data.db
 
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.search.data.db.model.EtagDbo
 import com.zsoltbertalan.flickslate.search.data.db.model.GenreDbo
 import com.zsoltbertalan.flickslate.search.data.db.model.toDbo

@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.movies.repository
 import com.zsoltbertalan.flickslate.movies.data.db.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.db.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.db.UpcomingMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.network.MoviesService
+import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieDtoMother
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual

@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.shared.compose.design.AdditionalColors
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 
 @Composable
