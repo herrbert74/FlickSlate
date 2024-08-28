@@ -47,7 +47,9 @@ jobs:
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
       - name: Run Debug Tests
-        run: ./gradlew testDebugUnitTest --continue
+        env:
+          tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
+        run: ./gradlew testDebugUnitTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
 
       - name: Upload Test Reports
         if: failure()
