@@ -27,7 +27,7 @@ jobs:
     - name: Build with Gradle Wrapper
       env:
         tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-      run: ./gradlew build "D$tmdbApiKey"
+      run: ./gradlew build "-DtmdbApiKey=$tmdbApiKey"
 
   static-analysis:
     name: Execute static analysis
@@ -48,4 +48,4 @@ jobs:
       - name: Run detekt
         env:
           tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-        run: ./gradlew detekt "P$tmdbApiKey"
+        run: ./gradlew detekt "-PtmdbApiKey=$tmdbApiKey"
