@@ -29,6 +29,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -108,23 +109,28 @@ private fun ShowSearchBar(
 	navigateToMovieDetails: (Int) -> Unit
 ) {
 	SearchBar(
-		query = searchQuery,
-		onQueryChange = onQueryChange,
-		onSearch = { onSearch() },
-		active = true,
-		onActiveChange = {
-			onActiveChange(it)
-		},
-		placeholder = { Text(stringResource(R.string.search_prompt)) },
-		leadingIcon = {
-			Icon(
-				modifier = Modifier.clickable {
-					onQueryClose()
+		inputField = {
+			SearchBarDefaults.InputField(
+				query = searchQuery,
+				onQueryChange = onQueryChange,
+				onSearch = { onSearch() },
+				expanded = true,
+				onExpandedChange = onActiveChange,
+				placeholder = { Text(stringResource(R.string.search_prompt)) },
+				leadingIcon = {
+					Icon(
+						modifier = Modifier.clickable {
+							onQueryClose()
+						},
+						imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+						contentDescription = null
+					)
 				},
-				imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-				contentDescription = null
 			)
-		}) {
+		},
+		expanded = true,
+		onExpandedChange = onActiveChange,
+	) {
 		SearchResultUi(uiState = searchState, navigateToMovieDetails = navigateToMovieDetails)
 		if (searchState.genreResult.isNotEmpty()) {
 			ListTitle(titleId = R.string.genre)
