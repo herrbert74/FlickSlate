@@ -63,11 +63,6 @@ class SearchViewModel @Inject constructor(
 					}
 				}
 
-
-			is SearchEvent.OpenGenre -> {
-
-			}
-
 			is SearchEvent.SearchClear -> _searchStateData.update {
 				it.copy(
 					searchResult = emptyList(),

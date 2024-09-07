@@ -1,10 +1,15 @@
 package com.zsoltbertalan.flickslate
 
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
@@ -61,26 +66,31 @@ class MovieDetailsTest {
 
 	/**
 	 * This fails currently due to a strange problem with Kotlin Value classes(?).
-	 * https://github.com/michaelbull/kotlin-result/issues/100
+	 * https://github.com/michaelbull/kotlin-result/issues/100 //Explains it nicely, only solution is to revert to v1
 	 * https://youtrack.jetbrains.com/issue/KT-53559/JVM-ClassCastException-class-kotlin.Result-cannot-be-cast-to-class-java.lang.String-with-Retrofit
+	 * https://github.com/mockk/mockk/issues/375
+	 * https://github.com/mockk/mockk/issues/152
+	 * https://github.com/mockk/mockk/issues/1292
+	 * https://kotlinlang.org/docs/inline-classes.html
+	 * https://youtrack.jetbrains.com/issue/KT-42434
 	 *
 	 * The Ok Result returned from the mock Repo is wrapped again in Ok, so it returns Ok(Ok(...))
 	 * But only in UI tests, where the mock is in a lambda... The variable in the debug window is fine, but not the
 	 * overlay data, when you hover over it.
 	 * Might be a problem with JVM through JUnit?
 	 */
-//	@Test
-//	fun showMovieDetails() {
-//
-//		waitUntilAtLeastOneExists(hasTestTag("MovieColumn"), 1000L)
-//
-//		composeTestRule.onNodeWithText("name1", ignoreCase = true).performClick()
-//
-//		waitUntilAtLeastOneExists(hasTestTag("MovieRow"), 1000L)
-//
-//		composeTestRule.onAllNodesWithTag("MovieRow").assertAny(hasTestTag("MovieRow"))
-//
-//	}
+	@Test
+	fun showMovieDetails() {
+
+		waitUntilAtLeastOneExists(hasTestTag("MovieColumn"), 1000L)
+
+		composeTestRule.onNodeWithText("name1", ignoreCase = true).performClick()
+
+		waitUntilAtLeastOneExists(hasText("Brazil"), 5000L)
+
+		composeTestRule.onAllNodesWithText("Brazil", useUnmergedTree = true).assertAny(hasText("Brazil"))
+
+	}
 
 	/**
 	 * Copied from [androidx.compose.ui.test.ComposeUiTest] to override useUnmergedTree.
