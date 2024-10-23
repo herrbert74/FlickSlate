@@ -7,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
 const val BASE_URL: String = "https://api.themoviedb.org/3/"
@@ -29,9 +31,11 @@ class NetworkModule {
 		val httpClient = OkHttpClient.Builder()
 
 		httpClient.addInterceptor(logging)
+		val json = Json { ignoreUnknownKeys = true }
+		val jsonConverterFactory = json.asConverterFactory("application/json; charset=UTF8".toMediaType())
 		return Retrofit.Builder()
 			.baseUrl(BASE_URL)
-			.addConverterFactory(GsonConverterFactory.create())
+			.addConverterFactory(jsonConverterFactory)
 			.client(httpClient.build())
 			.build()
 	}

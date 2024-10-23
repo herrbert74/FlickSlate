@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
@@ -35,13 +36,13 @@ class MoviesViewModelTest {
 		Dispatchers.setMain(dispatcher)
 
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
-			flowOf(Ok(PagingReply(MovieMother.createPopularMovieList(), true)))
+			flowOf(Ok(PagingReply(MovieMother.createPopularMovieList(), true, PageData())))
 		}
 		coEvery { moviesRepository.getUpcomingMovies(any()) } answers {
-			flowOf(Ok(PagingReply(MovieMother.createUpcomingMovieList(), true)))
+			flowOf(Ok(PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())))
 		}
 		coEvery { moviesRepository.getNowPlayingMovies(any()) } answers {
-			flowOf(Ok(PagingReply(MovieMother.createNowPlayingMovieList(), true)))
+			flowOf(Ok(PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())))
 		}
 
 		moviesViewModel = MoviesViewModel(moviesRepository)

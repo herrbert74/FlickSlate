@@ -1,9 +1,12 @@
 package com.zsoltbertalan.flickslate.movies.repository
 
-import com.zsoltbertalan.flickslate.movies.data.db.NowPlayingMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.data.db.PopularMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.data.db.UpcomingMoviesDataSource
+import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
+import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
+import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieDtoMother
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual
@@ -20,9 +23,12 @@ class MoviesRepositoryTest {
 
 	private val moviesService: MoviesService = mockk()
 
-	private val popularMoviesDataSource: PopularMoviesDataSource = mockk()
-	private val upcomingMoviesDataSource: UpcomingMoviesDataSource = mockk()
-	private val nowPlayingMoviesDataSource: NowPlayingMoviesDataSource = mockk()
+	private val popularMoviesDataSource: PopularMoviesDataSource.Local = mockk()
+	private val upcomingMoviesDataSource: UpcomingMoviesDataSource.Local = mockk()
+	private val nowPlayingMoviesDataSource: NowPlayingMoviesDataSource.Local = mockk()
+	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote = mockk()
+	private val upcomingMoviesRemoteDataSource: UpcomingMoviesDataSource.Remote = mockk()
+	private val nowPlayingMoviesRemoteDataSource: NowPlayingMoviesDataSource.Remote = mockk()
 
 	private lateinit var moviesAccessor: MoviesAccessor
 
@@ -46,11 +52,23 @@ class MoviesRepositoryTest {
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMovies(any(), any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.getNowPlayingMovies(any()) } returns flowOf(null)
+		coEvery { upcomingMoviesRemoteDataSource.getUpcomingMovies(any()) } returns Ok(
+			PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
+		)
+		coEvery { popularMoviesRemoteDataSource.getPopularMovies(any()) } returns Ok(
+			PagingReply(MovieMother.createPopularMovieList(), true, PageData())
+		)
+		coEvery { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(any()) } returns Ok(
+			PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())
+		)
 		moviesAccessor = MoviesAccessor(
 			moviesService,
 			popularMoviesDataSource,
+			popularMoviesRemoteDataSource,
 			nowPlayingMoviesDataSource,
-			upcomingMoviesDataSource
+			nowPlayingMoviesRemoteDataSource,
+			upcomingMoviesDataSource,
+			upcomingMoviesRemoteDataSource,
 		)
 	}
 

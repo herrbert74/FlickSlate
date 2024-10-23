@@ -112,7 +112,7 @@ dependencies {
 
 	implementation(libs.google.gson)
 	implementation(libs.squareUp.retrofit2.retrofit)
-	implementation(libs.squareUp.retrofit2.converterGson)
+	implementation(libs.squareUp.retrofit2.converterKotlinxSerialization)
 	implementation(libs.androidx.palette.ktx)
 
 	androidTestImplementation(libs.squareUp.okhttp3.loggingInterceptor)

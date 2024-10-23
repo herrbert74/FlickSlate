@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
+import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
@@ -24,7 +25,7 @@ import javax.inject.Singleton
 class PopularMoviesDao @Inject constructor(
 	private val realm: Realm,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,
-) : PopularMoviesDataSource {
+) : PopularMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {
 		realm.write {
@@ -56,7 +57,7 @@ class PopularMoviesDao @Inject constructor(
 				val isLastPage = pageData?.totalPages == page
 				val pagingList = change.list.map { it.toMovie() }.ifEmpty { null }
 				pagingList?.let {
-					PagingReply(pagingList, isLastPage)
+					PagingReply(pagingList, isLastPage, PageData())
 				}
 			}.flowOn(ioContext)
 	}

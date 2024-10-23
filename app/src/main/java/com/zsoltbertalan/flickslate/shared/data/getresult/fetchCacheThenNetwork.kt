@@ -39,6 +39,45 @@ import retrofit2.Response
  */
 
 /**
+ * NEW VERSION
+ *
+ */
+inline fun <DOMAIN> fetchCacheThenRemote(
+	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
+	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
+	crossinline makeNetworkRequest: suspend () -> Outcome<DOMAIN>,
+	noinline saveResponseData: suspend (DOMAIN) -> Unit = { },
+	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
+) = flow<Outcome<DOMAIN>> {
+
+	val localData = fetchFromLocal().first()
+	localData?.let { emit(Ok(it)) }
+
+	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
+
+	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
+
+		val newResult = makeNetworkRequest().andThen { dto ->
+			saveResponseData(dto)
+			Ok(dto)
+		}.recoverIf(
+			{ failure ->
+				println("failure: $failure")
+				failure == Failure.NotModified || localData != null },
+			{ null }
+		)
+
+		if (shouldEmitNetworkResult(newResult, strategy, localData == null)) {
+			emitAll(
+				flowOf(
+					newResult.map { it!! }
+				)
+			)
+		}
+	}
+}
+
+/**
  * For [retrofit2.Response] version see [fetchCacheThenNetworkResponse]. Response is needed when we want to extract
  * information from the header (like eTags) or the error body.
  *

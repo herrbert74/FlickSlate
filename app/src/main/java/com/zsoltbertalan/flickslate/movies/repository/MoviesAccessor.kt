@@ -1,20 +1,15 @@
 package com.zsoltbertalan.flickslate.movies.repository
 
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.movies.data.db.NowPlayingMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.data.db.PopularMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.data.db.UpcomingMoviesDataSource
-import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
-import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
-import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
+import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
+import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
+import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
+import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMovieDetail
-import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
-import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenNetworkResponse
+import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
 import kotlinx.coroutines.flow.Flow
@@ -24,9 +19,12 @@ import javax.inject.Singleton
 @Singleton
 class MoviesAccessor @Inject constructor(
 	private val moviesService: MoviesService,
-	private val popularMoviesDataSource: PopularMoviesDataSource,
-	private val nowPlayingMoviesDataSource: NowPlayingMoviesDataSource,
-	private val upcomingMoviesDataSource: UpcomingMoviesDataSource
+	private val popularMoviesDataSource: PopularMoviesDataSource.Local,
+	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote,
+	private val nowPlayingMoviesDataSource: NowPlayingMoviesDataSource.Local,
+	private val nowPlayingMoviesRemoteDataSource: NowPlayingMoviesDataSource.Remote,
+	private val upcomingMoviesDataSource: UpcomingMoviesDataSource.Local,
+	private val upcomingMoviesRemoteDataSource: UpcomingMoviesDataSource.Remote,
 ) : MoviesRepository {
 
 	/**
@@ -40,72 +38,65 @@ class MoviesAccessor @Inject constructor(
 	 * The API doesn't respect the no-store header either.
 	 */
 	override fun getPopularMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
-		return fetchCacheThenNetworkResponse(
+		return fetchCacheThenRemote(
 			fetchFromLocal = { popularMoviesDataSource.getPopularMovies(page) },
-			makeNetworkRequest = { moviesService.getPopularMovies(page = page) },
-			saveResponseData = { response ->
-				val etag = response.headers()["etag"] ?: ""
-				val moviesReply = response.body()?.toMoviesReply()
+			makeNetworkRequest = { popularMoviesRemoteDataSource.getPopularMovies(page = page) },
+			saveResponseData = { pagingReply ->
+				val moviesReply = pagingReply.pagingList
 				popularMoviesDataSource.insertPopularMoviesPageData(
-					PageData(
-						page,
-						response.headers()["date"] ?: "",
-						response.headers()["x-memc-expires"]?.toInt() ?: 0,
-						etag,
-						response.body()?.total_pages ?: 0,
-						response.body()?.total_results ?: 0,
-					)
+					pagingReply.pageData
 				)
-				popularMoviesDataSource.insertPopularMovies(moviesReply?.pagingList.orEmpty(), page)
+				popularMoviesDataSource.insertPopularMovies(moviesReply, page)
 			},
-			mapper = MoviesReplyDto::toMoviesReply,
 		)
 	}
 
 	override fun getUpcomingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
-		return fetchCacheThenNetworkResponse(
+		return fetchCacheThenRemote(
 			fetchFromLocal = { upcomingMoviesDataSource.getUpcomingMovies(page) },
-			makeNetworkRequest = { moviesService.getUpcomingMovies(page = page) },
-			saveResponseData = { response ->
-				val etag = response.headers()["etag"] ?: ""
-				val moviesReply = response.body()?.toMoviesReply()
+			makeNetworkRequest = { upcomingMoviesRemoteDataSource.getUpcomingMovies(page = page) },
+			saveResponseData = { pagingReply ->
+				val moviesReply = pagingReply.pagingList
 				upcomingMoviesDataSource.insertUpcomingMoviesPageData(
-					PageData(
-						page,
-						response.headers()["date"] ?: "",
-						response.headers()["x-memc-expires"]?.toInt() ?: 0,
-						etag,
-						response.body()?.total_pages ?: 0,
-						response.body()?.total_results ?: 0,
-					)
+					pagingReply.pageData
 				)
-				upcomingMoviesDataSource.insertUpcomingMovies(moviesReply?.pagingList.orEmpty(), page)
+				upcomingMoviesDataSource.insertUpcomingMovies(moviesReply, page)
 			},
-			mapper = UpcomingMoviesReplyDto::toMoviesReply,
 		)
 	}
 
 	override fun getNowPlayingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
-		return fetchCacheThenNetworkResponse(
+		return fetchCacheThenRemote(
 			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
-			makeNetworkRequest = { moviesService.getNowPlayingMovies(page = page) },
-			saveResponseData = { response ->
-				val etag = response.headers()["etag"] ?: ""
-				val moviesReply = response.body()?.toMoviesReply()
+			makeNetworkRequest = { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(page = page) },
+			saveResponseData = { pagingReply ->
+				val moviesReply = pagingReply.pagingList
 				nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(
-					PageData(
-						page,
-						response.headers()["date"] ?: "",
-						response.headers()["x-memc-expires"]?.toInt() ?: 0,
-						etag,
-						response.body()?.total_pages ?: 0,
-						response.body()?.total_results ?: 0,
-					)
+					pagingReply.pageData
 				)
-				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply?.pagingList.orEmpty(), page)
+				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply, page)
 			},
-			mapper = NowPlayingMoviesReplyDto::toMoviesReply,
 		)
+//		return fetchCacheThenNetworkResponse(
+//			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
+//			makeNetworkRequest = { moviesService.getNowPlayingMovies(page = page) },
+//			saveResponseData = { response ->
+//				val etag = response.headers()["etag"] ?: ""
+//				val moviesReply = response.body()?.toMoviesReply()
+//				nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(
+//					PageData(
+//						page,
+//						response.headers()["date"] ?: "",
+//						response.headers()["x-memc-expires"]?.toInt() ?: 0,
+//						etag,
+//						response.body()?.total_pages ?: 0,
+//						response.body()?.total_results ?: 0,
+//					)
+//				)
+//				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply?.pagingList.orEmpty(), page)
+//			},
+//			mapper = NowPlayingMoviesReplyDto::toMoviesReply,
+//		)
 	}
 
 	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> {

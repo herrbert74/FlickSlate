@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.serialization.Serializable
 
@@ -13,4 +14,4 @@ data class TopRatedTvReplyDto(
 )
 
 fun TopRatedTvReplyDto.toTvList() =
-	PagingReply(this.results?.toTvList()?: emptyList(), page == total_pages)
+	PagingReply(this.results?.toTvList()?: emptyList(), page == total_pages, PageData())

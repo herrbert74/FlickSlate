@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
@@ -22,7 +23,7 @@ class MockTvRepositoryModule {
 	@Singleton
 	fun provideTvRepository(): TvRepository {
 		return mockk {
-			val pagingData = PagingReply(TvMother.createTvList(), true)
+			val pagingData = PagingReply(TvMother.createTvList(), true, PageData())
 			coEvery { getTopRatedTv(any()) } returns flowOf(Ok(pagingData))
 		}
 	}

@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
+import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
@@ -24,7 +25,7 @@ import javax.inject.Singleton
 class NowPlayingMoviesDao @Inject constructor(
 	private val realm: Realm,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,
-) : NowPlayingMoviesDataSource {
+) : NowPlayingMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {
 		realm.write {
@@ -56,7 +57,7 @@ class NowPlayingMoviesDao @Inject constructor(
 				val isLastPage = pageData?.totalPages == page
 				val pagingList = change.list.map { it.toMovie() }.ifEmpty { null }
 				pagingList?.let {
-					PagingReply(pagingList, isLastPage)
+					PagingReply(pagingList, isLastPage, pageData ?: PageData())
 				}
 			}.flowOn(ioContext)
 	}

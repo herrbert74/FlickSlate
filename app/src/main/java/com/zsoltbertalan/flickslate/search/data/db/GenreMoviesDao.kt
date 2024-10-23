@@ -56,7 +56,7 @@ class GenreMoviesDao @Inject constructor(
 				val isLastPage = pageData?.totalPages == page
 				val pagingList = change.list.map { it.toMovie() }.ifEmpty { null }
 				pagingList?.let {
-					PagingReply(pagingList, isLastPage)
+					PagingReply(pagingList, isLastPage, PageData())
 				}
 			}.flowOn(ioContext)
 	}

@@ -6,6 +6,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.repository.MoviesRepositoryModule
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
 import dagger.Module
 import dagger.Provides
@@ -25,9 +26,9 @@ class MockMoviesRepositoryModule {
 	@Singleton
 	fun provideMoviesRepository(): MoviesRepository {
 		val m =  mockk<MoviesRepository> {
-			val popularPagingData = PagingReply(MovieMother.createPopularMovieList(), true)
-			val upcomingPagingData = PagingReply(MovieMother.createUpcomingMovieList(), true)
-			val pagingData = PagingReply(MovieMother.createMovieList(), true)
+			val popularPagingData = PagingReply(MovieMother.createPopularMovieList(), true, PageData())
+			val upcomingPagingData = PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
+			val pagingData = PagingReply(MovieMother.createMovieList(), true, PageData())
 			//println("zsoltbertalan* provideMoviesRepository: $h")
 			coEvery { getPopularMovies(any()) } returns flowOf(Ok(popularPagingData))
 			coEvery { getUpcomingMovies(any()) } returns flowOf(Ok(upcomingPagingData))
