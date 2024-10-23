@@ -77,26 +77,6 @@ class MoviesAccessor @Inject constructor(
 				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply, page)
 			},
 		)
-//		return fetchCacheThenNetworkResponse(
-//			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
-//			makeNetworkRequest = { moviesService.getNowPlayingMovies(page = page) },
-//			saveResponseData = { response ->
-//				val etag = response.headers()["etag"] ?: ""
-//				val moviesReply = response.body()?.toMoviesReply()
-//				nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(
-//					PageData(
-//						page,
-//						response.headers()["date"] ?: "",
-//						response.headers()["x-memc-expires"]?.toInt() ?: 0,
-//						etag,
-//						response.body()?.total_pages ?: 0,
-//						response.body()?.total_results ?: 0,
-//					)
-//				)
-//				nowPlayingMoviesDataSource.insertNowPlayingMovies(moviesReply?.pagingList.orEmpty(), page)
-//			},
-//			mapper = NowPlayingMoviesReplyDto::toMoviesReply,
-//		)
 	}
 
 	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> {

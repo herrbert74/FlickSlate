@@ -11,11 +11,11 @@ import retrofit2.Response
  * Executes a network a request, that returns a [retrofit2.Response].
  *
  * @param makeNetworkRequest The request
- * @param mapper, which discards the Response.
+ * @param mapper, which DOES NOT use the Response.
  *
- * @return [Outcome<DOMAIN>], where DOMAIN is NOT a [retrofit2.Response].
+ * @return [Outcome] where [DOMAIN] does NOT contain metadata from a [retrofit2.Response].
  */
-suspend inline fun <REMOTE, DOMAIN> safeCall2(
+suspend inline fun <REMOTE, DOMAIN> safeCall(
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,
 	crossinline mapper: REMOTE.() -> DOMAIN,
 ): Outcome<DOMAIN> {
@@ -38,9 +38,13 @@ suspend inline fun <REMOTE, DOMAIN> safeCall2(
  * @param makeNetworkRequest The request
  * @param mapper, which uses the Response metadata.
  *
- * @return [Outcome<DOMAIN>], where DOMAIN is a [retrofit2.Response].
+ * @return [Outcome], where [DOMAIN] contains metadata from a [retrofit2.Response]. This can be used to save it to
+ * the database or use it in the Presentation layer.
+ *
+ * The downside of this is that the metadata is exposed to the domain layer. To mitigate this another model layer
+ * should be introduced, if the amount of the data in the domain (or presentation) is a concern.
  */
-suspend inline fun <REMOTE, DOMAIN> safeCall(
+suspend inline fun <REMOTE, DOMAIN> safeCallWithMetadata(
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,
 	crossinline mapper: Response<REMOTE>.() -> DOMAIN,
 ): Outcome<DOMAIN> {

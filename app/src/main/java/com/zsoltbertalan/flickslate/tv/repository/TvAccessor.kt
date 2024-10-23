@@ -1,14 +1,11 @@
 package com.zsoltbertalan.flickslate.tv.repository
 
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenNetworkResponse
+import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.tv.data.db.TvDataSource
-import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
+import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
-import com.zsoltbertalan.flickslate.tv.data.network.model.toTvList
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
@@ -17,29 +14,21 @@ import javax.inject.Inject
 
 class TvAccessor @Inject constructor(
 	private val tvService: TvService,
-	private val tvDataSource: TvDataSource,
+	private val tvDataSource: TvDataSource.Local,
+	private val tvRemoteDataSource: TvDataSource.Remote,
 ) : TvRepository {
 
 	override fun getTopRatedTv(page: Int): Flow<Outcome<PagingReply<TvShow>>> {
-		return fetchCacheThenNetworkResponse(
+		return fetchCacheThenRemote(
 			fetchFromLocal = { tvDataSource.getTv(page) },
-			makeNetworkRequest = { tvService.getTopRatedTv(page = page) },
-			saveResponseData = { response ->
-				val etag = response.headers()["etag"] ?: ""
-				val tvReply = response.body()?.toTvList()
+			makeNetworkRequest = { tvRemoteDataSource.getTopRatedTv(page = page) },
+			saveResponseData = { pagingReply ->
+				val topRatedTvReply = pagingReply.pagingList
 				tvDataSource.insertTvPageData(
-					PageData(
-						page,
-						response.headers()["date"] ?: "",
-						response.headers()["x-memc-expires"]?.toInt() ?: 0,
-						etag,
-						response.body()?.total_pages ?: 0,
-						response.body()?.total_results ?: 0,
-					)
+					pagingReply.pageData
 				)
-				tvDataSource.insertTv(tvReply?.pagingList.orEmpty(), page)
+				tvDataSource.insertTv(topRatedTvReply, page)
 			},
-			mapper = TopRatedTvReplyDto::toTvList,
 		)
 	}
 

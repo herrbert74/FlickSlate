@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.util.safeCall
+import com.zsoltbertalan.flickslate.shared.util.safeCallWithMetadata
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +17,7 @@ class UpcomingMoviesRemoteDataSource @Inject constructor(
 ) : UpcomingMoviesDataSource.Remote {
 
 	override suspend fun getUpcomingMovies(page: Int?): Outcome<PagingReply<Movie>> {
-		return safeCall(
+		return safeCallWithMetadata(
 			{ moviesService.getUpcomingMovies(page = page) },
 			Response<UpcomingMoviesReplyDto>::toMoviesReply
 		)

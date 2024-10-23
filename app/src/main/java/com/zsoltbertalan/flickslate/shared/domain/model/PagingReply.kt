@@ -1,6 +1,12 @@
 package com.zsoltbertalan.flickslate.shared.domain.model
 
-class PagingReply<V>(
+/**
+ * Class wrapping one page from a paging response
+ * @param pagingList is the list
+ * @param isLastPage is metadata used in the Presentation layer
+ * @param pageData is metadata used to save paging metadata into the database
+ */
+data class PagingReply<V>(
 	val pagingList: List<V>,
 	val isLastPage: Boolean,
 	val pageData: PageData,

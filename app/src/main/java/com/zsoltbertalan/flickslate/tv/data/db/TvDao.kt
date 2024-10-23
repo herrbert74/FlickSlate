@@ -1,9 +1,10 @@
 package com.zsoltbertalan.flickslate.tv.data.db
 
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.db.model.TvPageDbo
 import com.zsoltbertalan.flickslate.tv.data.db.model.TvShowDbo
 import com.zsoltbertalan.flickslate.tv.data.db.model.toMovie
@@ -24,7 +25,7 @@ import javax.inject.Singleton
 class TvDao @Inject constructor(
 	private val realm: Realm,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,
-) : TvDataSource {
+) : TvDataSource.Local {
 
 	override suspend fun purgeDatabase() {
 		realm.write {
