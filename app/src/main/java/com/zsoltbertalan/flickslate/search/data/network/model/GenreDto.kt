@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.search.data.network.model
 import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import kotlinx.serialization.Serializable
+import retrofit2.Response
 
 @Serializable
 data class GenreDto(
@@ -12,4 +13,4 @@ data class GenreDto(
 
 fun GenreDto.toGenre(): Genre = Genre(this.id, this.name)
 
-fun List<GenreDto>?.toGenreList(): List<Genre> = mapNullInputList(this) { genre -> genre.toGenre() }
+fun List<GenreDto>?.toGenresReply(): List<Genre> = mapNullInputList(this) { genre -> genre.toGenre() }

@@ -8,7 +8,7 @@ import com.zsoltbertalan.flickslate.shared.data.getresult.handle
 import retrofit2.Response
 
 /**
- * Executes a network a request, that returns a [retrofit2.Response].
+ * Executes a network request, that returns a [retrofit2.Response].
  *
  * @param makeNetworkRequest The request
  * @param mapper, which DOES NOT use the Response.
@@ -33,7 +33,7 @@ suspend inline fun <REMOTE, DOMAIN> safeCall(
 }
 
 /**
- * Executes a network a request, that returns a [retrofit2.Response].
+ * Executes a network request, that returns a [retrofit2.Response].
  *
  * @param makeNetworkRequest The request
  * @param mapper, which uses the Response metadata.

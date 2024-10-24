@@ -79,7 +79,7 @@ class SearchViewModel @Inject constructor(
 				when {
 					response.isOk -> _searchStateData.update {
 						it.copy(
-							genreResult = response.value,
+							genreResult = response.value.genres.orEmpty(),
 						)
 					}
 

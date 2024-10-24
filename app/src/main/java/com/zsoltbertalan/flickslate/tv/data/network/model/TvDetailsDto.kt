@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenreList
+import com.zsoltbertalan.flickslate.search.data.network.model.toGenresReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import kotlinx.serialization.Serializable
 
@@ -33,5 +33,5 @@ fun TvDetailsDto.toTvDetail() = TvDetail(
 	this.vote_average,
 	this.poster_path,
 	this.backdrop_path,
-	this.genres.toGenreList(),
+	this.genres.toGenresReply(),
 )

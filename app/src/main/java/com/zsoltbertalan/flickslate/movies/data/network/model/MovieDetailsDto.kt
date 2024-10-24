@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.movies.data.network.model
 
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenreList
+import com.zsoltbertalan.flickslate.search.data.network.model.toGenresReply
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
@@ -31,5 +31,5 @@ fun MovieDetailsDto.toMovieDetail() = MovieDetail(
 	this.vote_average,
 	this.poster_path,
 	this.backdrop_path,
-	this.genres.toGenreList(),
+	this.genres.toGenresReply(),
 )

@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.search.data.db
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.search.data.db.model.GenreMovieDbo
@@ -24,7 +25,7 @@ import javax.inject.Singleton
 class GenreMoviesDao @Inject constructor(
 	private val realm: Realm,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,
-) : GenreMoviesDataSource {
+) : GenreMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {
 		realm.write {

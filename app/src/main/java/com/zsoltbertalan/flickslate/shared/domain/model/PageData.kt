@@ -1,5 +1,8 @@
 package com.zsoltbertalan.flickslate.shared.domain.model
 
+/**
+ * Used to save paging metadata into the database.
+ */
 data class PageData(
 	val page: Int = 0,
 	val date: String = "",

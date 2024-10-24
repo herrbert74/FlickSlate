@@ -15,9 +15,6 @@ data class TopRatedTvReplyDto(
 	val results: List<TvDto>? = null,
 )
 
-fun TopRatedTvReplyDto.toTvList() =
-	PagingReply(this.results?.toTvList()?: emptyList(), page == total_pages, PageData())
-
 fun Response<TopRatedTvReplyDto>.toTvShowsReply(): PagingReply<TvShow> {
 	val body = this.body()!!
 	val etag = this.headers()["etag"] ?: ""
@@ -35,4 +32,5 @@ fun Response<TopRatedTvReplyDto>.toTvShowsReply(): PagingReply<TvShow> {
 			body.total_results ?: 0
 		)
 	)
+
 }

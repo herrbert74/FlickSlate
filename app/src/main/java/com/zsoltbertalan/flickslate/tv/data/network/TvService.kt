@@ -10,7 +10,6 @@ import retrofit2.http.Query
 
 const val URL_TV_TOP_RATED = "tv/top_rated"
 const val URL_TV_DETAILS = "tv/{series_id}"
-const val URL_DISCOVER_MOVIE = "discover/movie"
 
 interface TvService {
 

@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
+import timber.log.Timber
 
 /**
  * A collection of generic Repository functions to handle common tasks like making network requests, fetching and
@@ -63,6 +64,7 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 		}.recoverIf(
 			{ failure ->
 				println("failure: $failure")
+				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")
 				failure == Failure.NotModified || localData != null },
 			{ null }
 		)
