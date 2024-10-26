@@ -23,11 +23,15 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      with:
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
 
     - name: Build with Gradle Wrapper
       env:
         tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-      run: ./gradlew assembleDebug "-PtmdbApiKey=\"$tmdbApiKey\"" --scan
+      run: ./gradlew assembleDebug "-PtmdbApiKey=\"$tmdbApiKey\""
 
   test:
     name: Unit tests
