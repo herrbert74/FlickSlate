@@ -13,7 +13,6 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-@Suppress("unused")
 @InstallIn(SingletonComponent::class)
 class SingletonModule {
 

@@ -16,9 +16,6 @@ data class UpcomingMoviesReplyDto(
 	val dates: DatesDto? = null,
 )
 
-fun UpcomingMoviesReplyDto.toMoviesReply() =
-	PagingReply(this.results?.toMovieList() ?: emptyList(), page == total_pages, PageData())
-
 fun Response<UpcomingMoviesReplyDto>.toMoviesReply(): PagingReply<Movie> {
 	val body = this.body()!!
 	val etag = this.headers()["etag"] ?: ""

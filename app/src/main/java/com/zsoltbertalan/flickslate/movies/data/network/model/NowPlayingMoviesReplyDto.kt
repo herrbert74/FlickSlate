@@ -16,13 +16,6 @@ data class NowPlayingMoviesReplyDto(
 	val dates: DatesDto? = null,
 )
 
-fun NowPlayingMoviesReplyDto.toMoviesReply() =
-	PagingReply(
-		pagingList = this.results?.toMovieList() ?: emptyList(),
-		isLastPage = page == total_pages,
-		pageData = PageData()
-	)
-
 fun Response<NowPlayingMoviesReplyDto>.toMoviesReply(): PagingReply<Movie> {
 	val body = this.body()!!
 	val etag = this.headers()["etag"] ?: ""

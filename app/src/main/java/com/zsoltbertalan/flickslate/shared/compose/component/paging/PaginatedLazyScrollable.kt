@@ -53,16 +53,13 @@ internal fun <KEY, T, LAZY_STATE, LAZY_SCROLLABLE_SCOPE> PaginatedLazyScrollable
 
 	if (internalState.items != null) {
 		LaunchedEffect(state) {
-			val lastVisibleItemIndex: Flow<Int>
 
-			when (state) {
-				is LazyGridState -> lastVisibleItemIndex =
-						snapshotFlow { state.layoutInfo.visibleItemsInfo.lastOrNull() }
-							.map { item -> item?.index ?: Int.MIN_VALUE }
+			val lastVisibleItemIndex: Flow<Int> = when (state) {
+				is LazyGridState -> snapshotFlow { state.layoutInfo.visibleItemsInfo.lastOrNull() }
+					.map { item -> item?.index ?: Int.MIN_VALUE }
 
-				is LazyListState -> lastVisibleItemIndex =
-					snapshotFlow { state.layoutInfo.visibleItemsInfo.lastOrNull() }
-						.map { item -> item?.index ?: Int.MIN_VALUE }
+				is LazyListState -> snapshotFlow { state.layoutInfo.visibleItemsInfo.lastOrNull() }
+					.map { item -> item?.index ?: Int.MIN_VALUE }
 
 				else -> throw IllegalArgumentException("Unsupported Lazy scrollable state type")
 			}
@@ -129,12 +126,10 @@ internal fun <KEY, T, LAZY_STATE, LAZY_SCROLLABLE_SCOPE> PaginatedLazyScrollable
 
 	LaunchedEffect(internalState) {
 		if (internalState is PaginationInternalState.Initial) {
-			val requestedPageKey =
-				(internalState as? PaginationInternalState.IHasRequestedPageKey<KEY>)?.requestedPageKey
 
 			internalState = PaginationInternalState.Loading(
 				initialPageKey = internalState.initialPageKey,
-				requestedPageKey = requestedPageKey ?: internalState.initialPageKey,
+				requestedPageKey = internalState.initialPageKey,
 				items = internalState.items
 			)
 		}

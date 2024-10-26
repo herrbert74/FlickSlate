@@ -18,7 +18,6 @@ import javax.inject.Singleton
 const val BASE_URL: String = "https://api.themoviedb.org/3/"
 
 @Module
-@Suppress("unused")
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 

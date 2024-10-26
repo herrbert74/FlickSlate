@@ -118,8 +118,5 @@ val FlickSlateTypography = Typography(
 	),
 )
 
-val Typography.titleLargeBold: TextStyle
-	get() = titleLarge.merge(TextStyle(fontWeight = FontWeight.Bold))
-
 val Typography.titleMediumBold: TextStyle
 	get() = titleMedium.merge(TextStyle(fontWeight = FontWeight.Bold))
