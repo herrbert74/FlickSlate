@@ -63,7 +63,6 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 			Ok(dto)
 		}.recoverIf(
 			{ failure ->
-				println("failure: $failure")
 				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")
 				failure == Failure.NotModified || localData != null },
 			{ null }

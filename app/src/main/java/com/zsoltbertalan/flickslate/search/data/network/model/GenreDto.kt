@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.search.data.network.model
 import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import kotlinx.serialization.Serializable
-import retrofit2.Response
 
 @Serializable
 data class GenreDto(
