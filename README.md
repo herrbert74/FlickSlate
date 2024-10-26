@@ -46,15 +46,15 @@ In my view this reflects the optimal structure of a **medium small** app (5-10 K
   * It returns the cached versions of the pages, which are retained for a day, but regenerated at different times.
   * As a result, it can happen that two movies swap pages, but because only one of them is updated, one movie will be duplicated, the other will disappear.
   * I haven't tested it, but this could break paging, where we scroll to the end of a long list, but because more than the threshold number of movies are missing, the fetch is not triggered.
-  * Similar problems are unresolved and unanswered on the TMDB forums, so I cannot be bothered to file an issue.
-  * The API doesn't respect the no-store header either.
+  * There are support tickets from years ago about the issues:
+    * https://www.themoviedb.org/talk/596636379251410bfa130225
+    * https://www.themoviedb.org/talk/5ee3abd1590086001f50b3c1
 
 ## 	🚧 Under construction
 
 * Modularisation
 * New features (TBD)
 * Improved test coverage
-* CI through Github Actions
 
 ## 📃 License
 
