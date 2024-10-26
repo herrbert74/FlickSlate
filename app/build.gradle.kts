@@ -46,11 +46,6 @@ android {
 
 	}
 
-	compileOptions {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
-	}
-
 	buildFeatures {
 		buildConfig = true
 		compose = true
@@ -73,6 +68,10 @@ android {
 		resources.excludes.add("jsr305_annotations/Jsr305_annotations.gwt.xml")
 	}
 
+}
+
+kotlin {
+	jvmToolchain(21)
 }
 
 dependencies {
@@ -100,8 +99,6 @@ dependencies {
 	implementation(libs.androidx.navigation.compose)
 	implementation(libs.google.material)
 	implementation(libs.androidx.coreKtx)
-	implementation(libs.decompose.core)
-	implementation(libs.decompose.extensionsJetBrains)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.serialization.json)
@@ -134,12 +131,10 @@ dependencies {
 
 	implementation(libs.inject)
 
-	testImplementation(libs.androidx.paging.testing)
 	testImplementation(libs.androidx.test.coreKtx)
 	testImplementation(libs.androidx.test.ext.jUnit)
 	testImplementation(libs.test.mockk.core)
 	testImplementation(libs.kotlinx.coroutines.test)
-	testImplementation(libs.essenty.stateKeeper.android)
 	testImplementation(libs.test.kotest.assertions.core)
 
 	debugRuntimeOnly(platform(libs.androidx.compose.bom))
