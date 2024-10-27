@@ -32,12 +32,12 @@ import retrofit2.Response
  * REMOTE class is handled by Repository due to Retrofit cannot handle mapping, but DB classes are
  * handled only by database, as we have full control and it can handle DOMAIN classes.
  *
- * The retrofit2.Response class is used to handle Etags and other header elements, as well as error bodies.
+ * The retrofit2.Response class is used to handle ETags and other header elements, as well as error bodies.
  */
 
 /**
  * For [retrofit2.Response] version see [fetchNetworkFirstResponse]. Response is needed when we want to extract
- * information from the header (like eTags) or the error body.
+ * information from the header (like ETags) or the error body.
  *
  * Recovers from network errors if the cache contains any data by emitting null.
  *
@@ -50,7 +50,6 @@ import retrofit2.Response
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format
  * @return [Outcome]<[DOMAIN]> type
  */
-@Suppress("unused")
 inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
 	crossinline makeNetworkRequest: suspend () -> REMOTE,
@@ -86,7 +85,7 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
 
 /**
  * [retrofit2.Response] version of [fetchNetworkFirst]. Response is needed when we want to extract information
- * from the header (like eTags) or the error body. Otherwise use the simpler version above.
+ * from the header (like ETags) or the error body. Otherwise use the simpler version above.
  *
  * Recovers from not modified HTTP response if we add eTag through @Header("If-None-Match") to the request, and it
  * there is no update, or if the cache contains any data. In these cases it recovers by emitting null.
@@ -100,7 +99,6 @@ inline fun <REMOTE, DOMAIN> fetchNetworkFirst(
  * @param saveResponseData - A function to save network reply coming in [REMOTE] format wrapped in [retrofit2.Response]
  * @return Result<[DOMAIN]> type
  */
-@Suppress("unused")
 inline fun <REMOTE, DOMAIN> fetchNetworkFirstResponse(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,

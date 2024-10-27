@@ -31,7 +31,7 @@ inline fun <T, V> T.runCatchingApi(block: T.() -> V) = runCatching(block)
 	}
 
 /**
- * [runCatching] version that handles all Throwables, and logs them.
+ * [runCatching] version that handles all Throwable exceptions, and logs them.
  * Use it to save data for example, when return type is Unit.
  */
 inline fun <V> runCatchingUnit(block: () -> V) = runCatching(block)

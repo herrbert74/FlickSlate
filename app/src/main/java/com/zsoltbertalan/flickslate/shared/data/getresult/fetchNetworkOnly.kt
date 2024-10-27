@@ -24,17 +24,16 @@ import retrofit2.Response
  * REMOTE class is handled by Repository due to Retrofit cannot handle mapping, but DB classes are
  * handled only by database, as we have full control and it can handle DOMAIN classes.
  *
- * The retrofit2.Response class is used to handle Etags and other header elements, as well as error bodies.
+ * The retrofit2.Response class is used to handle ETags and other header elements, as well as error bodies.
  */
 
 /**
  * For [retrofit2.Response] version see [fetchNetworkOnlyResponse]. Response is needed when we want to extract
- * information from the header (like eTags) or the error body.
+ * information from the header (like ETags) or the error body.
  *
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data
  * @return Result<[DOMAIN]> type
  */
-@Suppress("unused")
 suspend inline fun <REMOTE, DOMAIN> fetchNetworkOnly(
 	crossinline makeNetworkRequest: suspend () -> REMOTE,
 	crossinline mapper: REMOTE.() -> DOMAIN
@@ -50,12 +49,11 @@ suspend inline fun <REMOTE, DOMAIN> fetchNetworkOnly(
 
 /**
  * [retrofit2.Response] version of [fetchNetworkOnly]. Response is needed when we want to extract information
- * from the header (like eTags) or the error body. Otherwise use the simpler version above.
+ * from the header (like ETags) or the error body. Otherwise use the simpler version above.
  *
  * @param makeNetworkRequest - A function to make network request and retrieve [REMOTE] data wrapped in [retrofit2.Response]
  * @return Result<[DOMAIN]> type
  */
-@Suppress("unused")
 suspend inline fun <REMOTE, DOMAIN> fetchNetworkOnlyResponse(
 	crossinline makeNetworkRequest: suspend () -> Response<REMOTE>,
 	crossinline mapper: REMOTE.() -> DOMAIN

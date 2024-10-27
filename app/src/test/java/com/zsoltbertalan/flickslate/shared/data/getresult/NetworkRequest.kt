@@ -9,7 +9,7 @@ fun makeNetworkRequest(): suspend () -> GenreReplyDto = suspend {
 	GenreReplyDto(GenreDtoMother.createGenreDtoList())
 }
 
-suspend fun makeNetworkRequestDelayed(): suspend () -> GenreReplyDto = suspend {
+fun makeNetworkRequestDelayed(): suspend () -> GenreReplyDto = suspend {
 	delay(1000)
 	GenreReplyDto(GenreDtoMother.createGenreDtoList())
 }

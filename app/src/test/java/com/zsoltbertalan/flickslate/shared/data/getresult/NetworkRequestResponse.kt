@@ -24,7 +24,7 @@ fun makeNetworkRequestResult(): () -> Outcome<PagingReply<Genre>> =
 fun makeNetworkRequestResponse(): () -> Response<GenreReplyDto> =
 	{ Response.success(GenreReplyDto(GenreDtoMother.createGenreDtoList())) }
 
-suspend fun makeNetworkRequestDelayedResponse(): suspend () -> Response<GenreReplyDto> = suspend {
+fun makeNetworkRequestDelayedResponse(): suspend () -> Response<GenreReplyDto> = suspend {
 	delay(1000)
 	Response.success(GenreReplyDto(GenreDtoMother.createGenreDtoList()))
 }

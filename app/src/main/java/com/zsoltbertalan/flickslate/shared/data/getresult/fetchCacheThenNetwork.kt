@@ -36,7 +36,7 @@ import timber.log.Timber
  * REMOTE class is handled by Repository due to Retrofit cannot handle mapping, but DB classes are
  * handled only by database, as we have full control and it can handle DOMAIN classes.
  *
- * The retrofit2.Response class is used to handle Etags and other header elements, as well as error bodies.
+ * The retrofit2.Response class is used to handle ETags and other header elements, as well as error bodies.
  */
 
 /**
@@ -80,7 +80,7 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 
 /**
  * For [retrofit2.Response] version see [fetchCacheThenNetworkResponse]. Response is needed when we want to extract
- * information from the header (like eTags) or the error body.
+ * information from the header (like ETags) or the error body.
  *
  * Recovers from network errors if the cache contains any data by emitting null.
  *
@@ -137,7 +137,7 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
 
 /**
  * [retrofit2.Response] version of [fetchCacheThenNetwork]. Response is needed when we want to extract information
- * from the header (like eTags) or the error body. Otherwise use the simpler version above.
+ * from the header (like ETags) or the error body. Otherwise use the simpler version above.
  *
  * Recovers from not modified HTTP response if we add eTag through @Header("If-None-Match") to the request, and it
  * there is no update, or if the cache contains any data. In these cases it recovers by emitting null.
@@ -154,7 +154,6 @@ inline fun <REMOTE, DOMAIN> fetchCacheThenNetwork(
  * @param strategy - How to deal with network requests and results. See [STRATEGY]
  * @return Result<[DOMAIN]> type
  */
-@Suppress("unused")
 inline fun <REMOTE, DOMAIN> fetchCacheThenNetworkResponse(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
 	crossinline shouldMakeNetworkRequest: (DOMAIN?) -> Boolean = { true },
