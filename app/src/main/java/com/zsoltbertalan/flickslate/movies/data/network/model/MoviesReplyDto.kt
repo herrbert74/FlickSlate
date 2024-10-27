@@ -16,7 +16,18 @@ data class MoviesReplyDto(
 )
 
 fun MoviesReplyDto.toMoviesReply() =
-	PagingReply(this.results?.toMovieList() ?: emptyList(), page == total_pages, PageData())
+	PagingReply(
+		this.results?.toMovieList() ?: emptyList(),
+		page == total_pages,
+		pageData = PageData(
+			this.page ?: 0,
+			"",
+			0,
+			"",
+			this.total_pages ?: 0,
+			this.total_results ?: 0
+		)
+	)
 
 fun Response<MoviesReplyDto>.toMoviesReply(): PagingReply<Movie> {
 	val body = this.body()!!

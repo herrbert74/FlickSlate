@@ -48,7 +48,7 @@ class SearchViewModel @Inject constructor(
 						val response = searchRepository.getSearchResult(event.query)
 						when {
 							response.isOk -> _searchStateData.update {
-								it.copy(searchResult = response.value)
+								it.copy(searchResult = response.value.pagingList)
 							}
 
 							else -> Unit // handle failure

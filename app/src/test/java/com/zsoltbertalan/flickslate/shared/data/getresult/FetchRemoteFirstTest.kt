@@ -2,12 +2,12 @@ package com.zsoltbertalan.flickslate.shared.data.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenres
 import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.shared.util.Outcome
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -17,17 +17,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchNetworkFirstTest {
+class FetchRemoteFirstTest {
 
 	@Test
-	fun `when network has data then emit once`() = runTest {
+	fun `when network has data and cache has data then emit once`() = runTest {
 
-		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
+		val fetchFromLocal = { flowOf(PagingReply(GenreMother.createGenreList(), false, PageData())) }
 
-		val flow = fetchNetworkFirst(
+		val flow = fetchRemoteFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = makeNetworkRequest(),
-			mapper = GenreReplyDto::toGenres,
+			makeNetworkRequest = { makeNetworkRequestResult()() }
 		)
 
 		flow.toList() shouldBe listOf(
@@ -37,13 +36,13 @@ class FetchNetworkFirstTest {
 	}
 
 	@Test
-	fun `when network has NO data and cache has data then emit once`() = runTest {
-		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
+	fun `when network has data and cache has NO data then emit once`() = runTest {
 
-		val flow = fetchNetworkFirst(
+		val fetchFromLocal = { flowOf(null) }
+
+		val flow = fetchRemoteFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreReplyDto::toGenres
+			makeNetworkRequest = { makeNetworkRequestResult()() }
 		)
 
 		flow.toList() shouldBe listOf(
@@ -52,21 +51,49 @@ class FetchNetworkFirstTest {
 
 	}
 
+	@Test
+	fun `when network has NO data and cache has data then emit once`() = runTest {
+		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
+
+		val flow = fetchRemoteFirst(
+			fetchFromLocal = fetchFromLocal,
+			makeNetworkRequest = { failNetworkRequestWithResultServerError()() }
+		)
+
+		flow.toList() shouldBe listOf(
+			Ok(GenreMother.createGenreList())
+		)
+
+	}
+
+	@Test
+	fun `when network returns NOT_MODIFIED and cache has data then emit once`() = runTest {
+		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
+
+		val flow = fetchRemoteFirst(
+			fetchFromLocal = fetchFromLocal,
+			makeNetworkRequest = { failNetworkRequestWithResultNotModified()() }
+		)
+
+		flow.toList() shouldBe listOf(
+			Ok(GenreMother.createGenreList())
+		)
+
+	}
 
 	@Test
 	fun `when network has NO data and cache has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
-
-		val flow = fetchNetworkFirst(
+		val flow = fetchRemoteFirst(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequest(),
-			mapper = GenreReplyDto::toGenres
+			makeNetworkRequest = failNetworkRequestWithResultServerError(),
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
 
 	}
+
 
 	@Test
 	fun `when fetch is cancelled then do not emit`() = runTest {
@@ -77,10 +104,9 @@ class FetchNetworkFirstTest {
 
 		val job = launch(backgroundScope.coroutineContext) {
 
-			fetchNetworkFirst(
+			fetchRemoteFirst(
 				fetchFromLocal = fetchFromLocal,
-				makeNetworkRequest = makeNetworkRequestDelayed(),
-				mapper = GenreReplyDto::toGenres,
+				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
 			).collect {
 				results.add(it)
 			}
@@ -90,7 +116,7 @@ class FetchNetworkFirstTest {
 		delay(500)
 		job.cancel()
 
-		results shouldBe emptyList()
+		results shouldBe listOf()
 
 	}
 

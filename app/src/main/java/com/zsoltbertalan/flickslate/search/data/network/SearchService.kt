@@ -27,7 +27,7 @@ interface SearchService {
 		@Query("language") language: String? = "en",
 		@Query("query") query: String,
 		@Query("page") page: Int?
-	): MoviesReplyDto
+	): Response<MoviesReplyDto>
 
 	@GET(URL_DISCOVER_MOVIE)
 	suspend fun getGenreMovie(

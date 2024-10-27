@@ -21,27 +21,32 @@ import retrofit2.Response
 import timber.log.Timber
 
 /**
- * A collection of generic Repository functions to handle common tasks like making network requests, fetching and
- * saving data from and to a database.
+ * A generic Repository function to handle **cache first** strategy as described here:
+ * https://herrbert74.github.io/posts/caching-strategies-in-android/#network-first-aka-stale-if-error
  *
- * Various caching strategies are handled by the different functions in this folder.
+ * Recovers from not modified HTTP response if we add eTag through @Header("If-None-Match") to the request, and if
+ * there is no update, or if the cache contains any data. In these cases it recovers by emitting null.
  *
  * Based on Flower:
  * https://github.com/hadiyarajesh/flower/blob/master/flower-core/src/commonMain/kotlin/com/hadiyarajesh/flower_core/DBBoundResource.kt
  *
+ * Difference to Flower
  * Some unused function parameters were removed.
- *
  * KotlinResult library is used instead of custom monad. Loading should be handled by UI.
  *
- * REMOTE class is handled by Repository due to Retrofit cannot handle mapping, but DB classes are
- * handled only by database, as we have full control and it can handle DOMAIN classes.
+ * @param fetchFromLocal A function to retrieve [DOMAIN] data from local database. Must be nullable!
  *
- * The retrofit2.Response class is used to handle ETags and other header elements, as well as error bodies.
- */
-
-/**
- * NEW VERSION
+ * @param shouldMakeNetworkRequest Whether or not to make network request
  *
+ * @param makeNetworkRequest A function to make network request and retrieve data mapped to [DOMAIN].
+ * [retrofit2.Response] can be used as part of the call. It is needed when we want to extract information from the
+ * header (like ETags) or the error body.
+ *
+ * @param saveResponseData A function to save network reply coming in [DOMAIN] format from [makeNetworkRequest]
+ *
+ * @param strategy How to deal with network requests and results. See [STRATEGY]
+ *
+ * @return Result<[DOMAIN]> type
  */
 inline fun <DOMAIN> fetchCacheThenRemote(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
@@ -56,11 +61,12 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
 
+	println("f: $networkOnlyOnceAndAlreadyCached")
 	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
 
-		val newResult = makeNetworkRequest().andThen { dto ->
-			saveResponseData(dto)
-			Ok(dto)
+		val newResult = makeNetworkRequest().andThen { domain ->
+			saveResponseData(domain)
+			Ok(domain)
 		}.recoverIf(
 			{ failure ->
 				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")

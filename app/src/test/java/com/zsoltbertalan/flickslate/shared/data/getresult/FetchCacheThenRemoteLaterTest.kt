@@ -2,13 +2,13 @@ package com.zsoltbertalan.flickslate.shared.data.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenres
 import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.shared.util.Outcome
 import io.kotest.matchers.shouldBe
+import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -17,23 +17,26 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class FetchCacheThenNetworkOnceResponseTest {
+class FetchCacheThenRemoteLaterTest {
+
+	val mockSaveResponseData: (List<Genre>) -> Unit = mockk(relaxed = true)
 
 	@Test
 	fun `when cache has data and network has data then emit once`() = runTest {
 
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchCacheThenRemote(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReplyDto::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			makeNetworkRequest = { makeNetworkRequestResult()() },
+			saveResponseData = mockSaveResponseData,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
 		)
 
 		flow.toList() shouldBe listOf(
 			Ok(GenreMother.createGenreList()),
 		)
+		verify(exactly = 1) { mockSaveResponseData(any()) }
 
 	}
 
@@ -42,16 +45,17 @@ class FetchCacheThenNetworkOnceResponseTest {
 
 		val fetchFromLocal = { flowOf(null) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchCacheThenRemote(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = makeNetworkRequestResponse(),
-			mapper = GenreReplyDto::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			makeNetworkRequest = { makeNetworkRequestResult()() },
+			saveResponseData = mockSaveResponseData,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
 		)
 
 		flow.toList() shouldBe listOf(
 			Ok(GenreMother.createGenreList())
 		)
+		verify(exactly = 1) { mockSaveResponseData(any()) }
 
 	}
 
@@ -59,35 +63,54 @@ class FetchCacheThenNetworkOnceResponseTest {
 	fun `when cache has data and network has NO data then emit once`() = runTest {
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchCacheThenRemote(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReplyDto::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			makeNetworkRequest = { failNetworkRequestWithResultServerError()() },
+			saveResponseData = mockSaveResponseData,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
 		)
 
 		flow.toList() shouldBe listOf(
 			Ok(GenreMother.createGenreList())
 		)
+		verify(exactly = 0) { mockSaveResponseData(any()) }
 
 	}
 
+	@Test
+	fun `when cache has data and network returns NOT_MODIFIED then emit once`() = runTest {
+		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
+
+		val flow = fetchCacheThenRemote(
+			fetchFromLocal = fetchFromLocal,
+			makeNetworkRequest = { failNetworkRequestWithResultNotModified()() },
+			saveResponseData = mockSaveResponseData,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
+		)
+
+		flow.toList() shouldBe listOf(
+			Ok(GenreMother.createGenreList())
+		)
+		verify(exactly = 0) { mockSaveResponseData(any()) }
+
+	}
 
 	@Test
 	fun `when cache has NO data and network has NO data then emit error`() = runTest {
 
 		val fetchFromLocal = { flowOf(null) }
-
-		val flow = fetchCacheThenNetworkResponse(
+		val flow = fetchCacheThenRemote(
 			fetchFromLocal = fetchFromLocal,
-			makeNetworkRequest = failNetworkRequestWithResponse(),
-			mapper = GenreReplyDto::toGenres,
-			strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+			makeNetworkRequest = failNetworkRequestWithResultServerError(),
+			saveResponseData = mockSaveResponseData,
+			strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
 		)
 
 		flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
+		verify(exactly = 0) { mockSaveResponseData(any()) }
 
 	}
+
 
 	@Test
 	fun `when cache has data and fetch is cancelled then emit only once`() = runTest {
@@ -98,11 +121,11 @@ class FetchCacheThenNetworkOnceResponseTest {
 
 		val job = launch(backgroundScope.coroutineContext) {
 
-			fetchCacheThenNetworkResponse(
+			fetchCacheThenRemote(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
-				mapper = GenreReplyDto::toGenres,
-				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE
+				saveResponseData = mockSaveResponseData,
+				strategy = STRATEGY.CACHE_FIRST_NETWORK_LATER,
 			).collect {
 				results.add(it)
 			}
@@ -115,6 +138,7 @@ class FetchCacheThenNetworkOnceResponseTest {
 		results shouldBe listOf(
 			Ok(GenreMother.createGenreList()),
 		)
+		verify(exactly = 0) { mockSaveResponseData(any()) }
 
 	}
 

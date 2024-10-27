@@ -38,12 +38,30 @@ In my view this reflects the optimal structure of a **medium small** app (5-10 K
 ## 👀 Others
 
 * Network calls are using caching strategies and fetcher functions as detailed in my [Caching Strategies in Android ](https://herrbert74.github.io/posts/caching-strategies-in-android) article.
+  * Since the article the fetch functions were changed, so they do not do the mapping anymore, and they do not need the Response versions either. This was extracted into newly introduced RemoteDataSource and safeCall functions.
+  * These are the variations and usages among the fetcher functions currently:
+    * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_SECOND (to extract the ETags, but it is only used in Genres currently)
+      * **UpcomingMovies** (also paging)
+      * **NowPlayingMovies** (also paging)
+      * **PopularMovies** (also paging)
+      * **TopRatedTv** (also paging)
+      * **Genres**
+      * **GenreMovies** (also paging)
+    * safeCall only (no caching, no header)
+      * **Search Movies**
+    * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_LATER
+      * **None**, but I could use this where it's not important to display the latest data
+    * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_ONCE
+      * **None**, but I could use this to fetch data that is not changing, like the genres (which changes sometimes, so I could invalidate it from time to time)
+    * safeCall + fetchNetworkFirst
+      * **None**, but I could use this to fetch frequently changing data, where the cache is a fallback.
+    
 * Many calls are doing paging and caching at the same time. It uses custom paging, so **do not** use this in production **yet**.
 
 ## 💩 Known problems
 
 * Paging might have subtle bugs due to the shortcomings of the TMDB API:
-  * It returns the cached versions of the pages, which are retained for a day, but regenerated at different times.
+  * It returns the cached versions of the pages, which are retained for 7-8 hours, but regenerated at different times.
   * As a result, it can happen that two movies swap pages, but because only one of them is updated, one movie will be duplicated, the other will disappear.
   * I haven't tested it, but this could break paging, where we scroll to the end of a long list, but because more than the threshold number of movies are missing, the fetch is not triggered.
   * There are support tickets from years ago about the issues:
