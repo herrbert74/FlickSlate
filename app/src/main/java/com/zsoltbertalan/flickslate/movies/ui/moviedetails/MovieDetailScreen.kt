@@ -79,7 +79,7 @@ fun MovieDetailScreen(
 				val darkVibrantColor = extractColorsFromBitmap(
 					bitmap = bitmap,
 					isDarkMode = context.isDarkMode
-				)["dark"] ?: bgDim.toString()
+				)["muted"] ?: bgDim.toString()
 				color2 = Color(parseColor(darkVibrantColor))
 			}
 		}
