@@ -37,7 +37,7 @@ class PopularMoviesDao @Inject constructor(
 	override suspend fun insertPopularMovies(movies: List<Movie>, page: Int) {
 		runCatchingUnit {
 			realm.write {
-				movies.map { copyToRealm(it.toPopularMoviesDbo(page), UpdatePolicy.ERROR) }
+				movies.map { copyToRealm(it.toPopularMoviesDbo(page), UpdatePolicy.ALL) }
 			}
 		}
 	}
