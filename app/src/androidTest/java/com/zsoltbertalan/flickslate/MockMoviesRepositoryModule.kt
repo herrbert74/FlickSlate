@@ -26,7 +26,6 @@ class MockMoviesRepositoryModule {
 			val popularPagingData = PagingReply(MovieMother.createPopularMovieList(), true, PageData())
 			val upcomingPagingData = PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
 			val pagingData = PagingReply(MovieMother.createMovieList(), true, PageData())
-			//println("zsoltbertalan* provideMoviesRepository: $h")
 			coEvery { getPopularMovies(any()) } returns flowOf(Ok(popularPagingData))
 			coEvery { getUpcomingMovies(any()) } returns flowOf(Ok(upcomingPagingData))
 			coEvery { getNowPlayingMovies(any()) } returns flowOf(Ok(pagingData))

@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
-import com.zsoltbertalan.flickslate.BuildConfig
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
@@ -19,21 +18,18 @@ interface MoviesService {
 
 	@GET(URL_MOVIES_POPULAR)
 	suspend fun getPopularMovies(
-		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
 	): Response<MoviesReplyDto>
 
 	@GET(URL_MOVIES_NOW_PLAYING)
 	suspend fun getNowPlayingMovies(
-		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
 	): Response<NowPlayingMoviesReplyDto>
 
 	@GET(URL_MOVIES_UPCOMING)
 	suspend fun getUpcomingMovies(
-		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 		@Query("language") language: String? = "en",
 		@Query("page") page: Int?
 	): Response<UpcomingMoviesReplyDto>
@@ -41,7 +37,6 @@ interface MoviesService {
 	@GET(URL_MOVIE_DETAILS)
 	suspend fun getMovieDetails(
 		@Path("movie_id") movieId: Int,
-		@Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
 	): MovieDetailsDto
 
 }

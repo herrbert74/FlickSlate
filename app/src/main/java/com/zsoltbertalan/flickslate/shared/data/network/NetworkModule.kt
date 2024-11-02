@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.shared.data.network
 
+import com.zsoltbertalan.flickslate.BuildConfig
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.search.data.network.SearchService
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
@@ -8,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,13 +25,15 @@ class NetworkModule {
 
 	@Provides
 	@Singleton
-	internal fun provideFlickSlateRetrofit(): Retrofit {
+	internal fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
 		val logging = HttpLoggingInterceptor()
 		logging.level = HttpLoggingInterceptor.Level.BODY
 
 		val httpClient = OkHttpClient.Builder()
 
-		httpClient.addInterceptor(logging)
+		httpClient
+			.addInterceptor(logging)
+			.addInterceptor(authInterceptor)
 		val json = Json { ignoreUnknownKeys = true }
 		val jsonConverterFactory = json.asConverterFactory("application/json; charset=UTF8".toMediaType())
 		return Retrofit.Builder()
@@ -55,6 +59,22 @@ class NetworkModule {
 	@Singleton
 	internal fun provideTvService(retroFit: Retrofit): TvService {
 		return retroFit.create(TvService::class.java)
+	}
+
+	@Provides
+	@Singleton
+	internal fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
+		val original = chain.request()
+		val originalHttpUrl = original.url
+
+		val url =
+			originalHttpUrl
+				.newBuilder()
+				.addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+				.build()
+
+		val request = original.newBuilder().url(url).build()
+		chain.proceed(request)
 	}
 
 }

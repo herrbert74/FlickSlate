@@ -5,20 +5,19 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.recoverIf
+import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
+import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
+import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_LATER
-import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
-import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
-import timber.log.Timber
 
 /**
  * A generic Repository function to handle **cache first** strategy as described here:
@@ -69,7 +68,6 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 			Ok(domain)
 		}.recoverIf(
 			{ failure ->
-				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")
 				failure == Failure.NotModified || localData != null },
 			{ null }
 		)

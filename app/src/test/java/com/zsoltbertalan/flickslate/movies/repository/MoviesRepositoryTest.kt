@@ -35,13 +35,13 @@ class MoviesRepositoryTest {
 	@Before
 	fun setup() {
 		coEvery {
-			moviesService.getPopularMovies(any(), any(), any())
+			moviesService.getPopularMovies(any(), any())
 		} returns Response.success(MovieDtoMother.createPopularMovieList())
 		coEvery {
-			moviesService.getNowPlayingMovies(any(), any(), any())
+			moviesService.getNowPlayingMovies(any(), any())
 		} returns Response.success(MovieDtoMother.createNowPlayingMovieList())
 		coEvery {
-			moviesService.getUpcomingMovies(any(), any(), any())
+			moviesService.getUpcomingMovies(any(), any())
 		} returns Response.success(MovieDtoMother.createUpcomingMovieList())
 		coEvery { popularMoviesDataSource.insertPopularMovies(any(), any()) } returns Unit
 		coEvery { popularMoviesDataSource.insertPopularMoviesPageData(any()) } returns Unit
