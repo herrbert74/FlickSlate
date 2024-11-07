@@ -16,9 +16,9 @@ class UpcomingMoviesRemoteDataSource @Inject constructor(
 	private val moviesService: MoviesService
 ) : UpcomingMoviesDataSource.Remote {
 
-	override suspend fun getUpcomingMovies(page: Int?): Outcome<PagingReply<Movie>> {
+	override suspend fun getUpcomingMovies(etag: String?, page: Int?): Outcome<PagingReply<Movie>> {
 		return safeCallWithMetadata(
-			{ moviesService.getUpcomingMovies(page = page) },
+			{ moviesService.getUpcomingMovies(ifNoneMatch = etag, page = page) },
 			Response<UpcomingMoviesReplyDto>::toMoviesReply
 		)
 	}

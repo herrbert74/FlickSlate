@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.db
 
+import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMoviesPageDbo
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
@@ -14,10 +15,12 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageDbo
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
+import io.realm.kotlin.ext.query
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -60,6 +63,10 @@ class TvDao @Inject constructor(
 					PagingReply(pagingList, isLastPage, PageData())
 				}
 			}.flowOn(ioContext)
+	}
+
+	override suspend fun getEtag(page: Int): String? = withContext(ioContext) {
+		return@withContext realm.query<TvPageDbo>("page = $0", page).first().find()?.etag
 	}
 
 	private fun getPageData(page: Int): PageData? {

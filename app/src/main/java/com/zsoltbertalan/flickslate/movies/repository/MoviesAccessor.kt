@@ -40,7 +40,10 @@ class MoviesAccessor @Inject constructor(
 	override fun getPopularMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { popularMoviesDataSource.getPopularMovies(page) },
-			makeNetworkRequest = { popularMoviesRemoteDataSource.getPopularMovies(page = page) },
+			makeNetworkRequest = {
+				val etag = popularMoviesDataSource.getEtag(page)
+				popularMoviesRemoteDataSource.getPopularMovies(etag = etag, page = page)
+			},
 			saveResponseData = { pagingReply ->
 				val moviesReply = pagingReply.pagingList
 				popularMoviesDataSource.insertPopularMoviesPageData(
@@ -54,7 +57,10 @@ class MoviesAccessor @Inject constructor(
 	override fun getUpcomingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { upcomingMoviesDataSource.getUpcomingMovies(page) },
-			makeNetworkRequest = { upcomingMoviesRemoteDataSource.getUpcomingMovies(page = page) },
+			makeNetworkRequest = {
+				val etag = upcomingMoviesDataSource.getEtag(page)
+				upcomingMoviesRemoteDataSource.getUpcomingMovies(etag = etag, page = page)
+			},
 			saveResponseData = { pagingReply ->
 				val moviesReply = pagingReply.pagingList
 				upcomingMoviesDataSource.insertUpcomingMoviesPageData(
@@ -68,7 +74,10 @@ class MoviesAccessor @Inject constructor(
 	override fun getNowPlayingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
-			makeNetworkRequest = { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(page = page) },
+			makeNetworkRequest = {
+				val etag = nowPlayingMoviesDataSource.getEtag(page)
+				nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(etag = etag, page = page)
+			},
 			saveResponseData = { pagingReply ->
 				val moviesReply = pagingReply.pagingList
 				nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(

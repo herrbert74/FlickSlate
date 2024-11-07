@@ -16,9 +16,9 @@ class TvRemoteDataSource @Inject constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {
 
-	override suspend fun getTopRatedTv(page: Int?): Outcome<PagingReply<TvShow>> {
+	override suspend fun getTopRatedTv(etag: String?, page: Int?): Outcome<PagingReply<TvShow>> {
 		return safeCallWithMetadata(
-			{ tvService.getTopRatedTv(page = page) },
+			{ tvService.getTopRatedTv(ifNoneMatch = etag, page = page) },
 			Response<TopRatedTvReplyDto>::toTvShowsReply
 		)
 	}

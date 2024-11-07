@@ -21,7 +21,10 @@ class TvAccessor @Inject constructor(
 	override fun getTopRatedTv(page: Int): Flow<Outcome<PagingReply<TvShow>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { tvDataSource.getTv(page) },
-			makeNetworkRequest = { tvRemoteDataSource.getTopRatedTv(page = page) },
+			makeNetworkRequest = {
+				val etag = tvDataSource.getEtag(page)
+				tvRemoteDataSource.getTopRatedTv(etag = etag, page = page)
+			},
 			saveResponseData = { pagingReply ->
 				val topRatedTvReply = pagingReply.pagingList
 				tvDataSource.insertTvPageData(

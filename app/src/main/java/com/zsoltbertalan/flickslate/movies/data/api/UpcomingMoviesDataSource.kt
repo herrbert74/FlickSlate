@@ -18,11 +18,13 @@ interface UpcomingMoviesDataSource {
 
 		fun getUpcomingMovies(page: Int): Flow<PagingReply<Movie>?>
 
+		suspend fun getEtag(page: Int): String?
+
 	}
 
 	interface Remote {
 
-		suspend fun getUpcomingMovies(page: Int?): Outcome<PagingReply<Movie>>
+		suspend fun getUpcomingMovies(etag: String? = null, page: Int?): Outcome<PagingReply<Movie>>
 
 	}
 

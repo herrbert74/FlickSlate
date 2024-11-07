@@ -16,9 +16,9 @@ class PopularMoviesRemoteDataSource @Inject constructor(
 	private val moviesService: MoviesService
 ) : PopularMoviesDataSource.Remote {
 
-	override suspend fun getPopularMovies(page: Int?): Outcome<PagingReply<Movie>> {
+	override suspend fun getPopularMovies(etag: String?, page: Int?): Outcome<PagingReply<Movie>> {
 		return safeCallWithMetadata(
-			{ moviesService.getPopularMovies(page = page) },
+			{ moviesService.getPopularMovies(ifNoneMatch = etag, page = page) },
 			Response<MoviesReplyDto>::toMoviesReply
 		)
 	}

@@ -18,11 +18,13 @@ interface TvDataSource {
 
 		fun getTv(page: Int): Flow<PagingReply<TvShow>?>
 
+		suspend fun getEtag(page: Int): String?
+
 	}
 
 	interface Remote {
 
-		suspend fun getTopRatedTv(page: Int?): Outcome<PagingReply<TvShow>>
+		suspend fun getTopRatedTv(etag: String? = null, page: Int?): Outcome<PagingReply<TvShow>>
 
 	}
 

@@ -1,23 +1,25 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
-import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMovieDbo
 import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMoviesPageDbo
 import com.zsoltbertalan.flickslate.movies.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPopularMoviesDbo
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPopularMoviesPageDbo
+import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
+import io.realm.kotlin.ext.query
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -60,6 +62,10 @@ class PopularMoviesDao @Inject constructor(
 					PagingReply(pagingList, isLastPage, PageData())
 				}
 			}.flowOn(ioContext)
+	}
+
+	override suspend fun getEtag(page: Int): String? = withContext(ioContext) {
+		return@withContext realm.query<PopularMoviesPageDbo>("page = $0", page).first().find()?.etag
 	}
 
 	private fun getPageData(page: Int): PageData? {

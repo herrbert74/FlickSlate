@@ -18,11 +18,13 @@ interface PopularMoviesDataSource {
 
 		fun getPopularMovies(page: Int): Flow<PagingReply<Movie>?>
 
+		suspend fun getEtag(page: Int): String?
+
 	}
 
 	interface Remote {
 
-		suspend fun getPopularMovies(page: Int?): Outcome<PagingReply<Movie>>
+		suspend fun getPopularMovies(etag: String? = null, page: Int? = null): Outcome<PagingReply<Movie>>
 
 	}
 

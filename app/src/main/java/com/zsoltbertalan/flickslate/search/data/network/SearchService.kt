@@ -15,12 +15,13 @@ interface SearchService {
 
 	@GET(URL_GENRE)
 	suspend fun getGenres(
+		@Header("If-None-Match") ifNoneMatch: String = "",
 		@Query("language") language: String? = "en",
-		@Header("If-None-Match") ifNoneMatch: String = ""
 	): Response<GenreReplyDto>
 
 	@GET(URL_MOVIES_SEARCH)
 	suspend fun searchMovies(
+		@Header("If-None-Match") ifNoneMatch: String = "",
 		@Query("language") language: String? = "en",
 		@Query("query") query: String,
 		@Query("page") page: Int?
@@ -28,6 +29,7 @@ interface SearchService {
 
 	@GET(URL_DISCOVER_MOVIE)
 	suspend fun getGenreMovie(
+		@Header("If-None-Match") ifNoneMatch: String = "",
 		@Query("with_genres") withGenres: Int,
 		@Query("page") page: Int?,
 	): Response<MoviesReplyDto>
