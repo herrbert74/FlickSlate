@@ -7,14 +7,14 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 class GenreMoviesPageDbo() : RealmObject {
 
 	constructor(
-		page: Int,
+		genreIdAndPage: String,
 		date: String = "",
 		expires: Int = 0,
 		etag: String,
 		totalPages: Int = 0,
 		totalResults: Int = 0,
 	) : this() {
-		this.page = page
+		this.genreIdAndPage = genreIdAndPage
 		this.date = date
 		this.expires = expires
 		this.etag = etag
@@ -23,7 +23,7 @@ class GenreMoviesPageDbo() : RealmObject {
 	}
 
 	@PrimaryKey
-	var page: Int = 0
+	var genreIdAndPage: String = ""
 	var date: String = ""
 	var expires: Int = 0
 	var etag: String = ""
@@ -32,10 +32,15 @@ class GenreMoviesPageDbo() : RealmObject {
 
 }
 
-fun PageData.toGenreMoviesPageDbo(): GenreMoviesPageDbo = GenreMoviesPageDbo(
-	page, date, expires, etag, totalPages, totalResults,
+fun PageData.toGenreMoviesPageDbo(genreId: Int): GenreMoviesPageDbo = GenreMoviesPageDbo(
+	"${genreId}_${page}", date, expires, etag, totalPages, totalResults,
 )
 
 fun GenreMoviesPageDbo.toPageData(): PageData = PageData(
-	page, date, expires, etag, totalPages, totalResults,
+	genreIdAndPage.split("_").getOrElse(1) { "0" }.toInt(),
+	date,
+	expires,
+	etag,
+	totalPages,
+	totalResults,
 )

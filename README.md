@@ -40,7 +40,7 @@ In my view this reflects the optimal structure of a **medium small** app (5-10 K
 * Network calls are using caching strategies and fetcher functions as detailed in my [Caching Strategies in Android ](https://herrbert74.github.io/posts/caching-strategies-in-android) article.
   * Since the article the fetch functions were changed, so they do not do the mapping anymore, and they do not need the Response versions either. This was extracted into newly introduced RemoteDataSource and safeCall functions.
   * These are the variations and usages among the fetcher functions currently:
-    * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_SECOND (to extract the ETags, but it is only used in Genres currently)
+    * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_SECOND (to extract the ETags)
       * **UpcomingMovies** (also paging)
       * **NowPlayingMovies** (also paging)
       * **PopularMovies** (also paging)

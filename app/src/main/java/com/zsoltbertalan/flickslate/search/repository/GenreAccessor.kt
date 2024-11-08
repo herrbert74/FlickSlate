@@ -1,13 +1,12 @@
 package com.zsoltbertalan.flickslate.search.repository
 
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.search.data.api.GenreDataSource
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
+import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -39,16 +38,20 @@ class GenreAccessor @Inject constructor(
 		).flowOn(dispatcher)
 	}
 
-	override fun getGenreDetail(genreId: Int, page: Int): Flow<Outcome<PagingReply<Movie>>> {
+	override fun getGenreDetail(genreId: Int, page: Int): Flow<Outcome<GenreMoviesPagingReply>> {
 		return fetchCacheThenRemote(
-			fetchFromLocal = { genreMoviesDataSource.getGenreMovies(page) },
-			makeNetworkRequest = { genreMoviesRemoteDataSource.getGenreMovies(genreId = genreId, page = page) },
-			saveResponseData = { pagingReply ->
-				val moviesReply = pagingReply.pagingList
+			fetchFromLocal = { genreMoviesDataSource.getGenreMovies(genreId, page) },
+			makeNetworkRequest = {
+				val etag = genreMoviesDataSource.getEtag(genreId, page)
+				genreMoviesRemoteDataSource.getGenreMovies(etag, genreId = genreId, page = page)
+			},
+			saveResponseData = { genrePagingReply ->
+				val moviesReply = genrePagingReply.pagingReply.pagingList
 				genreMoviesDataSource.insertGenreMoviesPageData(
-					pagingReply.pageData
+					genreId,
+					genrePagingReply.pagingReply.pageData
 				)
-				genreMoviesDataSource.insertGenreMovies(moviesReply, page)
+				genreMoviesDataSource.insertGenreMovies(genreId, moviesReply, page)
 			},
 		)
 	}

@@ -7,7 +7,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 class GenreMovieDbo() : RealmObject {
 
 	constructor(
-		id: Int = 0,
+		idAndGenreId: String = "",
 		title: String = "",
 		overview: String? = null,
 		voteAverage: Float? = null,
@@ -15,7 +15,7 @@ class GenreMovieDbo() : RealmObject {
 		backdropPath: String? = null,
 		page: Int = 0,
 	) : this() {
-		this.id = id
+		this.idAndGenreId = idAndGenreId
 		this.title = title
 		this.overview = overview
 		this.voteAverage = voteAverage
@@ -25,7 +25,7 @@ class GenreMovieDbo() : RealmObject {
 	}
 
 	@PrimaryKey
-	var id: Int = 0
+	var idAndGenreId: String = ""
 	var title: String = ""
 	var overview: String? = null
 	var voteAverage: Float? = null
@@ -35,8 +35,8 @@ class GenreMovieDbo() : RealmObject {
 
 }
 
-fun Movie.toGenreMoviesDbo(page:Int): GenreMovieDbo = GenreMovieDbo(
-	id = this.id,
+fun Movie.toGenreMoviesDbo(genreId:Int, page:Int): GenreMovieDbo = GenreMovieDbo(
+	idAndGenreId = "${id}_${genreId}",
 	title = this.title,
 	overview = this.overview,
 	voteAverage = this.voteAverage,
@@ -46,7 +46,7 @@ fun Movie.toGenreMoviesDbo(page:Int): GenreMovieDbo = GenreMovieDbo(
 )
 
 fun GenreMovieDbo.toMovie(): Movie = Movie(
-	id = this.id,
+	id = this.idAndGenreId.split("_").getOrElse(0) { "0" }.toInt(),
 	title = this.title,
 	overview = this.overview,
 	voteAverage = this.voteAverage,

@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.search.data.api
 
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.flow.Flow
 
@@ -12,17 +12,19 @@ interface GenreMoviesDataSource {
 
 		suspend fun purgeDatabase()
 
-		suspend fun insertGenreMovies(movies: List<Movie>, page: Int)
+		suspend fun insertGenreMovies(genreId: Int, movies: List<Movie>, page: Int)
 
-		suspend fun insertGenreMoviesPageData(page: PageData)
+		suspend fun getEtag(genreId: Int, page: Int): String?
 
-		fun getGenreMovies(page: Int): Flow<PagingReply<Movie>?>
+		suspend fun insertGenreMoviesPageData(genreId: Int, page: PageData)
+
+		fun getGenreMovies(genreId: Int, page: Int): Flow<GenreMoviesPagingReply?>
 
 	}
 
 	interface Remote {
 
-		suspend fun getGenreMovies(genreId: Int, page: Int?): Outcome<PagingReply<Movie>>
+		suspend fun getGenreMovies(etag: String?, genreId: Int, page: Int?): Outcome<GenreMoviesPagingReply>
 
 	}
 
