@@ -20,34 +20,36 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.R
+import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.main.navigation.Destination
+import timber.log.Timber
 
 @Composable
 fun FlickSlateBottomNavigationBar(
 	navController: NavHostController,
 	modifier: Modifier = Modifier,
-	itemList: List<Destination> = Destination.entries,
+	itemList: List<Destination> = listOf(Destination.Movies, Destination.Tv, Destination.Search),
 ) {
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
-	val currentRoute = navBackStackEntry?.destination?.route
+	val currentRoute = navBackStackEntry?.destination?.route ?: Destination.Movies.javaClass.canonicalName
 
 	FlickSlateNavigationBar(
 		modifier = modifier,
 	) {
-		itemList.forEach { category ->
+		itemList.forEach { screen ->
+			Timber.d("zsoltbertalan* FlickSlateBottomNavigationBar: $currentRoute ${screen.javaClass.canonicalName}")
 			FlickSlateNavigationBarItem(
-				selected = currentRoute == category.route,
+				selected = currentRoute == screen.javaClass.canonicalName,
 				label = {
 					Text(
 						style = MaterialTheme.typography.bodySmall,
-						text = stringResource(category.titleId)
+						text = stringResource(screen.toResourceId())
 					)
 				},
 				onClick = {
-					navController.navigate(category.route) {
+					navController.navigate(screen) {
 						popUpTo(navController.graph.findStartDestination().id) {
 							saveState = true
 						}
@@ -58,6 +60,13 @@ fun FlickSlateBottomNavigationBar(
 			)
 		}
 	}
+}
+
+private fun Destination.toResourceId(): Int = when (this) {
+	is Destination.Movies -> R.string.movies
+	is Destination.Tv -> R.string.tv
+	is Destination.Search -> R.string.search
+	else -> R.string.movies
 }
 
 @Composable

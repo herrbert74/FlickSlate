@@ -11,15 +11,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
+import com.zsoltbertalan.flickslate.main.navigation.Destination
+import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
+import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.async.MainDispatcher
-import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.compose.component.FlickSlateTopAppBar
-import com.zsoltbertalan.flickslate.main.navigation.GENRE_DETAIL_ROUTE
-import com.zsoltbertalan.flickslate.main.navigation.MOVIE_DETAIL_ROUTE
-import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
-import com.zsoltbertalan.flickslate.main.navigation.TV_DETAIL_ROUTE
+import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
@@ -45,11 +43,16 @@ class FlickSlateActivity : ComponentActivity() {
 				val navController = rememberNavController()
 				val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 				val navBackStackEntry by navController.currentBackStackEntryAsState()
-				when (navBackStackEntry?.destination?.route) {
-					MOVIE_DETAIL_ROUTE, TV_DETAIL_ROUTE, GENRE_DETAIL_ROUTE -> bottomBarState.value =
-						false
+				val currentRoute = navBackStackEntry?.destination?.route ?: Destination.Movies
 
-					else -> if (!bottomBarState.value) bottomBarState.value = true
+				when (currentRoute) {
+					is Destination.MovieDetails,
+					is Destination.TvDetails,
+					is Destination.GenreMovies
+						-> bottomBarState.value = false
+
+					else
+						-> if (!bottomBarState.value) bottomBarState.value = true
 
 				}
 				Scaffold(

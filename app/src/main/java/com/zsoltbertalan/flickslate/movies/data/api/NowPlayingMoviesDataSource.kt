@@ -18,7 +18,7 @@ interface NowPlayingMoviesDataSource {
 
 		fun getNowPlayingMovies(page: Int): Flow<PagingReply<Movie>?>
 
-		suspend fun getEtag(page: Int): String
+		suspend fun getEtag(page: Int): String?
 
 	}
 

@@ -35,30 +35,33 @@ class MoviesRepositoryTest {
 	@Before
 	fun setup() {
 		coEvery {
-			moviesService.getPopularMovies(any(), any())
+			moviesService.getPopularMovies(any(), any(), any())
 		} returns Response.success(MovieDtoMother.createPopularMovieList())
 		coEvery {
-			moviesService.getNowPlayingMovies(any(), any())
+			moviesService.getNowPlayingMovies(any(), any(), any())
 		} returns Response.success(MovieDtoMother.createNowPlayingMovieList())
 		coEvery {
-			moviesService.getUpcomingMovies(any(), any())
+			moviesService.getUpcomingMovies(any(), any(), any())
 		} returns Response.success(MovieDtoMother.createUpcomingMovieList())
+		coEvery { popularMoviesDataSource.getEtag(any()) } returns null
 		coEvery { popularMoviesDataSource.insertPopularMovies(any(), any()) } returns Unit
 		coEvery { popularMoviesDataSource.insertPopularMoviesPageData(any()) } returns Unit
 		coEvery { popularMoviesDataSource.getPopularMovies(any()) } returns flowOf(null)
+		coEvery { upcomingMoviesDataSource.getEtag(any()) } returns null
 		coEvery { upcomingMoviesDataSource.insertUpcomingMovies(any(), any()) } returns Unit
 		coEvery { upcomingMoviesDataSource.insertUpcomingMoviesPageData(any()) } returns Unit
 		coEvery { upcomingMoviesDataSource.getUpcomingMovies(any()) } returns flowOf(null)
+		coEvery { nowPlayingMoviesDataSource.getEtag(any()) } returns null
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMovies(any(), any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.getNowPlayingMovies(any()) } returns flowOf(null)
-		coEvery { upcomingMoviesRemoteDataSource.getUpcomingMovies(any()) } returns Ok(
+		coEvery { upcomingMoviesRemoteDataSource.getUpcomingMovies(any(), any()) } returns Ok(
 			PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
 		)
-		coEvery { popularMoviesRemoteDataSource.getPopularMovies(any()) } returns Ok(
+		coEvery { popularMoviesRemoteDataSource.getPopularMovies(any(), any()) } returns Ok(
 			PagingReply(MovieMother.createPopularMovieList(), true, PageData())
 		)
-		coEvery { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(any()) } returns Ok(
+		coEvery { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(any(), any()) } returns Ok(
 			PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())
 		)
 		moviesAccessor = MoviesAccessor(

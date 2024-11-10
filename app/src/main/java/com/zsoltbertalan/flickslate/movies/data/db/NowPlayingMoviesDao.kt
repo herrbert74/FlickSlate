@@ -64,8 +64,8 @@ class NowPlayingMoviesDao @Inject constructor(
 			}.flowOn(ioContext)
 	}
 
-	override suspend fun getEtag(page: Int): String = withContext(ioContext) {
-		return@withContext realm.query<NowPlayingMoviesPageDbo>("page = $0", page).first().find()?.etag ?: ""
+	override suspend fun getEtag(page: Int): String? = withContext(ioContext) {
+		return@withContext realm.query<NowPlayingMoviesPageDbo>("page = $0", page).first().find()?.etag
 	}
 
 	private fun getPageData(page: Int): PageData? {

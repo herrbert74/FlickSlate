@@ -1,13 +1,25 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
-import androidx.annotation.StringRes
-import com.zsoltbertalan.flickslate.R
+import kotlinx.serialization.Serializable
 
-enum class Destination(
-	@StringRes val titleId: Int,
-	val route: String
-) {
-	MOVIE(R.string.movies, "movies"),
-	TV(R.string.tv, "tv"),
-	SEARCH(R.string.search, "search"),
+sealed interface Destination {
+
+	@Serializable
+	data object Movies : Destination
+
+	@Serializable
+	data object Tv : Destination
+
+	@Serializable
+	data object Search : Destination
+
+	@Serializable
+	data class MovieDetails(val movieId: Int) : Destination
+
+	@Serializable
+	data class TvDetails(val seriesId: Int) : Destination
+
+	@Serializable
+	data class GenreMovies(val genreId: Int, val genreName: String) : Destination
+
 }

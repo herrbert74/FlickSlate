@@ -1,22 +1,24 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesScreen
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesViewModel
+import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailViewModel
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
@@ -26,10 +28,6 @@ import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailScreen
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailViewModel
 import kotlinx.coroutines.launch
-
-const val MOVIE_DETAIL_ROUTE = "detail/{movieId}"
-const val TV_DETAIL_ROUTE = "tvDetail/{seriesId}"
-const val GENRE_DETAIL_ROUTE = "genreDetail/{genreId}/{genreName}"
 
 @Composable
 fun NavHostContainer(
@@ -43,10 +41,10 @@ fun NavHostContainer(
 
 	NavHost(
 		navController = navController,
-		startDestination = Destination.MOVIE.route,
+		startDestination = Destination.Movies,
 		modifier = modifier.padding(paddingValues),
 		builder = {
-			composable(Destination.MOVIE.route) {
+			composable<Destination.Movies> {
 				val popularMovies = viewModel.popularMoviesPaginationState
 				val nowPlaying = viewModel.nowPlayingMoviesPaginationState
 				val upcoming = viewModel.upcomingMoviesPaginationState
@@ -55,32 +53,32 @@ fun NavHostContainer(
 					nowPlayingMoviesPaginatedState = nowPlaying,
 					upcomingMoviesPaginatedState = upcoming,
 				) { id ->
-					navController.navigate("detail/${id}") {
-						popUpTo("movies")
+					navController.navigate(Destination.MovieDetails(id)) {
+						popUpTo(Destination.Movies)
 					}
 				}
 			}
-			composable(Destination.TV.route) {
+			composable<Destination.Tv> {
 				val topRatedTv = tvViewModel.tvPaginationState
 				TvScreen(paginatedState = topRatedTv) { id ->
-					navController.navigate("tvDetail/${id}") {
-						popUpTo("tv")
+					navController.navigate(Destination.TvDetails(id)) {
+						popUpTo(Destination.Tv)
 					}
 				}
 			}
-			composable(Destination.SEARCH.route) {
+			composable<Destination.Search> {
 				val coroutineScope = rememberCoroutineScope()
 				val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
 				SearchScreen(
 					searchState = searchState,
 					navigateToGenreDetails = { id, name ->
-						navController.navigate("genreDetail/${id}/${name}") {
-							popUpTo("search")
+						navController.navigate(Destination.GenreMovies(id, name)) {
+							popUpTo(Destination.Search)
 						}
 					},
 					navigateToMovieDetails = { id ->
-						navController.navigate("detail/${id}") {
-							popUpTo("movies")
+						navController.navigate(Destination.MovieDetails(id)) {
+							popUpTo(Destination.Search)
 						}
 					},
 					searchEvent = {
@@ -89,45 +87,30 @@ fun NavHostContainer(
 						}
 					})
 			}
-			composable(
-				MOVIE_DETAIL_ROUTE,
-				arguments = listOf(navArgument("movieId") { type = NavType.IntType }),
+			composable<Destination.MovieDetails>(
 				enterTransition = {
-					slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Down)
+					slideIntoContainer(
+						AnimatedContentTransitionScope.SlideDirection.Down,
+						animationSpec = tweenSpec()
+					)
 				},
 				popExitTransition = {
-					slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Up)
+					slideOutOfContainer(
+						AnimatedContentTransitionScope.SlideDirection.Up,
+						animationSpec = tweenSpec()
+					)
 				}
 			) {
 				MovieDetailScreen(popBackStack = { navController.popBackStack() })
 			}
 
-			composable(
-				TV_DETAIL_ROUTE,
-				arguments = listOf(navArgument("seriesId") { type = NavType.IntType })
-			) {
+			composable<Destination.TvDetails> {
 				val tvDetailViewModel = hiltViewModel<TvDetailViewModel>()
 				val detail = tvDetailViewModel.tvStateData.collectAsStateWithLifecycle()
 				TvDetailScreen(detail = detail) { navController.popBackStack() }
 			}
 
-			composable(
-				GENRE_DETAIL_ROUTE,
-				arguments = listOf(navArgument("genreId") { type = NavType.IntType },
-					navArgument("genreName") { type = NavType.StringType }),
-				enterTransition = {
-					slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
-				},
-				exitTransition = {
-					slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Down)
-				},
-				popEnterTransition = {
-					slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
-				},
-				popExitTransition = {
-					slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Down)
-				}
-			) {
+			composable<Destination.GenreMovies> {
 				val genreViewModel = hiltViewModel<GenreDetailViewModel>()
 				val list = genreViewModel.genreMoviesPaginationState
 				GenreDetailScreen(
@@ -141,3 +124,8 @@ fun NavHostContainer(
 		})
 
 }
+
+private fun tweenSpec(): TweenSpec<IntOffset> = tween(
+	durationMillis = 500,
+	easing = FastOutSlowInEasing
+)

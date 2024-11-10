@@ -100,7 +100,6 @@ private fun ShowUpcomingMovies(
 	navigateToDetail: (Int) -> Unit,
 ) {
 
-
 	PaginatedLazyRow(
 		paginatedState,
 		firstPageProgressIndicator = { FirstPageProgressIndicator() },
