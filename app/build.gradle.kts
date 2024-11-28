@@ -91,7 +91,6 @@ dependencies {
 	implementation(libs.androidx.compose.ui.toolingPreview)
 	implementation(libs.androidx.compose.material3)
 	implementation(libs.androidx.coreKtx)
-	implementation(libs.androidx.constraintLayout)
 	implementation(libs.androidx.hilt.navigation.compose)
 	implementation(libs.androidx.lifecycle.runtime)
 	implementation(libs.androidx.lifecycle.runtime.compose)
