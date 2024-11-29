@@ -1,10 +1,15 @@
 package com.zsoltbertalan.flickslate.movies.ui.main
 
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
+import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationInternalState
+import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
+import io.kotest.assertions.throwables.shouldThrowExactly
+import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -65,6 +70,25 @@ class MoviesViewModelTest {
 
 		backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
 			moviesViewModel.popularMoviesPaginationState.allItems shouldBeEqual MovieMother.createPopularMovieList()
+		}
+
+	}
+
+	@Test
+	fun `when started and getMovies is called and call fails returns proper failure`() = runTest {
+
+		coEvery { moviesRepository.getPopularMovies(any()) } answers {
+			flowOf(Err(Failure.UnknownHostFailure))
+		}
+		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 0)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getPopularMovies(any()) }
+
+		backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+			shouldThrowExactly<NoSuchElementException> { moviesViewModel.popularMoviesPaginationState.allItems }
+			moviesViewModel.popularMoviesPaginationState.internalState.value shouldBeEqualToComparingFields
+				PaginationInternalState.Error(0, 0, Exception("Unknown host"), null)
 		}
 
 	}

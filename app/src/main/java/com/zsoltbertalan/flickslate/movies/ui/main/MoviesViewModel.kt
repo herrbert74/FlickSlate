@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.shared.domain.model.Failure
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,10 +30,7 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 						isLastPage = it.value.isLastPage
 					)
 
-					else -> {
-						val e = it.error as? Failure.ServerError
-						popularMoviesPaginationState.setError(Exception(e?.message))
-					}
+					else -> popularMoviesPaginationState.setError(Exception(it.error.message))
 
 				}
 			}
@@ -54,15 +50,12 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 			moviesRepository.getUpcomingMovies(page = pageKey).collect {
 				when {
 					it.isOk -> upcomingMoviesPaginationState.appendPage(
-						items = it.value.pagingList,
-						nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
-						isLastPage = it.value.isLastPage
-					)
+							items = it.value.pagingList,
+							nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
+							isLastPage = it.value.isLastPage
+						)
 
-					else -> {
-						val e = it.error as? Failure.ServerError
-						upcomingMoviesPaginationState.setError(Exception(e?.message))
-					}
+					else -> upcomingMoviesPaginationState.setError(Exception(it.error.message))
 
 				}
 			}
@@ -87,10 +80,7 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 						isLastPage = it.value.isLastPage
 					)
 
-					else -> {
-						val e = it.error as? Failure.ServerError
-						nowPlayingMoviesPaginationState.setError(Exception(e?.message))
-					}
+					else -> nowPlayingMoviesPaginationState.setError(Exception(it.error.message))
 
 				}
 			}

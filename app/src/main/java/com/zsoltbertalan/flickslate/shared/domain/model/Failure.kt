@@ -1,12 +1,12 @@
 package com.zsoltbertalan.flickslate.shared.domain.model
 
-sealed class Failure {
+sealed class Failure(open var message: String) {
 
-	data class ServerError(val message: String) : Failure()
-	data object UnknownApiError : Failure()
-	data object IoFailure : Failure()
-	data object UnknownHostFailure : Failure()
-	data object UnexpectedFailure : Failure()
-	data object NotModified : Failure()
+	data class ServerError(override var message: String) : Failure(message)
+	data object UnknownApiError : Failure("Unknown error")
+	data object IoFailure : Failure("IO failure")
+	data object UnknownHostFailure : Failure("Unknown host")
+	data object UnexpectedFailure : Failure("Unexpected exception")
+	data object NotModified : Failure("Not modified")
 
 }

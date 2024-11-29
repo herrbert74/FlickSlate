@@ -45,7 +45,6 @@ class FetchCacheThenRemoteOnceTest {
 
 		val fetchFromLocal = { flowOf(null) }
 
-		println("f1")
 		val flow = fetchCacheThenRemote(
 			fetchFromLocal = fetchFromLocal,
 			makeNetworkRequest = { makeNetworkRequestResult()() },

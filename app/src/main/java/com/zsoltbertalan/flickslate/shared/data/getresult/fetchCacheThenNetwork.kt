@@ -60,7 +60,6 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
 
-	println("f: $networkOnlyOnceAndAlreadyCached")
 	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
 
 		val newResult = makeNetworkRequest().andThen { domain ->
