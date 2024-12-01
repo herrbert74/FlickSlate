@@ -8,7 +8,6 @@ plugins {
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.google.dagger.hilt.android)
-	alias(libs.plugins.realm)
 	alias(libs.plugins.detekt)
 }
 
@@ -103,8 +102,11 @@ dependencies {
 	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.kotlin.parcelize.runtime)
 	implementation(libs.squareUp.okhttp3.loggingInterceptor)
+	implementation(libs.androidx.room.common)
+	implementation(libs.androidx.room.ktx)
+	implementation(libs.androidx.room.runtime)
+	add("ksp",libs.androidx.room.compiler)
 	implementation(libs.timber)
-	implementation(libs.realm.base)
 
 	implementation(libs.google.gson)
 	implementation(libs.squareUp.retrofit2.retrofit)
@@ -130,6 +132,7 @@ dependencies {
 
 	implementation(libs.inject)
 
+	testImplementation(libs.androidx.room.testing)
 	testImplementation(libs.androidx.test.coreKtx)
 	testImplementation(libs.androidx.test.ext.jUnit)
 	testImplementation(libs.test.mockk.core)

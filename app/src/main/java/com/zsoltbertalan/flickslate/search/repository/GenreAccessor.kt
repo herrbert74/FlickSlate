@@ -27,7 +27,7 @@ class GenreAccessor @Inject constructor(
 		return fetchCacheThenRemote(
 			fetchFromLocal = { genreDataSource.getGenres() },
 			makeNetworkRequest = {
-				val etag = genreDataSource.getEtag()
+				val etag = genreDataSource.getEtag() ?: ""
 				genreRemoteDataSource.getGenres(etag = etag)
 			},
 			saveResponseData = { genresReply ->

@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data
 
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
-import com.zsoltbertalan.flickslate.tv.data.db.TvDao
+import com.zsoltbertalan.flickslate.tv.data.db.TvRoomDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.TvRemoteDataSource
 import dagger.Binds
 import dagger.Module
@@ -14,9 +14,11 @@ import dagger.hilt.components.SingletonComponent
 interface TvDataModule {
 
 	@Binds
-	fun bindTvDataSource(tvDao: TvDao): TvDataSource.Local
+	fun bindTvDataSource(tvRoomDataSource: TvRoomDataSource): TvDataSource.Local
 
 	@Binds
 	fun bindTvRemoteDataSource(tvRemoteDataSource: TvRemoteDataSource): TvDataSource.Remote
 
 }
+
+

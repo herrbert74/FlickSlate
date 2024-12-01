@@ -17,13 +17,19 @@ import dagger.hilt.components.SingletonComponent
 interface MoviesDatabaseModule {
 
 	@Binds
-	fun bindPopularMoviesDataSource(popularMoviesDao: PopularMoviesDao): PopularMoviesDataSource.Local
+	fun bindPopularMoviesDataSource(
+		popularMoviesLocalDataSource: PopularMoviesRoomDataSource
+	): PopularMoviesDataSource.Local
 
 	@Binds
-	fun bindUpcomingMoviesDataSource(upcomingMoviesDao: UpcomingMoviesDao): UpcomingMoviesDataSource.Local
+	fun bindUpcomingMoviesDataSource(
+		upcomingMoviesLocalDataSource: UpcomingMoviesRoomDataSource
+	): UpcomingMoviesDataSource.Local
 
 	@Binds
-	fun bindNowPlayingMoviesDataSource(nowPlayingMoviesDao: NowPlayingMoviesDao): NowPlayingMoviesDataSource.Local
+	fun bindNowPlayingMoviesDataSource(
+		nowPlayingMoviesLocalDataSource: NowPlayingMoviesRoomDataSource
+	): NowPlayingMoviesDataSource.Local
 
 	@Binds
 	fun bindNowPlayingMoviesRemoteDataSource(

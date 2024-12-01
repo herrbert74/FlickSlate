@@ -15,11 +15,11 @@ interface GenreDataSource {
 
 		suspend fun insertEtag(etag: String)
 
-		suspend fun getEtag(): String
+		suspend fun getEtag(): String?
 
 		fun getGenres(): Flow<GenresReply>
 
-		fun getGenre(id: String): Genre
+		fun getGenre(id: Int): Genre
 
 	}
 

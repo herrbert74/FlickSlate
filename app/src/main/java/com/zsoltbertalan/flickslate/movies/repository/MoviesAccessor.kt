@@ -13,6 +13,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -76,6 +77,7 @@ class MoviesAccessor @Inject constructor(
 			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
 			makeNetworkRequest = {
 				val etag = nowPlayingMoviesDataSource.getEtag(page)
+				Timber.d("zsoltbertalan* getNowPlayingMovies: $etag")
 				nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(etag = etag, page = page)
 			},
 			saveResponseData = { pagingReply ->

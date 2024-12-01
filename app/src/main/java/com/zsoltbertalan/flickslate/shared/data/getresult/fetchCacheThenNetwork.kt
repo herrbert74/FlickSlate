@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
+import timber.log.Timber
 
 /**
  * A generic Repository function to handle **cache first** strategy as described here:
@@ -67,6 +68,7 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 			Ok(domain)
 		}.recoverIf(
 			{ failure ->
+				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")
 				failure == Failure.NotModified || localData != null },
 			{ null }
 		)

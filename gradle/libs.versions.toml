@@ -15,6 +15,7 @@ androidx-activity = "1.9.3"
 androidx-lifecycle = "2.8.7"
 androidx-navigation = "2.8.4"
 androidx-hilt = "1.2.0"
+androidx-room = "2.7.0-alpha11"
 #androidx-work = "2.9.1"
 androidx-test-core = "1.6.1"
 androidx-test-rules = "1.6.1"
@@ -47,7 +48,7 @@ kotlinResult = "1.1.21"
 #ktorfit = "1.12.0"
 #koin = "3.5.3"
 #multiplatform-settings = "1.1.1"
-realm = "3.0.0"
+#realm = "3.0.0"
 #skie = "0.8.2"
 babestudios-base = "3.0.0"
 #graphql = "4.0.0-rc.1"
@@ -137,10 +138,11 @@ androidx-palette-ktx = { group = "androidx.palette", name = "palette-ktx", versi
 #androidx-savedState  = "androidx.savedstate:savedstate:1.2.1"
 #androidx-workmanager-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 #androidx-workmanager-testing = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
-#androidx-room-common = { module = "androidx.room:room-common", version.ref = "androidx-room" }
-#androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
-#androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-#androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-common = { module = "androidx.room:room-common", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
 
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
 #androidx-compose-bom-alpha = { module = "dev.chrisbanes.compose:compose-bom", version.ref = "androidx-compose-bom-alpha" }
@@ -273,7 +275,7 @@ squareUp-retrofit2-converterKotlinxSerialization = { module = "com.squareup.retr
 
 #parcelize-darwin-runtime = { module = "com.arkivanov.parcelize.darwin:runtime", version.ref = "parcelize-darwin" }
 
-realm-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
+#realm-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 
 #detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 #detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
@@ -327,7 +329,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "google-dagger" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-realm = { id = "io.realm.kotlin", version.ref = "realm" }
+#realm = { id = "io.realm.kotlin", version.ref = "realm" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 #versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
 #dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version = "1.30.0" }

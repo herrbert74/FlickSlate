@@ -1,8 +1,8 @@
-package com.zsoltbertalan.flickslate.shared.data.db
+package com.zsoltbertalan.flickslate.tv.data
 
 import android.content.Context
 import androidx.room.Room
-import com.zsoltbertalan.flickslate.movies.data.db.MoviesDatabase
+import com.zsoltbertalan.flickslate.tv.data.db.TvDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,12 +12,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModule {
+class TvDatabaseModule {
 
 	@Provides
 	@Singleton
 	fun provideMoviesDatabase(@ApplicationContext context: Context) =
-		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase").build()
+		Room.databaseBuilder(context, TvDatabase::class.java, "tvDatabase").build()
 
 }
-

@@ -13,7 +13,7 @@ It also showcases some of the techniques used in my articles about [caching](htt
 - Following the [Material 3](https://m3.material.io/) guidelines
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - Dependency injection with [Dagger](https://github.com/google/dagger) and [Hilt](https://dagger.dev/hilt/)
-- Database using [realm-kotlin](https://github.com/realm/realm-kotlin)
+- Database using [androidx-room](https://developer.android.com/training/data-storage/room/)
 
 ## 🏛 Architecture
 
@@ -21,7 +21,7 @@ FlickSlate architecture is Clean(ish) Architecture as [recommended by Google](ht
 
 Let's take a look in each major part of the application:
 
-* **main** - Contains the entry points to the application, plus Jetpack ***navigation**.
+* **main** - Contains the entry points to the application, plus Jetpack **navigation**.
 * **feature** modules (and submodules for **domain**, **data**, **repository**, and **ui**):
   * **movies**
   * **tv**
@@ -49,6 +49,8 @@ In my view this reflects the optimal structure of a **medium small** app (5-10 K
       * **GenreMovies** (also paging)
     * safeCall only (no caching, no header)
       * **Search Movies**
+      * **Movie Details**
+      * **TV Details**
     * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_LATER
       * **None**, but I could use this where it's not important to display the latest data
     * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_ONCE
