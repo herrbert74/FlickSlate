@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.util.safeCallWithMetadata
+import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +17,7 @@ class GenreMoviesRemoteDataSource @Inject constructor(
 ) : GenreMoviesDataSource.Remote {
 
 	override suspend fun getGenreMovies(etag: String?, genreId: Int, page: Int?): Outcome<GenreMoviesPagingReply> {
-		return safeCallWithMetadata(
+		return com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata(
 			{ searchService.getGenreMovie(ifNoneMatch = etag, withGenres = genreId, page = page) },
 			Response<MoviesReplyDto>::toMoviesReply
 		).map {

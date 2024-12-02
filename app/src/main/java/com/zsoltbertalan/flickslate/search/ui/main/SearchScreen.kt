@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.shared.compose.design.AdditionalColors
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 
 @Composable
@@ -221,7 +221,7 @@ private fun GenreList(list: List<Genre>, navigateToGenreDetails: (Int, String) -
 						.size(100.dp)
 						.clickable {
 							item.id?.let {
-								navigateToGenreDetails(it, item.name)
+								navigateToGenreDetails(it, item.name!!)
 							}
 						},
 					contentAlignment = Alignment.Center

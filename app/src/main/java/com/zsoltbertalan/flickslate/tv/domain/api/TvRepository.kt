@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.domain.api
 
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.util.Outcome

@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
-import com.zsoltbertalan.flickslate.shared.domain.model.Failure
+import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
 import dagger.hilt.android.lifecycle.HiltViewModel

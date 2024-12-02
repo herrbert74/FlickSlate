@@ -1,10 +1,10 @@
 package com.zsoltbertalan.flickslate.tv.repository
 
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository

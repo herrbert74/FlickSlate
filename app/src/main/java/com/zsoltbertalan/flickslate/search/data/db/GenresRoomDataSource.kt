@@ -5,9 +5,9 @@ import com.zsoltbertalan.flickslate.search.data.db.model.EtagEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenre
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.GenresReply
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

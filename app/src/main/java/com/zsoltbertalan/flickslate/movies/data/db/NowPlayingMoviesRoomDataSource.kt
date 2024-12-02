@@ -7,9 +7,9 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesEntit
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesPageEntity
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

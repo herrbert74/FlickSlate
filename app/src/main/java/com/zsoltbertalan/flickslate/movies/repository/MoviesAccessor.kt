@@ -9,9 +9,9 @@ import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.util.runCatchingApi
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject

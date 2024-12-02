@@ -4,8 +4,8 @@ import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.search.repository.SearchRepositoryModule
-import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.shared.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.shared.model.GenresReply
+import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

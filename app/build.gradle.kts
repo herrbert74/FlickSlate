@@ -73,8 +73,14 @@ kotlin {
 	jvmToolchain(21)
 }
 
+ksp {
+	arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
 
+	implementation(project(":shared"))
+	implementation(project(":shared-data"))
 	implementation(libs.baBeStudios.base.android)
 	implementation(libs.baBeStudios.base.compose)
 	implementation(libs.baBeStudios.base.data)

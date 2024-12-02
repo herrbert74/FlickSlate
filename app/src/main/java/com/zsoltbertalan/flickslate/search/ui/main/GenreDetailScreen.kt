@@ -15,7 +15,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.movies.domain.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageErrorIndicator

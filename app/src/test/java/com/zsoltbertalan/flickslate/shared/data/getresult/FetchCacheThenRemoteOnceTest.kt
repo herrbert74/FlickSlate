@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.shared.data.getresult
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.shared.domain.model.Failure
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.testhelper.GenreMother
+import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk

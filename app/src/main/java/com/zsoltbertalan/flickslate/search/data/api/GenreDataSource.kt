@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.search.data.api
 
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
+import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.GenresReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.flow.Flow
 

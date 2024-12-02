@@ -3,9 +3,9 @@ package com.zsoltbertalan.flickslate
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.repository.MoviesRepositoryModule
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.testhelper.MovieMother
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

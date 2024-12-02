@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
-import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
+import com.zsoltbertalan.flickslate.shared.model.GenresReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.api
 
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.flow.Flow
 

@@ -4,10 +4,10 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationInternalState
-import com.zsoltbertalan.flickslate.shared.domain.model.Failure
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
+import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.testhelper.MovieMother
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.equals.shouldBeEqual

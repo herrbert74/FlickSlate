@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.domain.model
 
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.Genre
 
 data class MovieDetail(
 	val id: Int? = null,

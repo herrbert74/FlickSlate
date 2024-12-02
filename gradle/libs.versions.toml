@@ -53,16 +53,21 @@ kotlinResult = "1.1.21"
 babestudios-base = "3.0.0"
 #graphql = "4.0.0-rc.1"
 paletteKtx = "1.0.0"
+junit = "4.13.2"
+jetbrainsKotlinJvm = "2.0.21"
 
 [libraries]
 
-#kotlinPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+#Plugins as library references needed for convention plugins
+kotlin-android-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 #kotlinAllOpenPlugin = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 #googleServicesPlugin = "com.google.gms:google-services:4.4.2"
 #firebaseCrashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:3.0.2"
 #firebaseAppDistributionPlugin = "com.google.firebase:firebase-appdistribution-gradle:5.0.0"
 #buildKonfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version = "0.15.1" }
-#google-dagger-hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "google-dagger" }
+ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+google-dagger-hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "google-dagger" }
 #navigationSafeArgsPlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
 
 #Jitpack
@@ -312,6 +317,7 @@ test-kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", ver
 #logging = "org.lighthousegames:logging:1.3.0"
 timber = "com.jakewharton.timber:timber:5.0.1"
 inject = "javax.inject:javax.inject:1"
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 #lottie = "com.airbnb.android:lottie:6.0.1"
 #revenueCat = "com.revenuecat.purchases:purchases:6.9.4"
 
@@ -329,6 +335,8 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "google-dagger" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 #realm = { id = "io.realm.kotlin", version.ref = "realm" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 #versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }

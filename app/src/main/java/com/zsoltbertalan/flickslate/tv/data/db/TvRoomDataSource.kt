@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.tv.data.db
 
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity

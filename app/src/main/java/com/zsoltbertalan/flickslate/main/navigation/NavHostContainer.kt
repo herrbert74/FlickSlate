@@ -118,7 +118,7 @@ fun NavHostContainer(
 					genreName = genreViewModel.genreName,
 					popBackStack = { navController.popBackStack() }
 				) { id ->
-					navController.navigate("detail/${id}")
+					navController.navigate(Destination.MovieDetails(id))
 				}
 			}
 		})

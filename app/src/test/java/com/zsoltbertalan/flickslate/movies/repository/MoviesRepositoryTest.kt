@@ -5,10 +5,10 @@ import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
-import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.testhelper.MovieDtoMother
-import com.zsoltbertalan.flickslate.shared.testhelper.MovieMother
+import com.zsoltbertalan.flickslate.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.mockk

@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 pluginManagement {
+	includeBuild("build-logic")
 	repositories {
 		gradlePluginPortal()
 		mavenCentral()
@@ -27,4 +28,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "FlickSlate"
 include(":app")
- 
+include(":build-source:convention")
+include(":movies:movies-data")
+include(":movies:movies-domain")
+include(":shared")
+include(":shared-data")
