@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
-import com.zsoltbertalan.flickslate.search.data.network.model.GenreDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenresReply
+import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.toGenresReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import kotlinx.serialization.Serializable
 

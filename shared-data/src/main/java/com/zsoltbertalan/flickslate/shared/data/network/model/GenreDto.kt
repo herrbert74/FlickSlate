@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.search.data.network.model
+package com.zsoltbertalan.flickslate.shared.data.network.model
 
 import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.shared.model.Genre

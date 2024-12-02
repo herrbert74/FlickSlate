@@ -1,6 +1,7 @@
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.jetbrains.kotlin.android)
+	alias(libs.plugins.serialization)
 }
 
 android {
@@ -30,6 +31,13 @@ android {
 }
 
 dependencies {
+
+	implementation(project(":shared"))
+	implementation(project(":shared-data"))
+
+	implementation(libs.kotlinx.serialization.json)
+	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinResult.coroutines)
 
 	implementation(libs.androidx.coreKtx)
 	implementation(libs.androidx.appcompat)

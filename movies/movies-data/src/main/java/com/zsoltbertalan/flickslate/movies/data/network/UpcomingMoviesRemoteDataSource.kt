@@ -17,7 +17,7 @@ class UpcomingMoviesRemoteDataSource @Inject constructor(
 ) : UpcomingMoviesDataSource.Remote {
 
 	override suspend fun getUpcomingMovies(etag: String?, page: Int?): Outcome<PagingReply<Movie>> {
-		return com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata(
+		return safeCallWithMetadata(
 			{ moviesService.getUpcomingMovies(ifNoneMatch = etag, page = page) },
 			Response<UpcomingMoviesReplyDto>::toMoviesReply
 		)

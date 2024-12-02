@@ -17,7 +17,7 @@ class PopularMoviesRemoteDataSource @Inject constructor(
 ) : PopularMoviesDataSource.Remote {
 
 	override suspend fun getPopularMovies(etag: String?, page: Int?): Outcome<PagingReply<Movie>> {
-		return com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata(
+		return safeCallWithMetadata(
 			{ moviesService.getPopularMovies(ifNoneMatch = etag, page = page) },
 			Response<MoviesReplyDto>::toMoviesReply
 		)

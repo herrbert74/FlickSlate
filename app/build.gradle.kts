@@ -79,6 +79,8 @@ ksp {
 
 dependencies {
 
+	implementation(project(":movies:movies-data"))
+	implementation(project(":movies:movies-domain"))
 	implementation(project(":shared"))
 	implementation(project(":shared-data"))
 	implementation(libs.baBeStudios.base.android)

@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.detekt)
 	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.jetbrains.kotlin.android)
+	alias(libs.plugins.serialization)
 	alias(libs.plugins.ksp)
 }
 

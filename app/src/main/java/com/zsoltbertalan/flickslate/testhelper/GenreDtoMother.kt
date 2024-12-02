@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.testhelper
 
-import com.zsoltbertalan.flickslate.search.data.network.model.GenreDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 
 object GenreDtoMother {
 

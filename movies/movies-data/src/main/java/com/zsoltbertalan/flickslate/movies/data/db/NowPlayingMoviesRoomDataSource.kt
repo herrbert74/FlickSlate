@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.movies.data.db
 
 import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.db.model.toMovie
-import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesPageEntity
+import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,7 +32,6 @@ class NowPlayingMoviesRoomDataSource @Inject constructor(
 	}
 
 	override suspend fun insertNowPlayingMovies(movies: List<Movie>, page: Int)  {
-		Timber.d("zsoltbertalan* insertNowPlayingMovies: $movies")
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toNowPlayingMoviesEntity(page) }

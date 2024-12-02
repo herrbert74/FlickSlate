@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.network.model
 
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.search.data.network.model.GenreDto
-import com.zsoltbertalan.flickslate.search.data.network.model.toGenresReply
+import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.toGenresReply
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
