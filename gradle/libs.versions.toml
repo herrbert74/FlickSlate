@@ -205,7 +205,7 @@ google-dagger-core = { module = "com.google.dagger:dagger", version.ref = "googl
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "google-dagger" }
 #google-dagger-hilt-core = { module = "com.google.dagger:hilt-core", version.ref = "google-dagger" }
 google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "google-dagger" }
-#google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "google-dagger" }
+google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "google-dagger" }
 google-dagger-hilt-androidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "google-dagger" }
 google-dagger-hilt-androidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "google-dagger" }
 

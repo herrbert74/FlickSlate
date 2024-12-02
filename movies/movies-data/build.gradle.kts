@@ -1,7 +1,7 @@
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.jetbrains.kotlin.android)
-//	alias(libs.plugins.google.dagger.hilt.android)
+	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.serialization)
 	id("android-library-convention")
@@ -14,7 +14,6 @@ android {
 	defaultConfig {
 		minSdk = 24
 
-		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 		consumerProguardFiles("consumer-rules.pro")
 	}
 
@@ -48,6 +47,7 @@ dependencies {
 	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.google.dagger.hilt.android)
 	add("ksp", libs.androidx.hilt.compiler)
+	add("ksp", libs.google.dagger.hilt.compiler)
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
