@@ -168,7 +168,7 @@ androidx-compose-ui-test-junit4-android = { group = "androidx.compose.ui", name 
 
 #androidx-compose-animation = { module = "androidx.compose.animation:animation" }
 #androidx-compose-animation-core = { module = "androidx.compose.animation:animation-core" }
-#androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 #androidx-compose-foundationLayout = { module = "androidx.compose.foundation:foundation-layout" }
 #androidx-compose-foundationLayout-android = { module = "androidx.compose.foundation:foundation-layout-android" }
 #androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }

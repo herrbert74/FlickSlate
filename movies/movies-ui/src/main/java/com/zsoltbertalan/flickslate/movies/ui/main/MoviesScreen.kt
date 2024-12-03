@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import com.zsoltbertalan.flickslate.R
+import com.zsoltbertalan.flickslate.movies.ui.R
 import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle

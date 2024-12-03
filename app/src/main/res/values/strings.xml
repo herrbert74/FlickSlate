@@ -6,9 +6,6 @@
     <string name="tv">Tv</string>
     <string name="search">Search</string>
     <string name="genre">Genres</string>
-    <string name="popular_movies">Popular Movies</string>
-    <string name="now_playing_movies">Now Playing Movies</string>
-    <string name="upcoming_movies">Upcoming Movies</string>
     <string name="top_rated_tv">Top Rated TV</string>
     <string name="genre_movies">%1$s Based Movies</string>
 	<string name="search_prompt">Search for movies</string>

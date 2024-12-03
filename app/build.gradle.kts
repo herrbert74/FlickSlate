@@ -81,6 +81,7 @@ dependencies {
 
 	implementation(project(":movies:movies-data"))
 	implementation(project(":movies:movies-domain"))
+	implementation(project(":movies:movies-ui"))
 	implementation(project(":shared"))
 	implementation(project(":shared-data"))
 	implementation(libs.baBeStudios.base.android)
@@ -104,7 +105,6 @@ dependencies {
 	implementation(libs.androidx.navigation.common)
 	implementation(libs.androidx.navigation.compose)
 	implementation(libs.google.material)
-	implementation(libs.androidx.coreKtx)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.serialization.json)

@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":movies:movies-ui")
+
+
 pluginManagement {
 	includeBuild("build-logic")
 	repositories {
