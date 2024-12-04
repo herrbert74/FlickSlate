@@ -15,6 +15,10 @@ val tmdbApiKey: String by project
 android {
 	namespace = "com.zsoltbertalan.flickslate.shared.data"
 
+	defaultConfig {
+		buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
+	}
+
 	buildTypes {
 		release {
 			isMinifyEnabled = false
