@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.testhelper
 
-import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDto
-import com.zsoltbertalan.flickslate.movies.data.network.model.MoviesReplyDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.MovieDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
 

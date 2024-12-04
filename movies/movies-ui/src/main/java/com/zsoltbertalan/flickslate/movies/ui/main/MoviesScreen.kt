@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import com.zsoltbertalan.flickslate.movies.ui.R
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
@@ -20,6 +19,7 @@ import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginatedLaz
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.util.navigate
+import com.zsoltbertalan.flickslate.shared.model.Movie
 
 @Composable
 fun MoviesScreen(

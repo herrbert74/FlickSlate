@@ -5,7 +5,7 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesPageEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.model.PageData

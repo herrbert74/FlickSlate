@@ -5,6 +5,7 @@ import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
+import com.zsoltbertalan.flickslate.movies.data.repository.MoviesAccessor
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.testhelper.MovieDtoMother

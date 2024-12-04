@@ -1,12 +1,9 @@
 <resources>
 
-
-    <!-- Bottom Nav Menu -->
-    <string name="movies">Movies</string>
-    <string name="tv">Tv</string>
-    <string name="search">Search</string>
-    <string name="genre">Genres</string>
-    <string name="top_rated_tv">Top Rated TV</string>
-    <string name="genre_movies">%1$s Based Movies</string>
-	<string name="search_prompt">Search for movies</string>
+	<!-- Bottom Nav Menu -->
+	<string name="movies">Movies</string>
+	<string name="tv">Tv</string>
+	<string name="search">Search</string>
+	<string name="top_rated_tv">Top Rated TV</string>
+	<string name="genre_movies">%1$s Based Movies</string>
 </resources>

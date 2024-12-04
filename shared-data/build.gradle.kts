@@ -7,6 +7,8 @@ plugins {
 	alias(libs.plugins.ksp)
 }
 
+apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
+
 val tmdbApiKey: String by project
 
 android {

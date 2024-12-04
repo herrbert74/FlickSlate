@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.testhelper
 
-import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
+import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.Movie
 
 /**
  * This is an example of an ObjectMother that can be used in both Unit and Android UI tests.

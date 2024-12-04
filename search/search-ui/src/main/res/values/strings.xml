@@ -1,0 +1,4 @@
+<resources>
+	<string name="genre">Genres</string>
+	<string name="search_prompt">Search for movies</string>
+</resources>

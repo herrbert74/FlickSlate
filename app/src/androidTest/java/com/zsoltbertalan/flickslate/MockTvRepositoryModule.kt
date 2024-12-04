@@ -5,7 +5,7 @@ import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.testhelper.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
-import com.zsoltbertalan.flickslate.tv.repository.TvRepositoryModule
+import com.zsoltbertalan.flickslate.tv.data.repository.TvRepositoryModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

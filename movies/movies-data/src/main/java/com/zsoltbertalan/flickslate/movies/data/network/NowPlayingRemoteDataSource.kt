@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.movies.data.network
 import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome

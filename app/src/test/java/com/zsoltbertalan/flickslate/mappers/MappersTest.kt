@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.mappers
 
 import com.zsoltbertalan.flickslate.testhelper.MovieDtoMother
-import com.zsoltbertalan.flickslate.movies.data.network.model.toMoviesReply
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.data.network.model.toMoviesReply
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import io.kotest.matchers.shouldBe
 import org.junit.Before

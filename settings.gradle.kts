@@ -1,5 +1,14 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":search:search-ui")
+
+
+include(":search:search-data")
+
+
+include(":search:search-domain")
+
+
 pluginManagement {
 	includeBuild("build-logic")
 	repositories {
@@ -34,4 +43,6 @@ include(":movies:movies-domain")
 include(":movies:movies-ui")
 include(":shared")
 include(":shared-data")
+include(":tv:tv-data")
 include(":tv:tv-domain")
+include(":tv:tv-ui")

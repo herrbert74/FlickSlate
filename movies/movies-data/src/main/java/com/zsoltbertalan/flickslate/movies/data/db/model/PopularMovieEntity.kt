@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.movies.data.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.zsoltbertalan.flickslate.movies.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.Movie
 
 @Entity(tableName = "popularMovies")
 data class PopularMovieEntity(

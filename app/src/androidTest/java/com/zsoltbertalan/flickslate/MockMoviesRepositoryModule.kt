@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.movies.repository.MoviesRepositoryModule
+import com.zsoltbertalan.flickslate.movies.data.repository.MoviesRepositoryModule
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.testhelper.MovieMother
