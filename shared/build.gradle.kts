@@ -10,8 +10,6 @@ plugins {
 	id("android-library-convention")
 }
 
-apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
-
 android {
 	namespace = "com.zsoltbertalan.flickslate.shared"
 

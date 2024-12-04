@@ -1,5 +1,6 @@
 plugins {
 	alias(libs.plugins.android.library)
+	alias(libs.plugins.detekt)
 	alias(libs.plugins.jetbrains.kotlin.android)
 	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.ksp)
@@ -7,6 +8,8 @@ plugins {
 	id("android-library-convention")
 	id("data-convention")
 }
+
+apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.movies.data"

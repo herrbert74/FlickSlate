@@ -60,6 +60,7 @@ junit = "4.13.2"
 
 #Plugins as library references needed for convention plugins
 kotlin-android-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 #kotlinAllOpenPlugin = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 #googleServicesPlugin = "com.google.gms:google-services:4.4.2"
 #firebaseCrashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:3.0.2"

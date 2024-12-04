@@ -1,10 +1,14 @@
 import com.zsoltbertalan.flickslate.convention.commonConfiguration
 import com.zsoltbertalan.flickslate.convention.configureKotlinAndroid
+import com.zsoltbertalan.flickslate.convention.libs
 
 plugins {
 	id("com.android.library")
+	id("io.gitlab.arturbosch.detekt")
 	kotlin("android")
 }
+
+apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 android {
 	commonConfiguration(this)
@@ -12,4 +16,8 @@ android {
 
 kotlin {
 	configureKotlinAndroid(this)
+}
+
+dependencies {
+	"detektPlugins"(libs.findLibrary("detekt.compose").get())
 }

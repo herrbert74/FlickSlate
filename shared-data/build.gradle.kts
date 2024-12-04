@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.jetbrains.kotlin.android)
 	alias(libs.plugins.serialization)
 	alias(libs.plugins.ksp)
+	id("android-library-convention")
 }
 
 apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
@@ -13,14 +14,6 @@ val tmdbApiKey: String by project
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.shared.data"
-	compileSdk = 34
-
-	defaultConfig {
-		minSdk = 24
-
-		consumerProguardFiles("consumer-rules.pro")
-		buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
-	}
 
 	buildTypes {
 		release {
@@ -32,10 +25,6 @@ android {
 	buildFeatures {
 		buildConfig = true
 	}
-}
-
-kotlin {
-	jvmToolchain(21)
 }
 
 dependencies {
