@@ -4,8 +4,9 @@ versionName = "1.0"
 minSdkVersion = "24"
 compileSdkVersion = "35"
 targetSdkVersion = "35"
-androidGradlePlugin = "8.7.2"
+androidGradlePlugin = "8.7.3"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
+jdk = "21"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.26"
 coroutines = "1.8.1"
@@ -54,7 +55,6 @@ babestudios-base = "3.0.0"
 #graphql = "4.0.0-rc.1"
 paletteKtx = "1.0.0"
 junit = "4.13.2"
-jetbrainsKotlinJvm = "2.0.21"
 
 [libraries]
 
@@ -68,6 +68,7 @@ kotlin-android-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", 
 ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 google-dagger-hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "google-dagger" }
+jetbrains-kotlin-jvm-plugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 #navigationSafeArgsPlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
 
 #Jitpack
@@ -87,7 +88,7 @@ baBeStudios-base-compose = { module ="org.bitbucket.babestudios.babestudiosbase:
 #kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 #kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 kotlin-parcelize-runtime = { module = "org.jetbrains.kotlin:kotlin-parcelize-runtime", version.ref = "kotlin" }
-#kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 #kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 #kotlinx-collections-immutable-jvm = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm", version.ref ="kotlinx-collections" }
@@ -336,7 +337,7 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "google-dagger" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 #realm = { id = "io.realm.kotlin", version.ref = "realm" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 #versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }

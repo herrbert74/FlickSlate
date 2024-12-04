@@ -7,7 +7,7 @@ import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.testhelper.MovieDtoMother
+import com.zsoltbertalan.flickslate.testhelper.MovieDtoMother
 import com.zsoltbertalan.flickslate.testhelper.MovieMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery

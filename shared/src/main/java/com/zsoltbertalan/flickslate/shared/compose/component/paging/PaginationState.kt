@@ -9,9 +9,9 @@ import androidx.compose.runtime.remember
 @Stable
 class PaginationState<KEY, T>(
 	initialPageKey: KEY,
-	internal val onRequestPage: PaginationState<KEY, T>.(KEY) -> Unit
+	val onRequestPage: PaginationState<KEY, T>.(KEY) -> Unit
 ) {
-	internal var internalState =
+	var internalState =
 		mutableStateOf<PaginationInternalState<KEY, T>>(PaginationInternalState.Initial(initialPageKey))
 
 	val requestedPageKey: KEY?

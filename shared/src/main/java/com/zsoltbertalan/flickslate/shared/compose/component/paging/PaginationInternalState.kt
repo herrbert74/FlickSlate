@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.shared.compose.component.paging
 
-internal sealed class PaginationInternalState<KEY, T>(
+sealed class PaginationInternalState<KEY, T>(
 	open val initialPageKey: KEY,
 	open val items: List<T>?,
 ) {

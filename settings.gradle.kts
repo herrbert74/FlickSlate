@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":movies:movies-ui")
-
-
 pluginManagement {
 	includeBuild("build-logic")
 	repositories {
@@ -34,5 +31,7 @@ include(":app")
 include(":build-source:convention")
 include(":movies:movies-data")
 include(":movies:movies-domain")
+include(":movies:movies-ui")
 include(":shared")
 include(":shared-data")
+include(":tv:tv-domain")
