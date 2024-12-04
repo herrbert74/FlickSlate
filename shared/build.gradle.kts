@@ -14,13 +14,6 @@ apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.shared"
-	compileSdk = 34
-
-	defaultConfig {
-		minSdk = 24
-
-		consumerProguardFiles("consumer-rules.pro")
-	}
 
 	buildTypes {
 		release {
@@ -29,9 +22,7 @@ android {
 		}
 	}
 }
-kotlin {
-	jvmToolchain(21)
-}
+
 dependencies {
 	implementation(libs.baBeStudios.base.android)
 	implementation(libs.baBeStudios.base.compose)
