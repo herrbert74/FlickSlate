@@ -20,7 +20,5 @@ android {
 }
 
 dependencies {
-	implementation(project(":search:search-domain"))
-	implementation(project(":shared"))
-	implementation(project(":shared-data"))
+	api(project(":search:search-domain"))
 }

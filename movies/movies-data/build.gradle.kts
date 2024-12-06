@@ -23,7 +23,5 @@ android {
 }
 
 dependencies {
-	implementation(project(":movies:movies-domain"))
-	implementation(project(":shared"))
-	implementation(project(":shared-data"))
+	api(project(":movies:movies-domain"))
 }

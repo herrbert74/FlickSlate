@@ -20,7 +20,6 @@ android {
 }
 
 dependencies {
-	implementation(project(":tv:tv-domain"))
-	implementation(project(":shared"))
-	implementation(project(":shared-data"))
+	api(project(":tv:tv-domain"))
+	implementation(libs.baBeStudios.base.data)
 }

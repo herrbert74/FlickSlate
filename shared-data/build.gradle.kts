@@ -1,7 +1,6 @@
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.detekt)
-	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.jetbrains.kotlin.android)
 	alias(libs.plugins.serialization)
 	alias(libs.plugins.ksp)
@@ -32,54 +31,33 @@ android {
 }
 
 dependencies {
-	implementation(project(":shared"))
-	implementation(libs.baBeStudios.base.android)
-	implementation(libs.baBeStudios.base.compose)
-	implementation(libs.baBeStudios.base.data)
-	implementation(libs.baBeStudios.base.kotlin)
-	implementation(libs.androidx.activity.compose)
-	implementation(libs.androidx.appcompat)
+	api(project(":shared"))
+
 	implementation(platform(libs.androidx.compose.bom))
-	implementation(libs.androidx.compose.ui.ui)
-	implementation(libs.androidx.compose.ui.graphics)
-	implementation(libs.androidx.compose.ui.text)
-	implementation(libs.androidx.compose.ui.unit)
 	implementation(libs.androidx.compose.ui.tooling)
-	implementation(libs.androidx.compose.ui.toolingPreview)
-	implementation(libs.androidx.compose.material3)
-	implementation(libs.androidx.coreKtx)
-	implementation(libs.androidx.hilt.navigation.compose)
-	implementation(libs.androidx.lifecycle.runtime)
-	implementation(libs.androidx.lifecycle.runtime.compose)
-	implementation(libs.androidx.navigation.common)
-	implementation(libs.androidx.navigation.compose)
-	implementation(libs.google.material)
-	implementation(libs.androidx.coreKtx)
+	implementation(libs.baBeStudios.base.data)
+	api(libs.google.dagger.core)
+	api(libs.inject)
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinResult.coroutines)
+	api(libs.kotlinx.coroutines.core)
+	api(libs.kotlinx.serialization.core)
 	implementation(libs.kotlinx.serialization.json)
-	implementation(libs.kotlin.parcelize.runtime)
+	api(libs.squareUp.okhttp3.okhttp)
 	implementation(libs.squareUp.okhttp3.loggingInterceptor)
-	implementation(libs.timber)
-
-	implementation(libs.squareUp.retrofit2.retrofit)
 	implementation(libs.squareUp.retrofit2.converterKotlinxSerialization)
-	implementation(libs.androidx.palette.ktx)
+	api(libs.squareUp.retrofit2.retrofit)
+	implementation(libs.timber)
+	implementation(libs.google.dagger.hilt.core)
 
-	implementation(libs.google.dagger.core)
 	add("ksp", libs.google.dagger.compiler)
-	kspTest(libs.google.dagger.compiler)
-	kspAndroidTest(libs.google.dagger.compiler)
-
-	implementation(libs.google.dagger.hilt.android)
 	add("ksp", libs.androidx.hilt.compiler)
-	kspTest(libs.androidx.hilt.compiler)
 	add("ksp", libs.google.dagger.hilt.androidCompiler)
+
+	kspTest(libs.google.dagger.compiler)
+	kspTest(libs.androidx.hilt.compiler)
 	kspTest(libs.google.dagger.hilt.androidCompiler)
 
 	detektPlugins(libs.detekt.compose)
-	implementation(libs.coil)
 
-	implementation(libs.inject)
 
 }

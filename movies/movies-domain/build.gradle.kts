@@ -9,11 +9,9 @@ android {
 
 dependencies {
 
-	implementation(project(":shared"))
+	api(project(":shared"))
 
-	implementation(libs.kotlinx.serialization.json)
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.coroutines.core)
 
 }

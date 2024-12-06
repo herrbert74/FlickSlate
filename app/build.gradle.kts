@@ -130,10 +130,7 @@ dependencies {
 	//Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.compose.ui.testManifest)
 
-//	add("ksp", libs.androidx.room.compiler)
-//	add("ksp", libs.google.dagger.compiler)
-//	add("ksp", libs.androidx.hilt.compiler)
-//	add("ksp", libs.google.dagger.hilt.androidCompiler)
+	add("ksp", libs.google.dagger.hilt.androidCompiler)
 
 	testImplementation(libs.junit)
 	testImplementation(libs.test.kotest.assertions.shared)
