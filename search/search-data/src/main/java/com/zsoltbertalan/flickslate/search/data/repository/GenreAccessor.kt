@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.search.data.repository
 
 import com.zsoltbertalan.flickslate.search.data.api.GenreDataSource
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
+import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
@@ -20,7 +21,7 @@ class GenreAccessor @Inject constructor(
 	private val genreMoviesDataSource: GenreMoviesDataSource.Local,
 	private val genreMoviesRemoteDataSource: GenreMoviesDataSource.Remote,
 	@IoDispatcher val dispatcher: CoroutineDispatcher
-) : com.zsoltbertalan.flickslate.search.domain.api.GenreRepository {
+) : GenreRepository {
 
 	override fun getGenresList(): Flow<Outcome<GenresReply>> {
 		return fetchCacheThenRemote(

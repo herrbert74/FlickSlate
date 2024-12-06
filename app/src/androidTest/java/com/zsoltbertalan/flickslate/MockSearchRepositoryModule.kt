@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.search.data.repository.SearchRepositoryModule
+import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
+import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.shared.model.GenresReply
 import com.zsoltbertalan.flickslate.testhelper.GenreMother
 import dagger.Module
@@ -19,7 +21,7 @@ class MockSearchRepositoryModule {
 
 	@Provides
 	@Singleton
-	fun provideGenreRepository(): com.zsoltbertalan.flickslate.search.domain.api.GenreRepository {
+	fun provideGenreRepository(): GenreRepository {
 		return mockk {
 			coEvery { getGenresList() } returns flowOf(Ok(GenresReply( GenreMother.createGenreList())))
 		}
@@ -27,7 +29,7 @@ class MockSearchRepositoryModule {
 
 	@Provides
 	@Singleton
-	fun provideSearchRepository(): com.zsoltbertalan.flickslate.search.domain.api.SearchRepository {
+	fun provideSearchRepository(): SearchRepository {
 		return mockk {
 
 		}

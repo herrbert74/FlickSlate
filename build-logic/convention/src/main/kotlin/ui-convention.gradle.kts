@@ -12,7 +12,9 @@ android {
 
 dependencies {
 	"implementation"(project(":shared"))
+
 	"implementation"(platform(libs.findLibrary("androidx.compose.bom").get()))
+
 	"implementation"(libs.findLibrary("androidx.compose.foundation").get())
 	"implementation"(libs.findLibrary("androidx.compose.ui.ui").get())
 	"implementation"(libs.findLibrary("androidx.compose.ui.graphics").get())
@@ -28,13 +30,19 @@ dependencies {
 	"implementation"(libs.findLibrary("androidx.navigation.common").get())
 	"implementation"(libs.findLibrary("androidx.navigation.compose").get())
 	"implementation"(libs.findLibrary("coil").get())
+	"implementation"(libs.findLibrary("google.dagger.core").get())
 	"implementation"(libs.findLibrary("google.dagger.hilt.android").get())
 	"implementation"(libs.findLibrary("google.material").get())
 	"implementation"(libs.findLibrary("kotlinResult.result").get())
 	"implementation"(libs.findLibrary("kotlinResult.coroutines").get())
 	"implementation"(libs.findLibrary("timber").get())
 
+	"ksp"(libs.findLibrary("androidx.hilt.compiler").get())
+	"ksp"(libs.findLibrary("androidx.room.compiler").get())
+	"ksp"(libs.findLibrary("google.dagger.compiler").get())
+	"ksp"(libs.findLibrary("google.dagger.hilt.compiler").get())
 	"ksp"(libs.findLibrary("google.dagger.hilt.androidCompiler").get())
+
 	"testImplementation"(libs.findLibrary("junit").get())
 }
 

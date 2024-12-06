@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.search.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
+import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-	private val genreRepository: com.zsoltbertalan.flickslate.search.domain.api.GenreRepository,
-	private val searchRepository: com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
+	private val genreRepository: GenreRepository,
+	private val searchRepository: SearchRepository
 ) : ViewModel() {
 
 	private val _searchStateData = MutableStateFlow(SearchState())

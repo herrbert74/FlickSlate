@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.search.ui.main
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
@@ -13,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GenreDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val genreRepository: com.zsoltbertalan.flickslate.search.domain.api.GenreRepository,
+	private val genreRepository: GenreRepository,
 ) : ViewModel() {
 
 	private val genreId: Int = checkNotNull(savedStateHandle["genreId"])

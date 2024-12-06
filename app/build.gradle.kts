@@ -73,10 +73,6 @@ kotlin {
 	jvmToolchain(21)
 }
 
-ksp {
-	arg("room.schemaLocation", "$projectDir/schemas")
-}
-
 dependencies {
 
 	implementation(project(":movies:movies-data"))
