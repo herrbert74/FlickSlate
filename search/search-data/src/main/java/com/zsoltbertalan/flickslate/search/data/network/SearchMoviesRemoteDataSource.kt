@@ -7,10 +7,10 @@ import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@ViewModelScoped
 class SearchMoviesRemoteDataSource @Inject constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {

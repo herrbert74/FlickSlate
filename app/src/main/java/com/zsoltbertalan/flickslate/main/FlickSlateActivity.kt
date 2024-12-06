@@ -13,7 +13,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
-import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.async.MainDispatcher
 import com.zsoltbertalan.flickslate.shared.compose.component.FlickSlateTopAppBar
@@ -24,9 +23,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FlickSlateActivity : ComponentActivity() {
-
-	@Inject
-	lateinit var moviesRepository: MoviesRepository
 
 	@Inject
 	@MainDispatcher

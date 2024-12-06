@@ -1,5 +1,8 @@
 package com.zsoltbertalan.flickslate.testhelper
 
+import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
+import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 
 /**
@@ -25,20 +28,40 @@ object TvMother {
 		createDefaultTv(id = 12, name = "name6"),
 	)
 
+
+	private fun createDefaultTv(
+		id: Int = 0,
+		name: String = "Heisenberg",
+		overview: String = "Overview",
+		voteAverage: Float = 0.7800f,
+		posterPath: String = "app1",
+		backdropPath: String = ""
+	): TvShow = TvShow(
+		id = id,
+		name = name,
+		overview = overview,
+		voteAverage = voteAverage,
+		posterPath = posterPath,
+		backdropPath = backdropPath
+	)
+
+	fun createTvDetail(
+		id: Int = 0,
+		title: String = "Brazil",
+		overview: String = "Best film ever",
+		voteAverage: Float = 8.7800f,
+		posterPath: String = "app1",
+		backdropPath: String = ""
+	): TvDetail = TvDetail(
+		id = id,
+		title = title,
+		overview = overview,
+		voteAverage = voteAverage,
+		posterPath = posterPath,
+		backdropPath = backdropPath,
+		genres = listOf(
+			Genre(1, "Adventure"), Genre(2, "Comedy")
+		)
+	)
 }
 
-private fun createDefaultTv(
-	id: Int = 0,
-	name: String = "Heisenberg",
-	overview: String = "Overview",
-	voteAverage: Float = 0.7800f,
-	posterPath: String = "app1",
-	backdropPath: String = ""
-): TvShow = TvShow(
-	id = id,
-	name = name,
-	overview = overview,
-	voteAverage = voteAverage,
-	posterPath = posterPath,
-	backdropPath = backdropPath
-)

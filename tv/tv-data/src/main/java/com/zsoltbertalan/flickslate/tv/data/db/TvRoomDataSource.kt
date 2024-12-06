@@ -10,15 +10,20 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvShow
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import se.ansman.dagger.auto.AutoBind
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@AutoBind
+@ViewModelScoped
 class TvRoomDataSource @Inject constructor(
 	private val tvDatabase: TvDatabase,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,

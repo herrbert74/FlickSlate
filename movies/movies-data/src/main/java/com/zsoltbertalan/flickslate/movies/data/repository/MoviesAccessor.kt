@@ -7,17 +7,19 @@ import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
+import se.ansman.dagger.auto.AutoBind
 import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AutoBind
+@ActivityRetainedScoped
 class MoviesAccessor @Inject constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,

@@ -24,6 +24,7 @@ androidx-test-runner = "1.6.2"
 androidx-test-espresso = "3.6.1"
 androidx-compose-bom = "2024.11.00"
 androidx-compose-ui = "1.7.5" #For libs not in the BOM
+autoBind = "1.5.0"
 dependency-analysis = "2.6.0"
 google-dagger = "2.53"
 #google-firebase-bom = "33.5.1"
@@ -76,10 +77,10 @@ jetbrains-kotlin-jvm-plugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains
 #navigationSafeArgsPlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
 
 #Jitpack
-baBeStudios-base-kotlin = { module ="org.bitbucket.babestudios.babestudiosbase:base-kotlin", version.ref = "babestudios-base"}
-baBeStudios-base-data = { module ="org.bitbucket.babestudios.babestudiosbase:base-data", version.ref = "babestudios-base"}
-baBeStudios-base-android = { module ="org.bitbucket.babestudios.babestudiosbase:base-android", version.ref = "babestudios-base"}
-baBeStudios-base-compose = { module ="org.bitbucket.babestudios.babestudiosbase:base-compose", version.ref = "babestudios-base"}
+baBeStudios-base-kotlin = { module = "org.bitbucket.babestudios.babestudiosbase:base-kotlin", version.ref = "babestudios-base" }
+baBeStudios-base-data = { module = "org.bitbucket.babestudios.babestudiosbase:base-data", version.ref = "babestudios-base" }
+baBeStudios-base-android = { module = "org.bitbucket.babestudios.babestudiosbase:base-android", version.ref = "babestudios-base" }
+baBeStudios-base-compose = { module = "org.bitbucket.babestudios.babestudiosbase:base-compose", version.ref = "babestudios-base" }
 
 #Local Maven for KMP versions (>3.0.1), which cannot be hosted on Jitpack. Until I publish to MavenCentral
 #baBeStudios-base-kotlin = { module ="com.babestudios:base-kotlin", version.ref = "babestudios-base"}
@@ -121,7 +122,7 @@ androidx-compose-ui-unit = { group = "androidx.compose.ui", name = "ui-unit" }
 
 #Not in BOM as of 2023.10.01 !!!
 androidx-compose-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "androidx-compose-ui" }
-androidx-compose-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "androidx-compose-ui"} #createComposeRule
+androidx-compose-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "androidx-compose-ui" } #createComposeRule
 
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 
@@ -183,6 +184,12 @@ androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core",
 #androidx-test-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidx-test-espresso" }
 androidx-test-ext-jUnit = "androidx.test.ext:junit:1.2.1"
 #androidx-test-ext-jUnitKtx = "androidx.test.ext:junit-ktx:1.2.1"
+
+#autobind-core = { module = "se.ansman.dagger.auto:core", version.ref = "autoBind" } # For Kotlin modules
+autobind-android = { module = "se.ansman.dagger.auto:android", version.ref = "autoBind" }
+autobind-android-api = { module = "se.ansman.dagger.auto:android-api", version.ref = "autoBind" }
+autobind-android-testing = { module = "se.ansman.dagger.auto:android-testing", version.ref = "autoBind" }
+autobind-compiler = { module = "se.ansman.dagger.auto:compiler", version.ref = "autoBind" }
 
 google-material = "com.google.android.material:material:1.12.0"
 #google-gson = "com.google.code.gson:gson:2.11.0"

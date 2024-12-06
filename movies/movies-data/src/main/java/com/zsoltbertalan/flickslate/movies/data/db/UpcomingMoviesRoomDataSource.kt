@@ -5,22 +5,24 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.movies.data.db.model.toUpcomingMoviesEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toUpcomingMoviesPageEntity
-import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import se.ansman.dagger.auto.AutoBind
 import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AutoBind
+@ActivityRetainedScoped
 class UpcomingMoviesRoomDataSource @Inject constructor(
 	private val moviesDatabase: MoviesDatabase,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,

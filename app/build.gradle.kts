@@ -148,6 +148,8 @@ dependencies {
 	androidTestImplementation(libs.androidx.compose.ui.test.android)
 	androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 	androidTestImplementation(libs.androidx.compose.ui.test.junit4.android)
+	androidTestImplementation(libs.autobind.android.api)
+	androidTestImplementation(libs.autobind.android.testing)
 	androidTestImplementation(libs.google.dagger.hilt.androidTesting)
 	androidTestImplementation(libs.junit)
 	androidTestImplementation(libs.test.mockk.android)
@@ -156,6 +158,7 @@ dependencies {
 
 	kspAndroidTest(libs.google.dagger.compiler)
 	kspAndroidTest(libs.google.dagger.hilt.androidCompiler)
+	kspAndroidTest(libs.autobind.compiler)
 
 	detektPlugins(libs.detekt.compose)
 

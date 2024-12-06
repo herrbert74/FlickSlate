@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.search.data.db
 
-import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesPageEntity
@@ -8,19 +7,22 @@ import com.zsoltbertalan.flickslate.search.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.search.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AutoBind
+@ViewModelScoped
 class GenreMoviesRoomDataSource @Inject constructor(
 	private val searchDatabase: SearchDatabase,
 	@IoDispatcher private val ioContext: CoroutineDispatcher,

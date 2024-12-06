@@ -3,16 +3,18 @@ package com.zsoltbertalan.flickslate.movies.data.network
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 class MoviesServiceModule {
 
 	@Provides
-	@Singleton
+	@ActivityRetainedScoped
 	internal fun provideMoviesService(retroFit: Retrofit): MoviesService {
 		return retroFit.create(MoviesService::class.java)
 	}

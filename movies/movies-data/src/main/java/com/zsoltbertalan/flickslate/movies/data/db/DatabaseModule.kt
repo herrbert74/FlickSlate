@@ -5,16 +5,16 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 class DatabaseModule {
 
 	@Provides
-	@Singleton
+	@ActivityRetainedScoped
 	fun provideMoviesDatabase(@ApplicationContext context: Context) =
 		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase").build()
 

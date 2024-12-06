@@ -14,6 +14,7 @@ dependencies {
 	"implementation"(libs.findLibrary("androidx.room.common").get())
 	"implementation"(libs.findLibrary("androidx.room.runtime").get())
 	"implementation"(libs.findLibrary("androidx.sqlite").get())
+	"implementation"(libs.findLibrary("autobind.android.api").get())
 	"api"(libs.findLibrary("google.dagger.core").get())
 	"implementation"(libs.findLibrary("google.dagger.hilt.core").get())
 	"api"(libs.findLibrary("google.dagger.hilt.android").get())
@@ -27,6 +28,7 @@ dependencies {
 
 	"ksp"(libs.findLibrary("androidx.hilt.compiler").get())
 	"ksp"(libs.findLibrary("androidx.room.compiler").get())
+	"ksp"(libs.findLibrary("autobind.compiler").get())
 	"ksp"(libs.findLibrary("google.dagger.compiler").get())
 	"ksp"(libs.findLibrary("google.dagger.hilt.compiler").get())
 

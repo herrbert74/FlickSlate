@@ -8,13 +8,15 @@ import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.model.GenresReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AutoBind
+@ViewModelScoped
 class GenreAccessor @Inject constructor(
 	private val genreDataSource: GenreDataSource.Local,
 	private val genreRemoteDataSource: GenreDataSource.Remote,

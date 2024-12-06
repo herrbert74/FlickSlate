@@ -6,16 +6,16 @@ import com.zsoltbertalan.flickslate.search.data.db.SearchDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class SearchDatabaseModule {
 
 	@Provides
-	@Singleton
+	@ViewModelScoped
 	fun provideSearchDatabase(@ApplicationContext context: Context) =
 		Room.databaseBuilder(context, SearchDatabase::class.java, "searchDatabase").build()
 }

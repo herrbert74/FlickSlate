@@ -12,17 +12,12 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
-import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.async.MainDispatcher
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.CoroutineDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
@@ -33,17 +28,6 @@ class MovieDetailsTest {
 
 	@get:Rule(order = 1)
 	val composeTestRule = createAndroidComposeRule<FlickSlateActivity>()
-
-	@Inject
-	lateinit var moviesRepository: MoviesRepository
-
-	@Inject
-	@MainDispatcher
-	lateinit var mainContext: CoroutineDispatcher
-
-	@Inject
-	@IoDispatcher
-	lateinit var ioContext: CoroutineDispatcher
 
 	@Before
 	fun setUp() {
