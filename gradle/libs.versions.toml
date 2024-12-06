@@ -293,7 +293,7 @@ kotlinResult-result = { module = "com.michael-bull.kotlin-result:kotlin-result",
 kotlinResult-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlinResult" }
 
 #view-collapsingToolbar = "me.onebone:toolbar-compose:2.3.5"
-coil = "io.coil-kt:coil-compose:2.6.0"
+coil = "io.coil-kt:coil-compose:2.7.0"
 
 # Multiplatform
 #uriKmp = "com.eygraber:uri-kmp:0.0.16"
