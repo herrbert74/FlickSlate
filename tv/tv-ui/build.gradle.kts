@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-	implementation(project(":tv:tv-domain"))
+	api(project(":tv:tv-domain"))
 }

@@ -19,5 +19,9 @@ android {
 }
 
 dependencies {
-	implementation(project(":movies:movies-domain"))
+	api(project(":movies:movies-domain"))
+	implementation(libs.androidx.hilt.navigation.compose)
+	api(libs.androidx.lifecycle.common)
+	implementation(libs.androidx.lifecycle.runtime.compose)
+	api(libs.androidx.lifecycle.viewmodel.compose)
 }

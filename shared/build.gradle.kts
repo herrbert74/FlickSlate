@@ -50,7 +50,6 @@ dependencies {
 	implementation(libs.kotlin.parcelize.runtime)
 	implementation(libs.timber)
 
-	implementation(libs.google.gson)
 	implementation(libs.squareUp.retrofit2.retrofit)
 	implementation(libs.squareUp.retrofit2.converterKotlinxSerialization)
 	implementation(libs.androidx.palette.ktx)

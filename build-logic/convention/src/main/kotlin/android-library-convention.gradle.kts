@@ -5,6 +5,7 @@ import com.zsoltbertalan.flickslate.convention.libs
 plugins {
 	id("com.android.library")
 	id("io.gitlab.arturbosch.detekt")
+	id("com.autonomousapps.dependency-analysis")
 	kotlin("android")
 }
 

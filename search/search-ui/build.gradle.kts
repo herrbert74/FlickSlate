@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-	implementation(project(":search:search-domain"))
+	api(project(":search:search-domain"))
 }
