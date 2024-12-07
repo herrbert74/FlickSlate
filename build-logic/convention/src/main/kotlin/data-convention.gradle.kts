@@ -22,6 +22,7 @@ dependencies {
 	"implementation"(libs.findLibrary("kotlinx.coroutines.core").get())
 	"implementation"(libs.findLibrary("kotlinx.serialization.core").get())
 	"implementation"(libs.findLibrary("kotlinResult.result").get())
+	"implementation"(libs.findLibrary("kotlinx.collections.immutable.jvm").get())
 	"api"(libs.findLibrary("squareUp.retrofit2.retrofit").get())
 	"implementation"(libs.findLibrary("squareUp.okhttp3.okhttp").get())
 	"implementation"(libs.findLibrary("timber").get())

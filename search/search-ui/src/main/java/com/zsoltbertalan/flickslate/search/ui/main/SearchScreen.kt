@@ -46,10 +46,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.search.ui.R
+import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 import com.zsoltbertalan.flickslate.shared.compose.design.AdditionalColors
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun SearchScreen(
@@ -189,7 +190,7 @@ private fun SearchResultUi(
 }
 
 @Composable
-private fun GenreList(list: List<Genre>, navigateToGenreDetails: (Int, String) -> Unit) {
+private fun GenreList(list: ImmutableList<Genre>, navigateToGenreDetails: (Int, String) -> Unit) {
 
 	val listOfColors: List<Color> = listOf(
 		Colors.primaryContainer,
@@ -199,15 +200,12 @@ private fun GenreList(list: List<Genre>, navigateToGenreDetails: (Int, String) -
 		AdditionalColors.quinaryContainer,
 		AdditionalColors.senaryContainer,
 	)
-	val listRem by rememberSaveable {
-		mutableStateOf(list)
-	}
 	LazyVerticalGrid(
 		columns = GridCells.Fixed(2),
 		contentPadding = PaddingValues(8.dp),
 	) {
 		itemsIndexed(
-			items = listRem,
+			items = list,
 			key = { _, item -> item }
 		) { index, item ->
 			item.name?.let {

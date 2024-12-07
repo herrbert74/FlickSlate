@@ -12,6 +12,7 @@ dependencies {
 	api(project(":shared"))
 
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinx.collections.immutable.jvm)
 	implementation(libs.kotlinx.coroutines.core)
 
 }

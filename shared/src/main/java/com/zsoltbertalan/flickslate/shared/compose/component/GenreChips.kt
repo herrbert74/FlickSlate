@@ -15,10 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.shared.model.Genre
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun GenreChips(genres: List<Genre>, modifier: Modifier = Modifier) {
+fun GenreChips(genres: ImmutableList<Genre>, modifier: Modifier = Modifier) {
 	FlowRow(
 		modifier
 			.fillMaxWidth(1f)
@@ -54,7 +56,7 @@ private fun GenreChipsPreview() {
 				Genre(name = "Adventure"),
 				Genre(name = "Science Fiction"),
 				Genre(name = "Fantasy"),
-			)
+			).toImmutableList()
 		)
 	}
 }

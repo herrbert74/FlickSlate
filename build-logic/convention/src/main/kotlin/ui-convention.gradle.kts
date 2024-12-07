@@ -29,6 +29,7 @@ dependencies {
 	"api"(libs.findLibrary("androidx.compose.runtime").get())
 	"api"(libs.findLibrary("androidx.lifecycle.viewmodel").get())
 	"api"(libs.findLibrary("androidx.lifecycle.viewmodel.savedstate").get())
+	"implementation"(libs.findLibrary("kotlinx.collections.immutable.jvm").get())
 	"api"(libs.findLibrary("kotlinx.coroutines.core").get())
 	"implementation"(libs.findLibrary("coil.compose").get())
 	"implementation"(libs.findLibrary("coil.compose.base").get())

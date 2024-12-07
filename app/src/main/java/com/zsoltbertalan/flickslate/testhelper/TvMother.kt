@@ -4,6 +4,7 @@ import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * This is an example of an ObjectMother that can be used in both Unit and Android UI tests.
@@ -61,7 +62,7 @@ object TvMother {
 		backdropPath = backdropPath,
 		genres = listOf(
 			Genre(1, "Adventure"), Genre(2, "Comedy")
-		)
+		).toImmutableList()
 	)
 }
 

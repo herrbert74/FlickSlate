@@ -45,6 +45,7 @@ dependencies {
 	api(libs.inject)
 	implementation(libs.kotlin.parcelize.runtime)
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinx.collections.immutable.jvm)
 	api(libs.kotlinx.coroutines.core)
 	api(libs.kotlinx.serialization.core)
 	implementation(libs.timber)

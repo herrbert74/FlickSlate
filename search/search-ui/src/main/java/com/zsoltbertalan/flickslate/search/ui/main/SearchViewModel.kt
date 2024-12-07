@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -79,7 +80,7 @@ class SearchViewModel @Inject constructor(
 				when {
 					response.isOk -> _searchStateData.update {
 						it.copy(
-							genreResult = response.value.genres.orEmpty(),
+							genreResult = response.value.genres.orEmpty().toImmutableList(),
 						)
 					}
 

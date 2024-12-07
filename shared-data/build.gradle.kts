@@ -39,6 +39,7 @@ dependencies {
 	api(libs.google.dagger.core)
 	api(libs.inject)
 	implementation(libs.kotlinResult.result)
+	api(libs.kotlinx.collections.immutable.jvm)
 	api(libs.kotlinx.coroutines.core)
 	api(libs.kotlinx.serialization.core)
 	implementation(libs.kotlinx.serialization.json)

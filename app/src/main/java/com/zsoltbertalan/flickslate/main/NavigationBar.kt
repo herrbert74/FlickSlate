@@ -23,13 +23,16 @@ import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import timber.log.Timber
 
 @Composable
 fun FlickSlateBottomNavigationBar(
 	navController: NavHostController,
 	modifier: Modifier = Modifier,
-	itemList: List<Destination> = listOf(Destination.Movies, Destination.Tv, Destination.Search),
+	itemList: ImmutableList<Destination> =
+		listOf(Destination.Movies, Destination.Tv, Destination.Search).toImmutableList(),
 ) {
 
 	val navBackStackEntry by navController.currentBackStackEntryAsState()

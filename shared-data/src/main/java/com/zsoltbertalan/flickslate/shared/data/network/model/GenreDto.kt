@@ -1,7 +1,8 @@
 package com.zsoltbertalan.flickslate.shared.data.network.model
 
-import com.babestudios.base.data.mapNullInputList
+import com.zsoltbertalan.flickslate.shared.data.util.mapImmutableNullInputList
 import com.zsoltbertalan.flickslate.shared.model.Genre
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,4 +13,4 @@ data class GenreDto(
 
 fun GenreDto.toGenre(): Genre = Genre(this.id, this.name)
 
-fun List<GenreDto>?.toGenresReply(): List<Genre> = mapNullInputList(this) { genre -> genre.toGenre() }
+fun List<GenreDto>?.toGenresReply(): ImmutableList<Genre> = mapImmutableNullInputList(this) { genre -> genre.toGenre() }

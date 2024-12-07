@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.domain.model
 
 import com.zsoltbertalan.flickslate.shared.model.Genre
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 data class MovieDetail(
 	val id: Int? = null,
@@ -9,5 +11,5 @@ data class MovieDetail(
 	val voteAverage: Float? = null,
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
-	val genres: List<Genre> = emptyList()
+	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList()
 )
