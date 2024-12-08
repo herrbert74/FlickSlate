@@ -42,7 +42,6 @@ fun FlickSlateBottomNavigationBar(
 		modifier = modifier,
 	) {
 		itemList.forEach { screen ->
-			Timber.d("zsoltbertalan* FlickSlateBottomNavigationBar: $currentRoute ${screen.javaClass.canonicalName}")
 			FlickSlateNavigationBarItem(
 				selected = currentRoute == screen.javaClass.canonicalName,
 				label = {

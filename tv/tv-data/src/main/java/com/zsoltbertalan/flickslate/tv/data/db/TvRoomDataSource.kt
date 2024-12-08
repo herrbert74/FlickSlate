@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.tv.data.db
 
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
@@ -18,9 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import se.ansman.dagger.auto.AutoBind
-import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AutoBind
 @ViewModelScoped
@@ -36,7 +34,6 @@ class TvRoomDataSource @Inject constructor(
 	}
 
 	override suspend fun insertTv(tvShowList: List<TvShow>, page: Int)  {
-		Timber.d("zsoltbertalan* insertTv: $tvShowList")
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = tvShowList.map { it.toTvEntity(page) }

@@ -15,7 +15,6 @@ import com.zsoltbertalan.flickslate.shared.util.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import se.ansman.dagger.auto.AutoBind
-import timber.log.Timber
 import javax.inject.Inject
 
 @AutoBind
@@ -79,7 +78,6 @@ class MoviesAccessor @Inject constructor(
 			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
 			makeNetworkRequest = {
 				val etag = nowPlayingMoviesDataSource.getEtag(page)
-				Timber.d("zsoltbertalan* getNowPlayingMovies: $etag")
 				nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(etag = etag, page = page)
 			},
 			saveResponseData = { pagingReply ->

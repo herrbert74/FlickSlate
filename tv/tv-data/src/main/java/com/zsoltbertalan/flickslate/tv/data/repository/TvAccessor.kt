@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate.tv.data.repository
 
-import com.zsoltbertalan.flickslate.tv.data.network.TvService
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
-import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
+import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
+import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
@@ -13,7 +13,6 @@ import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import se.ansman.dagger.auto.AutoBind
-import timber.log.Timber
 import javax.inject.Inject
 
 @AutoBind
@@ -29,7 +28,6 @@ class TvAccessor @Inject constructor(
 			fetchFromLocal = { tvDataSource.getTv(page) },
 			makeNetworkRequest = {
 				val etag = tvDataSource.getEtag(page)
-				Timber.d("zsoltbertalan* getTopRatedTv: etag: $etag")
 				tvRemoteDataSource.getTopRatedTv(etag = etag, page = page)
 			},
 			saveResponseData = { pagingReply ->

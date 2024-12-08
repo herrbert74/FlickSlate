@@ -9,7 +9,6 @@ import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_N
 import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
 import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
-
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.shared.util.Outcome
@@ -19,7 +18,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
-import timber.log.Timber
 
 /**
  * A generic Repository function to handle **cache first** strategy as described here:
@@ -69,7 +67,6 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 			Ok(domain)
 		}.recoverIf(
 			{ failure ->
-				Timber.d("zsoltbertalan* fetchCacheThenRemote: $failure")
 				failure == Failure.NotModified || localData != null },
 			{ null }
 		)

@@ -58,6 +58,7 @@ fun SearchScreen(
 	searchEvent: (SearchEvent) -> Unit,
 	navigateToGenreDetails: (Int, String) -> Unit,
 	navigateToMovieDetails: (Int) -> Unit,
+	closeScreen: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 
@@ -84,7 +85,7 @@ fun SearchScreen(
 			{ closeSearchBar() },
 			{
 				isSearchBarActive = it
-				if (!isSearchBarActive) focusManager.clearFocus()
+				if (!isSearchBarActive) closeScreen()
 			},
 			{
 				isSearchBarActive = false
@@ -93,7 +94,7 @@ fun SearchScreen(
 			},
 			searchState,
 			navigateToGenreDetails,
-			navigateToMovieDetails
+			navigateToMovieDetails,
 		)
 	}
 }
@@ -107,7 +108,7 @@ private fun ShowSearchBar(
 	onQueryClose: () -> Unit,
 	searchState: SearchState,
 	navigateToGenreDetails: (Int, String) -> Unit,
-	navigateToMovieDetails: (Int) -> Unit
+	navigateToMovieDetails: (Int) -> Unit,
 ) {
 	SearchBar(
 		inputField = {

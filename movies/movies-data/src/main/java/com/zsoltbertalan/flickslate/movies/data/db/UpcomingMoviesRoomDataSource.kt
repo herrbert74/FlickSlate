@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import se.ansman.dagger.auto.AutoBind
-import timber.log.Timber
 import javax.inject.Inject
 
 @AutoBind
@@ -35,7 +34,6 @@ class UpcomingMoviesRoomDataSource @Inject constructor(
 	}
 
 	override suspend fun insertUpcomingMovies(movies: List<Movie>, page: Int)  {
-		Timber.d("zsoltbertalan* insertUpcomingMovies: $movies")
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toUpcomingMoviesEntity(page) }

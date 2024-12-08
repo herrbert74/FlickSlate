@@ -85,7 +85,11 @@ fun NavHostContainer(
 						coroutineScope.launch {
 							searchViewModel.emitEvent(it)
 						}
-					})
+					},
+					closeScreen = {
+						navController.popBackStack()
+					}
+				)
 			}
 			composable<Destination.MovieDetails>(
 				enterTransition = {
