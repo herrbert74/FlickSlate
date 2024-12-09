@@ -19,6 +19,11 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+
+	@Suppress("UnstableApiUsage")
+	testFixtures {
+		enable = true
+	}
 }
 
 dependencies {

@@ -21,4 +21,6 @@ android {
 
 dependencies {
 	api(project(":search:search-domain"))
+	testImplementation(testFixtures(project("::shared")))
+	testImplementation(libs.kotlinx.serialization.json)
 }

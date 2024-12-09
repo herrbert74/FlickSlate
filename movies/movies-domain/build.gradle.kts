@@ -5,6 +5,12 @@ plugins {
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.movies.domain"
+	buildFeatures {
+		@Suppress("UnstableApiUsage")
+		testFixtures {
+			enable = true
+		}
+	}
 }
 
 dependencies {
@@ -14,5 +20,6 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.collections.immutable.jvm)
 	implementation(libs.kotlinx.coroutines.core)
+	testFixturesCompileOnly(libs.kotlinx.collections.immutable.jvm)
 
 }

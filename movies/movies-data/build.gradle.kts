@@ -20,8 +20,17 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+	@Suppress("UnstableApiUsage")
+	testFixtures {
+		enable = true
+	}
 }
 
 dependencies {
 	api(project(":movies:movies-domain"))
+	testImplementation(testFixtures(project("::movies:movies-data")))
+	testImplementation(testFixtures(project("::movies:movies-domain")))
+
+	//Remove in AGP 8.9.0 https://issuetracker.google.com/issues/340315591
+	testFixturesCompileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
 }

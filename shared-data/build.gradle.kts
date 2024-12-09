@@ -54,6 +54,13 @@ dependencies {
 	add("ksp", libs.androidx.hilt.compiler)
 	add("ksp", libs.google.dagger.hilt.androidCompiler)
 
+	testImplementation(testFixtures(project("::shared")))
+	testImplementation(libs.junit)
+	testImplementation(libs.test.kotest.assertions.shared)
+	testImplementation(libs.test.mockk.core)
+	testImplementation(libs.kotlinx.coroutines.test)
+	testImplementation(libs.test.kotest.assertions.core)
+
 	kspTest(libs.google.dagger.compiler)
 	kspTest(libs.androidx.hilt.compiler)
 	kspTest(libs.google.dagger.hilt.androidCompiler)

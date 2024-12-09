@@ -142,6 +142,9 @@ dependencies {
 	kspTest(libs.androidx.hilt.compiler)
 	kspTest(libs.google.dagger.hilt.androidCompiler)
 
+	androidTestImplementation(testFixtures(project("::movies:movies-domain")))
+	androidTestImplementation(testFixtures(project("::tv:tv-domain")))
+	androidTestImplementation(testFixtures(project("::shared")))
 	androidTestImplementation(libs.androidx.test.coreKtx)
 	androidTestImplementation(libs.androidx.test.ext.jUnit)
 	androidTestImplementation(libs.androidx.test.runner)

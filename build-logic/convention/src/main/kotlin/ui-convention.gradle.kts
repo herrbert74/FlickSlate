@@ -45,7 +45,11 @@ dependencies {
 	"ksp"(libs.findLibrary("google.dagger.hilt.compiler").get())
 	"ksp"(libs.findLibrary("google.dagger.hilt.androidCompiler").get())
 
-//	"testImplementation"(libs.findLibrary("junit").get())
+	"testImplementation"(libs.findLibrary("junit").get())
+	"testImplementation"(libs.findLibrary("test.kotest.assertions.shared").get())
+	"testImplementation"(libs.findLibrary("test.kotest.assertions.core").get())
+	"testImplementation"(libs.findLibrary("test.mockk.core").get())
+	"testImplementation"(libs.findLibrary("kotlinx.coroutines.test").get())
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

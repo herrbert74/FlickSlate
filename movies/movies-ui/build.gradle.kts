@@ -24,4 +24,10 @@ dependencies {
 	api(libs.androidx.lifecycle.common)
 	implementation(libs.androidx.lifecycle.runtime.compose)
 	api(libs.androidx.lifecycle.viewmodel.compose)
+
+	testImplementation(testFixtures(project("::movies:movies-domain")))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+	compilerOptions.freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
 }
