@@ -38,4 +38,6 @@ dependencies {
 	"testImplementation"(libs.findLibrary("test.kotest.assertions.core").get())
 	"testImplementation"(libs.findLibrary("test.mockk.core").get())
 	"testImplementation"(libs.findLibrary("kotlinx.coroutines.test").get())
+	"testImplementation"(libs.findLibrary("kotlinx.serialization.json").get())
+	"testImplementation"(libs.findLibrary("squareUp.retrofit2.converterKotlinxSerialization").get())
 }

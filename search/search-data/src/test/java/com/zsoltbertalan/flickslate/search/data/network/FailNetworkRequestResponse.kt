@@ -7,10 +7,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-/**
- * TODO
- * This can be used to test [com.zsoltbertalan.flickslate.search.data.network.GenreRemoteDataSource]
- */
 @Suppress("unused")
 fun failNetworkRequestResponse(): () -> Response<GenreReplyDto> = {
 	val errorBody = ErrorBody(

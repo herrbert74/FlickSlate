@@ -3,9 +3,9 @@ package com.zsoltbertalan.flickslate.movies.data.network.model
 import com.zsoltbertalan.flickslate.shared.data.network.model.MovieDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 
-private const val TOTAL_RESULTS = 300
+const val TOTAL_RESULTS = 300
 
-private const val TOTAL_PAGES = 3
+const val TOTAL_PAGES = 3
 
 object MovieDtoMother {
 
