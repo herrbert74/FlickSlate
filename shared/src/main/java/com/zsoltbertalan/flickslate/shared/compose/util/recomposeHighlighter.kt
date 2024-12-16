@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlin.math.min
 
+const val RECOMPOSE_TIMEOUT = 3000L
+const val RECOMPOSE_HIGHLIGHT_DENOMINATOR = 100f
+
 /**
  * A [Modifier] that draws a border around elements that are recomposing. The border increases in
  * size and interpolates from red to green as more recompositions occur before a timeout.
@@ -43,7 +46,7 @@ private val recomposeModifier =
 		// Start the timeout, and reset everytime there's a recomposition. (Using totalCompositions
 		// as the key is really just to cause the timer to restart every composition).
 		LaunchedEffect(totalCompositions[0]) {
-			delay(3000)
+			delay(RECOMPOSE_TIMEOUT)
 			totalCompositionsAtLastTimeout.longValue = totalCompositions[0]
 		}
 
@@ -77,7 +80,7 @@ private val recomposeModifier =
 						else -> lerp(
 								Color.Yellow.copy(alpha = 0.8f),
 								Color.Red.copy(alpha = 0.5f),
-								min(1f, (numCompositionsSinceTimeout - 1).toFloat() / 100f)
+								min(1f, (numCompositionsSinceTimeout - 1).toFloat() / RECOMPOSE_HIGHLIGHT_DENOMINATOR)
 							) to numCompositionsSinceTimeout.toInt().dp.toPx()
 
 					}

@@ -4,6 +4,8 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.recoverIf
+import com.github.michaelbull.retry.policy.RetryPolicy
+import com.zsoltbertalan.flickslate.shared.data.retry.retry
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.shared.util.Outcome
@@ -41,11 +43,12 @@ inline fun <DOMAIN> fetchRemoteFirst(
 	crossinline fetchFromLocal: () -> Flow<DOMAIN?>,
 	crossinline makeNetworkRequest: suspend () -> Outcome<DOMAIN>,
 	noinline saveResponseData: suspend (DOMAIN) -> Unit = { },
+	retryPolicy: RetryPolicy<Failure> = defaultNoRetryPolicy,
 ) = flow<Outcome<DOMAIN>> {
 
 	var localData: DOMAIN? = null
 
-	val result = makeNetworkRequest().andThen { domain ->
+	val result = retry(retryPolicy) { makeNetworkRequest() }.andThen { domain ->
 		runCatchingUnit { saveResponseData(domain) }
 		Ok(domain)
 	}.recoverIf(

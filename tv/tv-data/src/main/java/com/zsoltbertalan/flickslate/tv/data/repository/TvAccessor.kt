@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.repository
 
+import com.zsoltbertalan.flickslate.shared.data.getresult.backoffRetryPolicy
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
@@ -37,6 +38,7 @@ class TvAccessor @Inject constructor(
 				)
 				tvDataSource.insertTv(topRatedTvReply, page)
 			},
+			retryPolicy = backoffRetryPolicy,
 		)
 	}
 

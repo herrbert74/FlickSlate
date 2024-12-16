@@ -21,3 +21,21 @@ fun makeNetworkRequestDelayedResponse(): suspend () -> Outcome<List<Genre>> = su
 	delay(1000)
 	Ok(GenreMother.createGenreList())
 }
+
+object NetworkRequestMother {
+
+	private var attempt = 0
+
+	fun resetAttempts() {
+		attempt = 0
+	}
+
+	fun makeNetworkRequestResultAfterRetry(): suspend () -> Outcome<List<Genre>> = suspend {
+		if (attempt == 0) {
+			attempt++
+			Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
+		} else {
+			Ok(GenreMother.createGenreList())
+		}
+	}
+}

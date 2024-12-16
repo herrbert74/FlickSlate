@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MagicNumber")
 
 package com.zsoltbertalan.flickslate.shared.compose.design
 

@@ -39,6 +39,7 @@ dependencies {
 	api(libs.google.dagger.core)
 	api(libs.inject)
 	implementation(libs.kotlinResult.result)
+	api(libs.kotlinRetry)
 	api(libs.kotlinx.collections.immutable.jvm)
 	api(libs.kotlinx.coroutines.core)
 	api(libs.kotlinx.serialization.core)
@@ -67,5 +68,8 @@ dependencies {
 
 	detektPlugins(libs.detekt.compose)
 
+}
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+	compilerOptions.freeCompilerArgs.add("-opt-in=kotlin.contracts.ExperimentalContracts")
 }

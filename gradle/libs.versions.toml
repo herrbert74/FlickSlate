@@ -42,6 +42,7 @@ junit = "4.13.2"
 #jUnit5 = "5.10.2"
 kotest = "5.9.1"
 kotlinResult = "1.1.21"
+kotlinRetry = "2.0.1"
 kotlinx-collections = "0.3.8"
 #koin = "3.5.3"
 #ktor = "2.3.6"
@@ -305,6 +306,8 @@ detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.4.22"
 
 kotlinResult-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlinResult" }
 kotlinResult-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlinResult" }
+kotlinRetry = { module = "com.michael-bull.kotlin-retry:kotlin-retry", version.ref = "kotlinRetry" }
+#kotlinRetryResult = { module = "com.michael-bull.kotlin-retry:kotlin-retry-result", version.ref = "kotlinRetry" }
 
 #view-collapsingToolbar = "me.onebone:toolbar-compose:2.3.5"
 coil-base = "io.coil-kt:coil-base:2.7.0"

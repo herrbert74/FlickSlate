@@ -15,11 +15,17 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Test
 
 class FetchCacheThenRemoteOnceTest {
 
 	val mockSaveResponseData: (List<Genre>) -> Unit = mockk(relaxed = true)
+
+	@After
+	fun after() {
+		NetworkRequestMother.resetAttempts()
+	}
 
 	@Test
 	fun `when cache has data and network has data then emit once`() = runTest {
@@ -142,5 +148,45 @@ class FetchCacheThenRemoteOnceTest {
 		verify(exactly = 0) { mockSaveResponseData(any()) }
 
 	}
+
+
+	@Test
+	fun `given default retry policy when cache has NO data and network has data after retry then emit once`() =
+		runTest {
+
+			val fetchFromLocal = { flowOf(null) }
+
+			val flow = fetchCacheThenRemote(
+				fetchFromLocal = fetchFromLocal,
+				makeNetworkRequest = NetworkRequestMother.makeNetworkRequestResultAfterRetry(),
+				saveResponseData = mockSaveResponseData,
+				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE,
+				retryPolicy = defaultRetryPolicy
+			)
+
+			flow.toList() shouldBe listOf(
+				Ok(GenreMother.createGenreList())
+			)
+			verify(exactly = 1) { mockSaveResponseData(any()) }
+
+		}
+
+	@Test
+	fun `given default no retry policy when cache has NO data and network has data after retry then emit error`() =
+		runTest {
+
+			val fetchFromLocal = { flowOf(null) }
+
+			val flow = fetchCacheThenRemote(
+				fetchFromLocal = fetchFromLocal,
+				makeNetworkRequest = NetworkRequestMother.makeNetworkRequestResultAfterRetry(),
+				saveResponseData = mockSaveResponseData,
+				strategy = STRATEGY.CACHE_FIRST_NETWORK_ONCE,
+			)
+
+			flow.first() shouldBe Err(Failure.ServerError("Invalid id: The pre-requisite id is invalid or not found."))
+			verify(exactly = 0) { mockSaveResponseData(any()) }
+
+		}
 
 }
