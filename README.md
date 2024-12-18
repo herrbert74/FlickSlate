@@ -14,6 +14,7 @@ It also showcases some of the techniques used in my articles about [caching](htt
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - Dependency injection with [Dagger](https://github.com/google/dagger) and [Hilt](https://dagger.dev/hilt/)
 - Database using [androidx-room](https://developer.android.com/training/data-storage/room/)
+- Some modules contain shared [Gradle test fixtures modules](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)
 
 ## 🏛 Architecture
 
@@ -22,18 +23,17 @@ FlickSlate architecture is Clean(ish) Architecture as [recommended by Google](ht
 Let's take a look in each major part of the application:
 
 * **main** - Contains the entry points to the application, plus Jetpack **navigation**.
-* **feature** modules (and submodules for **domain**, **data**, **repository**, and **ui**):
+* **feature** modules (and submodules for **domain**, **data**, and **ui**):
   * **movies**
   * **tv**
   * **search**
-* **shared** - Contains the shared parts. Notice that some parts can be both **feature** specific or **layer** specific, as required.
+* **feature** - Submodules within above features.
   * **domain** - Contains the **shared** **domain model**, the **api interface**, and optionally **use cases**. Domain depends only on itself and all interaction it does is via _dependency
     inversion_.
-  * **data** - The module containing the **shared** data for the app. Data modules contain the (**db**, **network**, etc) modules.
-  * **compose** - Contains shared modules related to compose ui: the **component**, the **design** and the **navigation**.
-  * **async**, the **testhelper** and the **util** modules.
+  * **data** - Contains the (**db**, **network**, etc) modules.
+  * **ui** - Presentation layer
 
-In my view this reflects the optimal structure of a **medium small** app (5-10 KLOC, 3-5 features).
+In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 15-25 features). This app is much smaller than that, so this is for demonstration purposes and to facilitate future growth.
 
 ## 👀 Others
 
@@ -72,7 +72,6 @@ In my view this reflects the optimal structure of a **medium small** app (5-10 K
 
 ## 	🚧 Under construction
 
-* Modularisation
 * New features (TBD)
 * Improved test coverage
 
