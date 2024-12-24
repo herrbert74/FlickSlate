@@ -16,6 +16,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.zsoltbertalan.flickslate.account.ui.main.AccountScreen
+import com.zsoltbertalan.flickslate.account.ui.main.AccountViewModel
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesScreen
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesViewModel
 import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
@@ -37,6 +39,7 @@ fun NavHostContainer(
 	viewModel: MoviesViewModel = hiltViewModel<MoviesViewModel>(),
 	searchViewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
 	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
+	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
 ) {
 
 	NavHost(
@@ -89,6 +92,13 @@ fun NavHostContainer(
 					closeScreen = {
 						navController.popBackStack()
 					}
+				)
+			}
+			composable<Destination.Account> {
+				val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
+				AccountScreen(
+					account = account,
+					login = { username, password -> accountViewModel.login(username, password) }
 				)
 			}
 			composable<Destination.MovieDetails>(

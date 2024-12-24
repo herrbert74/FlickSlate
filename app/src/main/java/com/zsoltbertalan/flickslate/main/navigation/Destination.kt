@@ -14,10 +14,14 @@ sealed interface Destination {
 	data object Search : Destination
 
 	@Serializable
+	data object Account : Destination
+
+	@Serializable
 	data class MovieDetails(val movieId: Int) : Destination
 
 	@Serializable
 	data class TvDetails(val seriesId: Int) : Destination
+
 
 	@Serializable
 	data class GenreMovies(val genreId: Int, val genreName: String) : Destination

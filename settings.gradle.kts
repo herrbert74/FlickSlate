@@ -28,6 +28,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "FlickSlate"
 include(":app")
+
+include(":account:account-data")
+include(":account:account-domain")
+include(":account:account-ui")
 include(":movies:movies-data")
 include(":movies:movies-domain")
 include(":movies:movies-ui")

@@ -76,6 +76,9 @@ kotlin {
 
 dependencies {
 
+	implementation(project(":account:account-data"))
+	implementation(project(":account:account-domain"))
+	implementation(project(":account:account-ui"))
 	implementation(project(":movies:movies-data"))
 	implementation(project(":movies:movies-domain"))
 	implementation(project(":movies:movies-ui"))
