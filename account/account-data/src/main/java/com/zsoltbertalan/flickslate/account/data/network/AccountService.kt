@@ -3,15 +3,18 @@ package com.zsoltbertalan.flickslate.account.data.network
 import com.zsoltbertalan.flickslate.account.data.network.model.AccountDetailsReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestTokenReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDto
+import com.zsoltbertalan.flickslate.account.data.network.model.DeleteSessionReplyDto
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 const val URL_CREATE_REQUEST_TOKEN = "authentication/token/new"
 const val URL_VALIDATE_REQUEST_TOKEN_WITH_LOGIN = "authentication/token/validate_with_login"
 const val URL_CREATE_SESSION = "authentication/session/new"
+const val URL_DELETE_SESSION = "authentication/session"
 const val URL_GET_ACCOUNT_DETAILS = "account"
 
 /**
@@ -38,6 +41,11 @@ interface AccountService {
 	suspend fun createSession(
 		@Query("request_token") requestToken: String,
 	): CreateSessionReplyDto
+
+	@HTTP(method = "DELETE", path = URL_DELETE_SESSION, hasBody = true)
+	suspend fun deleteSession(
+		@Body requestBody: RequestBody
+	): DeleteSessionReplyDto
 
 	@GET(URL_GET_ACCOUNT_DETAILS)
 	suspend fun getAccountDetails(

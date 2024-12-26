@@ -42,6 +42,12 @@ class AccountRemoteDataSource @Inject constructor(
 		}
 	}
 
+	override suspend fun deleteSessionId(sessionId: String): Outcome<Boolean> {
+		return runCatchingApi {
+			accountService.deleteSession(createDeleteSessionRequestBody(sessionId))
+		}.map { it.success }
+	}
+
 	override suspend fun getAccountDetails(sessionToken: String): Outcome<Account> {
 		return runCatchingApi {
 			accountService.getAccountDetails(sessionToken)
@@ -64,6 +70,15 @@ private fun createValidateRequestTokenWithLoginRequestBody(
 		put("username", username)
 		put("password", password)
 		put("request_token", requestToken)
+	}
+	return body.toString().toRequestBody("application/json; charset=UTF-8".toMediaType())
+}
+
+private fun createDeleteSessionRequestBody(
+	sessionId: String,
+): RequestBody {
+	val body = buildJsonObject {
+		put("session_id", sessionId)
 	}
 	return body.toString().toRequestBody("application/json; charset=UTF-8".toMediaType())
 }

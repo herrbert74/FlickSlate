@@ -98,7 +98,8 @@ fun NavHostContainer(
 				val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
 				AccountScreen(
 					account = account,
-					login = { username, password -> accountViewModel.login(username, password) }
+					login = { username, password -> accountViewModel.login(username, password) },
+					logout = { accountViewModel.logout() }
 				)
 			}
 			composable<Destination.MovieDetails>(

@@ -24,6 +24,11 @@ class AccountLocalDataSource @Inject constructor(
 		return sharedPreferences.getString("access_token", null)
 	}
 
+	override fun deleteAccessToken() {
+		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
+		sharedPreferences.edit().remove("access_token").apply()
+	}
+
 	override fun saveAccount(account: Account) {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
 		sharedPreferences.edit().putString("account_name", account.name).apply()

@@ -23,13 +23,18 @@ class AccountAccessor @Inject constructor(
 	override suspend fun login(username: String, password: String): Outcome<Account> {
 		return accountRemoteDataSource.createSessionId(username, password)
 			.andThen {
+				accountLocalDataSource.saveAccessToken(it)
 				val account = accountRemoteDataSource.getAccountDetails(it)
 				accountLocalDataSource.saveAccount(account.value)
 				account
 			}
 	}
 
-	override fun logout() {
-		// Do nothing
+	override suspend fun logout() {
+		val accessToken = accountLocalDataSource.getAccessToken()
+		if (accessToken != null) {
+			val success = accountRemoteDataSource.deleteSessionId(accessToken)
+			if(success.isOk) accountLocalDataSource.getAccessToken()
+		}
 	}
 }

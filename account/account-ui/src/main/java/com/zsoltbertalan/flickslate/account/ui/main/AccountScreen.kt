@@ -9,10 +9,11 @@ import com.zsoltbertalan.flickslate.shared.model.Account
 fun AccountScreen(
 	account: Account?,
 	login: (String, String) -> Unit,
+	logout: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	if (account != null) {
-		LoggedInComponent(Colors, account, modifier)
+		LoggedInComponent(Colors, account, modifier, logout)
 	} else {
 		LoginComponent(Colors, modifier, login)
 	}

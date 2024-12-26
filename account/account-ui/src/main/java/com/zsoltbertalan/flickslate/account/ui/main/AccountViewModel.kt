@@ -33,4 +33,12 @@ class AccountViewModel @Inject constructor(private val accountRepository: Accoun
 			}
 		}
 	}
+
+	fun logout() {
+		viewModelScope.launch {
+			accountRepository.logout()
+			_loggedInEvent.emit(null)
+		}
+	}
+
 }

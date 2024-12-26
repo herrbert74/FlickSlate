@@ -9,6 +9,7 @@ interface AccountDataSource {
 
 		fun saveAccessToken(accessToken: String)
 		fun getAccessToken(): String?
+		fun deleteAccessToken()
 
 		fun saveAccount(account: Account)
 		fun getAccount(): Account?
@@ -18,6 +19,8 @@ interface AccountDataSource {
 	interface Remote {
 
 		suspend fun createSessionId(username: String, password: String): Outcome<String>
+
+		suspend fun deleteSessionId(sessionId: String): Outcome<Boolean>
 
 		suspend fun getAccountDetails(sessionToken: String): Outcome<Account>
 

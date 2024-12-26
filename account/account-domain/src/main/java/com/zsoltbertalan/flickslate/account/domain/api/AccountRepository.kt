@@ -7,6 +7,6 @@ interface AccountRepository {
 
 	suspend fun getAccount(): Account?
 	suspend fun login(username: String, password: String): Outcome<Account>
-	fun logout()
+	suspend fun logout()
 
 }
