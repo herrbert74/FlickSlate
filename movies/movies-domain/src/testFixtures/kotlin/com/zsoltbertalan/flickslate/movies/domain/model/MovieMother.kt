@@ -4,10 +4,6 @@ import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.shared.model.Movie
 import kotlinx.collections.immutable.toImmutableList
 
-/**
- * This is an example of an ObjectMother that can be used in both Unit and Android UI tests.
- * As such it would go into its own module in a normal project.
- */
 object MovieMother {
 
 	fun createMovieList() = listOf(

@@ -29,7 +29,6 @@ android {
 dependencies {
 	api(project(":movies:movies-domain"))
 	testImplementation(libs.squareUp.okhttp3.mockWebServer)
-	testImplementation(testFixtures(project("::movies:movies-data")))
 	testImplementation(testFixtures(project("::movies:movies-domain")))
 
 	//Remove in AGP 8.9.0 https://issuetracker.google.com/issues/340315591

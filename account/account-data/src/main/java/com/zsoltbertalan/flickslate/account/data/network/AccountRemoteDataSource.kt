@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.account.data.network
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
+import com.zsoltbertalan.flickslate.account.data.network.model.toAccount
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.model.Account
 import com.zsoltbertalan.flickslate.shared.util.Outcome
@@ -52,12 +53,11 @@ class AccountRemoteDataSource @Inject constructor(
 		return runCatchingApi {
 			accountService.getAccountDetails(sessionToken)
 		}.map { accountDetailsReplyDto ->
-			val accountName =
-				if (accountDetailsReplyDto.name.isNullOrEmpty()) accountDetailsReplyDto.username
-				else accountDetailsReplyDto.name
-			Account(accountName)
+			accountDetailsReplyDto.toAccount()
 		}
 	}
+
+
 
 }
 
