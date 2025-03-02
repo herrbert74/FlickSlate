@@ -54,6 +54,8 @@ dependencies {
 	api(libs.kotlinx.coroutines.core)
 	api(libs.kotlinx.serialization.core)
 	implementation(libs.timber)
+	testFixturesImplementation(platform(libs.androidx.compose.bom))
+	testFixturesImplementation(libs.androidx.compose.ui.test.junit4.android)
 
 	kspTest(libs.google.dagger.compiler)
 

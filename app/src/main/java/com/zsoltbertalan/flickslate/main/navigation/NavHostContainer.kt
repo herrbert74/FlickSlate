@@ -74,6 +74,11 @@ fun NavHostContainer(
 				val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
 				SearchScreen(
 					searchState = searchState,
+					searchEvent = {
+						coroutineScope.launch {
+							searchViewModel.emitEvent(it)
+						}
+					},
 					navigateToGenreDetails = { id, name ->
 						navController.navigate(Destination.GenreMovies(id, name)) {
 							popUpTo(Destination.Search)
@@ -82,11 +87,6 @@ fun NavHostContainer(
 					navigateToMovieDetails = { id ->
 						navController.navigate(Destination.MovieDetails(id)) {
 							popUpTo(Destination.Search)
-						}
-					},
-					searchEvent = {
-						coroutineScope.launch {
-							searchViewModel.emitEvent(it)
 						}
 					},
 					closeScreen = {

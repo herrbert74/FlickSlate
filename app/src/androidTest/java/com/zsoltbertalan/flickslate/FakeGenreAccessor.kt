@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @Replaces(GenreAccessor::class)
 @ViewModelScoped
-class FakeGenreRepository @Inject constructor() : GenreRepository {
+class FakeGenreAccessor @Inject constructor() : GenreRepository {
 
 	override fun getGenresList(): Flow<Outcome<GenresReply>> = flowOf(Ok(GenresReply(GenreMother.createGenreList())))
 

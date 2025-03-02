@@ -12,6 +12,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
+import com.zsoltbertalan.flickslate.shared.compose.waitUntilAtLeastOneExistsCopy
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -39,38 +40,25 @@ class MovieDetailsTest {
 	@Test
 	fun showMovies() {
 
-		composeTestRule.onRoot(useUnmergedTree = true).printToLog("showMovies")
+		with(composeTestRule) {
+			onRoot(useUnmergedTree = true).printToLog("showMovies")
+			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 
-		waitUntilAtLeastOneExists(hasTestTag("MovieColumn"), 1000L)
-
-		composeTestRule.onNodeWithText("name1", useUnmergedTree = true).assertExists()
-
+			onNodeWithText("name1", useUnmergedTree = true).assertExists()
+		}
 	}
 
 	@Test
 	fun showMovieDetails() {
 
-		waitUntilAtLeastOneExists(hasTestTag("MovieColumn"), 1000L)
+		with(composeTestRule) {
+			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
+			onNodeWithText("name1", ignoreCase = true).performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
 
-		composeTestRule.onNodeWithText("name1", ignoreCase = true).performClick()
-
-		waitUntilAtLeastOneExists(hasText("Brazil"), 5000L)
-
-		composeTestRule.onAllNodesWithText("Brazil", useUnmergedTree = true).assertAny(hasText("Brazil"))
-
-	}
-
-	/**
-	 * Copied from [androidx.compose.ui.test.ComposeUiTest] to override useUnmergedTree.
-	 * The override is only available for onXXX matchers.
-	 */
-	private fun waitUntilAtLeastOneExists(
-		matcher: SemanticsMatcher,
-		timeoutMillis: Long = 1_000L
-	) {
-		composeTestRule.waitUntil(timeoutMillis) {
-			composeTestRule.onAllNodes(matcher, true).fetchSemanticsNodes().isNotEmpty()
+			onAllNodesWithText("Brazil", useUnmergedTree = true).assertAny(hasText("Brazil"))
 		}
+
 	}
 
 }

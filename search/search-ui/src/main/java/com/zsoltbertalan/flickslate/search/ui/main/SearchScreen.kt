@@ -39,10 +39,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.requestFocus
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.search.ui.R
@@ -110,6 +117,10 @@ private fun ShowSearchBar(
 	navigateToGenreDetails: (Int, String) -> Unit,
 	navigateToMovieDetails: (Int) -> Unit,
 ) {
+
+	val focusRequester = remember { FocusRequester() }
+	var textFieldLoaded by remember { mutableStateOf(false) }
+
 	SearchBar(
 		inputField = {
 			SearchBarDefaults.InputField(
@@ -118,6 +129,18 @@ private fun ShowSearchBar(
 				onSearch = { onSearch() },
 				expanded = true,
 				onExpandedChange = onActiveChange,
+				modifier = Modifier
+					.semantics(mergeDescendants = true) {
+						contentDescription = "Searchbar"
+						requestFocus { false }
+					}
+					.focusRequester(focusRequester)
+					.onGloballyPositioned {
+						if (!textFieldLoaded) {
+							focusRequester.requestFocus() // IMPORTANT
+							textFieldLoaded = true // stop cyclic recompositions
+						}
+					},
 				placeholder = { Text(stringResource(R.string.search_prompt)) },
 				leadingIcon = {
 					Icon(
@@ -132,6 +155,7 @@ private fun ShowSearchBar(
 		},
 		expanded = true,
 		onExpandedChange = onActiveChange,
+
 	) {
 		SearchResultUi(uiState = searchState, navigateToMovieDetails = navigateToMovieDetails)
 		if (searchState.genreResult.isNotEmpty()) {
@@ -179,6 +203,7 @@ private fun SearchResultUi(
 		) {
 			itemsIndexed(uiState.searchResult, key = { index, _ -> index }) { _, item ->
 				Column(modifier = Modifier
+					.testTag("SearchResultColumn")
 					.padding(vertical = 4.dp, horizontal = 4.dp)
 					.clickable { navigateToMovieDetails(item.id) }
 				) {
