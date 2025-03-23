@@ -31,9 +31,6 @@ dependencies {
 	implementation(libs.kotlinx.serialization.json)
 	testImplementation(libs.squareUp.okhttp3.mockWebServer)
 	testImplementation(testFixtures(project("::account:account-domain")))
-
-	//Remove in AGP 8.9.0 https://issuetracker.google.com/issues/340315591
-	testFixturesCompileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.1.10")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
