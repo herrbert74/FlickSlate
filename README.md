@@ -55,7 +55,7 @@ In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 
       * **None**, but I could use this where it's not important to display the latest data
     * safeCallWithMetaData + fetchCacheThenRemote w/CACHE_FIRST_NETWORK_ONCE
       * **None**, but I could use this to fetch data that is not changing, like the genres (which changes sometimes, so I could invalidate it from time to time)
-    * safeCall + fetchNetworkFirst
+    * safeCall + fetchRemoteFirst
       * **None**, but I could use this to fetch frequently changing data, where the cache is a fallback.
     
 * Many calls are doing paging and caching at the same time. It uses custom paging, so **do not** use this in production **yet**.
