@@ -171,9 +171,10 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
+	compilerOptions.freeCompilerArgs.addAll(
+		"-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+		"-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+		"-Xjspecify-annotations=strict", // https://developer.android.com/jetpack/androidx/releases/core#1.16.0
+		"-Xtype-enhancement-improvements-strict-mode",
+	)
 }
