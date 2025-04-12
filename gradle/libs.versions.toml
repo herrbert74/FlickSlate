@@ -131,7 +131,7 @@ androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 #androidx-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 #androidx-constraintLayout-compose = "androidx.constraintlayout:constraintlayout-compose-android:1.1.0-rc01"
 #androidx-core = "androidx.core:core:1.13.1" #Bundle
-androidx-coreKtx = "androidx.core:core-ktx:1.15.0" #Bundle
+androidx-coreKtx = "androidx.core:core-ktx:1.16.0" #Bundle
 #androidx-datastore = "androidx.datastore:datastore-preferences:1.1.1"
 #androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.8.4"
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
