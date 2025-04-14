@@ -11,11 +11,11 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-class MoviesServiceModule {
+internal class MoviesServiceModule {
 
 	@Provides
 	@ActivityRetainedScoped
-	internal fun provideMoviesService(retroFit: Retrofit): MoviesService {
+	fun provideMoviesService(retroFit: Retrofit): MoviesService {
 		return retroFit.create(MoviesService::class.java)
 	}
 

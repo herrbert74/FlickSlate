@@ -18,11 +18,11 @@ const val BASE_URL: String = "https://api.themoviedb.org/3/"
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+internal class NetworkModule {
 
 	@Provides
 	@Singleton
-	internal fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
+	fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
 		val logging = HttpLoggingInterceptor()
 		logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -42,7 +42,7 @@ class NetworkModule {
 
 	@Provides
 	@Singleton
-	internal fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
+	fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
 		val original = chain.request()
 		val originalHttpUrl = original.url
 
