@@ -9,11 +9,11 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-class AccountServiceModule {
+internal class AccountServiceModule {
 
 	@Provides
 	@ActivityRetainedScoped
-	internal fun provideAccountService(retroFit: Retrofit): AccountService {
+	fun provideAccountService(retroFit: Retrofit): AccountService {
 		return retroFit.create(AccountService::class.java)
 	}
 

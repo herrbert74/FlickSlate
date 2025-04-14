@@ -9,11 +9,11 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class TvServiceModule {
+internal class TvServiceModule {
 
 	@Provides
 	@ViewModelScoped
-	internal fun provideTvService(retroFit: Retrofit): TvService {
+	fun provideTvService(retroFit: Retrofit): TvService {
 		return retroFit.create(TvService::class.java)
 	}
 
