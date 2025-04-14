@@ -9,11 +9,11 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class SearchServiceModule {
+internal class SearchServiceModule {
 
 	@Provides
 	@ViewModelScoped
-	internal fun provideSearchService(retroFit: Retrofit): SearchService {
+	fun provideSearchService(retroFit: Retrofit): SearchService {
 		return retroFit.create(SearchService::class.java)
 	}
 
