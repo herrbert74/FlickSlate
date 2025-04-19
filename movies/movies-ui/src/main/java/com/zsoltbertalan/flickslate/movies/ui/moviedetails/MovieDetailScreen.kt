@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.graphics.Color.parseColor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -36,13 +37,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.shared.compose.component.BASE_IMAGE_PATH
+import com.zsoltbertalan.flickslate.shared.compose.component.GenreChips
+import com.zsoltbertalan.flickslate.shared.compose.component.TitleText
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.design.Dimens
-import com.zsoltbertalan.flickslate.shared.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.compose.util.extractColorsFromBitmap
 
@@ -75,12 +78,12 @@ fun MovieDetailScreen(
 					bitmap = bitmap,
 					isDarkMode = context.isDarkMode
 				)["vibrant"] ?: bg.toString()
-				color1 = Color(parseColor(vibrantColor))
+				color1 = Color(vibrantColor.toColorInt())
 				val darkVibrantColor = extractColorsFromBitmap(
 					bitmap = bitmap,
 					isDarkMode = context.isDarkMode
 				)["muted"] ?: bgDim.toString()
-				color2 = Color(parseColor(darkVibrantColor))
+				color2 = Color(darkVibrantColor.toColorInt())
 			}
 		}
 	}
@@ -88,7 +91,8 @@ fun MovieDetailScreen(
 	Scaffold(
 		modifier = modifier.fillMaxSize(),
 		topBar = {
-			TopAppBar(title = { Text("Movie Details") },
+			TopAppBar(
+				title = { Text(detail.movieDetail?.title.toString()) },
 				navigationIcon = {
 					IconButton(onClick = { popBackStack() }) {
 						Icon(
@@ -100,59 +104,83 @@ fun MovieDetailScreen(
 				})
 		}
 	) { paddingValues ->
-		if(detail.movieDetail != null)
-		LazyColumn(Modifier.padding(paddingValues)) {
-			item {
-				Image(
-					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
-					contentDescription = "",
-					modifier = Modifier
-						.fillMaxWidth()
-						.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
-					contentScale = ContentScale.Crop
-				)
-				Column(
-					modifier = Modifier
-						.background(
-							brush = Brush.linearGradient(
-								listOf( Color(color1.value), Color(color2.value))
-							),
-						)
-						.padding(bottom = 50.dp)
-				) {
-					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
-						Text(
-							modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
-						)
-						VerticalDivider(
-							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
-						)
-						Text(
-							modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
-						)
-					}
+		if (detail.movieDetail != null)
+			LazyColumn(Modifier.padding(paddingValues)) {
+				item {
+					Image(
+						painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
+						contentDescription = "",
+						modifier = Modifier
+							.fillMaxWidth()
+							.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+						contentScale = ContentScale.Crop
+					)
+
 					Column(
 						modifier = Modifier
-							.padding(horizontal = 16.dp)
+							.background(
+								brush = Brush.linearGradient(
+									listOf(Color(color1.value), Color(color2.value))
+								),
+							)
+							.padding(bottom = 50.dp)
 					) {
-						Text(
-							text = "Genres"
-						)
-						detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
-							GenreChips(it)
+						Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
+							Text(
+								modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
+							)
+							VerticalDivider(
+								modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
+							)
+							Text(
+								modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
+							)
 						}
-					}
-					Text(
-						modifier = Modifier.padding(16.dp), text = "Story Line"
-					)
-					detail.movieDetail.overview?.let {
-						Text(
-							modifier = Modifier.padding(16.dp), text = it
+						Column(
+							modifier = Modifier
+								.padding(horizontal = 8.dp)
+						) {
+							TitleText(
+								modifier = Modifier.padding(vertical = 16.dp), title = "Genres"
+							)
+							detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
+								GenreChips(it)
+							}
+						}
+						TitleText(
+							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Story Line"
 						)
+						detail.movieDetail.overview?.let {
+							Text(
+								modifier = Modifier.padding(16.dp), text = it
+							)
+						}
+						Spacer(modifier = Modifier.height(16.dp))
+
+						TitleText(
+							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
+						)
+						if (detail.movieDetail.movieImages.posters.isNotEmpty()) {
+							val pagerState = rememberPagerState(pageCount = {
+								detail.movieDetail.movieImages.posters.size
+							})
+							HorizontalPager(state = pagerState) { page ->
+								Image(
+									painter = rememberAsyncImagePainter(
+										BASE_IMAGE_PATH + detail.movieDetail.movieImages.backdrops[page].filePath
+									),
+									contentDescription = "",
+									modifier = Modifier
+										.fillMaxWidth()
+										.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+									contentScale = ContentScale.Crop
+								)
+							}
+						}
+
+						Spacer(modifier = Modifier.height(200.dp))
 					}
-					Spacer(modifier = Modifier.height(200.dp))
 				}
 			}
-		}
 	}
 }

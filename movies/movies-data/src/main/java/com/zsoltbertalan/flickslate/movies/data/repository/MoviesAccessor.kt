@@ -4,9 +4,11 @@ import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
+import com.zsoltbertalan.flickslate.movies.data.network.model.images.toMovieImages
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
+import com.zsoltbertalan.flickslate.movies.domain.model.images.MovieImages
 import com.zsoltbertalan.flickslate.shared.data.getresult.backoffRetryPolicy
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
@@ -97,6 +99,12 @@ class MoviesAccessor @Inject constructor(
 	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> {
 		return moviesService.runCatchingApi {
 			getMovieDetails(movieId = movieId).toMovieDetail()
+		}
+	}
+
+	override suspend fun getMovieImages(movieId: Int): Outcome<MovieImages> {
+		return moviesService.runCatchingApi {
+			getMovieImages(movieId = movieId).toMovieImages()
 		}
 	}
 

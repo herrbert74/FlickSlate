@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
-import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
+import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
+import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.shared.model.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val moviesRepository: MoviesRepository
+	private val movieDetailsUseCase: MovieDetailsUseCase
 ) : ViewModel() {
 
 	private val _movieStateData = MutableStateFlow(MovieDetailState())
@@ -30,7 +30,7 @@ class MovieDetailViewModel @Inject constructor(
 
 	private fun getMovieDetail() {
 		viewModelScope.launch {
-			val movieDetailsResult = moviesRepository.getMovieDetails(movieId)
+			val movieDetailsResult = movieDetailsUseCase.getMovieDetails(movieId)
 			when {
 				movieDetailsResult.isOk -> _movieStateData.update {
 					it.copy(
@@ -52,6 +52,6 @@ class MovieDetailViewModel @Inject constructor(
 }
 
 data class MovieDetailState(
-	val movieDetail: MovieDetail? = null,
+	val movieDetail: MovieDetailWithImages? = null,
 	val failure: Failure? = null,
 )

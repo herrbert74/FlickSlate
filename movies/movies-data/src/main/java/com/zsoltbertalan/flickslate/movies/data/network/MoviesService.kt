@@ -4,6 +4,7 @@ import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
+import com.zsoltbertalan.flickslate.movies.data.network.model.images.MovieImagesReplyDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -14,6 +15,7 @@ const val URL_MOVIES_POPULAR = "movie/popular"
 const val URL_MOVIES_NOW_PLAYING = "movie/now_playing"
 const val URL_MOVIES_UPCOMING = "movie/upcoming"
 const val URL_MOVIE_DETAILS = "movie/{movie_id}"
+const val URL_MOVIE_IMAGES = "movie/{movie_id}/images"
 
 interface MoviesService {
 
@@ -43,5 +45,10 @@ interface MoviesService {
 		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Path("movie_id") movieId: Int,
 	): MovieDetailsDto
+
+	@GET("movie/{movie_id}/images")
+	suspend fun getMovieImages(
+		@Path("movie_id") movieId: Int
+	): MovieImagesReplyDto
 
 }
