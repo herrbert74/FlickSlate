@@ -119,10 +119,21 @@ fun NavHostContainer(
 				MovieDetailScreen(popBackStack = { navController.popBackStack() })
 			}
 
-			composable<Destination.TvDetails> {
-				val tvDetailViewModel = hiltViewModel<TvDetailViewModel>()
-				val detail = tvDetailViewModel.tvStateData.collectAsStateWithLifecycle()
-				TvDetailScreen(detail = detail) { navController.popBackStack() }
+			composable<Destination.TvDetails>(
+				enterTransition = {
+					slideIntoContainer(
+						AnimatedContentTransitionScope.SlideDirection.Down,
+						animationSpec = tweenSpec()
+					)
+				},
+				popExitTransition = {
+					slideOutOfContainer(
+						AnimatedContentTransitionScope.SlideDirection.Up,
+						animationSpec = tweenSpec()
+					)
+				}
+			) {
+				TvDetailScreen(popBackStack = { navController.popBackStack() })
 			}
 
 			composable<Destination.GenreMovies> {

@@ -1,11 +1,11 @@
-package com.zsoltbertalan.flickslate.movies.domain.model
+package com.zsoltbertalan.flickslate.tv.domain.model
 
 import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
-data class MovieDetailWithImages(
+data class TvDetailWithImages(
 	val id: Int? = null,
 	val title: String? = null,
 	val overview: String? = null,
@@ -13,5 +13,5 @@ data class MovieDetailWithImages(
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
-	val movieImages: ImagesReply = ImagesReply(),
+	val tvImages: ImagesReply = ImagesReply(),
 )

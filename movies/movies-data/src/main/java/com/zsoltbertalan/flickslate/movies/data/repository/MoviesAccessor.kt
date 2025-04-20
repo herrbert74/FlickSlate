@@ -4,16 +4,16 @@ import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
-import com.zsoltbertalan.flickslate.movies.data.network.model.images.toMovieImages
 import com.zsoltbertalan.flickslate.movies.data.network.model.toMovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.movies.domain.model.images.MovieImages
 import com.zsoltbertalan.flickslate.shared.data.getresult.backoffRetryPolicy
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
+import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
@@ -102,9 +102,9 @@ class MoviesAccessor @Inject constructor(
 		}
 	}
 
-	override suspend fun getMovieImages(movieId: Int): Outcome<MovieImages> {
+	override suspend fun getMovieImages(movieId: Int): Outcome<ImagesReply> {
 		return moviesService.runCatchingApi {
-			getMovieImages(movieId = movieId).toMovieImages()
+			getMovieImages(movieId = movieId).toImagesReply()
 		}
 	}
 

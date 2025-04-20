@@ -1,6 +1,6 @@
-package com.zsoltbertalan.flickslate.movies.data.network.model.images
+package com.zsoltbertalan.flickslate.shared.data.network.model.images
 
-import com.zsoltbertalan.flickslate.movies.domain.model.images.Image
+import com.zsoltbertalan.flickslate.shared.model.images.Image
 import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")

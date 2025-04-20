@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
-import com.zsoltbertalan.flickslate.movies.data.network.model.images.MovieImagesReplyDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.images.ImagesReplyDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -46,9 +46,9 @@ interface MoviesService {
 		@Path("movie_id") movieId: Int,
 	): MovieDetailsDto
 
-	@GET("movie/{movie_id}/images")
+	@GET(URL_MOVIE_IMAGES)
 	suspend fun getMovieImages(
 		@Path("movie_id") movieId: Int
-	): MovieImagesReplyDto
+	): ImagesReplyDto
 
 }

@@ -20,4 +20,8 @@ android {
 
 dependencies {
 	api(project(":tv:tv-domain"))
+	implementation(libs.androidx.hilt.navigation.compose)
+	api(libs.androidx.lifecycle.common)
+	implementation(libs.androidx.lifecycle.runtime.compose)
+	api(libs.androidx.lifecycle.viewmodel.compose)
 }

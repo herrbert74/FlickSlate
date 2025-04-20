@@ -7,8 +7,8 @@ import com.github.michaelbull.result.recover
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
-import com.zsoltbertalan.flickslate.movies.domain.model.images.MovieImages
 import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import jakarta.inject.Inject
 import kotlinx.coroutines.async
@@ -32,11 +32,11 @@ class MovieDetailsUseCase @Inject constructor(private val moviesRepository: Movi
 	 */
 	private fun movieDetailWithImages(
 		movieDetails: Result<MovieDetail, Failure>,
-		movieImages: Result<MovieImages, Failure>
+		movieImages: Result<ImagesReply, Failure>
 	): Outcome<MovieDetailWithImages> {
 
 		return movieDetails.map { movieDetail ->
-			val images = movieImages.recover { MovieImages(emptyList(), emptyList(), emptyList(), 0) }
+			val images = movieImages.recover { ImagesReply(emptyList(), emptyList(), emptyList(), 0) }
 			MovieDetailWithImages(
 				id = movieDetail.id,
 				title = movieDetail.title,
@@ -45,7 +45,7 @@ class MovieDetailsUseCase @Inject constructor(private val moviesRepository: Movi
 				posterPath = movieDetail.posterPath,
 				backdropPath = movieDetail.backdropPath,
 				genres = movieDetail.genres,
-				movieImages = images.get() ?: MovieImages()
+				movieImages = images.get() ?: ImagesReply()
 			)
 		}
 	}

@@ -1,6 +1,6 @@
-package com.zsoltbertalan.flickslate.movies.domain.model.images
+package com.zsoltbertalan.flickslate.shared.model.images
 
-data class MovieImages(
+data class ImagesReply(
 	val backdrops: List<Image> = emptyList(),
 	val logos: List<Image> = emptyList(),
 	val posters: List<Image> = emptyList(),

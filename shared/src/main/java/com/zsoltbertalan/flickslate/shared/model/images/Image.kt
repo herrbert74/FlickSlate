@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.movies.domain.model.images
+package com.zsoltbertalan.flickslate.shared.model.images
 
 data class Image(
 	val aspectRatio: Double,

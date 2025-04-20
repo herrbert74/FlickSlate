@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.network
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.images.ImagesReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TvDetailsDto
 import retrofit2.Response
@@ -10,6 +11,7 @@ import retrofit2.http.Query
 
 const val URL_TV_TOP_RATED = "tv/top_rated"
 const val URL_TV_DETAILS = "tv/{series_id}"
+const val URL_TV_IMAGES = "tv/{series_id}/images"
 
 interface TvService {
 
@@ -25,5 +27,10 @@ interface TvService {
 		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Path("series_id") seriesId: Int,
 	): TvDetailsDto
+
+	@GET(URL_TV_IMAGES)
+	suspend fun getTvImages(
+		@Path("series_id") tvId: Int
+	): ImagesReplyDto
 
 }
