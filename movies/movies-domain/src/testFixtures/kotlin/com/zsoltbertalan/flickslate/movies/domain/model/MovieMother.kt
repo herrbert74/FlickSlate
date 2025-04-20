@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.movies.domain.model
 
 import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.shared.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.images.Image
+import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
 
 object MovieMother {
@@ -80,7 +82,7 @@ object MovieMother {
 		overview: String = "Best film ever",
 		voteAverage: Float = 8.7800f,
 		posterPath: String = "app1",
-		backdropPath: String = ""
+		backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
 	): MovieDetail = MovieDetail(
 		id = id,
 		title = title,
@@ -93,6 +95,13 @@ object MovieMother {
 		).toImmutableList()
 	)
 
+	fun createMovieImages(): ImagesReply = ImagesReply(
+		backdrops = listOf(createDefaultImage()),
+		posters = listOf(),
+		logos = listOf(),
+		id = 0
+	)
+
 }
 
 private fun createDefaultMovie(
@@ -100,8 +109,8 @@ private fun createDefaultMovie(
 	title: String = "Brazil",
 	overview: String = "Best film ever",
 	voteAverage: Float = 8.7800f,
-	posterPath: String = "app1",
-	backdropPath: String = ""
+	posterPath: String = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
+	backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
 ): Movie = Movie(
 	id = id,
 	title = title,
@@ -109,4 +118,14 @@ private fun createDefaultMovie(
 	voteAverage = voteAverage,
 	posterPath = posterPath,
 	backdropPath = backdropPath
+)
+
+private fun createDefaultImage(): Image = Image(
+	aspectRatio = 0.0,
+	filePath = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
+	height = 2160,
+	iso639dash1 = "",
+	voteAverage = 0.0,
+	voteCount = 0,
+	width = 3840
 )

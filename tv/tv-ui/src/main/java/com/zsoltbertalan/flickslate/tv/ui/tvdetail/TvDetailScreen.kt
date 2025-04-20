@@ -161,9 +161,9 @@ fun TvDetailScreen(
 						TitleText(
 							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
 						)
-						if (detail.tvDetail.tvImages.posters.isNotEmpty()) {
+						if (detail.tvDetail.tvImages.backdrops.isNotEmpty()) {
 							val pagerState = rememberPagerState(pageCount = {
-								detail.tvDetail.tvImages.posters.size
+								detail.tvDetail.tvImages.backdrops.size
 							})
 							HorizontalPager(state = pagerState) { page ->
 								Image(

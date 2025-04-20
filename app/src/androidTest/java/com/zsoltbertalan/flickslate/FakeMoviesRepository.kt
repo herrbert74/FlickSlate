@@ -9,6 +9,7 @@ import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieMother
+import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -38,5 +39,7 @@ class FakeMoviesRepository @Inject constructor(): MoviesRepository {
 	)
 
 	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> = Ok(MovieMother.createMovieDetail())
+
+	override suspend fun getMovieImages(movieId: Int): Outcome<ImagesReply> = Ok(MovieMother.createMovieImages())
 
 }

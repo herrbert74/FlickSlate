@@ -160,9 +160,9 @@ fun MovieDetailScreen(
 						TitleText(
 							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
 						)
-						if (detail.movieDetail.movieImages.posters.isNotEmpty()) {
+						if (detail.movieDetail.movieImages.backdrops.isNotEmpty()) {
 							val pagerState = rememberPagerState(pageCount = {
-								detail.movieDetail.movieImages.posters.size
+								detail.movieDetail.movieImages.backdrops.size
 							})
 							HorizontalPager(state = pagerState) { page ->
 								Image(

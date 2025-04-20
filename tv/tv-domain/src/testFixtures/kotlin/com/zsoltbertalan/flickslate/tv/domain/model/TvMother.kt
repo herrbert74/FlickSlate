@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
 import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
 
 /**
@@ -61,5 +62,13 @@ object TvMother {
 			Genre(1, "Adventure"), Genre(2, "Comedy")
 		).toImmutableList()
 	)
+
+	fun createTvImages(): ImagesReply = ImagesReply(
+		backdrops = listOf(),
+		posters = listOf(),
+		logos = listOf(),
+		id = 0
+	)
+
 }
 
