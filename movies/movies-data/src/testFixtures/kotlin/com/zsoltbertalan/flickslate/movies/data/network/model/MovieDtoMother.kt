@@ -87,8 +87,8 @@ private fun createDefaultMovieDto(
 	title: String = "Brazil",
 	overview: String = "Best film ever",
 	voteAverage: Float = 8.7800f,
-	posterPath: String = "app1",
-	backdropPath: String = ""
+	posterPath: String = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
+	backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
 ): MovieDto = MovieDto(
 	id = id,
 	title = title,

@@ -29,7 +29,7 @@ class MovieResponseDtoTest {
 
 	@Test
 	fun `when there is a response then posterPath is mapped`() {
-		mappedResponse.pagingList[0].posterPath shouldBe "app1"
+		mappedResponse.pagingList[0].posterPath shouldBe "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg"
 	}
 
 }
