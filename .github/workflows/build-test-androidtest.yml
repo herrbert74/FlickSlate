@@ -125,7 +125,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedAndroidTest "-PtmdbApiKey=\"$tmdbApiKey\""
+          script: ./gradlew app:connectedAndroidTest "-PtmdbApiKey=\"$tmdbApiKey\""
 
       - name: Upload Test Reports
         if: always()
