@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,13 +30,14 @@ import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
 import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailScreen
-import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun NavHostContainer(
 	navController: NavHostController,
 	paddingValues: PaddingValues,
+	setTitle: (String) -> Unit,
+	setBackgroundColor: (Color) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: MoviesViewModel = hiltViewModel<MoviesViewModel>(),
 	searchViewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
@@ -95,6 +98,7 @@ fun NavHostContainer(
 				)
 			}
 			composable<Destination.Account> {
+				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.R.string.app_name))
 				val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
 				AccountScreen(
 					account = account,
@@ -116,7 +120,7 @@ fun NavHostContainer(
 					)
 				}
 			) {
-				MovieDetailScreen(popBackStack = { navController.popBackStack() })
+				MovieDetailScreen(setTitle = setTitle, setBackgroundColor = setBackgroundColor)
 			}
 
 			composable<Destination.TvDetails>(
@@ -133,7 +137,7 @@ fun NavHostContainer(
 					)
 				}
 			) {
-				TvDetailScreen(popBackStack = { navController.popBackStack() })
+				TvDetailScreen(setTitle = setTitle, setBackgroundColor = setBackgroundColor)
 			}
 
 			composable<Destination.GenreMovies> {

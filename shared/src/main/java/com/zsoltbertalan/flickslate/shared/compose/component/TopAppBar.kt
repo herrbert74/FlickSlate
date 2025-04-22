@@ -1,10 +1,15 @@
 package com.zsoltbertalan.flickslate.shared.compose.component
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.zsoltbertalan.flickslate.shared.R
@@ -14,8 +19,11 @@ import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTypography
 
 @Composable
 fun FlickSlateTopAppBar(
+	popBackStack: () -> Boolean,
+	backgroundColor: Color,
 	modifier: Modifier = Modifier,
 	title: String = stringResource(id = R.string.app_name),
+	showBack: Boolean = false,
 ) {
 	TopAppBar(
 		title = {
@@ -26,8 +34,19 @@ fun FlickSlateTopAppBar(
 			)
 		},
 		colors = TopAppBarDefaults.topAppBarColors(
-			containerColor = Colors.surface
+			containerColor = backgroundColor,
 		),
+		navigationIcon = {
+			if (showBack) {
+				IconButton(onClick = { popBackStack() }) {
+					Icon(
+						imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+						contentDescription = "Finish",
+						tint = Colors.onSurface
+					)
+				}
+			}
+		},
 		modifier = modifier,
 	)
 }
@@ -36,6 +55,6 @@ fun FlickSlateTopAppBar(
 @Composable
 private fun TopAppBarPreview() {
 	FlickSlateTheme {
-		FlickSlateTopAppBar()
+		FlickSlateTopAppBar({true}, backgroundColor = Colors.surface)
 	}
 }

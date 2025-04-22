@@ -16,19 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -56,7 +51,10 @@ private const val HEADER_IMAGE_ASPECT_RATIO = 16f / 9f
 
 @Composable
 fun MovieDetailScreen(
-	modifier: Modifier = Modifier, viewModel: MovieDetailViewModel = hiltViewModel(), popBackStack: () -> Boolean
+	setTitle: (String) -> Unit,
+	setBackgroundColor: (Color) -> Unit,
+	modifier: Modifier = Modifier,
+	viewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
 	val detail = viewModel.movieStateData.collectAsStateWithLifecycle().value
 
@@ -70,6 +68,9 @@ fun MovieDetailScreen(
 		mutableStateOf(detail.movieDetail?.backdropPath)
 	}
 
+	// To prevent LambdaParameterInRestartableEffect
+	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
+
 	LaunchedEffect(imageUrl) {
 		imageUrl.value?.let {
 			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
@@ -79,6 +80,7 @@ fun MovieDetailScreen(
 					isDarkMode = context.isDarkMode
 				)["vibrant"] ?: bg.toString()
 				color1 = Color(vibrantColor.toColorInt())
+				setLatestBackgroundColor(color1)
 				val darkVibrantColor = extractColorsFromBitmap(
 					bitmap = bitmap,
 					isDarkMode = context.isDarkMode
@@ -88,99 +90,84 @@ fun MovieDetailScreen(
 		}
 	}
 
-	Scaffold(
-		modifier = modifier.fillMaxSize(),
-		topBar = {
-			TopAppBar(
-				title = { Text(detail.movieDetail?.title.toString()) },
-				navigationIcon = {
-					IconButton(onClick = { popBackStack() }) {
-						Icon(
-							imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-							contentDescription = "Finish",
-							tint = Colors.onSurface
+	if (detail.movieDetail != null) {
+		setTitle(detail.movieDetail.title.toString())
+		LazyColumn(modifier.fillMaxSize()) {
+			item {
+				Image(
+					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
+					contentDescription = "",
+					modifier = Modifier
+						.fillMaxWidth()
+						.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+					contentScale = ContentScale.Crop
+				)
+
+				Column(
+					modifier = Modifier
+						.background(
+							brush = Brush.linearGradient(
+								listOf(Color(color1.value), Color(color2.value))
+							),
+						)
+						.padding(bottom = 50.dp)
+				) {
+					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
+						Text(
+							modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
+						)
+						VerticalDivider(
+							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
+						)
+						Text(
+							modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
 						)
 					}
-				})
-		}
-	) { paddingValues ->
-		if (detail.movieDetail != null)
-			LazyColumn(Modifier.padding(paddingValues)) {
-				item {
-					Image(
-						painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
-						contentDescription = "",
-						modifier = Modifier
-							.fillMaxWidth()
-							.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
-						contentScale = ContentScale.Crop
-					)
-
 					Column(
 						modifier = Modifier
-							.background(
-								brush = Brush.linearGradient(
-									listOf(Color(color1.value), Color(color2.value))
-								),
-							)
-							.padding(bottom = 50.dp)
+							.padding(horizontal = 8.dp)
 					) {
-						Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
-							Text(
-								modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
-							)
-							VerticalDivider(
-								modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
-							)
-							Text(
-								modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
-							)
-						}
-						Column(
-							modifier = Modifier
-								.padding(horizontal = 8.dp)
-						) {
-							TitleText(
-								modifier = Modifier.padding(vertical = 16.dp), title = "Genres"
-							)
-							detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
-								GenreChips(it)
-							}
-						}
 						TitleText(
-							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Story Line"
+							modifier = Modifier.padding(vertical = 16.dp), title = "Genres"
 						)
-						detail.movieDetail.overview?.let {
-							Text(
-								modifier = Modifier.padding(16.dp), text = it
-							)
+						detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
+							GenreChips(it)
 						}
-						Spacer(modifier = Modifier.height(16.dp))
-
-						TitleText(
-							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
-						)
-						if (detail.movieDetail.movieImages.backdrops.isNotEmpty()) {
-							val pagerState = rememberPagerState(pageCount = {
-								detail.movieDetail.movieImages.backdrops.size
-							})
-							HorizontalPager(state = pagerState) { page ->
-								Image(
-									painter = rememberAsyncImagePainter(
-										BASE_IMAGE_PATH + detail.movieDetail.movieImages.backdrops[page].filePath
-									),
-									contentDescription = "",
-									modifier = Modifier
-										.fillMaxWidth()
-										.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
-									contentScale = ContentScale.Crop
-								)
-							}
-						}
-
-						Spacer(modifier = Modifier.height(200.dp))
 					}
+					TitleText(
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Story Line"
+					)
+					detail.movieDetail.overview?.let {
+						Text(
+							modifier = Modifier.padding(16.dp), text = it
+						)
+					}
+					Spacer(modifier = Modifier.height(16.dp))
+
+					TitleText(
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
+					)
+					if (detail.movieDetail.movieImages.backdrops.isNotEmpty()) {
+						val pagerState = rememberPagerState(pageCount = {
+							detail.movieDetail.movieImages.backdrops.size
+						})
+						HorizontalPager(state = pagerState) { page ->
+							Image(
+								painter = rememberAsyncImagePainter(
+									BASE_IMAGE_PATH + detail.movieDetail.movieImages.backdrops[page].filePath
+								),
+								contentDescription = "",
+								modifier = Modifier
+									.fillMaxWidth()
+									.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+								contentScale = ContentScale.Crop
+							)
+						}
+					}
+
+					Spacer(modifier = Modifier.height(200.dp))
 				}
 			}
+		}
 	}
 }

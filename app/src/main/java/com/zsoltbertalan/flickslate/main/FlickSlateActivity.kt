@@ -5,19 +5,24 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
+import com.zsoltbertalan.flickslate.shared.R
 import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.async.MainDispatcher
 import com.zsoltbertalan.flickslate.shared.compose.component.FlickSlateTopAppBar
+import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
@@ -39,40 +44,82 @@ class FlickSlateActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		setContent {
 			FlickSlateTheme {
+				val bg = Colors.surface
+				val (title, setTitle) = remember { mutableStateOf(getString(R.string.app_name)) }
+				val (showBack, setShowBack) = remember { mutableStateOf(false) }
+				val (backgroundColor, setBackgroundColor) = remember { mutableStateOf(bg) }
 				val navController = rememberNavController()
-				val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+				val (isBottomBarVisible, setBottomBarVisible) = rememberSaveable { (mutableStateOf(true)) }
 				val navBackStackEntry by navController.currentBackStackEntryAsState()
 				val currentDestination = navBackStackEntry?.destination.getDestination()
 
 				when (currentDestination) {
+
 					Destination.MovieDetails::class,
 					Destination.TvDetails::class,
-					Destination.GenreMovies::class
-						-> bottomBarState.value = false
+					Destination.GenreMovies::class -> SetLowLevelScaffoldParams(
+						setShowBack,
+						isBottomBarVisible,
+						setBottomBarVisible
+					)
 
-					else
-						-> if (!bottomBarState.value) bottomBarState.value = true
+					else -> SetTopLevelScaffoldParams(
+						setShowBack,
+						setBackgroundColor,
+						isBottomBarVisible,
+						setBottomBarVisible
+					)
 
 				}
 				Scaffold(
 					modifier = Modifier.fillMaxSize(),
 					topBar = {
-						if (bottomBarState.value) {
-							FlickSlateTopAppBar()
-						}
+						FlickSlateTopAppBar(
+							title = title,
+							showBack = showBack,
+							backgroundColor = backgroundColor,
+							popBackStack = { navController.popBackStack() })
 					},
 					bottomBar = {
-						if (bottomBarState.value) {
+						if (isBottomBarVisible) {
 							FlickSlateBottomNavigationBar(
 								navController = navController,
 							)
 						}
 					}
 				) { paddingValues ->
-					NavHostContainer(navController = navController, paddingValues = paddingValues)
+					NavHostContainer(
+						navController = navController,
+						paddingValues = paddingValues,
+						setTitle = setTitle,
+						setBackgroundColor = setBackgroundColor,
+					)
 				}
 			}
 		}
+	}
+
+	@Composable
+	private fun SetLowLevelScaffoldParams(
+		setShowBack: (Boolean) -> Unit,
+		isBottomBarVisible: Boolean,
+		setBottomBarVisible: (Boolean) -> Unit
+	) {
+		setShowBack(true)
+		if (isBottomBarVisible) setBottomBarVisible(false)
+	}
+
+	@Composable
+	private fun SetTopLevelScaffoldParams(
+		setShowBack: (Boolean) -> Unit,
+		setBackgroundColor: (Color) -> Unit,
+		isBottomBarVisible: Boolean,
+		setBottomBarVisible: (Boolean) -> Unit,
+	) {
+		setShowBack(false)
+		setTitle(R.string.app_name)
+		setBackgroundColor(Colors.surface)
+		if (!isBottomBarVisible) setBottomBarVisible(true)
 	}
 
 }
