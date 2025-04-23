@@ -117,7 +117,6 @@ class FlickSlateActivity : ComponentActivity() {
 		setBottomBarVisible: (Boolean) -> Unit,
 	) {
 		setShowBack(false)
-		setTitle(R.string.app_name)
 		setBackgroundColor(Colors.surface)
 		if (!isBottomBarVisible) setBottomBarVisible(true)
 	}

@@ -51,6 +51,7 @@ fun NavHostContainer(
 		modifier = modifier.padding(paddingValues),
 		builder = {
 			composable<Destination.Movies> {
+				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.R.string.app_name))
 				val popularMovies = viewModel.popularMoviesPaginationState
 				val nowPlaying = viewModel.nowPlayingMoviesPaginationState
 				val upcoming = viewModel.upcomingMoviesPaginationState
@@ -65,6 +66,7 @@ fun NavHostContainer(
 				}
 			}
 			composable<Destination.Tv> {
+				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.R.string.app_name))
 				val topRatedTv = tvViewModel.tvPaginationState
 				TvScreen(paginatedState = topRatedTv) { id ->
 					navController.navigate(Destination.TvDetails(id)) {
@@ -73,6 +75,7 @@ fun NavHostContainer(
 				}
 			}
 			composable<Destination.Search> {
+				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.R.string.app_name))
 				val coroutineScope = rememberCoroutineScope()
 				val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
 				SearchScreen(
