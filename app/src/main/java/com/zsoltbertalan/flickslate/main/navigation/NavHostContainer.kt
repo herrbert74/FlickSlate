@@ -147,9 +147,10 @@ fun NavHostContainer(
 				val genreViewModel = hiltViewModel<GenreDetailViewModel>()
 				val list = genreViewModel.genreMoviesPaginationState
 				GenreDetailScreen(
+					setTitle = setTitle,
+					setBackgroundColor = setBackgroundColor,
 					genreMoviesPaginatedState = list,
 					genreName = genreViewModel.genreName,
-					popBackStack = { navController.popBackStack() }
 				) { id ->
 					navController.navigate(Destination.MovieDetails(id))
 				}

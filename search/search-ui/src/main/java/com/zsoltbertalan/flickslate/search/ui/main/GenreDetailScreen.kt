@@ -1,22 +1,13 @@
 package com.zsoltbertalan.flickslate.search.ui.main
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.MovieCardType
-import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
+import androidx.compose.ui.graphics.Color
 import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageErrorIndicator
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageProgressIndicator
@@ -26,75 +17,64 @@ import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginatedLaz
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.util.navigate
+import com.zsoltbertalan.flickslate.shared.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 
 @Composable
 fun GenreDetailScreen(
+	setTitle: (String) -> Unit,
+	setBackgroundColor: (Color) -> Unit,
 	genreMoviesPaginatedState: PaginationState<Int, Movie>,
 	genreName: String,
-	popBackStack: () -> Boolean,
 	modifier: Modifier = Modifier,
 	popTo: (Int) -> Unit,
 ) {
 
-	Scaffold(
-		modifier = modifier.fillMaxSize(),
-		topBar = {
-			TopAppBar(title = { Text("Genre Details") },
-				navigationIcon = {
-					IconButton(onClick = { popBackStack() }) {
-						Icon(
-							imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-							contentDescription = "Finish",
-							tint = Colors.onSurface
-						)
-					}
-				})
-		}
-	) { paddingValues ->
+	setTitle(genreName)
 
-		Column(
-			modifier = Modifier
-				.padding(paddingValues)
-		) {
+	val bg = Colors.surface
 
-			ListTitle(title = genreName)
+	// To prevent LambdaParameterInRestartableEffect
+	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
 
-			PaginatedLazyColumn(
-				genreMoviesPaginatedState,
-				firstPageProgressIndicator = { FirstPageProgressIndicator() },
-				newPageProgressIndicator = { NewPageProgressIndicator() },
-				firstPageErrorIndicator = { e ->
-					FirstPageErrorIndicator(
-						exception = e,
-						onRetryClick = {
-							genreMoviesPaginatedState.retryLastFailedRequest()
-						}
-					)
-				},
-				newPageErrorIndicator = { e ->
-					NewPageErrorIndicator(
-						exception = e,
-						onRetryClick = {
-							genreMoviesPaginatedState.retryLastFailedRequest()
-						}
-					)
-				},
-				modifier = Modifier
-					.fillMaxHeight(),
-			) {
-				itemsIndexed(
-					genreMoviesPaginatedState.allItems,
-				) { _, item ->
-					ShowCard(
-						modifier = Modifier.navigate(item.id, popTo),
-						title = item.title,
-						voteAverage = item.voteAverage,
-						overview = item.overview,
-						posterPath = item.posterPath,
-						cardType = MovieCardType.FULL
-					)
+	LaunchedEffect(Colors.surface) {
+		setLatestBackgroundColor(bg)
+	}
+
+	PaginatedLazyColumn(
+		genreMoviesPaginatedState,
+		firstPageProgressIndicator = { FirstPageProgressIndicator() },
+		newPageProgressIndicator = { NewPageProgressIndicator() },
+		firstPageErrorIndicator = { e ->
+			FirstPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					genreMoviesPaginatedState.retryLastFailedRequest()
 				}
-			}
+			)
+		},
+		newPageErrorIndicator = { e ->
+			NewPageErrorIndicator(
+				exception = e,
+				onRetryClick = {
+					genreMoviesPaginatedState.retryLastFailedRequest()
+				}
+			)
+		},
+		modifier = modifier.fillMaxHeight(),
+	) {
+
+		itemsIndexed(
+			genreMoviesPaginatedState.allItems,
+		) { _, item ->
+			ShowCard(
+				modifier = Modifier.navigate(item.id, popTo),
+				title = item.title,
+				voteAverage = item.voteAverage,
+				overview = item.overview,
+				posterPath = item.posterPath,
+				cardType = MovieCardType.FULL
+			)
 		}
 	}
 
