@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class MovieDetailsTest {
+class TvDetailsTest {
 
 	@get:Rule(order = 0)
 	val hiltAndroidRule = HiltAndroidRule(this)
@@ -37,25 +37,28 @@ class MovieDetailsTest {
 	}
 
 	@Test
-	fun showMovies() {
+	fun showTvTab() {
 
 		with(composeTestRule) {
-			onRoot(useUnmergedTree = true).printToLog("showMovies")
+			onRoot(useUnmergedTree = true).printToLog("showTv")
+			onNodeWithText("Tv").performClick()
 			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 
-			onNodeWithText("name1", useUnmergedTree = true).assertExists()
+			onNodeWithText("Detectorists", useUnmergedTree = true).assertExists()
+			onNodeWithText("Movies", useUnmergedTree = true).assertExists()
 		}
 	}
 
 	@Test
-	fun showMovieDetails() {
+	fun showTvDetails() {
 
 		with(composeTestRule) {
+			onNodeWithText("Tv").performClick()
 			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
-			onNodeWithText("name1", ignoreCase = true).performClick()
-			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
+			onNodeWithText("Detectorists", ignoreCase = true).performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)
 
-			onAllNodesWithText("Brazil", useUnmergedTree = true).assertAny(hasText("Brazil"))
+			onAllNodesWithText("Detectorists", useUnmergedTree = true).assertAny(hasText("Detectorists"))
 			onNodeWithText("Movies", useUnmergedTree = true).assertDoesNotExist()
 
 			composeTestRule.activityRule.scenario.onActivity { activity ->

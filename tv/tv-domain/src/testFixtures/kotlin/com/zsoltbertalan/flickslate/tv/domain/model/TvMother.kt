@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
 import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.model.images.Image
 import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
 
@@ -11,7 +12,7 @@ import kotlinx.collections.immutable.toImmutableList
 object TvMother {
 
 	fun createTvList() = listOf(
-		createDefaultTv(id = 0, name = "name1", overview = "Overview 0"),
+		createDefaultTv(id = 0, name = "Detectorists", overview = "Overview 0"),
 		createDefaultTv(id = 1, name = "name2"),
 		createDefaultTv(id = 2, name = "name3", overview = "Overview 2"),
 		createDefaultTv(id = 3, name = "name4", overview = "Overview 3"),
@@ -30,11 +31,13 @@ object TvMother {
 
 	private fun createDefaultTv(
 		id: Int = 0,
-		name: String = "Heisenberg",
-		overview: String = "Overview",
-		voteAverage: Float = 0.7800f,
-		posterPath: String = "app1",
-		backdropPath: String = ""
+		name: String = "Detectorists",
+		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
+			|ploughed tracks and open fields, hoping to disturb the tedium by unearthing the fortune of a lifetime.
+			|""".trimMargin(),
+		voteAverage: Float = 8.8473f,
+		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
+		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
 	): TvShow = TvShow(
 		id = id,
 		name = name,
@@ -46,11 +49,13 @@ object TvMother {
 
 	fun createTvDetail(
 		id: Int = 0,
-		title: String = "Brazil",
-		overview: String = "Best film ever",
-		voteAverage: Float = 8.7800f,
-		posterPath: String = "app1",
-		backdropPath: String = ""
+		title: String = "Detectorists",
+		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
+			|ploughed tracks and open fields, hoping to disturb the tedium by unearthing the fortune of a lifetime.
+			|""".trimMargin(),
+		voteAverage: Float = 8.8473f,
+		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
+		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
 	): TvDetail = TvDetail(
 		id = id,
 		title = title,
@@ -64,10 +69,20 @@ object TvMother {
 	)
 
 	fun createTvImages(): ImagesReply = ImagesReply(
-		backdrops = listOf(),
+		backdrops = listOf(createDefaultImage()),
 		posters = listOf(),
 		logos = listOf(),
 		id = 0
+	)
+
+	private fun createDefaultImage(): Image = Image(
+		aspectRatio = 0.0,
+		filePath = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+		height = 2160,
+		iso639dash1 = "",
+		voteAverage = 0.0,
+		voteCount = 0,
+		width = 3840
 	)
 
 }
