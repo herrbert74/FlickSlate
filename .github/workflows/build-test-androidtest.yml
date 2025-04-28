@@ -62,6 +62,40 @@ jobs:
           name: test-report
           path: '**/build/reports/tests/'
 
+  screenshots:
+    name: Screenshots
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+      # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244 # v4.3.1
+      - name: Run screenshot validations
+        env:
+          tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
+        run: ./gradlew :app:validateScreenshotTest :movies:movies-ui:validateScreenshotTest :shared:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
+      - name: Upload Screenshot Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-test-report
+          path: |
+            app/build/reports/screenshotTest/
+            movies/movies-ui/build/reports/screenshotTest/
+            shared/build/reports/screenshotTest/
+
   # Mac Silicon does not work
   # https://github:com/ReactiveCircus/android-emulator-runner/issues/350
   # https://github.com/actions/runner-images/issues/9460

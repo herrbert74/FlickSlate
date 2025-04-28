@@ -53,8 +53,27 @@ fun FlickSlateTopAppBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun TopAppBarPreview() {
+internal fun TopAppBarPreview() {
 	FlickSlateTheme {
-		FlickSlateTopAppBar({true}, backgroundColor = Colors.surface)
+		FlickSlateTopAppBar(
+			{ true },
+			backgroundColor = Colors.surface,
+			title = stringResource(id = R.string.app_name)
+		)
+	}
+}
+
+private const val MOVIE_DETAILS_PREVIEW_BACKGROUND_COLOR = 0xFFa4e5e8
+
+@Preview(showBackground = true)
+@Composable
+internal fun TopAppBarPreviewShowBack() {
+	FlickSlateTheme {
+		FlickSlateTopAppBar(
+			{ true },
+			backgroundColor = Color(MOVIE_DETAILS_PREVIEW_BACKGROUND_COLOR),
+			title = "Brazil",
+			showBack = true
+		)
 	}
 }

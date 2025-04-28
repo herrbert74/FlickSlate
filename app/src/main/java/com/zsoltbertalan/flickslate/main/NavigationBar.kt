@@ -116,7 +116,7 @@ fun RowScope.FlickSlateNavigationBarItem(
 
 @Preview(showBackground = true)
 @Composable
-private fun FlickSlateBottomNavigationBarPreview() {
+internal fun FlickSlateBottomNavigationBarPreview() {
 	FlickSlateTheme {
 		FlickSlateBottomNavigationBar(
 			navController = rememberNavController(),

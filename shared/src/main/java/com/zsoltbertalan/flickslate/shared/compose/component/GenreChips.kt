@@ -47,7 +47,7 @@ fun GenreChips(genres: ImmutableList<Genre>, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun GenreChipsPreview() {
+internal fun GenreChipsPreview() {
 	FlickSlateTheme {
 		GenreChips(
 			modifier = Modifier,

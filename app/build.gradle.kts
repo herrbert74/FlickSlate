@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.jetbrains.kotlin.android)
 	alias(libs.plugins.compose.compiler)
+	alias(libs.plugins.compose.screenshot.testing)
 	alias(libs.plugins.dependency.analysis)
 	alias(libs.plugins.serialization)
 	id("kotlin-parcelize")
@@ -67,6 +68,8 @@ android {
 		resources.excludes.add("META-INF/rxjava.properties")
 		resources.excludes.add("jsr305_annotations/Jsr305_annotations.gwt.xml")
 	}
+
+	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
 }
 
@@ -167,6 +170,8 @@ dependencies {
 	kspAndroidTest(libs.autobind.compiler)
 
 	detektPlugins(libs.detekt.compose)
+
+	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 
 }
 
