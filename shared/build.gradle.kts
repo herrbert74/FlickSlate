@@ -1,6 +1,7 @@
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.compose.compiler)
+	alias(libs.plugins.compose.screenshot.testing)
 	alias(libs.plugins.detekt)
 	alias(libs.plugins.google.dagger.hilt.android)
 	alias(libs.plugins.jetbrains.kotlin.android)
@@ -24,6 +25,8 @@ android {
 	testFixtures {
 		enable = true
 	}
+
+	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 dependencies {
@@ -67,6 +70,8 @@ dependencies {
 	kspTest(libs.google.dagger.hilt.androidCompiler)
 
 	detektPlugins(libs.detekt.compose)
+
+	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 
 }
 

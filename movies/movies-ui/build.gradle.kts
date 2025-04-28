@@ -1,6 +1,7 @@
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.compose.compiler)
+	alias(libs.plugins.compose.screenshot.testing)
 	alias(libs.plugins.jetbrains.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
@@ -16,6 +17,8 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+
+	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 dependencies {
@@ -26,6 +29,8 @@ dependencies {
 	api(libs.androidx.lifecycle.viewmodel.compose)
 
 	testImplementation(testFixtures(project("::movies:movies-domain")))
+
+	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
