@@ -15,6 +15,7 @@ It also showcases some of the techniques used in my articles about [caching](htt
 - Dependency injection with [Dagger](https://github.com/google/dagger) and [Hilt](https://dagger.dev/hilt/)
 - Database using [androidx-room](https://developer.android.com/training/data-storage/room/)
 - Some modules contain shared [Gradle test fixtures modules](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)
+- Using [Compose Preview Screenshot Testing](https://developer.android.com/studio/preview/compose-screenshot-testing) to verify UI
 
 ## 🏛 Architecture
 
@@ -24,6 +25,7 @@ Let's take a look in each major part of the application:
 
 * **main** - Contains the entry points to the application, plus Jetpack **navigation**.
 * **feature** modules (and submodules for **domain**, **data**, and **ui**):
+  * **account**
   * **movies**
   * **tv**
   * **search**
