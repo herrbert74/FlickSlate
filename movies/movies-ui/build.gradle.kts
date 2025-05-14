@@ -18,6 +18,7 @@ android {
 		}
 	}
 
+	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
