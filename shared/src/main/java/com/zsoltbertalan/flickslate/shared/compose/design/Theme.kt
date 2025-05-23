@@ -112,12 +112,12 @@ fun ProvideColors(
 	content: @Composable () -> Unit,
 ) {
 	val colorCache = remember { colorScheme }
-	val customColorCache = remember { additionalColorScheme }
+	val additionalColorCache = remember { additionalColorScheme }
 	val fixedColorCache = remember { fixedColorScheme }
 
 	CompositionLocalProvider(
 		LocalAppColors provides colorCache,
-		LocalAdditionalColors provides customColorCache,
+		LocalAdditionalColors provides additionalColorCache,
 		LocalFixedColors provides fixedColorCache,
 		content = content
 	)
@@ -143,8 +143,7 @@ fun FlickSlateTheme(
 		else -> FlickSlateLightColorScheme
 	}
 
-	// logic for which custom palette to use
-	val customColorsPalette =
+	val additionalColorScheme =
 		if (isDarkTheme) DarkAdditionalColorScheme
 		else LightAdditionalColorScheme
 
@@ -152,7 +151,7 @@ fun FlickSlateTheme(
 	val dimensions = if (configuration.smallestScreenWidthDp <= SMALLEST_WIDTH_600) smallDimensions else sw600Dimensions
 
 	ProvideDimens(dimensions = dimensions) {
-		ProvideColors(colorScheme = colorScheme, additionalColorScheme = customColorsPalette) {
+		ProvideColors(colorScheme = colorScheme, additionalColorScheme = additionalColorScheme) {
 			MaterialTheme(
 				colorScheme = colorScheme,
 				typography = FlickSlateTypography,
