@@ -1,16 +1,25 @@
 [versions]
+
+#common configuration
+
 versionCode = "1"
 versionName = "1.0"
 minSdkVersion = "24"
 compileSdkVersion = "35"
 targetSdkVersion = "35"
+
+#platform
+
 androidGradlePlugin = "8.10.0"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
+coroutines = "1.10.2"
 jdk = "21"
 kotlin = "2.1.21"
 ksp = "2.1.21-2.0.1"
-coroutines = "1.10.2"
 serialization = "1.8.1"
+
+#other
+
 androidx-activity = "1.10.1"
 androidx-lifecycle = "2.9.0"
 androidx-navigation = "2.9.0"
@@ -58,7 +67,6 @@ mockk = "1.14.2"
 appcompat = "1.7.0"
 #mockmp = "1.14.0"
 #multiplatform-settings = "1.1.1"
-#realm = "3.0.0"
 #skie = "0.8.2"
 
 [libraries]
@@ -79,7 +87,7 @@ google-dagger-hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-pl
 jetbrains-kotlin-jvm-plugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 #navigationSafeArgsPlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
 
-#Jitpack
+#Jitpack, used only for native-only apps
 baBeStudios-base-kotlin = { module = "org.bitbucket.babestudios.babestudiosbase:base-kotlin", version.ref = "babestudios-base" }
 baBeStudios-base-data = { module = "org.bitbucket.babestudios.babestudiosbase:base-data", version.ref = "babestudios-base" }
 baBeStudios-base-android = { module = "org.bitbucket.babestudios.babestudiosbase:base-android", version.ref = "babestudios-base" }
@@ -299,8 +307,6 @@ squareUp-retrofit2-converterKotlinxSerialization = { module = "com.squareup.retr
 
 #parcelize-darwin-runtime = { module = "com.arkivanov.parcelize.darwin:runtime", version.ref = "parcelize-darwin" }
 
-#realm-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
-
 #detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 #detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 #detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
@@ -361,7 +367,6 @@ google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.re
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-#realm = { id = "io.realm.kotlin", version.ref = "realm" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 #versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
 #dependency-analysis-build-health = { id = "com.autonomousapps.build-health", version.ref = "dependency-analysis" } #settings plugin
