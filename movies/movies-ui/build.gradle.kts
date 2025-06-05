@@ -17,6 +17,9 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+	kotlinOptions {
+		jvmTarget = "21"
+	}
 
 	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
@@ -28,9 +31,11 @@ dependencies {
 	api(libs.androidx.lifecycle.common)
 	implementation(libs.androidx.lifecycle.runtime.compose)
 	api(libs.androidx.lifecycle.viewmodel.compose)
+	implementation(libs.androidx.coreKtx)
 
 	testImplementation(testFixtures(project("::movies:movies-domain")))
 
+	screenshotTestImplementation(libs.compose.screenshot.testing.api)
 	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 }
 

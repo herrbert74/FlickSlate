@@ -20,6 +20,9 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+	kotlinOptions {
+		jvmTarget = "21"
+	}
 
 	@Suppress("UnstableApiUsage")
 	testFixtures {
@@ -57,6 +60,7 @@ dependencies {
 	api(libs.kotlinx.coroutines.core)
 	api(libs.kotlinx.serialization.core)
 	implementation(libs.timber)
+	implementation(libs.androidx.coreKtx)
 	testFixturesImplementation(platform(libs.androidx.compose.bom))
 	testFixturesImplementation(libs.androidx.compose.ui.test.junit4.android)
 
@@ -71,6 +75,7 @@ dependencies {
 
 	detektPlugins(libs.detekt.compose)
 
+	screenshotTestImplementation(libs.compose.screenshot.testing.api)
 	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 
 }

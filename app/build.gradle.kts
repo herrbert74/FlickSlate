@@ -68,6 +68,9 @@ android {
 		resources.excludes.add("META-INF/rxjava.properties")
 		resources.excludes.add("jsr305_annotations/Jsr305_annotations.gwt.xml")
 	}
+	kotlinOptions {
+		jvmTarget = "21"
+	}
 
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
@@ -131,6 +134,7 @@ dependencies {
 	implementation(libs.squareUp.okhttp3.okhttp)
 	implementation(libs.squareUp.retrofit2.retrofit)
 	implementation(libs.timber)
+	implementation(libs.androidx.coreKtx)
 
 	debugRuntimeOnly(platform(libs.androidx.compose.bom))
 	//Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
@@ -171,6 +175,7 @@ dependencies {
 
 	detektPlugins(libs.detekt.compose)
 
+	screenshotTestImplementation(libs.compose.screenshot.testing.api)
 	screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 
 }
