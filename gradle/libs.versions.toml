@@ -15,7 +15,7 @@ androidGradlePlugin = "8.10.1"
 coroutines = "1.10.2"
 jdk = "21"
 kotlin = "2.1.21"
-ksp = "2.1.21-2.0.1"
+ksp = "2.1.21-2.0.2"
 serialization = "1.8.1"
 
 #other
