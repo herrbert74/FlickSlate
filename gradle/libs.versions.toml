@@ -326,7 +326,7 @@ coil-compose-base = "io.coil-kt:coil-compose-base:2.7.0"
 #uriKmp = "com.eygraber:uri-kmp:0.0.16"
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-test-robolectric = "org.robolectric:robolectric:4.14.1"
+test-robolectric = "org.robolectric:robolectric:4.15.1"
 #test-barista = "com.adevinta.android:barista:4.3.0"
 #test-jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
 #test-jUnit5-jupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
