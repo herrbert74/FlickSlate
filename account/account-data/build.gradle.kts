@@ -30,6 +30,7 @@ dependencies {
 	api(project(":account:account-domain"))
 	implementation(libs.kotlinx.serialization.json)
 	testImplementation(libs.squareUp.okhttp3.mockWebServer)
+	testImplementation(libs.test.robolectric)
 	testImplementation(testFixtures(project("::account:account-domain")))
 }
 
