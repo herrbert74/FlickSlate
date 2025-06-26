@@ -11,6 +11,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -20,6 +22,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
  * integration tests, where it could replace mocks. Maybe testing various response codes? Or conversion? But we use 
  * data source for that!
  */
+@RunWith(RobolectricTestRunner::class)
 class MoviesServiceTest {
 
 	private val server = MockWebServer()

@@ -29,6 +29,7 @@ android {
 dependencies {
 	api(project(":movies:movies-domain"))
 	testImplementation(libs.squareUp.okhttp3.mockWebServer)
+	testImplementation(libs.test.robolectric)
 	testImplementation(testFixtures(project("::movies:movies-domain")))
 }
 
