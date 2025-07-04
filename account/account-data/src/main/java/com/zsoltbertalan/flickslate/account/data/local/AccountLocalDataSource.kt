@@ -7,6 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
+import androidx.core.content.edit
 
 @AutoBind
 @ActivityRetainedScoped
@@ -16,7 +17,7 @@ class AccountLocalDataSource @Inject constructor(
 
 	override fun saveAccessToken(accessToken: String) {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
-		sharedPreferences.edit().putString("access_token", accessToken).apply()
+		sharedPreferences.edit { putString("access_token", accessToken) }
 	}
 
 	override fun getAccessToken(): String? {
@@ -26,12 +27,12 @@ class AccountLocalDataSource @Inject constructor(
 
 	override fun deleteAccessToken() {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
-		sharedPreferences.edit().remove("access_token").apply()
+		sharedPreferences.edit { remove("access_token") }
 	}
 
 	override fun saveAccount(account: Account) {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
-		sharedPreferences.edit().putString("account_name", account.name).apply()
+		sharedPreferences.edit { putString("account_name", account.name) }
 	}
 
 	override fun getAccount(): Account? {
