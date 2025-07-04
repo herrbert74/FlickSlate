@@ -35,7 +35,8 @@ class MoviesServiceTest {
 		api = Retrofit.Builder()
 			.baseUrl(server.url("/"))
 			.addConverterFactory(jsonConverterFactory)
-			.build().create(MoviesService::class.java)
+			.build()
+			.create(MoviesService::class.java)
 	}
 
 	@After
