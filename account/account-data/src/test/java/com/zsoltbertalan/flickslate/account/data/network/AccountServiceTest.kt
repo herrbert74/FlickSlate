@@ -32,6 +32,7 @@ class AccountServiceTest {
 	fun before() {
 		val json = Json { ignoreUnknownKeys = true }
 		val jsonConverterFactory = json.asConverterFactory("application/json; charset=UTF8".toMediaType())
+		server.start()
 		api = Retrofit.Builder()
 			.baseUrl(server.url("/"))
 			.addConverterFactory(jsonConverterFactory)
@@ -40,7 +41,7 @@ class AccountServiceTest {
 
 	@After
 	fun after() {
-		server.shutdown()
+		server.close()
 	}
 
 	@Test
