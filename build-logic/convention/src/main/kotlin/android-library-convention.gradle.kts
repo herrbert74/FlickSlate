@@ -1,24 +1,24 @@
-import com.zsoltbertalan.flickslate.convention.commonConfiguration
-import com.zsoltbertalan.flickslate.convention.configureKotlinAndroid
-import com.zsoltbertalan.flickslate.convention.libs
-
 plugins {
-	id("com.android.library")
-	id("io.gitlab.arturbosch.detekt")
-	id("com.autonomousapps.dependency-analysis")
-	kotlin("android")
+	alias(libs.plugins.android.library)
+	alias(libs.plugins.detekt)
+	alias(libs.plugins.dependency.analysis)
+	alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 android {
-	commonConfiguration(this)
+	compileSdk = libs.versions.compileSdkVersion.get().toInt()
+	defaultConfig {
+		minSdk = libs.versions.minSdkVersion.get().toInt()
+		consumerProguardFiles("consumer-rules.pro")
+	}
 }
 
 kotlin {
-	configureKotlinAndroid(this)
+	jvmToolchain(libs.versions.jdk.get().toInt())
 }
 
 dependencies {
-	"detektPlugins"(libs.findLibrary("detekt.compose").get())
+	"detektPlugins"(libs.detekt.compose)
 }

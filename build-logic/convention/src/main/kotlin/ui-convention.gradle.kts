@@ -1,55 +1,55 @@
-import com.zsoltbertalan.flickslate.convention.composeConfiguration
-import com.zsoltbertalan.flickslate.convention.libs
-
 plugins {
 	id("com.android.library")
 	kotlin("android")
+	alias(libs.plugins.ksp)
 }
 
 android {
-	composeConfiguration(this)
+	buildFeatures {
+		compose = true
+	}
 }
 
 dependencies {
-	"api"(project(":shared"))
+	api(project(":shared"))
 
-	"implementation"(platform(libs.findLibrary("androidx.compose.bom").get()))
+	implementation(platform(libs.androidx.compose.bom))
 
-	"implementation"(libs.findLibrary("androidx.compose.foundation").get())
-	"implementation"(libs.findLibrary("androidx.compose.foundationLayout").get())
-	"implementation"(libs.findLibrary("androidx.compose.runtime.saveable").get())
-	"implementation"(libs.findLibrary("androidx.compose.ui.ui").get())
-	"implementation"(libs.findLibrary("androidx.compose.ui.graphics").get())
-	"implementation"(libs.findLibrary("androidx.compose.ui.text").get())
-	"implementation"(libs.findLibrary("androidx.compose.ui.unit").get())
-	"implementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
-//	"implementation"(libs.findLibrary("androidx.compose.ui.toolingPreview").get())
-	"implementation"(libs.findLibrary("androidx.compose.material.icons.core").get())
-	"implementation"(libs.findLibrary("androidx.compose.material3").get())
-	"api"(libs.findLibrary("androidx.compose.runtime").get())
-	"api"(libs.findLibrary("androidx.lifecycle.viewmodel").get())
-	"api"(libs.findLibrary("androidx.lifecycle.viewmodel.savedstate").get())
-	"implementation"(libs.findLibrary("kotlinx.collections.immutable.jvm").get())
-	"api"(libs.findLibrary("kotlinx.coroutines.core").get())
-	"implementation"(libs.findLibrary("coil.compose").get())
-	"implementation"(libs.findLibrary("coil.compose.base").get())
-	"api"(libs.findLibrary("google.dagger.core").get())
-	"implementation"(libs.findLibrary("google.dagger.hilt.android").get())
-	"api"(libs.findLibrary("inject").get())
-	"implementation"(libs.findLibrary("kotlinResult.result").get())
-	"implementation"(libs.findLibrary("timber").get())
+	implementation(libs.androidx.compose.foundation)
+	implementation(libs.androidx.compose.foundationLayout)
+	implementation(libs.androidx.compose.runtime.saveable)
+	implementation(libs.androidx.compose.ui.ui)
+	implementation(libs.androidx.compose.ui.graphics)
+	implementation(libs.androidx.compose.ui.text)
+	implementation(libs.androidx.compose.ui.unit)
+	implementation(libs.androidx.compose.ui.tooling)
+//	implementation(libs.androidx.compose.ui.toolingPreview)
+	implementation(libs.androidx.compose.material.icons.core)
+	implementation(libs.androidx.compose.material3)
+	api(libs.androidx.compose.runtime)
+	api(libs.androidx.lifecycle.viewmodel)
+	api(libs.androidx.lifecycle.viewmodel.savedstate)
+	implementation(libs.kotlinx.collections.immutable.jvm)
+	api(libs.kotlinx.coroutines.core)
+	implementation(libs.coil.compose)
+	implementation(libs.coil.compose.base)
+	api(libs.google.dagger.core)
+	implementation(libs.google.dagger.hilt.android)
+	api(libs.inject)
+	implementation(libs.kotlinResult.result)
+	implementation(libs.timber)
 
-	"ksp"(libs.findLibrary("androidx.hilt.compiler").get())
-	"ksp"(libs.findLibrary("androidx.room.compiler").get())
-	"ksp"(libs.findLibrary("google.dagger.compiler").get())
-	"ksp"(libs.findLibrary("google.dagger.hilt.compiler").get())
-	"ksp"(libs.findLibrary("google.dagger.hilt.androidCompiler").get())
+	ksp(libs.androidx.hilt.compiler)
+	ksp(libs.androidx.room.compiler)
+	ksp(libs.google.dagger.compiler)
+	ksp(libs.google.dagger.hilt.compiler)
+	ksp(libs.google.dagger.hilt.androidCompiler)
 
-	"testImplementation"(libs.findLibrary("junit").get())
-	"testImplementation"(libs.findLibrary("test.kotest.assertions.shared").get())
-	"testImplementation"(libs.findLibrary("test.kotest.assertions.core").get())
-	"testImplementation"(libs.findLibrary("test.mockk.core").get())
-	"testImplementation"(libs.findLibrary("kotlinx.coroutines.test").get())
+	testImplementation(libs.junit)
+	testImplementation(libs.test.kotest.assertions.shared)
+	testImplementation(libs.test.kotest.assertions.core)
+	testImplementation(libs.test.mockk.core)
+	testImplementation(libs.kotlinx.coroutines.test)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
