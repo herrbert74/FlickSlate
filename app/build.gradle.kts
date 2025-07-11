@@ -49,7 +49,6 @@ android {
 
 	buildFeatures {
 		buildConfig = true
-		compose = true
 	}
 
 	//Needed for Mockk
@@ -67,6 +66,15 @@ android {
 		resources.excludes.add("META-INF/NOTICE.txt")
 		resources.excludes.add("META-INF/rxjava.properties")
 		resources.excludes.add("jsr305_annotations/Jsr305_annotations.gwt.xml")
+
+		//Needed for Gradle since adding convention plugins the typesafe way
+		resources.excludes.add("kotlin/internal/internal.kotlin_builtins")
+		resources.excludes.add("kotlin/reflect/reflect.kotlin_builtins")
+		resources.excludes.add("kotlin/kotlin.kotlin_builtins")
+		resources.excludes.add("kotlin/coroutines/coroutines.kotlin_builtins")
+		resources.excludes.add("kotlin/ranges/ranges.kotlin_builtins")
+		resources.excludes.add("kotlin/collections/collections.kotlin_builtins")
+		resources.excludes.add("kotlin/annotation/annotation.kotlin_builtins")
 	}
 
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true

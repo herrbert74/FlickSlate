@@ -6,11 +6,10 @@ dependencyResolutionManagement {
 		gradlePluginPortal()
 		mavenCentral()
 	}
-	versionCatalogs {
-		create("libs") {
-			from(files("../gradle/libs.versions.toml"))
-		}
-	}
+}
+
+plugins {
+	id("dev.panuszewski.typesafe-conventions") version "0.7.4"
 }
 
 rootProject.name = "build-logic"
