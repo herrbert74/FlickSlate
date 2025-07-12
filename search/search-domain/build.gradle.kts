@@ -1,6 +1,6 @@
 plugins {
 	id("android-library-convention")
-	alias(libs.plugins.serialization)
+	alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -12,7 +12,7 @@ dependencies {
 	api(project(":shared"))
 
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinx.collections.immutable.jvm)
-	implementation(libs.kotlinx.coroutines.core)
+	implementation(libs.kotlinx.collectionsImmutableJvm)
+	implementation(libs.kotlinx.coroutinesCore)
 
 }

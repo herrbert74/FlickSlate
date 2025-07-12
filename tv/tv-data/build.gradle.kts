@@ -1,9 +1,9 @@
 plugins {
-	alias(libs.plugins.android.library)
-	alias(libs.plugins.jetbrains.kotlin.android)
-	alias(libs.plugins.google.dagger.hilt.android)
+	alias(libs.plugins.androidLibrary)
+	alias(libs.plugins.kotlin.android)
+	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
-	alias(libs.plugins.serialization)
+	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
 	id("data-convention")
 }
@@ -21,5 +21,5 @@ android {
 
 dependencies {
 	api(project(":tv:tv-domain"))
-	implementation(libs.baBeStudios.base.data)
+	implementation(libs.baBeStudios.baseData)
 }

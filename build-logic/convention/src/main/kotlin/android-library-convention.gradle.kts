@@ -1,8 +1,8 @@
 plugins {
-	alias(libs.plugins.android.library)
+	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.detekt)
-	alias(libs.plugins.dependency.analysis)
-	alias(libs.plugins.jetbrains.kotlin.android)
+	alias(libs.plugins.dependencyAnalysis)
+	alias(libs.plugins.kotlin.android)
 }
 
 apply(from = project.rootProject.file("config/detekt/detekt.gradle"))

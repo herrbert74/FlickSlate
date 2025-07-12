@@ -1,7 +1,7 @@
 plugins {
-	alias(libs.plugins.android.library)
-	alias(libs.plugins.compose.compiler)
-	alias(libs.plugins.jetbrains.kotlin.android)
+	alias(libs.plugins.androidLibrary)
+	alias(libs.plugins.kotlin.composeCompiler)
+	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
 	id("ui-convention")
@@ -20,8 +20,8 @@ android {
 
 dependencies {
 	api(project(":tv:tv-domain"))
-	implementation(libs.androidx.hilt.navigation.compose)
-	api(libs.androidx.lifecycle.common)
-	implementation(libs.androidx.lifecycle.runtime.compose)
-	api(libs.androidx.lifecycle.viewmodel.compose)
+	implementation(libs.androidx.hiltNavigationCompose)
+	api(libs.androidx.lifecycleCommon)
+	implementation(libs.androidx.lifecycleRuntimeCompose)
+	api(libs.androidx.lifecycleViewmodelCompose)
 }

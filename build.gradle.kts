@@ -1,12 +1,12 @@
 plugins {
-	alias(libs.plugins.android.application) apply false
-	alias(libs.plugins.android.library) apply false
-	alias(libs.plugins.compose.compiler) apply false
+	alias(libs.plugins.androidApplication) apply false
+	alias(libs.plugins.androidLibrary) apply false
+	alias(libs.plugins.kotlin.composeCompiler) apply false
 	alias(libs.plugins.detekt) apply false
-	alias(libs.plugins.dependency.analysis)
-	alias(libs.plugins.jetbrains.kotlin.android) apply false
-	alias(libs.plugins.jetbrains.kotlin.jvm) apply false
-	alias(libs.plugins.google.dagger.hilt.android) apply false
+	alias(libs.plugins.dependencyAnalysis)
+	alias(libs.plugins.kotlin.android) apply false
+	alias(libs.plugins.kotlin.jvm) apply false
+	alias(libs.plugins.dagger.hiltAndroid) apply false
 	alias(libs.plugins.ksp)
 }
 

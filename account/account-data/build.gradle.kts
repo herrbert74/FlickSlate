@@ -1,10 +1,10 @@
 plugins {
-	alias(libs.plugins.android.library)
+	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.detekt)
-	alias(libs.plugins.jetbrains.kotlin.android)
-	alias(libs.plugins.google.dagger.hilt.android)
+	alias(libs.plugins.kotlin.android)
+	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
-	alias(libs.plugins.serialization)
+	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
 	id("data-convention")
 }
@@ -28,9 +28,9 @@ android {
 
 dependencies {
 	api(project(":account:account-domain"))
-	implementation(libs.kotlinx.serialization.json)
-	testImplementation(libs.squareUp.okhttp3.mockWebServer)
-	testImplementation(libs.test.robolectric)
+	implementation(libs.kotlinx.serializationJson)
+	testImplementation(libs.okhttp3.mockWebServer)
+	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::account:account-domain")))
 }
 
