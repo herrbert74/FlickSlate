@@ -2,5 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "ignoreDeps": [
+    "org.hamcrest:hamcrest",
+    "org.hamcrest:hamcrest-core",
+    "com.michael-bull.kotlin-result:kotlin-result",
+    "com.michael-bull.kotlin-result:kotlin-result-coroutines"
   ]
 }
