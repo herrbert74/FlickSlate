@@ -10,20 +10,23 @@ ksp {
 dependencies {
 	api(project(":shared"))
 	api(project(":shared-data"))
+
+	api(libs.dagger.core)
+	api(libs.dagger.hiltCore)
+	api(libs.dagger.hiltAndroid)
+	api(libs.inject)
+	api(libs.retrofit)
+
+	implementation(libs.kotlinx.coroutinesCore)
 	implementation(libs.androidx.roomCommon)
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.androidx.sqlite)
 	implementation(libs.autobind.android.api)
-	api(libs.dagger.core)
-	implementation(libs.dagger.hiltCore)
-	api(libs.dagger.hiltAndroid)
-	api(libs.inject)
-	implementation(libs.kotlinx.coroutinesCore)
+	implementation(libs.autobind.core) //transitive
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinRetry)
 	implementation(libs.kotlinx.collectionsImmutableJvm)
-	api(libs.retrofit)
 	implementation(libs.okhttp3)
 	implementation(libs.timber)
 
@@ -34,10 +37,8 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 
 	testImplementation(libs.jUnit)
-	testImplementation(libs.kotest.assertionsShared)
-	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.core)
+	testImplementation(libs.mockk.dsl) //transitive
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
-	testImplementation(libs.retrofit.converterKotlinxSerialization)
 }

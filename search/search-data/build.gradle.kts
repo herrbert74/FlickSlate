@@ -22,5 +22,7 @@ android {
 dependencies {
 	api(project(":search:search-domain"))
 	testImplementation(testFixtures(project("::shared")))
+
+	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotlinx.serializationJson)
 }

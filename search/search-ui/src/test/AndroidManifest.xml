@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Declared in both debug and test source sets.
+    The debug versions is a workaround for
+    https://github.com/robolectric/robolectric/pull/4736
+    The test version is needed for dependency analysis plugin to work -->
+    <application>
+        <activity
+            android:name=".HiltComponentActivity"
+            android:exported="false"
+            tools:replace="android:exported" />
+    </application>
+
+</manifest>

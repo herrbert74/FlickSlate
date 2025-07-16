@@ -24,12 +24,20 @@ android {
 
 dependencies {
 	api(project(":movies:movies-domain"))
-	implementation(libs.androidx.hiltNavigationCompose)
+
 	api(libs.androidx.lifecycleCommon)
-	implementation(libs.androidx.lifecycleRuntimeCompose)
 	api(libs.androidx.lifecycleViewmodelCompose)
 
+	implementation(libs.androidx.composeUiToolingPreview) //transitive
+	implementation(libs.androidx.coreKtx) //transitive
+	implementation(libs.androidx.hiltNavigationCompose)
+	implementation(libs.androidx.lifecycleRuntimeCompose)
+
 	testImplementation(testFixtures(project("::movies:movies-domain")))
+
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
+	testImplementation(libs.mockk.dsl) //transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 }

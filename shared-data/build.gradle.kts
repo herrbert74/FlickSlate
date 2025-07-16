@@ -59,8 +59,8 @@ dependencies {
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.core)
+	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotlinx.coroutinesTest)
-	testImplementation(libs.kotest.assertionsCore)
 
 	kspTest(libs.dagger.compiler)
 	kspTest(libs.androidx.hiltCompiler)

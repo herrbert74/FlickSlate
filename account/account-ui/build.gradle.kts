@@ -4,7 +4,6 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
-	id("ui-convention")
 }
 
 android {
@@ -20,10 +19,35 @@ android {
 
 dependencies {
 	api(project(":account:account-domain"))
-	implementation(libs.androidx.hiltNavigationCompose)
-	api(libs.androidx.lifecycleCommon)
-	implementation(libs.androidx.lifecycleRuntimeCompose)
-	api(libs.androidx.lifecycleViewmodelCompose)
+	api(project(":shared")) // transitive
+
+	api(libs.androidx.composeRuntime) // transitive
+	api(libs.androidx.lifecycleViewmodel) // transitive
+	api(libs.dagger.core)
+	api(libs.inject)
+	api(libs.kotlinx.coroutinesCore) // transitive
+
+	implementation(platform(libs.androidx.compose.bom))
+
+	implementation(libs.androidx.composeFoundation)
+	implementation(libs.androidx.composeFoundationLayout)
+	implementation(libs.androidx.composeMaterial3)
+	implementation(libs.androidx.composeUi)
+	implementation(libs.androidx.composeUiGraphics)
+	implementation(libs.androidx.composeUiText)
+	implementation(libs.androidx.composeUiUnit)
+	implementation(libs.androidx.composeUiTooling)
+	implementation(libs.androidx.composeUiToolingPreview) // transitive
+
+	implementation(libs.dagger.hiltAndroid)
+	implementation(libs.kotlinResult.result)
+	implementation(libs.timber)
+
+	ksp(libs.androidx.hiltCompiler)
+	ksp(libs.androidx.roomCompiler)
+	ksp(libs.dagger.compiler)
+	ksp(libs.dagger.hiltCompiler)
+	ksp(libs.dagger.hiltAndroidCompiler)
 
 	//testImplementation(testFixtures(project("::account:account-domain")))
 }

@@ -30,11 +30,20 @@ android {
 }
 
 dependencies {
-	implementation(libs.androidx.annotation)
 	implementation(platform(libs.androidx.compose.bom))
+
 	api(libs.androidx.composeFoundation)
 	api(libs.androidx.composeFoundationLayout)
 	api(libs.androidx.composeRuntime)
+	api(libs.dagger.core)
+	api(libs.inject)
+	api(libs.kotlinx.collectionsImmutableJvm)
+	api(libs.kotlinx.coroutinesCore)
+	api(libs.kotlinx.serializationCore)
+
+	implementation(libs.androidx.annotation)
+	implementation(libs.androidx.composeMaterial3)
+	implementation(libs.androidx.composeMaterialIconsCore)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGeometry)
 	implementation(libs.androidx.composeUiGraphics)
@@ -42,22 +51,22 @@ dependencies {
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
-	implementation(libs.androidx.composeMaterial3)
+	implementation(libs.androidx.composeUiUtil) //transitive
 	implementation(libs.androidx.paletteKtx)
 	implementation(libs.coil.base)
 	implementation(libs.coil.compose)
 	implementation(libs.coil.compose.base)
-	api(libs.dagger.core)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.dagger.hiltCore)
-	api(libs.inject)
 	implementation(libs.kotlin.parcelizeRuntime)
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinx.collectionsImmutableJvm)
-	api(libs.kotlinx.coroutinesCore)
-	api(libs.kotlinx.serializationCore)
 	implementation(libs.timber)
+
 	testFixturesImplementation(platform(libs.androidx.compose.bom))
+
+	testFixturesImplementation(libs.androidx.activity)
+	testFixturesImplementation(libs.androidx.composeUiTest)
+	testFixturesImplementation(libs.androidx.testExtJUnit)
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)
 
 	kspTest(libs.dagger.compiler)

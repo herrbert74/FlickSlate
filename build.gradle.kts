@@ -21,6 +21,7 @@ dependencyAnalysis {
 					//"org.jetbrains.kotlin:kotlin-stdlib", //This might be a bug from the plugin
 					"io.mockk:mockk-android",
 					"com.jakewharton.timber:timber",
+					"se.ansman.dagger.auto:android-api"
 				)
 			}
 		}

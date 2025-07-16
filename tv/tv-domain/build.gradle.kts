@@ -25,9 +25,13 @@ dependencies {
 
 	api(project(":shared"))
 
+	api(libs.kotlinx.collectionsImmutableJvm)
+	api(libs.jakarta.inject)
+
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinx.collectionsImmutableJvm)
 	implementation(libs.kotlinx.coroutinesCore)
+
+	testFixturesApi(project(":shared"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 

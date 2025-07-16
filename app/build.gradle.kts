@@ -118,13 +118,14 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
+	implementation(libs.androidx.fragmentKtx) //transitive
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)
 	implementation(libs.androidx.lifecycleViewmodelCompose)
 	implementation(libs.androidx.lifecycleViewmodelSavedstate)
-	implementation(libs.androidx.navigationCommon)
+	implementation(libs.androidx.navigationCommon) //transitive
 	implementation(libs.androidx.navigationCompose)
 	implementation(libs.androidx.navigationRuntime)
 	implementation(libs.androidx.roomRuntime)
@@ -133,9 +134,9 @@ dependencies {
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.inject)
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinx.collectionsImmutableJvm)
 	implementation(libs.kotlinx.coroutinesCore)
 	implementation(libs.kotlinx.serializationCore)
-	implementation(libs.kotlinx.serializationJson)
 	implementation(libs.okhttp3)
 	implementation(libs.retrofit)
 	implementation(libs.timber)
@@ -144,21 +145,21 @@ dependencies {
 	//Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
-	add("ksp", libs.dagger.hiltAndroidCompiler)
+	ksp(libs.dagger.hiltAndroidCompiler)
 
-	testImplementation(libs.jUnit)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
-	testImplementation(libs.kotest.assertionsCore)
 
 	kspTest(libs.dagger.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)
 
+	androidTestCompileOnly(libs.autobind.android.testing)
+
 	androidTestImplementation(testFixtures(project("::movies:movies-domain")))
 	androidTestImplementation(testFixtures(project("::tv:tv-domain")))
 	androidTestImplementation(testFixtures(project("::shared")))
+	androidTestImplementation(libs.androidx.fragmentKtx) //transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)
 	androidTestImplementation(libs.androidx.testExtJUnit)
 	androidTestImplementation(libs.androidx.testRunner)
@@ -166,12 +167,11 @@ dependencies {
 	androidTestImplementation(libs.androidx.composeUiTestJunit4)
 	androidTestImplementation(libs.androidx.composeUiTestJunit4Android)
 	androidTestImplementation(libs.autobind.android.api)
-	androidTestImplementation(libs.autobind.android.testing)
+	androidTestImplementation(libs.autobind.core) //transitive
 	androidTestImplementation(libs.dagger.hiltAndroidTesting)
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)
 	androidTestImplementation(libs.mockk.core)
-	androidTestImplementation(libs.mockk.dsl)
 
 	kspAndroidTest(libs.dagger.compiler)
 	kspAndroidTest(libs.dagger.hiltAndroidCompiler)

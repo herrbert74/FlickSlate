@@ -20,8 +20,11 @@ android {
 
 dependencies {
 	api(project(":tv:tv-domain"))
-	implementation(libs.androidx.hiltNavigationCompose)
+
 	api(libs.androidx.lifecycleCommon)
-	implementation(libs.androidx.lifecycleRuntimeCompose)
 	api(libs.androidx.lifecycleViewmodelCompose)
+
+	implementation(libs.androidx.coreKtx) //transitive
+	implementation(libs.androidx.hiltNavigationCompose)
+	implementation(libs.androidx.lifecycleRuntimeCompose)
 }

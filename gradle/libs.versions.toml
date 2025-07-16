@@ -56,6 +56,8 @@ detekt-compose = "0.4.22"
 #firebaseBom = "33.16.0"
 gradleDoctor = "0.11.0"
 #graphql = "4.3.1"
+guava = "33.4.8-jre"
+jakarta-inject = "2.0.1"
 #javaPoet = "1.13.0"
 jUnit = "4.13.2"
 jUnit5 = "5.13.3"
@@ -118,12 +120,13 @@ androidx-composeUi = { group = "androidx.compose.ui", name = "ui" }
 androidx-composeUiGraphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-composeUiGeometry = { group = "androidx.compose.ui", name = "ui-geometry" }
 androidx-composeUiText = { group = "androidx.compose.ui", name = "ui-text" }
-#androidx-composeUiTest = { group = "androidx.compose.ui", name = "ui-test" }
+androidx-composeUiTest = { group = "androidx.compose.ui", name = "ui-test" }
 androidx-composeUiTestJunit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-composeUiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" } #For adding Activities
 androidx-composeUiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-composeUiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-composeUiUnit = { group = "androidx.compose.ui", name = "ui-unit" }
+androidx-composeUiUtil = { group = "androidx.compose.ui", name = "ui-util" }
 
 #Not in BOM as of 2023.10.01 !!!
 androidx-composeUiTestAndroid = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "androidx-composeUi" }
@@ -137,10 +140,10 @@ androidx-composeMaterial3 = { module = "androidx.compose.material3:material3" }
 #androidx-constraintLayoutCompose = "androidx.constraintlayout:constraintlayout-compose-android:1.1.0-rc01"
 
 #androidx-core = "androidx.core:core:1.13.1" #Bundle
-#androidx-coreKtx = "androidx.core:core-ktx:1.16.0" #Bundle
+androidx-coreKtx = "androidx.core:core-ktx:1.16.0" #Bundle
 
 #androidx-datastore = "androidx.datastore:datastore-preferences:1.1.1"
-#androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.8.4"
+androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.8.4"
 
 androidx-hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 #androidx-hiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
@@ -160,7 +163,7 @@ androidx-lifecycleViewmodelSavedstate = { module = "androidx.lifecycle:lifecycle
 #androidx-media = "androidx.media:media:1.7.0"
 #androidx-mediaRouter = "androidx.mediarouter:mediarouter:1.7.0"
 
-androidx-navigationCommon = { module = "androidx.navigation:navigation-common-ktx", version.ref = "androidx-navigation" }
+androidx-navigationCommon = { module = "androidx.navigation:navigation-common", version.ref = "androidx-navigation" }
 androidx-navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 #androidx-navigationFragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigationRuntime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidx-navigation" }
@@ -188,7 +191,7 @@ androidx-sqlite = "androidx.sqlite:sqlite:2.5.2"
 #androidx-workmanagerKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 #androidx-workmanagerTesting = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
 
-#androidx-testCore = { group = "androidx.test", name = "core", version.ref = "androidx-testCore" }
+androidx-testCore = { group = "androidx.test", name = "core", version.ref = "androidx-testCore" }
 androidx-testCoreKtx = { module = "androidx.test:core-ktx", version.ref = "androidx-testCore" }
 androidx-testEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-testEspresso" }
 #androidx-testEspressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidx-test-espresso" }
@@ -200,7 +203,7 @@ androidx-testRunner = { module = "androidx.test:runner", version.ref = "androidx
 #androidx-testRules = { module = "androidx.test:rules", version.ref = "androidx-testRules" }
 #androidx-testUiAutomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 
-#autobind-core = { module = "se.ansman.dagger.auto:core", version.ref = "autoBind" } # For Kotlin modules
+autobind-core = { module = "se.ansman.dagger.auto:core", version.ref = "autoBind" } # For Kotlin modules
 autobind-android = { module = "se.ansman.dagger.auto:android", version.ref = "autoBind" }
 autobind-android-api = { module = "se.ansman.dagger.auto:android-api", version.ref = "autoBind" }
 autobind-android-testing = { module = "se.ansman.dagger.auto:android-testing", version.ref = "autoBind" }
@@ -243,6 +246,8 @@ detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "det
 
 #gson = "com.google.code.gson:gson:2.13.1"
 
+guava-jre = { module = "com.google.guava:guava", version.ref = "guava" }
+
 #googlePlay-appUpdateKtx = "com.google.android.play:app-update-ktx:2.1.0"
 #googlePlay-servicesAnalytics = "com.google.android.gms:play-services-analytics:18.1.1"
 #googlePlay-servicesLocation = "com.google.android.gms:play-services-location:21.3.0"
@@ -269,6 +274,8 @@ detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "det
 #hamcrest = "org.hamcrest:hamcrest-core:1.3"
 
 inject = "javax.inject:javax.inject:1"
+
+jakarta-inject = {module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject"}
 
 #javaPoet = { module = "com.squareup:javapoet", version.ref = "javaPoet" } ":1.13.0"
 
@@ -348,7 +355,7 @@ mockk-dsl = { module = "io.mockk:mockk-dsl", version.ref = "mockk" }
 #multiplatformSettings-noargs = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatform-settings" }
 
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-okhttp3-mockWebServer = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+okhttp3-mockWebServer = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "okhttp" }
 okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 #parcelize-darwin-runtime = { module = "com.arkivanov.parcelize.darwin:runtime", version.ref = "parcelize-darwin" }
@@ -363,6 +370,7 @@ retrofit-converterKotlinxSerialization = { module = "com.squareup.retrofit2:conv
 #revenueCat = "com.revenuecat.purchases:purchases:6.9.4"
 
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+robolectric-annotations = { module = "org.robolectric:annotations", version.ref = "robolectric" }
 
 #uriKmp = { module = "com.eygraber:uri-kmp", version.ref = "uri-kmp" }
 
