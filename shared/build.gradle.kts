@@ -2,7 +2,6 @@ plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.composeCompiler)
 	alias(libs.plugins.compose.screenshotTesting)
-	alias(libs.plugins.detekt)
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
@@ -77,8 +76,6 @@ dependencies {
 
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)
-
-	detektPlugins(libs.detekt.compose)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 

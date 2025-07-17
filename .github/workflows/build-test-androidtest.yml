@@ -187,4 +187,4 @@ jobs:
       - name: Run detekt
         env:
           tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-        run: ./gradlew detekt "-PtmdbApiKey=\"$tmdbApiKey\""
+        run: ./gradlew detektAll "-PtmdbApiKey=\"$tmdbApiKey\""

@@ -1,13 +1,10 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.detekt)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.serialization)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
 }
-
-apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 val tmdbApiKey: String by project
 
@@ -65,8 +62,6 @@ dependencies {
 	kspTest(libs.dagger.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)
-
-	detektPlugins(libs.detekt.compose)
 
 }
 
