@@ -1,14 +1,11 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.detekt)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
 }
-
-apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.account.data"

@@ -10,10 +10,7 @@ plugins {
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.dagger.hiltAndroid)
-	alias(libs.plugins.detekt)
 }
-
-apply(from = project.rootProject.file("config/detekt/detekt.gradle"))
 
 val tmdbApiKey: String by project
 
@@ -176,8 +173,6 @@ dependencies {
 	kspAndroidTest(libs.dagger.compiler)
 	kspAndroidTest(libs.dagger.hiltAndroidCompiler)
 	kspAndroidTest(libs.autobind.compiler)
-
-	detektPlugins(libs.detekt.compose)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 
