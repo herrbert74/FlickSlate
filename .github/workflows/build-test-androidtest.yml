@@ -97,7 +97,7 @@ jobs:
             shared/build/reports/screenshotTest/
 
   # Mac Silicon does not work
-  # https://github:com/ReactiveCircus/android-emulator-runner/issues/350
+  # https://github.com/ReactiveCircus/android-emulator-runner/issues/350
   # https://github.com/actions/runner-images/issues/9460
   android-test:
     name: UI tests
@@ -159,7 +159,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew app:connectedAndroidTest "-PtmdbApiKey=\"$tmdbApiKey\""
+          script: ./gradlew app:connectedAndroidTest "-PtmdbApiKey=\"$tmdbApiKey\"" && killall -INT crashpad_handler || true
 
       - name: Upload Test Reports
         if: always()
