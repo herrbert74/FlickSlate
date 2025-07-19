@@ -45,7 +45,7 @@ compose-screenshotTesting = "0.0.1-alpha10"
 #chucker = "4.0.0"
 coil = "2.7.0"
 crashlyticsPlugin = "3.0.4"
-dagger = "2.56.2"
+dagger = "2.57"
 #decompose = "3.3.0"
 dependencyAnalysis = "2.19.0"
 detekt = "1.23.8"
@@ -79,21 +79,6 @@ robolectric = "4.15.1"
 #uri-kmp = "0.0.20"
 
 [libraries]
-
-#Plugins as library references needed for convention plugins
-
-androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
-dependencyAnalysisPlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version.ref = "dependencyAnalysis" }
-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-daggerHiltPlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger" }
-#firebaseAppDistributionPlugin = "com.google.firebase:firebase-appdistribution-gradle:5.1.1"
-#firebaseCrashlyticsPlugin = { module = "com.google.firebase:firebase-crashlytics-gradle, version.ref = "crashlyticsPlugin" }
-#googleServicesPlugin = "com.google.gms:google-services:4.4.3"
-#kotlinAllOpenPlugin = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
-kotlinAndroidPlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-#kotlinComposeCompilerPlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
-kotlinJvmPlugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
-kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 #androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
