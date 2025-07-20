@@ -33,7 +33,6 @@ fun FlickSlateBottomNavigationBar(
 	itemList: ImmutableList<Destination> =
 		listOf(Destination.Movies, Destination.Tv, Destination.Search, Destination.Account).toImmutableList(),
 ) {
-
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
 	val currentRoute = navBackStackEntry?.destination?.route ?: Destination.Movies.javaClass.canonicalName
 

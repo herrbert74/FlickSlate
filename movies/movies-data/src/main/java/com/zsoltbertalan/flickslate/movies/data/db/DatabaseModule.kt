@@ -19,4 +19,3 @@ class DatabaseModule {
 		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase").build()
 
 }
-

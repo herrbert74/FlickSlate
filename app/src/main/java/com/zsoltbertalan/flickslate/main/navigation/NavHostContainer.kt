@@ -44,7 +44,6 @@ fun NavHostContainer(
 	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
 	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
 ) {
-
 	NavHost(
 		navController = navController,
 		startDestination = Destination.Movies,
@@ -155,7 +154,8 @@ fun NavHostContainer(
 					navController.navigate(Destination.MovieDetails(id))
 				}
 			}
-		})
+		}
+	)
 
 }
 

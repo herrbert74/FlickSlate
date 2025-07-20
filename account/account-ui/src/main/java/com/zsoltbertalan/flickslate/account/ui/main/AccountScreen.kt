@@ -18,4 +18,3 @@ fun AccountScreen(
 		LoginComponent(Colors, modifier, login)
 	}
 }
-

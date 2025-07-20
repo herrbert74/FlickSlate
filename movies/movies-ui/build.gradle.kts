@@ -28,8 +28,8 @@ dependencies {
 	api(libs.androidx.lifecycleCommon)
 	api(libs.androidx.lifecycleViewmodelCompose)
 
-	implementation(libs.androidx.composeUiToolingPreview) //transitive
-	implementation(libs.androidx.coreKtx) //transitive
+	implementation(libs.androidx.composeUiToolingPreview) // transitive
+	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 
@@ -37,7 +37,7 @@ dependencies {
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotest.assertionsShared)
-	testImplementation(libs.mockk.dsl) //transitive
+	testImplementation(libs.mockk.dsl) // transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 }

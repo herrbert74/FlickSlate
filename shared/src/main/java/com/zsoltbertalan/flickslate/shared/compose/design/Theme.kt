@@ -133,7 +133,6 @@ fun FlickSlateTheme(
 	isDynamicColor: Boolean = false,
 	content: @Composable () -> Unit,
 ) {
-
 	val dynamicColor = isDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
 	val colorScheme = when {
@@ -144,8 +143,7 @@ fun FlickSlateTheme(
 	}
 
 	val additionalColorScheme =
-		if (isDarkTheme) DarkAdditionalColorScheme
-		else LightAdditionalColorScheme
+		if (isDarkTheme) DarkAdditionalColorScheme else LightAdditionalColorScheme
 
 	val configuration = LocalConfiguration.current
 	val dimensions = if (configuration.smallestScreenWidthDp <= SMALLEST_WIDTH_600) smallDimensions else sw600Dimensions

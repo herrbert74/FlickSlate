@@ -44,7 +44,6 @@ class SearchScreenTest {
 
 	@Test
 	fun search() {
-
 		with(composeTestRule) {
 			setContent {
 				val searchViewModel: SearchViewModel = hiltViewModel()
@@ -55,7 +54,11 @@ class SearchScreenTest {
 						CoroutineScope(Dispatchers.Default).launch {
 							searchViewModel.emitEvent(it)
 						}
-					}, { _, _ -> }, {}, {})
+					},
+					{ _, _ -> },
+					{},
+					{}
+				)
 			}
 
 			val searchBar = onNode(hasContentDescription("Searchbar"))

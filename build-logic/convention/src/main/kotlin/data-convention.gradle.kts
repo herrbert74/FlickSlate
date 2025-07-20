@@ -22,7 +22,7 @@ dependencies {
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.androidx.sqlite)
 	implementation(libs.autobind.android.api)
-	implementation(libs.autobind.core) //transitive
+	implementation(libs.autobind.core) // transitive
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinRetry)
@@ -38,7 +38,7 @@ dependencies {
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
-	testImplementation(libs.mockk.dsl) //transitive
+	testImplementation(libs.mockk.dsl) // transitive
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
 }

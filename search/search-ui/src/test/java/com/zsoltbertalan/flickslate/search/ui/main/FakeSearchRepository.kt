@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ViewModelScoped
-class FakeSearchRepository @Inject constructor(): SearchRepository {
+class FakeSearchRepository @Inject constructor() : SearchRepository {
 
 	override suspend fun getSearchResult(query: String, page: Int): Outcome<PagingReply<Movie>> =
 		Ok(PagingReply(MovieMother.createMovieList(), true, PageData()))

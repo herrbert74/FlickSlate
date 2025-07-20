@@ -19,13 +19,13 @@ android {
 
 dependencies {
 	api(project(":account:account-domain"))
-	api(project(":shared")) // transitive
+	api(project(":shared"))
 
-	api(libs.androidx.composeRuntime) // transitive
-	api(libs.androidx.lifecycleViewmodel) // transitive
+	api(libs.androidx.composeRuntime)
+	api(libs.androidx.lifecycleViewmodel)
 	api(libs.dagger.core)
 	api(libs.inject)
-	api(libs.kotlinx.coroutinesCore) // transitive
+	api(libs.kotlinx.coroutinesCore)
 
 	implementation(platform(libs.androidx.compose.bom))
 
@@ -37,7 +37,7 @@ dependencies {
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
-	implementation(libs.androidx.composeUiToolingPreview) // transitive
+	implementation(libs.androidx.composeUiToolingPreview)
 
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
@@ -49,7 +49,7 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 	ksp(libs.dagger.hiltAndroidCompiler)
 
-	//testImplementation(testFixtures(project("::account:account-domain")))
+	// testImplementation(testFixtures(project("::account:account-domain")))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

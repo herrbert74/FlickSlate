@@ -39,7 +39,8 @@ fun GenreChips(genres: ImmutableList<Genre>, modifier: Modifier = Modifier) {
 							modifier = Modifier.padding(8.dp),
 							text = it
 						)
-					})
+					}
+				)
 			}
 		}
 	}

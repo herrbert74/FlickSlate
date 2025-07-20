@@ -14,9 +14,8 @@ data class GenreMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toGenreMoviesPageEntity(genreId: Int): GenreMoviesPageEntity = GenreMoviesPageEntity(
-	genreId, page, date, expires, etag, totalPages, totalResults,
-)
+fun PageData.toGenreMoviesPageEntity(genreId: Int): GenreMoviesPageEntity =
+	GenreMoviesPageEntity(genreId, page, date, expires, etag, totalPages, totalResults)
 
 fun GenreMoviesPageEntity.toPageData(): PageData = PageData(
 	page,

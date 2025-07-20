@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMoviesPageEntity
-import com.zsoltbertalan.flickslate.movies.data.db.model.PopularMoviesPageEntity
 
 @Dao
 interface NowPlayingMoviesPageDao {

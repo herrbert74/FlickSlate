@@ -28,13 +28,12 @@ object TvMother {
 		createDefaultTv(id = 12, name = "name6"),
 	)
 
-
 	private fun createDefaultTv(
 		id: Int = 0,
 		name: String = "Detectorists",
 		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
 			|ploughed tracks and open fields, hoping to disturb the tedium by unearthing the fortune of a lifetime.
-			|""".trimMargin(),
+			""".trimMargin(),
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
@@ -52,7 +51,7 @@ object TvMother {
 		title: String = "Detectorists",
 		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
 			|ploughed tracks and open fields, hoping to disturb the tedium by unearthing the fortune of a lifetime.
-			|""".trimMargin(),
+		""".trimMargin(),
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
@@ -64,7 +63,8 @@ object TvMother {
 		posterPath = posterPath,
 		backdropPath = backdropPath,
 		genres = listOf(
-			Genre(1, "Adventure"), Genre(2, "Comedy")
+			Genre(1, "Adventure"),
+			Genre(2, "Comedy")
 		).toImmutableList()
 	)
 
@@ -86,4 +86,3 @@ object TvMother {
 	)
 
 }
-

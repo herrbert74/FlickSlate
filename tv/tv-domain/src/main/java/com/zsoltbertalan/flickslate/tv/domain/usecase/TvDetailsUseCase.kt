@@ -34,7 +34,6 @@ class TvDetailsUseCase @Inject constructor(private val tvRepository: TvRepositor
 		tvDetails: Result<TvDetail, Failure>,
 		tvImages: Result<ImagesReply, Failure>
 	): Outcome<TvDetailWithImages> {
-
 		return tvDetails.map { tvDetail ->
 			val images = tvImages.recover { ImagesReply(emptyList(), emptyList(), emptyList(), 0) }
 			TvDetailWithImages(

@@ -15,10 +15,8 @@ data class NowPlayingMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toNowPlayingMoviesPageEntity(): NowPlayingMoviesPageEntity = NowPlayingMoviesPageEntity(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun PageData.toNowPlayingMoviesPageEntity(): NowPlayingMoviesPageEntity =
+	NowPlayingMoviesPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun NowPlayingMoviesPageEntity.toPageData(): PageData = PageData(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun NowPlayingMoviesPageEntity.toPageData(): PageData =
+	PageData(page, date, expires, etag, totalPages, totalResults)

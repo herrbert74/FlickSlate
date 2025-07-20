@@ -37,7 +37,6 @@ class MoviesViewModelTest {
 
 	@Before
 	fun setUp() {
-
 		Dispatchers.setMain(dispatcher)
 
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
@@ -55,14 +54,11 @@ class MoviesViewModelTest {
 
 	@After
 	fun tearDown() {
-
 		Dispatchers.resetMain()
-
 	}
 
 	@Test
 	fun `when started then getMovies is called and returns correct list`() = runTest {
-
 		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 0)
 
 		advanceUntilIdle()
@@ -76,7 +72,6 @@ class MoviesViewModelTest {
 
 	@Test
 	fun `when started and getMovies is called and call fails returns proper failure`() = runTest {
-
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
 			flowOf(Err(Failure.UnknownHostFailure))
 		}

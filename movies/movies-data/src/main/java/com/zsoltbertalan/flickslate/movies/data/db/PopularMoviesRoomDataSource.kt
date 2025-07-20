@@ -33,7 +33,7 @@ class PopularMoviesRoomDataSource @Inject constructor(
 		}
 	}
 
-	override suspend fun insertPopularMovies(movies: List<Movie>, page: Int)  {
+	override suspend fun insertPopularMovies(movies: List<Movie>, page: Int) {
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toPopularMoviesEntity(page) }

@@ -31,14 +31,11 @@ class MovieDetailsTest {
 
 	@Before
 	fun setUp() {
-
 		hiltAndroidRule.inject()
-
 	}
 
 	@Test
 	fun showMovies() {
-
 		with(composeTestRule) {
 			onRoot(useUnmergedTree = true).printToLog("showMovies")
 			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
@@ -49,7 +46,6 @@ class MovieDetailsTest {
 
 	@Test
 	fun showMovieDetails() {
-
 		with(composeTestRule) {
 			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 			onNodeWithText("name1", ignoreCase = true).performClick()

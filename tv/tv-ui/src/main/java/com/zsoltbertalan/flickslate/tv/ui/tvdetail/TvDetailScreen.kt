@@ -56,7 +56,6 @@ fun TvDetailScreen(
 	modifier: Modifier = Modifier,
 	viewModel: TvDetailViewModel = hiltViewModel(),
 ) {
-
 	val detail = viewModel.tvStateData.collectAsStateWithLifecycle().value
 
 	val bg = Colors.surface
@@ -126,7 +125,8 @@ fun TvDetailScreen(
 
 					Column(modifier = Modifier.padding(horizontal = Dimens.marginLarge)) {
 						TitleText(
-							modifier = Modifier.padding(vertical = 16.dp), title = "Genres"
+							modifier = Modifier.padding(vertical = 16.dp),
+							title = "Genres"
 						)
 						detail.tvDetail.genres.takeIf { it.isNotEmpty() }?.let {
 							GenreChips(it)
@@ -134,17 +134,20 @@ fun TvDetailScreen(
 					}
 
 					TitleText(
-						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Story Line"
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+						title = "Story Line"
 					)
 					detail.tvDetail.overview?.let {
 						Text(
-							modifier = Modifier.padding(16.dp), text = it
+							modifier = Modifier.padding(16.dp),
+							text = it
 						)
 					}
 					Spacer(modifier = Modifier.height(16.dp))
 
 					TitleText(
-						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+						title = "Image gallery"
 					)
 					if (detail.tvDetail.tvImages.backdrops.isNotEmpty()) {
 						val pagerState = rememberPagerState(pageCount = {

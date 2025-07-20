@@ -19,12 +19,13 @@ tasks.register<Detekt>("detektAll") {
 			required = false
 		}
 		sarif {
-			required = false //true by default, despite what docs say
+			required = false // true by default, despite what docs say
 		}
 	}
 	config = files(
 		"$rootDir/config/detekt/default-detekt-config.yml",
-		"$rootDir/config/detekt/compose-detekt-config.yml"
+		"$rootDir/config/detekt/compose-detekt-config.yml",
+		"$rootDir/config/detekt/formatting-detekt-config.yml"
 	)
 	exclude("**/resources/**")
 	exclude("**/build/**")
@@ -32,4 +33,5 @@ tasks.register<Detekt>("detektAll") {
 
 dependencies {
 	detektPlugins(libs.detekt.compose)
+	detektPlugins(libs.detekt.formatting)
 }

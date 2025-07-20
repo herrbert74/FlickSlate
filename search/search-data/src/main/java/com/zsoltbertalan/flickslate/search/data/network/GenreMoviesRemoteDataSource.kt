@@ -27,4 +27,3 @@ class GenreMoviesRemoteDataSource @Inject constructor(
 	}
 
 }
-

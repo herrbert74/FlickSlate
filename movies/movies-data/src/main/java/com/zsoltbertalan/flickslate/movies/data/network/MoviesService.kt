@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDetailsDto
-import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.NowPlayingMoviesReplyDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.UpcomingMoviesReplyDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.ImagesReplyDto
 import retrofit2.Response
 import retrofit2.http.GET

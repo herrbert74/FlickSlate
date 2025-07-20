@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import android.util.Log
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -67,9 +66,8 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.collections.immutable.toImmutableList
+import timber.log.Timber
 import kotlin.math.min
-
-private const val TAG = "AutoSizeText"
 
 /**
  * See [gist](https://gist.github.com/inidamleader/b594d35362ebcf3cedf81055df519300)
@@ -252,10 +250,11 @@ fun AutoSizeText(
 				key1 = suggestedFontSizes,
 				key2 = suggestedFontSizesStatus,
 			) {
-				if (suggestedFontSizesStatus == SuggestedFontSizesStatus.VALID)
+				if (suggestedFontSizesStatus == SuggestedFontSizesStatus.VALID) {
 					suggestedFontSizes
-				else
+				} else {
 					suggestedFontSizes.validSuggestedFontSizes
+				}
 			}?.let {
 				remember(
 					key1 = it,
@@ -282,29 +281,30 @@ fun AutoSizeText(
 				}
 			}
 
-			if (electedFontSize == 0.sp)
-				Log.w(
-					TAG,
+			if (electedFontSize == 0.sp) {
+				Timber.w(
 					"""The text cannot be displayed. Please consider the following options:
                       |  1. Providing 'suggestedFontSizes' with smaller values that can be utilized.
                       |  2. Decreasing the 'stepGranularityTextSize' value.
-                      |  3. Adjusting the 'minTextSize' parameter to a suitable value and ensuring the overflow parameter is set to "TextOverflow.Ellipsis".
+                      |  3. Adjusting the 'minTextSize' parameter to a suitable value and ensuring the overflow 
+					  |  parameter is set to "TextOverflow.Ellipsis".
                     """.trimMargin(),
 				)
 
-			Text(
-				text = text,
-				overflow = overflow,
-				softWrap = softWrap,
-				maxLines = maxLines,
-				minLines = minLines,
-				inlineContent = inlineContent,
-				onTextLayout = onTextLayout,
-				style = combinedTextStyle.copy(
-					fontSize = electedFontSize,
-					lineHeight = electedFontSize * coercedLineSpacingRatio,
-				),
-			)
+				Text(
+					text = text,
+					overflow = overflow,
+					softWrap = softWrap,
+					maxLines = maxLines,
+					minLines = minLines,
+					inlineContent = inlineContent,
+					onTextLayout = onTextLayout,
+					style = combinedTextStyle.copy(
+						fontSize = electedFontSize,
+						lineHeight = electedFontSize * coercedLineSpacingRatio,
+					),
+				)
+			}
 		}
 	}
 }
@@ -395,10 +395,7 @@ private fun <T> IntProgression.findElectedValue(
 	var high = last / step
 	while (low <= high) {
 		val mid = low + (high - low) / 2
-		if (shouldMoveBackward(transform(mid * step)))
-			high = mid - 1
-		else
-			low = mid + 1
+		if (shouldMoveBackward(transform(mid * step))) high = mid - 1 else low = mid + 1
 	}
 	transform((high * step).coerceAtLeast(first * step))
 }
@@ -407,11 +404,9 @@ enum class SuggestedFontSizesStatus {
 	VALID, INVALID, UNKNOWN;
 
 	companion object {
+
 		val List<TextUnit>.getSuggestedFontSizesStatus
-			get() = if (isNotEmpty() && fastAll { it.isSp } && sortedBy { it.value } == this)
-				VALID
-			else
-				INVALID
+			get() = if (isNotEmpty() && fastAll { it.isSp } && sortedBy { it.value } == this) VALID else INVALID
 
 		val List<TextUnit>.validSuggestedFontSizes
 			get() = takeIf { it.isNotEmpty() } // Optimization: empty check first to immediately return null

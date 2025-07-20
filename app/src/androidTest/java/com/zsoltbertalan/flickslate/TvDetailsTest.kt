@@ -31,14 +31,11 @@ class TvDetailsTest {
 
 	@Before
 	fun setUp() {
-
 		hiltAndroidRule.inject()
-
 	}
 
 	@Test
 	fun showTvTab() {
-
 		with(composeTestRule) {
 			onRoot(useUnmergedTree = true).printToLog("showTv")
 			onNodeWithText("Tv").performClick()
@@ -51,7 +48,6 @@ class TvDetailsTest {
 
 	@Test
 	fun showTvDetails() {
-
 		with(composeTestRule) {
 			onNodeWithText("Tv").performClick()
 			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)

@@ -114,13 +114,16 @@ fun MovieDetailScreen(
 				) {
 					Row(modifier = Modifier.height(Dimens.listSingleItemHeight)) {
 						Text(
-							modifier = Modifier.padding(16.dp), text = detail.movieDetail.title ?: ""
+							modifier = Modifier.padding(16.dp),
+							text = detail.movieDetail.title ?: ""
 						)
 						VerticalDivider(
-							modifier = Modifier.padding(vertical = 16.dp), color = Colors.onSurface
+							modifier = Modifier.padding(vertical = 16.dp),
+							color = Colors.onSurface
 						)
 						Text(
-							modifier = Modifier.padding(16.dp), text = detail.movieDetail.voteAverage.toString()
+							modifier = Modifier.padding(16.dp),
+							text = detail.movieDetail.voteAverage.toString()
 						)
 					}
 					Column(
@@ -128,24 +131,28 @@ fun MovieDetailScreen(
 							.padding(horizontal = 8.dp)
 					) {
 						TitleText(
-							modifier = Modifier.padding(vertical = 16.dp), title = "Genres"
+							modifier = Modifier.padding(vertical = 16.dp),
+							title = "Genres"
 						)
 						detail.movieDetail.genres.takeIf { it.isNotEmpty() }?.let {
 							GenreChips(it)
 						}
 					}
 					TitleText(
-						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Story Line"
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+						title = "Story Line"
 					)
 					detail.movieDetail.overview?.let {
 						Text(
-							modifier = Modifier.padding(16.dp), text = it
+							modifier = Modifier.padding(16.dp),
+							text = it
 						)
 					}
 					Spacer(modifier = Modifier.height(16.dp))
 
 					TitleText(
-						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp), title = "Image gallery"
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+						title = "Image gallery"
 					)
 					if (detail.movieDetail.movieImages.backdrops.isNotEmpty()) {
 						val pagerState = rememberPagerState(pageCount = {

@@ -20,7 +20,6 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 	)
 
 	private fun loadPopularMoviesPage(pageKey: Int) {
-
 		viewModelScope.launch {
 			moviesRepository.getPopularMovies(page = pageKey).collect {
 				when {
@@ -45,7 +44,6 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 	)
 
 	private fun loadUpcomingMoviesPage(pageKey: Int) {
-
 		viewModelScope.launch {
 			moviesRepository.getUpcomingMovies(page = pageKey).collect {
 				when {
@@ -70,7 +68,6 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 	)
 
 	private fun loadNowPlayingMoviesPage(pageKey: Int) {
-
 		viewModelScope.launch {
 			moviesRepository.getNowPlayingMovies(page = pageKey).collect {
 				when {

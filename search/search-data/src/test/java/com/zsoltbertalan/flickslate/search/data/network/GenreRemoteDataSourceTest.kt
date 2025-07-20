@@ -38,7 +38,10 @@ class GenreRemoteDataSourceTest {
 					"""
 						{"success":false,
 						"status_code":6,"status_message":"Invalid id: The pre-requisite id is invalid
-						 or not found."}""".trimIndent().filterNot { it == '\n' }
+						 or not found."}
+					"""
+						.trimIndent()
+						.filterNot { it == '\n' }
 				)
 			)
 	}

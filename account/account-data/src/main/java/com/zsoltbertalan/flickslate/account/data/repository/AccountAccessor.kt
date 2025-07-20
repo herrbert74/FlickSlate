@@ -34,7 +34,7 @@ class AccountAccessor @Inject constructor(
 		val accessToken = accountLocalDataSource.getAccessToken()
 		if (accessToken != null) {
 			val success = accountRemoteDataSource.deleteSessionId(accessToken)
-			if(success.isOk) accountLocalDataSource.getAccessToken()
+			if (success.isOk) accountLocalDataSource.getAccessToken()
 		}
 	}
 }

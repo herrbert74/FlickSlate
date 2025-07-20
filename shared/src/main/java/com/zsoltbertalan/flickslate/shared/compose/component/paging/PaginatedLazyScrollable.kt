@@ -53,7 +53,6 @@ internal fun <KEY, T, LAZY_STATE, LAZY_SCROLLABLE_SCOPE> PaginatedLazyScrollable
 
 	if (internalState.items != null) {
 		LaunchedEffect(state) {
-
 			val lastVisibleItemIndex: Flow<Int> = when (state) {
 				is LazyGridState -> snapshotFlow { state.layoutInfo.visibleItemsInfo.lastOrNull() }
 					.map { item -> item?.index ?: Int.MIN_VALUE }
@@ -126,7 +125,6 @@ internal fun <KEY, T, LAZY_STATE, LAZY_SCROLLABLE_SCOPE> PaginatedLazyScrollable
 
 	LaunchedEffect(internalState) {
 		if (internalState is PaginationInternalState.Initial) {
-
 			internalState = PaginationInternalState.Loading(
 				initialPageKey = internalState.initialPageKey,
 				requestedPageKey = internalState.initialPageKey,

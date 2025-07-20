@@ -33,7 +33,7 @@ class TvRoomDataSource @Inject constructor(
 		}
 	}
 
-	override suspend fun insertTv(tvShowList: List<TvShow>, page: Int)  {
+	override suspend fun insertTv(tvShowList: List<TvShow>, page: Int) {
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = tvShowList.map { it.toTvEntity(page) }

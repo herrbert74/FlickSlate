@@ -6,9 +6,9 @@ import com.zsoltbertalan.flickslate.search.data.repository.GenreAccessor
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.model.GenreMother
 import com.zsoltbertalan.flickslate.shared.model.GenresReply
 import com.zsoltbertalan.flickslate.shared.util.Outcome
-import com.zsoltbertalan.flickslate.shared.model.GenreMother
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

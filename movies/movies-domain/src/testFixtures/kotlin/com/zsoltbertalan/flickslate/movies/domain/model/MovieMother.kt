@@ -91,7 +91,8 @@ object MovieMother {
 		posterPath = posterPath,
 		backdropPath = backdropPath,
 		genres = listOf(
-			Genre(1, "Adventure"), Genre(2, "Comedy")
+			Genre(1, "Adventure"),
+			Genre(2, "Comedy")
 		).toImmutableList()
 	)
 

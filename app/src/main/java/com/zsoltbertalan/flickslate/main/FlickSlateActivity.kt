@@ -54,7 +54,6 @@ class FlickSlateActivity : ComponentActivity() {
 				val currentDestination = navBackStackEntry?.destination.getDestination()
 
 				when (currentDestination) {
-
 					Destination.MovieDetails::class,
 					Destination.TvDetails::class,
 					Destination.GenreMovies::class -> SetLowLevelScaffoldParams(
@@ -78,7 +77,8 @@ class FlickSlateActivity : ComponentActivity() {
 							title = title,
 							showBack = showBack,
 							backgroundColor = backgroundColor,
-							popBackStack = { navController.popBackStack() })
+							popBackStack = { navController.popBackStack() }
+						)
 					},
 					bottomBar = {
 						if (isBottomBarVisible) {

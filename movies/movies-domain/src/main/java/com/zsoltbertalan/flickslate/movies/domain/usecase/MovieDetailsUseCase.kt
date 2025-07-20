@@ -34,7 +34,6 @@ class MovieDetailsUseCase @Inject constructor(private val moviesRepository: Movi
 		movieDetails: Result<MovieDetail, Failure>,
 		movieImages: Result<ImagesReply, Failure>
 	): Outcome<MovieDetailWithImages> {
-
 		return movieDetails.map { movieDetail ->
 			val images = movieImages.recover { ImagesReply(emptyList(), emptyList(), emptyList(), 0) }
 			MovieDetailWithImages(

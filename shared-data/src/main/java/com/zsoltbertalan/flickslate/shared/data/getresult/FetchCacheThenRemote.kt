@@ -72,14 +72,12 @@ inline fun <DOMAIN> fetchCacheThenRemote(
 	strategy: STRATEGY = CACHE_FIRST_NETWORK_SECOND,
 	retryPolicy: RetryPolicy<Failure> = defaultNoRetryPolicy,
 ) = flow<Outcome<DOMAIN>> {
-
 	val localData = fetchFromLocal().first()
 	localData?.let { emit(Ok(it)) }
 
 	val networkOnlyOnceAndAlreadyCached = strategy == CACHE_FIRST_NETWORK_ONCE && localData != null
 
 	if (shouldMakeNetworkRequest(localData) && networkOnlyOnceAndAlreadyCached.not()) {
-
 		val newResult = retry(retryPolicy) { makeNetworkRequest() }.andThen { domain ->
 			saveResponseData(domain)
 			Ok(domain)

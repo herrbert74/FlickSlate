@@ -17,10 +17,8 @@ class PopularMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toPopularMoviesPageEntity(): PopularMoviesPageEntity = PopularMoviesPageEntity(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun PageData.toPopularMoviesPageEntity(): PopularMoviesPageEntity =
+	PopularMoviesPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun PopularMoviesPageEntity.toPageData(): PageData = PageData(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun PopularMoviesPageEntity.toPageData(): PageData =
+	PageData(page, date, expires, etag, totalPages, totalResults)

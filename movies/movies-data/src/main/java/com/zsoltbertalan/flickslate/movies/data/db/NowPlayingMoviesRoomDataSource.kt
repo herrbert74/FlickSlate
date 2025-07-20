@@ -33,7 +33,7 @@ class NowPlayingMoviesRoomDataSource @Inject constructor(
 		}
 	}
 
-	override suspend fun insertNowPlayingMovies(movies: List<Movie>, page: Int)  {
+	override suspend fun insertNowPlayingMovies(movies: List<Movie>, page: Int) {
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toNowPlayingMoviesEntity(page) }
