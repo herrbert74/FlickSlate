@@ -8,7 +8,7 @@ pluginManagement {
 		mavenCentral()
 		google()
 		// Only required for realm-kotlin snapshots
-		//maven("https://oss.sonatype.org/content/repositories/snapshots")
+		// maven("https://oss.sonatype.org/content/repositories/snapshots")
 	}
 }
 
@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 		google()
 		maven("https://jitpack.io")
 		// Only required for realm-kotlin snapshots
-		//maven("https://oss.sonatype.org/content/repositories/snapshots")
+		// maven("https://oss.sonatype.org/content/repositories/snapshots")
 	}
 }
 

@@ -15,7 +15,7 @@ data class NowPlayingMovieEntity(
 	val page: Int = 0,
 )
 
-fun Movie.toNowPlayingMoviesEntity(page:Int): NowPlayingMovieEntity = NowPlayingMovieEntity(
+fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = NowPlayingMovieEntity(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,

@@ -64,5 +64,4 @@ class GenresRoomDataSource @Inject constructor(
 		return@withContext searchDatabase.etagDao().getAll().firstOrNull()?.etag
 	}
 
-
 }

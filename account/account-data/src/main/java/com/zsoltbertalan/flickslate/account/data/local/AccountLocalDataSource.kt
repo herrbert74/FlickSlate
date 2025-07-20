@@ -1,18 +1,18 @@
 package com.zsoltbertalan.flickslate.account.data.local
 
 import android.content.Context
+import androidx.core.content.edit
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.shared.model.Account
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
-import androidx.core.content.edit
 
 @AutoBind
 @ActivityRetainedScoped
 class AccountLocalDataSource @Inject constructor(
-	@ApplicationContext val context: Context
+	@param:ApplicationContext val context: Context
 ) : AccountDataSource.Local {
 
 	override fun saveAccessToken(accessToken: String) {

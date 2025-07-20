@@ -48,9 +48,9 @@ dependencies {
 	implementation(libs.timber)
 	implementation(libs.dagger.hiltCore)
 
-	add("ksp", libs.dagger.compiler)
-	add("ksp", libs.androidx.hiltCompiler)
-	add("ksp", libs.dagger.hiltAndroidCompiler)
+	ksp(libs.dagger.compiler)
+	ksp(libs.androidx.hiltCompiler)
+	ksp(libs.dagger.hiltAndroidCompiler)
 
 	testImplementation(testFixtures(project("::shared")))
 	testImplementation(libs.jUnit)

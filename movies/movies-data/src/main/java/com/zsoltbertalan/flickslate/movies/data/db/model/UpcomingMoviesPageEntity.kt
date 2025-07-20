@@ -15,10 +15,8 @@ class UpcomingMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toUpcomingMoviesPageEntity(): UpcomingMoviesPageEntity = UpcomingMoviesPageEntity(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun PageData.toUpcomingMoviesPageEntity(): UpcomingMoviesPageEntity =
+	UpcomingMoviesPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun UpcomingMoviesPageEntity.toPageData(): PageData = PageData(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun UpcomingMoviesPageEntity.toPageData(): PageData =
+	PageData(page, date, expires, etag, totalPages, totalResults)

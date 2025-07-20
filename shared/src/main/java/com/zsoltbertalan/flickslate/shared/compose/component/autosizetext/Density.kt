@@ -43,7 +43,6 @@ fun Dp.toRecDpSize() = if (isSpecified) DpSize(this, this) else DpSize.Unspecifi
 
 fun Dp.toRecDpOffset() = if (isSpecified) DpOffset(this, this) else DpOffset.Unspecified
 
-
 // TEXT UNIT
 fun Density.spToDp(sp: TextUnit) = if (sp.isSpecified) sp.toDp() else Dp.Unspecified
 
@@ -65,7 +64,6 @@ fun TextUnit.toIntPx() = LocalDensity.current.spToIntPx(this)
 @Composable
 fun TextUnit.roundToPx() = LocalDensity.current.spRoundToPx(this)
 
-
 // FLOAT
 fun Density.floatPxToDp(px: Float) = if (px.isFinite()) px.toDp() else Dp.Unspecified
 
@@ -85,7 +83,6 @@ fun Float.toRecSize() = if (isFinite()) Size(this, this) else Size.Unspecified
 
 fun Float.toRecOffset() = if (isFinite()) Offset(this, this) else Offset.Unspecified
 
-
 // INT
 fun Density.intPxToDp(px: Int) = px.toDp()
 
@@ -103,19 +100,23 @@ fun Int.toRecIntSize() = IntSize(this, this)
 
 fun Int.toRecIntOffset() = IntOffset(this, this)
 
-
 // DP SIZE
 fun Density.dpSizeToIntSize(dpSize: DpSize) =
-	if (dpSize.isSpecified) IntSize(dpSize.width.toPx().toInt(), dpSize.height.toPx().toInt())
-	else IntSize.Zero
+	if (dpSize.isSpecified) {
+		IntSize(dpSize.width.toPx().toInt(), dpSize.height.toPx().toInt())
+	} else {
+		IntSize.Zero
+	}
 
 fun Density.dpSizeRoundToIntSize(dpSize: DpSize) =
-	if (dpSize.isSpecified) IntSize(dpSize.width.roundToPx(), dpSize.height.roundToPx())
-	else IntSize.Zero
+	if (dpSize.isSpecified) {
+		IntSize(dpSize.width.roundToPx(), dpSize.height.roundToPx())
+	} else {
+		IntSize.Zero
+	}
 
 fun Density.dpSizeToSize(dpSize: DpSize) =
-	if (dpSize.isSpecified) Size(dpSize.width.toPx(), dpSize.height.toPx())
-	else Size.Unspecified
+	if (dpSize.isSpecified) Size(dpSize.width.toPx(), dpSize.height.toPx()) else Size.Unspecified
 
 @Composable
 fun DpSize.toIntSize() = LocalDensity.current.dpSizeToIntSize(this)
@@ -128,23 +129,18 @@ fun DpSize.toSize() = LocalDensity.current.dpSizeToSize(this)
 
 fun DpSize.isSpaced() = isSpecified && width > 0.dp && height > 0.dp
 
-
 // SIZE
 fun Density.sizeToDpSize(size: Size) =
-	if (size.isSpecified) DpSize(size.width.toDp(), size.height.toDp())
-	else DpSize.Unspecified
+	if (size.isSpecified) DpSize(size.width.toDp(), size.height.toDp()) else DpSize.Unspecified
 
 @Composable
 fun Size.toDpSize() =
-	if (isSpecified) LocalDensity.current.sizeToDpSize(this)
-	else DpSize.Unspecified
+	if (isSpecified) LocalDensity.current.sizeToDpSize(this) else DpSize.Unspecified
 
 fun Size.toIntSize() =
-	if (isSpecified) IntSize(width.toInt(), height.toInt())
-	else IntSize.Zero
+	if (isSpecified) IntSize(width.toInt(), height.toInt()) else IntSize.Zero
 
 fun Size.isSpaced() = isSpecified && width > 0F && height > 0F
-
 
 // INT SIZE
 fun Density.intSizeToDpSize(intSize: IntSize) = DpSize(intSize.width.toDp(), intSize.height.toDp())
@@ -157,19 +153,15 @@ fun IntSize.toSize() = Size(width.toFloat(), height.toFloat())
 
 fun IntSize.isSpaced() = width > 0 && height > 0
 
-
 // DP OFFSET
 fun Density.dpOffsetToIntOffset(dpOffset: DpOffset) =
-	if (dpOffset.isSpecified) IntOffset(dpOffset.x.toPx().toInt(), dpOffset.y.toPx().toInt())
-	else IntOffset.Zero
+	if (dpOffset.isSpecified) IntOffset(dpOffset.x.toPx().toInt(), dpOffset.y.toPx().toInt()) else IntOffset.Zero
 
 fun Density.dpOffsetRoundToIntOffset(dpOffset: DpOffset) =
-	if (dpOffset.isSpecified) IntOffset(dpOffset.x.roundToPx(), dpOffset.y.roundToPx())
-	else IntOffset.Zero
+	if (dpOffset.isSpecified) IntOffset(dpOffset.x.roundToPx(), dpOffset.y.roundToPx()) else IntOffset.Zero
 
 fun Density.dpOffsetToOffset(dpOffset: DpOffset) =
-	if (dpOffset.isSpecified) Offset(dpOffset.x.toPx(), dpOffset.y.toPx())
-	else Offset.Unspecified
+	if (dpOffset.isSpecified) Offset(dpOffset.x.toPx(), dpOffset.y.toPx()) else Offset.Unspecified
 
 @Composable
 fun DpOffset.toIntOffset() = LocalDensity.current.dpOffsetToIntOffset(this)
@@ -180,18 +172,15 @@ fun DpOffset.roundToIntOffset() = LocalDensity.current.dpOffsetRoundToIntOffset(
 @Composable
 fun DpOffset.toOffset() = LocalDensity.current.dpOffsetToOffset(this)
 
-
 // OFFSET
 fun Density.offsetToDpOffset(offset: Offset) =
-	if (offset.isSpecified) DpOffset(offset.x.toDp(), offset.y.toDp())
-	else DpOffset.Unspecified
+	if (offset.isSpecified) DpOffset(offset.x.toDp(), offset.y.toDp()) else DpOffset.Unspecified
 
 @Composable
 fun Offset.toDpOffset() = LocalDensity.current.offsetToDpOffset(this)
 
 fun Offset.toIntOffset() =
-	if (isSpecified) IntOffset(x.toInt(), y.toInt())
-	else IntOffset.Zero
+	if (isSpecified) IntOffset(x.toInt(), y.toInt()) else IntOffset.Zero
 
 // INT OFFSET
 fun Density.intOffsetToDpOffset(intOffset: IntOffset) = DpOffset(intOffset.x.toDp(), intOffset.y.toDp())

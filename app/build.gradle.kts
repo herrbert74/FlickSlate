@@ -48,7 +48,7 @@ android {
 		buildConfig = true
 	}
 
-	//Needed for Mockk
+	// Needed for Mockk
 	testOptions {
 		packaging { jniLibs { useLegacyPackaging = true } }
 		unitTests.isReturnDefaultValues = true
@@ -64,7 +64,7 @@ android {
 		resources.excludes.add("META-INF/rxjava.properties")
 		resources.excludes.add("jsr305_annotations/Jsr305_annotations.gwt.xml")
 
-		//Needed for Gradle since adding convention plugins the typesafe way
+		// Needed for Gradle since adding convention plugins the typesafe way
 		resources.excludes.add("kotlin/internal/internal.kotlin_builtins")
 		resources.excludes.add("kotlin/reflect/reflect.kotlin_builtins")
 		resources.excludes.add("kotlin/kotlin.kotlin_builtins")
@@ -115,14 +115,14 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
-	implementation(libs.androidx.fragmentKtx) //transitive
+	implementation(libs.androidx.fragmentKtx) // transitive
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)
 	implementation(libs.androidx.lifecycleViewmodelCompose)
 	implementation(libs.androidx.lifecycleViewmodelSavedstate)
-	implementation(libs.androidx.navigationCommon) //transitive
+	implementation(libs.androidx.navigationCommon) // transitive
 	implementation(libs.androidx.navigationCompose)
 	implementation(libs.androidx.navigationRuntime)
 	implementation(libs.androidx.roomRuntime)
@@ -139,7 +139,7 @@ dependencies {
 	implementation(libs.timber)
 
 	debugRuntimeOnly(platform(libs.androidx.compose.bom))
-	//Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
+	// Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
 	ksp(libs.dagger.hiltAndroidCompiler)
@@ -156,7 +156,7 @@ dependencies {
 	androidTestImplementation(testFixtures(project("::movies:movies-domain")))
 	androidTestImplementation(testFixtures(project("::tv:tv-domain")))
 	androidTestImplementation(testFixtures(project("::shared")))
-	androidTestImplementation(libs.androidx.fragmentKtx) //transitive
+	androidTestImplementation(libs.androidx.fragmentKtx) // transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)
 	androidTestImplementation(libs.androidx.testExtJUnit)
 	androidTestImplementation(libs.androidx.testRunner)
@@ -164,7 +164,7 @@ dependencies {
 	androidTestImplementation(libs.androidx.composeUiTestJunit4)
 	androidTestImplementation(libs.androidx.composeUiTestJunit4Android)
 	androidTestImplementation(libs.autobind.android.api)
-	androidTestImplementation(libs.autobind.core) //transitive
+	androidTestImplementation(libs.autobind.core) // transitive
 	androidTestImplementation(libs.dagger.hiltAndroidTesting)
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)

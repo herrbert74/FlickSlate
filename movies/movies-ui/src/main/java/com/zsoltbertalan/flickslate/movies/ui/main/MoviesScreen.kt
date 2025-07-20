@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.movies.ui.R
-import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
 import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageErrorIndicator
@@ -29,6 +28,7 @@ import com.zsoltbertalan.flickslate.shared.compose.component.paging.rememberPagi
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.util.navigate
 import com.zsoltbertalan.flickslate.shared.model.Movie
+import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 
 @Composable
 fun MoviesScreen(
@@ -38,7 +38,6 @@ fun MoviesScreen(
 	modifier: Modifier = Modifier,
 	navigateToDetail: (Int) -> Unit,
 ) {
-
 	PaginatedLazyColumn(
 		popularMoviesPaginatedState,
 		firstPageProgressIndicator = { FirstPageProgressIndicator() },
@@ -67,7 +66,6 @@ fun MoviesScreen(
 			)
 			.fillMaxHeight()
 	) {
-
 		item {
 			ListTitle(titleId = R.string.upcoming_movies)
 		}
@@ -108,7 +106,6 @@ private fun ShowUpcomingMovies(
 	paginatedState: PaginationState<Int, Movie>,
 	navigateToDetail: (Int) -> Unit,
 ) {
-
 	PaginatedLazyRow(
 		paginatedState,
 		firstPageProgressIndicator = { FirstPageProgressIndicator() },
@@ -152,7 +149,6 @@ private fun ShowNowPlayingMovies(
 	paginatedState: PaginationState<Int, Movie>,
 	navigateToDetail: (Int) -> Unit,
 ) {
-
 	PaginatedLazyRow(
 		paginatedState,
 		firstPageProgressIndicator = { FirstPageProgressIndicator() },
@@ -196,7 +192,6 @@ private const val VOTE_AVERAGE = 7.5f
 @Preview(showBackground = true)
 @Composable
 internal fun ShowNowPlayingMoviesPreview() {
-
 	val dummyMovies = listOf(
 		Movie(
 			1,
@@ -220,11 +215,9 @@ internal fun ShowNowPlayingMoviesPreview() {
 	val dummyPaginationState = rememberPaginationState(
 		initialPageKey = 1,
 		onRequestPage = {
-
 			if (requestedPageKey == 1) {
 				appendPage(dummyMovies, 2)
 			}
-
 		}
 	).apply {
 		internalState.value = PaginationInternalState.Loaded(1, 1, 2, dummyMovies, isLastPage = false)

@@ -45,7 +45,6 @@ inline fun <DOMAIN> fetchRemoteFirst(
 	noinline saveResponseData: suspend (DOMAIN) -> Unit = { },
 	retryPolicy: RetryPolicy<Failure> = defaultNoRetryPolicy,
 ) = flow<Outcome<DOMAIN>> {
-
 	var localData: DOMAIN? = null
 
 	val result = retry(retryPolicy) { makeNetworkRequest() }.andThen { domain ->

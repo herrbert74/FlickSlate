@@ -34,11 +34,11 @@ dependencies {
 	api(libs.inject)
 	api(libs.retrofit)
 
-	implementation(libs.androidx.coreKtx) //transitive
+	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.kotlinx.serializationJson)
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.autobind.android.api)
-	implementation(libs.autobind.core) //transitive
+	implementation(libs.autobind.core) // transitive
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.okhttp3)
@@ -56,7 +56,7 @@ dependencies {
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
 	testImplementation(libs.mockk.core)
-	testImplementation(libs.mockk.dsl) //transitive
+	testImplementation(libs.mockk.dsl) // transitive
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)

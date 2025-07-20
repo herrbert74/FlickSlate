@@ -221,6 +221,7 @@ dagger-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref 
 #detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 #detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "detekt-compose" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
 #diamondedge-logging = { module = "com.diamondedge:logging", version.ref = "diamondedge-logging" }
 

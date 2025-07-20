@@ -68,7 +68,6 @@ fun SearchScreen(
 	closeScreen: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-
 	var isSearchBarActive by rememberSaveable { mutableStateOf(false) }
 	var searchQuery by rememberSaveable { mutableStateOf("") }
 	val focusManager = LocalFocusManager.current
@@ -117,7 +116,6 @@ private fun ShowSearchBar(
 	navigateToGenreDetails: (Int, String) -> Unit,
 	navigateToMovieDetails: (Int) -> Unit,
 ) {
-
 	val focusRequester = remember { FocusRequester() }
 	var textFieldLoaded by remember { mutableStateOf(false) }
 
@@ -156,7 +154,7 @@ private fun ShowSearchBar(
 		expanded = true,
 		onExpandedChange = onActiveChange,
 
-	) {
+		) {
 		SearchResultUi(uiState = searchState, navigateToMovieDetails = navigateToMovieDetails)
 		if (searchState.genreResult.isNotEmpty()) {
 			ListTitle(titleId = R.string.genre)
@@ -202,10 +200,11 @@ private fun SearchResultUi(
 				)
 		) {
 			itemsIndexed(uiState.searchResult, key = { index, _ -> index }) { _, item ->
-				Column(modifier = Modifier
-					.testTag("SearchResultColumn")
-					.padding(vertical = 4.dp, horizontal = 4.dp)
-					.clickable { navigateToMovieDetails(item.id) }
+				Column(
+					modifier = Modifier
+						.testTag("SearchResultColumn")
+						.padding(vertical = 4.dp, horizontal = 4.dp)
+						.clickable { navigateToMovieDetails(item.id) }
 				) {
 					Text(text = item.title)
 					HorizontalDivider(color = Colors.outlineVariant)
@@ -217,7 +216,6 @@ private fun SearchResultUi(
 
 @Composable
 private fun GenreList(list: ImmutableList<Genre>, navigateToGenreDetails: (Int, String) -> Unit) {
-
 	val listOfColors: List<Color> = listOf(
 		Colors.primaryContainer,
 		Colors.secondaryContainer,

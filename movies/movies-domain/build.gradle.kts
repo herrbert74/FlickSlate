@@ -17,7 +17,7 @@ dependencies {
 
 	api(project(":shared"))
 
-	api(libs.jakarta.inject) //transitive
+	api(libs.jakarta.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)
 
 	implementation(libs.kotlinResult.result)

@@ -29,7 +29,6 @@ fun GenreDetailScreen(
 	modifier: Modifier = Modifier,
 	popTo: (Int) -> Unit,
 ) {
-
 	setTitle(genreName)
 
 	val bg = Colors.surface
@@ -63,7 +62,6 @@ fun GenreDetailScreen(
 		},
 		modifier = modifier.fillMaxHeight(),
 	) {
-
 		itemsIndexed(
 			genreMoviesPaginatedState.allItems,
 		) { _, item ->

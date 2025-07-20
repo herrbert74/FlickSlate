@@ -17,10 +17,8 @@ data class TvPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toTvPageEntity(): TvPageEntity = TvPageEntity(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun PageData.toTvPageEntity(): TvPageEntity =
+	TvPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun TvPageEntity.toPageData(): PageData = PageData(
-	page, date, expires, etag, totalPages, totalResults,
-)
+fun TvPageEntity.toPageData(): PageData =
+	PageData(page, date, expires, etag, totalPages, totalResults)

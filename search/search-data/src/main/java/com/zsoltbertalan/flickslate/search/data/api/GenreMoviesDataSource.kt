@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.search.data.api
 
-import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
+import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.util.Outcome
 import kotlinx.coroutines.flow.Flow

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.shared.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.compose.design.FixedColors
 import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.compose.util.movieCardWidth
+import com.zsoltbertalan.flickslate.shared.model.MovieCardType
 
 @Composable
 fun ShowCard(
@@ -64,10 +64,11 @@ fun ShowDetailCard(
 		shape = RoundedCornerShape(8.dp),
 		elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
 		colors =
-		if (isFirst)
+		if (isFirst) {
 			CardDefaults.cardColors(containerColor = FixedColors.quinaryFixed)
-		else
+		} else {
 			CardDefaults.cardColors(containerColor = Colors.surfaceContainerHighest)
+		}
 	) {
 		Column(
 			modifier = Modifier

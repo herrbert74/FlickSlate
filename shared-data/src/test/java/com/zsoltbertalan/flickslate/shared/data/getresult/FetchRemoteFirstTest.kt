@@ -31,7 +31,6 @@ class FetchRemoteFirstTest {
 
 	@Test
 	fun `when network has data and cache has data then emit once`() = runTest {
-
 		val fetchFromLocal = { flowOf(PagingReply(GenreMother.createGenreList(), false, PageData())) }
 
 		val flow = fetchRemoteFirst(
@@ -47,7 +46,6 @@ class FetchRemoteFirstTest {
 
 	@Test
 	fun `when network has data and cache has NO data then emit once`() = runTest {
-
 		val fetchFromLocal = { flowOf(null) }
 
 		val flow = fetchRemoteFirst(
@@ -93,7 +91,6 @@ class FetchRemoteFirstTest {
 
 	@Test
 	fun `when network has NO data and cache has NO data then emit error`() = runTest {
-
 		val fetchFromLocal = { flowOf(null) }
 		val flow = fetchRemoteFirst(
 			fetchFromLocal = fetchFromLocal,
@@ -104,16 +101,13 @@ class FetchRemoteFirstTest {
 
 	}
 
-
 	@Test
 	fun `when fetch is cancelled then do not emit`() = runTest {
-
 		val fetchFromLocal = { flowOf(GenreMother.createGenreList()) }
 
 		val results = mutableListOf<Outcome<List<Genre>>>()
 
 		val job = launch(backgroundScope.coroutineContext) {
-
 			fetchRemoteFirst(
 				fetchFromLocal = fetchFromLocal,
 				makeNetworkRequest = makeNetworkRequestDelayedResponse(),
@@ -133,7 +127,6 @@ class FetchRemoteFirstTest {
 	@Test
 	fun `given default retry policy when cache has NO data and network has data after retry then emit once`() =
 		runTest {
-
 			val fetchFromLocal = { flowOf(null) }
 
 			val flow = fetchRemoteFirst(
@@ -153,7 +146,6 @@ class FetchRemoteFirstTest {
 	@Test
 	fun `given default no retry policy is when cache has NO data and network has data after retry then emit error`() =
 		runTest {
-
 			val fetchFromLocal = { flowOf(null) }
 
 			val flow = fetchRemoteFirst(

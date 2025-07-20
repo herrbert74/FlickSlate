@@ -48,7 +48,10 @@ private fun parseColorSwatch(color: Palette.Swatch?, isDarkMode: Boolean): Strin
 		val parsedColor = Integer.toHexString(color.rgb)
 		return "#$parsedColor"
 	} else {
-		if(isDarkMode) "#${Integer.toHexString(FlickSlateDarkColorScheme.surface.toArgb())}"
-		else "#${Integer.toHexString(FlickSlateLightColorScheme.surface.toArgb())}"
+		if (isDarkMode) {
+			"#${Integer.toHexString(FlickSlateDarkColorScheme.surface.toArgb())}"
+		} else {
+			"#${Integer.toHexString(FlickSlateLightColorScheme.surface.toArgb())}"
+		}
 	}
 }

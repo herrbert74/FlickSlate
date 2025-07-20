@@ -38,7 +38,6 @@ class SearchViewModel @Inject constructor(
 	}
 
 	private fun listenEvent(event: SearchEvent) {
-
 		when (event) {
 			is SearchEvent.SearchQuery ->
 				viewModelScope.launch {

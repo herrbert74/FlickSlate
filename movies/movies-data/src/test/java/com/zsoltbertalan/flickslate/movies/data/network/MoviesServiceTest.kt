@@ -19,7 +19,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 /**
  * This is strictly testing the network layer. Still not sure if this is the intended usage for MockWebServer or
- * integration tests, where it could replace mocks. Maybe testing various response codes? Or conversion? But we use 
+ * integration tests, where it could replace mocks. Maybe testing various response codes? Or conversion? But we use
  * data source for that!
  */
 @RunWith(RobolectricTestRunner::class)
