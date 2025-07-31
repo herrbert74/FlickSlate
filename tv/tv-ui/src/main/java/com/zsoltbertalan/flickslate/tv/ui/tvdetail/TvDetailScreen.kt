@@ -147,6 +147,18 @@ fun TvDetailScreen(
 
 					TitleText(
 						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+						title = "Seasons"
+					)
+					detail.tvDetail.seasons.let {
+						SeasonsRow(
+							seasons = it,
+							modifier = Modifier.padding(16.dp),
+						)
+					}
+					Spacer(modifier = Modifier.height(16.dp))
+
+					TitleText(
+						modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
 						title = "Image gallery"
 					)
 					if (detail.tvDetail.tvImages.backdrops.isNotEmpty()) {

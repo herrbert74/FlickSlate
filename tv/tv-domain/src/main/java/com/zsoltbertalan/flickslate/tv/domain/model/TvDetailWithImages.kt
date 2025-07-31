@@ -13,5 +13,6 @@ data class TvDetailWithImages(
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
+	val seasons: ImmutableList<Season> = listOf<Season>().toImmutableList(),
 	val tvImages: ImagesReply = ImagesReply(),
 )

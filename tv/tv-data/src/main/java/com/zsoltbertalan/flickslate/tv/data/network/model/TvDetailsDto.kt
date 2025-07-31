@@ -23,7 +23,9 @@ data class TvDetailsDto(
 	val first_air_date: String? = null,
 	val number_of_episodes: Int? = null,
 	val number_of_seasons: Int? = null,
+	val seasons: List<SeasonDto>? = null,
 	val status: String? = null,
+	val tagline: String? = null,
 )
 
 fun TvDetailsDto.toTvDetail() = TvDetail(
@@ -34,4 +36,5 @@ fun TvDetailsDto.toTvDetail() = TvDetail(
 	this.poster_path,
 	this.backdrop_path,
 	this.genres.toGenresReply(),
+	this.seasons.toSeasons(),
 )

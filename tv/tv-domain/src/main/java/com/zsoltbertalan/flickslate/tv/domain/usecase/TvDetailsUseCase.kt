@@ -44,6 +44,7 @@ class TvDetailsUseCase @Inject constructor(private val tvRepository: TvRepositor
 				posterPath = tvDetail.posterPath,
 				backdropPath = tvDetail.backdropPath,
 				genres = tvDetail.genres,
+				seasons = tvDetail.seasons,
 				tvImages = images.get() ?: ImagesReply()
 			)
 		}

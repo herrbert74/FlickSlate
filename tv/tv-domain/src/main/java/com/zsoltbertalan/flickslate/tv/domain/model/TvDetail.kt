@@ -11,5 +11,6 @@ data class TvDetail(
 	val voteAverage: Float? = null,
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
-	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList()
+	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
+	val seasons: ImmutableList<Season> = listOf<Season>().toImmutableList(),
 )
