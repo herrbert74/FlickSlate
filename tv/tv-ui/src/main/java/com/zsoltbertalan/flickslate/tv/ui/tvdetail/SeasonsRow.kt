@@ -21,7 +21,7 @@ import kotlinx.collections.immutable.toImmutableList
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
-	LazyRow (
+	LazyRow(
 		modifier
 			.fillMaxWidth(1f)
 			.wrapContentHeight(align = Alignment.Top),
@@ -29,7 +29,7 @@ fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
 	) {
 		items(seasons.size) { index ->
 			seasons[index].name?.let {
-				FilledButton (
+				FilledButton(
 					modifier = Modifier
 						.padding(end = Dimens.marginSmall),
 					onClick = { },
@@ -48,7 +48,6 @@ fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 internal fun SeasonChipsPreview() {
-
 	fun getSeason(name: String) = Season(
 		airDate = "2023-2-2",
 		episodeCount = 13,
@@ -70,6 +69,5 @@ internal fun SeasonChipsPreview() {
 			).toImmutableList()
 		)
 	}
-
 
 }

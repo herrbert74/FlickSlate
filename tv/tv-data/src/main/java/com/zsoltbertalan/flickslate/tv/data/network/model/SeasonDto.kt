@@ -1,9 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
-import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
-import com.zsoltbertalan.flickslate.shared.data.network.model.toGenre
 import com.zsoltbertalan.flickslate.shared.data.util.mapImmutableNullInputList
-import com.zsoltbertalan.flickslate.shared.model.Genre
 import com.zsoltbertalan.flickslate.tv.domain.model.Season
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
@@ -30,4 +27,5 @@ fun SeasonDto.toSeason() = Season(
 	this.season_number,
 )
 
-fun List<SeasonDto>?.toSeasons(): ImmutableList<Season> = mapImmutableNullInputList(this) { season -> season.toSeason() }
+fun List<SeasonDto>?.toSeasons(): ImmutableList<Season> =
+	mapImmutableNullInputList(this) { season -> season.toSeason() }

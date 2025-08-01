@@ -729,6 +729,12 @@ style:
     allowedNames: ''
     ignoreAnnotated:
       - 'Preview'
+      - 'PreviewAll'
+      - 'PreviewLightDark'
+      - 'PreviewDarkLightMode'
+      - 'PreviewPhone'
+      - 'PreviewTablet'
+      - 'PreviewTheme'
   UnusedPrivateProperty:
     active: true
     allowedNames: '_|ignored|expected|serialVersionUID'
