@@ -45,7 +45,10 @@ class TvDetailsUseCase @Inject constructor(private val tvRepository: TvRepositor
 				backdropPath = tvDetail.backdropPath,
 				genres = tvDetail.genres,
 				seasons = tvDetail.seasons,
-				tvImages = images.get() ?: ImagesReply()
+				tvImages = images.get() ?: ImagesReply(),
+				status = tvDetail.status,
+				tagline = tvDetail.tagline,
+				tvDetail.years,
 			)
 		}
 	}

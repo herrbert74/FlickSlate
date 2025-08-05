@@ -13,4 +13,7 @@ data class TvDetail(
 	val backdropPath: String? = null,
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
 	val seasons: ImmutableList<Season> = listOf<Season>().toImmutableList(),
+	val status: String? = null,
+	val tagline: String? = null,
+	val years: String = "",
 )

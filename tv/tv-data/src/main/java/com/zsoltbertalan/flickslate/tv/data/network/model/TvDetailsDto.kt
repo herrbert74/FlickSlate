@@ -5,6 +5,8 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.toGenresReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import kotlinx.serialization.Serializable
 
+private const val YEAR_CHARS = 4
+
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class TvDetailsDto(
@@ -21,6 +23,7 @@ data class TvDetailsDto(
 	val vote_average: Float? = null,
 	val overview: String? = null,
 	val first_air_date: String? = null,
+	val last_air_date: String? = null,
 	val number_of_episodes: Int? = null,
 	val number_of_seasons: Int? = null,
 	val seasons: List<SeasonDto>? = null,
@@ -37,4 +40,7 @@ fun TvDetailsDto.toTvDetail() = TvDetail(
 	this.backdrop_path,
 	this.genres.toGenresReply(),
 	this.seasons.toSeasons(),
+	this.status,
+	this.tagline,
+	"${this.first_air_date?.substring(0, YEAR_CHARS)} - ${this.last_air_date?.substring(0, YEAR_CHARS)}",
 )

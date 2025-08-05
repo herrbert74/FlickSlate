@@ -36,14 +36,14 @@ object TvMother {
 			""".trimMargin(),
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
-		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
+		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
 	): TvShow = TvShow(
 		id = id,
 		name = name,
 		overview = overview,
 		voteAverage = voteAverage,
 		posterPath = posterPath,
-		backdropPath = backdropPath
+		backdropPath = backdropPath,
 	)
 
 	fun createTvDetail(
@@ -54,7 +54,8 @@ object TvMother {
 		""".trimMargin(),
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
-		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg"
+		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+		tagline: String = "Tagline"
 	): TvDetail = TvDetail(
 		id = id,
 		title = title,
@@ -65,7 +66,8 @@ object TvMother {
 		genres = listOf(
 			Genre(1, "Adventure"),
 			Genre(2, "Comedy")
-		).toImmutableList()
+		).toImmutableList(),
+		tagline = tagline,
 	)
 
 	fun createTvImages(): ImagesReply = ImagesReply(

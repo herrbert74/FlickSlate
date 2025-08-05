@@ -15,4 +15,7 @@ data class TvDetailWithImages(
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
 	val seasons: ImmutableList<Season> = listOf<Season>().toImmutableList(),
 	val tvImages: ImagesReply = ImagesReply(),
+	val status: String? = null,
+	val tagline: String? = null,
+	val years: String = ""
 )
