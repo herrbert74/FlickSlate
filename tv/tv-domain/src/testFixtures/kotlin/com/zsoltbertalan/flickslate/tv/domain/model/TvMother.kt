@@ -12,7 +12,7 @@ import kotlinx.collections.immutable.toImmutableList
 object TvMother {
 
 	fun createTvList() = listOf(
-		createDefaultTv(id = 0, name = "Detectorists", overview = "Overview 0"),
+		createDefaultTv(id = 0, name = "Detectorists"),
 		createDefaultTv(id = 1, name = "name2"),
 		createDefaultTv(id = 2, name = "name3", overview = "Overview 2"),
 		createDefaultTv(id = 3, name = "name4", overview = "Overview 3"),
@@ -24,7 +24,6 @@ object TvMother {
 		createDefaultTv(id = 9, name = "name6"),
 		createDefaultTv(id = 10, name = "name6"),
 		createDefaultTv(id = 11, name = "name6"),
-		createDefaultTv(id = 12, name = "name6"),
 		createDefaultTv(id = 12, name = "name6"),
 	)
 

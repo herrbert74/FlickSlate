@@ -28,7 +28,7 @@ dependencies {
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
-	testImplementation(testFixtures(project("::movies:movies-domain")))
+	testImplementation(testFixtures(project("::tv:tv-domain")))
 	testImplementation(testFixtures(project("::shared-data")))
 
 	testFixturesApi(project(":shared-data"))
