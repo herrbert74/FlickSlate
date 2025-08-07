@@ -27,4 +27,15 @@ dependencies {
 	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
+
+	testImplementation(testFixtures(project("::tv:tv-domain")))
+
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
+	testImplementation(libs.mockk.dsl) // transitive
+
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+	compilerOptions.freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
 }

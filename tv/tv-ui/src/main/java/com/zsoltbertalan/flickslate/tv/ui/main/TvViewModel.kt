@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.tv.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
-import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,8 +30,7 @@ class TvViewModel @Inject constructor(private val tvRepository: TvRepository) : 
 					)
 
 					else -> {
-						val e = it.error as? Failure.ServerError
-						tvPaginationState.setError(Exception(e?.message))
+						tvPaginationState.setError(Exception(it.error.message))
 					}
 
 				}
