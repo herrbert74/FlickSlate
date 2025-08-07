@@ -22,4 +22,13 @@ android {
 dependencies {
 	api(project(":tv:tv-domain"))
 	implementation(libs.baBeStudios.baseData)
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
+	testImplementation(libs.mockk.dsl)
+	testImplementation(libs.okhttp3.mockWebServer)
+	testImplementation(libs.retrofit.converterKotlinxSerialization)
+	testImplementation(libs.robolectric)
+	testImplementation(testFixtures(project("::movies:movies-domain")))
+
+	testFixturesApi(project(":shared-data"))
 }
