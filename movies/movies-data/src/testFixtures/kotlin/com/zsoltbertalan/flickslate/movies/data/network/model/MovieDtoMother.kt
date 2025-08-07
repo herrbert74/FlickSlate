@@ -9,7 +9,7 @@ const val TOTAL_PAGES = 3
 
 object MovieDtoMother {
 
-	fun createMoviesResponseDto() = MoviesReplyDto(
+	fun createMoviesReplyDto() = MoviesReplyDto(
 		0,
 		TOTAL_PAGES,
 		TOTAL_RESULTS,

@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.search.data.network
 
 import com.zsoltbertalan.flickslate.search.data.api.SearchMoviesDataSource
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
-import com.zsoltbertalan.flickslate.shared.data.network.model.toMoviesReply
+import com.zsoltbertalan.flickslate.shared.data.network.model.toPagingReply
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.model.Movie
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
@@ -24,7 +24,7 @@ class SearchMoviesRemoteDataSource @Inject constructor(
 					page = page
 				)
 			},
-			MoviesReplyDto::toMoviesReply
+			MoviesReplyDto::toPagingReply
 		)
 	}
 
