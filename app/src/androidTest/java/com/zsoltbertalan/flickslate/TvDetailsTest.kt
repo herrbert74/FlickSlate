@@ -56,6 +56,7 @@ class TvDetailsTest {
 
 			onAllNodesWithText("Detectorists", useUnmergedTree = true).assertAny(hasText("Detectorists"))
 			onNodeWithText("Movies", useUnmergedTree = true).assertDoesNotExist()
+			onNodeWithText("Season 1", useUnmergedTree = true).assertExists()
 
 			composeTestRule.activityRule.scenario.onActivity { activity ->
 				activity.onBackPressedDispatcher.onBackPressed()

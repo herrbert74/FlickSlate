@@ -62,6 +62,17 @@ object TvMother {
 		voteAverage = voteAverage,
 		posterPath = posterPath,
 		backdropPath = backdropPath,
+		seasons = listOf(
+			Season(
+				"2014-04-30",
+				episodeCount = 10,
+				id = 0,
+				name = "Season 1",
+				overview = "",
+				posterPath = "",
+				seasonNumber = 1
+			),
+		).toImmutableList(),
 		genres = listOf(
 			Genre(1, "Adventure"),
 			Genre(2, "Comedy")
