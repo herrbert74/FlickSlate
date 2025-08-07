@@ -29,9 +29,7 @@ class TvViewModel @Inject constructor(private val tvRepository: TvRepository) : 
 						isLastPage = it.value.isLastPage
 					)
 
-					else -> {
-						tvPaginationState.setError(Exception(it.error.message))
-					}
+					else -> tvPaginationState.setError(Exception(it.error.message))
 
 				}
 			}
