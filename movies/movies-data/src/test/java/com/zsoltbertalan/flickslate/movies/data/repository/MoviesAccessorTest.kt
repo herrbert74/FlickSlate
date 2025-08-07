@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.repository
 
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
@@ -7,6 +8,7 @@ import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDtoMother
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieMother
+import com.zsoltbertalan.flickslate.shared.model.Failure
 import com.zsoltbertalan.flickslate.shared.model.PageData
 import com.zsoltbertalan.flickslate.shared.model.PagingReply
 import io.kotest.matchers.equals.shouldBeEqual
@@ -94,6 +96,23 @@ class MoviesAccessorTest {
 		val nowPlayingMoviesFlow = moviesAccessor.getNowPlayingMovies(1)
 		val pagingData = MovieMother.createNowPlayingMovieList()
 		nowPlayingMoviesFlow.first().value.pagingList shouldBeEqual pagingData
+	}
+
+	@Test
+	fun `when getPopularMovies fails but local has data then returns local data`() = runTest {
+		coEvery { popularMoviesRemoteDataSource.getPopularMovies(any(), any()) } returns
+			Err(Failure.ServerError("Network error"))
+
+		val localPopularMovies = MovieMother.createPopularMovieList()
+		val localPagingReply = PagingReply(localPopularMovies, true, PageData(page = 1, totalPages = 1, totalResults = 3))
+		coEvery { popularMoviesDataSource.getPopularMovies(any()) } returns flowOf(localPagingReply)
+
+		val popularMoviesFlow = moviesAccessor.getPopularMovies(1)
+
+		val result = popularMoviesFlow.first()
+		result.value.pagingList shouldBeEqual localPopularMovies
+		result.value.isLastPage shouldBeEqual true
+		result.value.pageData.page shouldBeEqual 1
 	}
 
 }

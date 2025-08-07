@@ -34,7 +34,7 @@ class TvRemoteDataSourceTest {
 	}
 
 	@Test
-	fun `when getPopularMovies called and service returns result then returns correct result`() = runTest {
+	fun `when getTopRatedTv called and service returns result then returns correct result`() = runTest {
 		val result = tvDataSource.getTopRatedTv("", 1)
 		result.value.pagingList shouldBeEqual TvMother.createTvList()
 		result.value.isLastPage shouldBe false
@@ -42,7 +42,7 @@ class TvRemoteDataSourceTest {
 	}
 
 	@Test
-	fun `when getPopularMovies called and service returns failure then returns correct result`() = runTest {
+	fun `when getTopRatedTv called and service returns failure then returns correct result`() = runTest {
 		coEvery { tvService.getTopRatedTv(any(), any(), any()) } returns failNetworkRequestResponse()()
 		tvDataSource.getTopRatedTv("", 1) shouldBeEqual
 			Err(
