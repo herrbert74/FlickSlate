@@ -24,6 +24,8 @@ android {
 
 	buildFeatures {
 		buildConfig = true
+
+		testFixtures.enable = true
 	}
 }
 
@@ -62,6 +64,9 @@ dependencies {
 	kspTest(libs.dagger.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)
+
+	testFixturesImplementation(libs.okhttp3.mockWebServer)
+	testFixturesImplementation(libs.kotlinx.serializationJson)
 
 }
 

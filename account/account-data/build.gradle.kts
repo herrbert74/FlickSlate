@@ -61,6 +61,7 @@ dependencies {
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::account:account-domain")))
+	testImplementation(testFixtures(project("::shared-data")))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

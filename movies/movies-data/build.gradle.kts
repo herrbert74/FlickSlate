@@ -32,6 +32,7 @@ dependencies {
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::movies:movies-domain")))
+	testImplementation(testFixtures(project("::shared-data")))
 
 	testFixturesApi(project(":shared-data"))
 }

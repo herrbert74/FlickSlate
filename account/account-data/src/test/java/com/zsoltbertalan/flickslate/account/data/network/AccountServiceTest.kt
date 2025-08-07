@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.zsoltbertalan.flickslate.movies.data.network.model.AccountReplyDtoMother
+import com.zsoltbertalan.flickslate.shared.data.network.failureCall
+import com.zsoltbertalan.flickslate.shared.data.network.successCall
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
-import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import okhttp3.MediaType.Companion.toMediaType
 import org.junit.After
@@ -47,7 +47,7 @@ class AccountServiceTest {
 	@Test
 	fun `getAccountDetails returns success`() = runTest {
 		val dto = AccountReplyDtoMother.createAccountReplyDto()
-		val data = successCall(dto) { api.getAccountDetails("") }
+		val data = successCall(server, dto) { api.getAccountDetails("") }
 
 		data shouldBe dto
 	}
@@ -55,27 +55,11 @@ class AccountServiceTest {
 	@Test
 	fun `getAccountDetails returns error`(): Unit = runTest {
 		try {
-			failureCall { api.getAccountDetails("") }
+			failureCall(server) { api.getAccountDetails("") }
 		} catch (e: HttpException) {
 			e.code() shouldBe 404
 			e.message() shouldBe "Client Error"
 		}
-	}
-
-	private inline fun <reified T> successCall(dto: T, apiCall: () -> T): T {
-		val json = Json { ignoreUnknownKeys = true }
-		val mockResponse = MockResponse(body = json.encodeToJsonElement(dto).toString())
-		server.enqueue(mockResponse)
-		val data = apiCall()
-		server.takeRequest()
-		return data
-	}
-
-	private inline fun <reified T> failureCall(apiCall: () -> T): T {
-		val mockResponse = MockResponse(code = 404, body = "message = \"Client error\"")
-		server.enqueue(mockResponse)
-		val data = apiCall()
-		return data
 	}
 
 }
