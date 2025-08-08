@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-	api(project(":search:search-domain"))
+	api(project(":feature:search:domain"))
 
 	api(libs.inject)
 
@@ -40,7 +40,7 @@ dependencies {
 	kspTest(libs.dagger.compiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)
 
-	testImplementation(testFixtures(project("::movies:movies-domain")))
+	testImplementation(testFixtures(project("::feature:movies:domain")))
 	testImplementation(testFixtures(project("::shared")))
 
 	testImplementation(libs.androidx.activity)

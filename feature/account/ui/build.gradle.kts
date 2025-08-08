@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-	api(project(":account:account-domain"))
+	api(project(":feature:account:domain"))
 	api(project(":shared"))
 
 	api(libs.androidx.composeRuntime)
