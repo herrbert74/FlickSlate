@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-	api(project(":search:search-domain"))
+	api(project(":feature:search:domain"))
 	testImplementation(testFixtures(project("::shared")))
 
 	testImplementation(libs.kotest.assertionsCore)

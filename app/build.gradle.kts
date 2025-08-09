@@ -84,20 +84,20 @@ kotlin {
 
 dependencies {
 
-	implementation(project(":account:account-data"))
-	implementation(project(":account:account-domain"))
-	implementation(project(":account:account-ui"))
-	implementation(project(":movies:movies-data"))
-	implementation(project(":movies:movies-domain"))
-	implementation(project(":movies:movies-ui"))
-	implementation(project(":search:search-data"))
-	implementation(project(":search:search-domain"))
-	implementation(project(":search:search-ui"))
+	implementation(project(":feature:account:data"))
+	implementation(project(":feature:account:domain"))
+	implementation(project(":feature:account:ui"))
+	implementation(project(":feature:movies:data"))
+	implementation(project(":feature:movies:domain"))
+	implementation(project(":feature:movies:ui"))
+	implementation(project(":feature:search:data"))
+	implementation(project(":feature:search:domain"))
+	implementation(project(":feature:search:ui"))
+	implementation(project(":feature:tv:data"))
+	implementation(project(":feature:tv:domain"))
+	implementation(project(":feature:tv:ui"))
 	implementation(project(":shared"))
 	implementation(project(":shared-data"))
-	implementation(project(":tv:tv-data"))
-	implementation(project(":tv:tv-domain"))
-	implementation(project(":tv:tv-ui"))
 
 	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
@@ -153,8 +153,8 @@ dependencies {
 
 	androidTestCompileOnly(libs.autobind.android.testing)
 
-	androidTestImplementation(testFixtures(project("::movies:movies-domain")))
-	androidTestImplementation(testFixtures(project("::tv:tv-domain")))
+	androidTestImplementation(testFixtures(project("::feature:movies:domain")))
+	androidTestImplementation(testFixtures(project("::feature:tv:domain")))
 	androidTestImplementation(testFixtures(project("::shared")))
 	androidTestImplementation(libs.androidx.fragmentKtx) // transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)

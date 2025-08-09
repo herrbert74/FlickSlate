@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-	api(project(":account:account-domain"))
+	api(project(":feature:account:domain"))
 	api(project(":shared"))
 
 	implementation(project(":shared-data"))
@@ -60,7 +60,7 @@ dependencies {
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
-	testImplementation(testFixtures(project("::account:account-domain")))
+	testImplementation(testFixtures(project("::feature:account:domain")))
 	testImplementation(testFixtures(project("::shared-data")))
 }
 

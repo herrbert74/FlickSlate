@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-	namespace = "com.zsoltbertalan.flickslate.tv.data"
+	namespace = "com.zsoltbertalan.flickslate.movies.data"
 
 	buildTypes {
 		release {
@@ -17,19 +17,26 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+	@Suppress("UnstableApiUsage")
+	testFixtures {
+		enable = true
+	}
 }
 
 dependencies {
-	api(project(":tv:tv-domain"))
-	implementation(libs.baBeStudios.baseData)
+	api(project(":feature:movies:domain"))
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
-	testImplementation(testFixtures(project("::tv:tv-domain")))
+	testImplementation(testFixtures(project(":feature:movies:domain")))
 	testImplementation(testFixtures(project("::shared-data")))
 
 	testFixturesApi(project(":shared-data"))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+	compilerOptions.freeCompilerArgs.add("-opt-in=okhttp3.ExperimentalOkHttpApi")
 }
