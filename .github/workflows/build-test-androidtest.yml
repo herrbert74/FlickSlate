@@ -85,7 +85,7 @@ jobs:
       - name: Run screenshot validations
         env:
           tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-        run: ./gradlew :app:validateScreenshotTest :movies:movies-ui:validateScreenshotTest :shared:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
+        run: ./gradlew :app:validateScreenshotTest :feature:movies:ui:validateScreenshotTest :shared:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
       - name: Upload Screenshot Test Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -93,7 +93,7 @@ jobs:
           name: screenshot-test-report
           path: |
             app/build/reports/screenshotTest/
-            movies/movies-ui/build/reports/screenshotTest/
+            feature/movies/ui/build/reports/screenshotTest/
             shared/build/reports/screenshotTest/
 
   # Mac Silicon does not work
