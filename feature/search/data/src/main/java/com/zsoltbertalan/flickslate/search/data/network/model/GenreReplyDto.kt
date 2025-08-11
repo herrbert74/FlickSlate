@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.search.data.network.model
 import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toGenre
 import com.zsoltbertalan.flickslate.shared.data.network.model.toGenresReply
-import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.shared.model.GenresReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
 import kotlinx.serialization.Serializable
 import retrofit2.Response
 

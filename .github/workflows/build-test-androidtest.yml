@@ -85,7 +85,7 @@ jobs:
       - name: Run screenshot validations
         env:
           tmdbApiKey: ${{ secrets.TMDB_API_KEY }}
-        run: ./gradlew :app:validateScreenshotTest :feature:movies:ui:validateScreenshotTest :shared:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
+        run: ./gradlew :app:validateScreenshotTest :feature:movies:ui:validateScreenshotTest :shared:ui:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
       - name: Upload Screenshot Test Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -94,7 +94,7 @@ jobs:
           path: |
             app/build/reports/screenshotTest/
             feature/movies/ui/build/reports/screenshotTest/
-            shared/build/reports/screenshotTest/
+            shared/ui/build/reports/screenshotTest/
 
   # Mac Silicon does not work
   # https://github.com/ReactiveCircus/android-emulator-runner/issues/350

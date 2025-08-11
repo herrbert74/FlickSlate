@@ -6,12 +6,11 @@ import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionRepl
 import com.zsoltbertalan.flickslate.movies.data.network.model.CreateRequestTokenReplyDtoMother
 import com.zsoltbertalan.flickslate.movies.data.network.model.CreateSessionReplyDtoMother
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
-import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before

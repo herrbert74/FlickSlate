@@ -1,3 +1,5 @@
+import gradle.kotlin.dsl.accessors._083d9bfd8b4fd73cb595eadbb06fca91.api
+
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.ksp)
@@ -8,8 +10,9 @@ ksp {
 }
 
 dependencies {
-	api(project(":shared"))
-	api(project(":shared-data"))
+	api(project(":base:kotlin"))
+	api(project(":shared:domain"))
+	api(project(":shared:data"))
 
 	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)

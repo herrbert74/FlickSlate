@@ -5,8 +5,8 @@ import com.github.michaelbull.result.map
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.account.data.network.model.toAccount
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
-import com.zsoltbertalan.flickslate.shared.model.Account
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.Account
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put

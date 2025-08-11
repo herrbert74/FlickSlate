@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
-import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.shared.model.images.Image
-import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.images.Image
+import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
 
 /**

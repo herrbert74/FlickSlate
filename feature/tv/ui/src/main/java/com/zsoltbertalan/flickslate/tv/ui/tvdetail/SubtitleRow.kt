@@ -14,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.design.Dimens
-import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import kotlinx.collections.immutable.toImmutableList
 

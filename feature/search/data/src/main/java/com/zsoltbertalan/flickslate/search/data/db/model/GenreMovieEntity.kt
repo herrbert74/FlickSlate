@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.search.data.db.model
 
 import androidx.room.Entity
-import com.zsoltbertalan.flickslate.shared.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "genreMovies", primaryKeys = ["id", "genreId"])
 data class GenreMovieEntity(

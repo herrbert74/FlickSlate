@@ -14,16 +14,14 @@ android {
 }
 
 dependencies {
-
-	api(project(":shared"))
-
+	api(project(":base:kotlin"))
+	api(project(":shared:domain"))
 	api(libs.jakarta.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.coroutinesCore)
-
-	testFixturesApi(project(":shared"))
+	"testFixturesApi"(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 

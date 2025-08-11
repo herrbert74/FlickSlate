@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.tv.data.api
 
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import kotlinx.coroutines.flow.Flow
 

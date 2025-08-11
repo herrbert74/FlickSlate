@@ -53,10 +53,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.search.ui.R
-import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
-import com.zsoltbertalan.flickslate.shared.compose.design.AdditionalColors
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ListTitle
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.AdditionalColors
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

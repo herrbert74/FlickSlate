@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
+	id("ui-convention")
 }
 
 android {
@@ -19,7 +20,7 @@ android {
 
 dependencies {
 	api(project(":feature:account:domain"))
-	api(project(":shared"))
+	api(project(":shared:domain"))
 
 	api(libs.androidx.composeRuntime)
 	api(libs.androidx.lifecycleViewmodel)
@@ -49,7 +50,6 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 	ksp(libs.dagger.hiltAndroidCompiler)
 
-	// testImplementation(testFixtures(project("::account:account-domain")))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

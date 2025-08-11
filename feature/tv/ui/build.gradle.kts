@@ -24,6 +24,7 @@ dependencies {
 	api(libs.androidx.lifecycleCommon)
 	api(libs.androidx.lifecycleViewmodelCompose)
 
+	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)

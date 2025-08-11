@@ -14,12 +14,10 @@ android {
 }
 
 dependencies {
-
-	api(project(":shared"))
-
+	api(project(":base:kotlin"))
+	api(project(":shared:domain"))
 	implementation(libs.kotlinResult.result)
-
-	testFixturesApi(project(":shared"))
+	"testFixturesApi"(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 

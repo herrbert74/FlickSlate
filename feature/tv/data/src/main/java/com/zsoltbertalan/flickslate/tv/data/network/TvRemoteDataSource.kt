@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.tv.data.network
 
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply

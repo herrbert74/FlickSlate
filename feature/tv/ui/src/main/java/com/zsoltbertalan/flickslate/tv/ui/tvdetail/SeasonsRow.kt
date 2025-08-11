@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.zsoltbertalan.flickslate.shared.compose.component.FilledButton
-import com.zsoltbertalan.flickslate.shared.compose.design.Dimens
-import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.FilledButton
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.tv.domain.model.Season
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList

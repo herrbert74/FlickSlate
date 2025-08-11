@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.movies.domain.model
 
-import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.images.Image
-import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.images.Image
+import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
 
 object MovieMother {

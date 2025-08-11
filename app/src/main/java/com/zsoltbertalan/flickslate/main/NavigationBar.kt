@@ -21,8 +21,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.main.navigation.Destination
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

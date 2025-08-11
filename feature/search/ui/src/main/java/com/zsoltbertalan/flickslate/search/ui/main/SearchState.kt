@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.search.ui.main
 
 import androidx.compose.runtime.Immutable
-import com.zsoltbertalan.flickslate.shared.model.Genre
-import com.zsoltbertalan.flickslate.shared.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

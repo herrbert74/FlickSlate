@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.movies.data.network.model
 
 import com.zsoltbertalan.flickslate.shared.data.network.model.MovieDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toMovieList
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.serialization.Serializable
 import retrofit2.Response
 

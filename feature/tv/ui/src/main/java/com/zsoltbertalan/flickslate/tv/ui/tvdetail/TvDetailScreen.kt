@@ -34,13 +34,13 @@ import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
-import com.zsoltbertalan.flickslate.shared.compose.component.BASE_IMAGE_PATH
-import com.zsoltbertalan.flickslate.shared.compose.component.GenreChips
-import com.zsoltbertalan.flickslate.shared.compose.component.TitleText
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.design.Dimens
-import com.zsoltbertalan.flickslate.shared.compose.util.convertImageUrlToBitmap
-import com.zsoltbertalan.flickslate.shared.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
+import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
+import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES

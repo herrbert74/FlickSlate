@@ -2,8 +2,8 @@ package com.zsoltbertalan.flickslate.tv.data.network
 
 import com.github.michaelbull.result.Err
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
-import com.zsoltbertalan.flickslate.shared.model.Failure
-import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_PAGES
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_RESULTS
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto

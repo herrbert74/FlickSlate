@@ -5,11 +5,11 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toNowPlayingMoviesPageEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
-import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class NowPlayingMoviesRoomDataSource @Inject constructor(
 	private val moviesDatabase: MoviesDatabase,
-	@IoDispatcher private val ioContext: CoroutineDispatcher,
+	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : NowPlayingMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {

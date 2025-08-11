@@ -6,11 +6,11 @@ import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesPageEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toMovie
 import com.zsoltbertalan.flickslate.search.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
-import com.zsoltbertalan.flickslate.shared.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

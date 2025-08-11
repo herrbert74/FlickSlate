@@ -27,9 +27,8 @@ dependencies {
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
-	testImplementation(libs.robolectric)
+	testRuntimeOnly(libs.robolectric)
 	testImplementation(testFixtures(project("::feature:tv:domain")))
-	testImplementation(testFixtures(project("::shared-data")))
+	testImplementation(testFixtures(project("::shared:data")))
 
-	testFixturesApi(project(":shared-data"))
 }
