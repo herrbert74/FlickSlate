@@ -1,3 +1,5 @@
+import gradle.kotlin.dsl.accessors._083d9bfd8b4fd73cb595eadbb06fca91.api
+
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.android)
@@ -11,6 +13,7 @@ android {
 }
 
 dependencies {
+	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	api(project(":shared:ui"))
 
@@ -45,7 +48,6 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 	ksp(libs.dagger.hiltAndroidCompiler)
 
-	testImplementation(testFixtures(project(":shared:ui")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)

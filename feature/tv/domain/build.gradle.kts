@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-
+	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	api(libs.kotlinx.collectionsImmutableJvm)
 	api(libs.jakarta.inject)

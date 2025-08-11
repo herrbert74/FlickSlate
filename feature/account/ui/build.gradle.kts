@@ -50,7 +50,6 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 	ksp(libs.dagger.hiltAndroidCompiler)
 
-	// testImplementation(testFixtures(project("::account:account-domain")))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

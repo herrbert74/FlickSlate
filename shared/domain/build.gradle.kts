@@ -1,6 +1,5 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
@@ -28,23 +27,16 @@ android {
 dependencies {
 	implementation(platform(libs.androidx.compose.bom))
 
-	api(libs.dagger.core)
-	api(libs.inject)
-	api(libs.kotlinx.collectionsImmutableJvm)
-	api(libs.kotlinx.coroutinesCore)
 	api(libs.kotlinx.serializationCore)
 
-	implementation(libs.dagger.hiltAndroid)
-	implementation(libs.dagger.hiltCore)
 	implementation(libs.kotlin.parcelizeRuntime)
-	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
 
 	kspTest(libs.dagger.compiler)
 
-	add("ksp", libs.dagger.compiler)
-	add("ksp", libs.androidx.hiltCompiler)
-	add("ksp", libs.dagger.hiltAndroidCompiler)
+	ksp(libs.dagger.compiler)
+	ksp(libs.androidx.hiltCompiler)
+	ksp(libs.dagger.hiltAndroidCompiler)
 
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)

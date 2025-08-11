@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.shared.compose.component
+package com.zsoltbertalan.flickslate.shared.ui.compose.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

@@ -1,3 +1,5 @@
+import gradle.kotlin.dsl.accessors._083d9bfd8b4fd73cb595eadbb06fca91.api
+
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.ksp)

@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-
+	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	api(libs.jakarta.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)

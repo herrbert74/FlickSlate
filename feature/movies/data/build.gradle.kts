@@ -30,7 +30,7 @@ dependencies {
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
-	testImplementation(libs.robolectric)
+	testRuntimeOnly(libs.robolectric)
 	testImplementation(testFixtures(project(":feature:movies:domain")))
 	testImplementation(testFixtures(project("::shared:data")))
 

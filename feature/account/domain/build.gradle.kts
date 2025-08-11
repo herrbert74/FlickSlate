@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-
+	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	implementation(libs.kotlinResult.result)
 	"testFixturesApi"(project(":shared:domain"))

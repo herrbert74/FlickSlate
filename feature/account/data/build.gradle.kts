@@ -32,7 +32,6 @@ dependencies {
 	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)
 	api(libs.dagger.hiltAndroid)
-	api(libs.inject)
 	api(libs.retrofit)
 
 	implementation(libs.androidx.coreKtx) // transitive
@@ -40,6 +39,7 @@ dependencies {
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.autobind.android.api)
 	implementation(libs.autobind.core) // transitive
+	implementation(libs.inject)
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.okhttp3)

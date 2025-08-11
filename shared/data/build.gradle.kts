@@ -31,12 +31,13 @@ android {
 
 dependencies {
 
+	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	implementation(platform(libs.androidx.compose.bom))
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.baBeStudios.baseData)
 	api(libs.dagger.core)
-	api(libs.inject)
+	implementation(libs.inject)
 	implementation(libs.kotlinResult.result)
 	api(libs.kotlinRetry)
 	api(libs.kotlinx.collectionsImmutableJvm)
@@ -67,6 +68,7 @@ dependencies {
 
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
 	testFixturesImplementation(libs.kotlinx.serializationJson)
+	testFixturesImplementation(libs.retrofit)
 
 }
 

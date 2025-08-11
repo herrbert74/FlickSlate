@@ -2,7 +2,6 @@ plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.composeCompiler)
 	alias(libs.plugins.compose.screenshotTesting)
-	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
@@ -29,17 +28,14 @@ android {
 }
 
 dependencies {
-	implementation(project(":shared:domain"))
+	api(project(":shared:domain"))
 	implementation(platform(libs.androidx.compose.bom))
 
 	api(libs.androidx.composeFoundation)
 	api(libs.androidx.composeFoundationLayout)
 	api(libs.androidx.composeRuntime)
-	api(libs.dagger.core)
-	api(libs.inject)
 	api(libs.kotlinx.collectionsImmutableJvm)
 	api(libs.kotlinx.coroutinesCore)
-	api(libs.kotlinx.serializationCore)
 
 	implementation(libs.androidx.annotation)
 	implementation(libs.androidx.composeMaterial3)
@@ -56,15 +52,10 @@ dependencies {
 	implementation(libs.coil.base)
 	implementation(libs.coil.compose)
 	implementation(libs.coil.compose.base)
-	implementation(libs.dagger.hiltAndroid)
-	implementation(libs.dagger.hiltCore)
-	implementation(libs.kotlin.parcelizeRuntime)
-	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
 
 	testFixturesImplementation(platform(libs.androidx.compose.bom))
 
-	testFixturesImplementation(project(":shared:domain"))
 	testFixturesImplementation(libs.androidx.activity)
 	testFixturesImplementation(libs.androidx.composeUiTest)
 	testFixturesImplementation(libs.androidx.testExtJUnit)
@@ -72,9 +63,9 @@ dependencies {
 
 	kspTest(libs.dagger.compiler)
 
-	add("ksp", libs.dagger.compiler)
-	add("ksp", libs.androidx.hiltCompiler)
-	add("ksp", libs.dagger.hiltAndroidCompiler)
+	ksp(libs.dagger.compiler)
+	ksp(libs.androidx.hiltCompiler)
+	ksp(libs.dagger.hiltAndroidCompiler)
 
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.hiltAndroidCompiler)

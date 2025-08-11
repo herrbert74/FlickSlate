@@ -4,7 +4,6 @@ plugins {
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
-	id("kotlin-parcelize")
 	id("android-library-convention")
 }
 
@@ -23,20 +22,11 @@ dependencies {
 	implementation(project(":base:kotlin"))
 	implementation(platform(libs.androidx.compose.bom))
 
-	api(libs.androidx.composeFoundation)
-	api(libs.androidx.composeFoundationLayout)
-	api(libs.androidx.composeRuntime)
 	api(libs.dagger.core)
-	api(libs.inject)
-	api(libs.kotlinx.collectionsImmutableJvm)
+	implementation(libs.inject)
 	api(libs.kotlinx.coroutinesCore)
-	api(libs.kotlinx.serializationCore)
-
-	implementation(libs.androidx.annotation)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.dagger.hiltCore)
-	implementation(libs.kotlin.parcelizeRuntime)
-	implementation(libs.kotlinResult.result)
 
 	ksp(libs.androidx.hiltCompiler)
 	ksp(libs.dagger.compiler)

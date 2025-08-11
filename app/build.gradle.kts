@@ -100,6 +100,7 @@ dependencies {
 	implementation(project(":feature:tv:ui"))
 	implementation(project(":shared:domain"))
 	implementation(project(":shared:data"))
+	implementation(project(":shared:ui"))
 
 	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
