@@ -8,17 +8,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageErrorIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageProgressIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.NewPageErrorIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.NewPageProgressIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginatedLazyColumn
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.util.navigate
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageErrorIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageProgressIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.NewPageErrorIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.NewPageProgressIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginatedLazyColumn
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.util.navigate
 
 @Composable
 fun GenreDetailScreen(

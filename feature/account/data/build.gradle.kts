@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
+	id("data-convention")
 }
 
 android {
@@ -24,9 +25,9 @@ android {
 
 dependencies {
 	api(project(":feature:account:domain"))
-	api(project(":shared"))
+	api(project(":shared:domain"))
 
-	implementation(project(":shared-data"))
+	implementation(project(":shared:data"))
 
 	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)
@@ -61,7 +62,7 @@ dependencies {
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::feature:account:domain")))
-	testImplementation(testFixtures(project("::shared-data")))
+	testImplementation(testFixtures(project("::shared:data")))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

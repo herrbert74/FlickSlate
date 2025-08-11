@@ -84,6 +84,8 @@ kotlin {
 
 dependencies {
 
+	implementation(project(":base:kotlin"))
+	implementation(project(":base:android"))
 	implementation(project(":feature:account:data"))
 	implementation(project(":feature:account:domain"))
 	implementation(project(":feature:account:ui"))
@@ -96,8 +98,8 @@ dependencies {
 	implementation(project(":feature:tv:data"))
 	implementation(project(":feature:tv:domain"))
 	implementation(project(":feature:tv:ui"))
-	implementation(project(":shared"))
-	implementation(project(":shared-data"))
+	implementation(project(":shared:domain"))
+	implementation(project(":shared:data"))
 
 	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
@@ -155,7 +157,8 @@ dependencies {
 
 	androidTestImplementation(testFixtures(project("::feature:movies:domain")))
 	androidTestImplementation(testFixtures(project("::feature:tv:domain")))
-	androidTestImplementation(testFixtures(project("::shared")))
+	androidTestImplementation(testFixtures(project("::shared:domain")))
+	androidTestImplementation(testFixtures(project("::shared:ui")))
 	androidTestImplementation(libs.androidx.fragmentKtx) // transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)
 	androidTestImplementation(libs.androidx.testExtJUnit)

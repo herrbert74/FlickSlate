@@ -30,6 +30,8 @@ dependencyResolutionManagement {
 rootProject.name = "FlickSlate"
 include(":app")
 
+include(":base:android")
+include(":base:kotlin")
 include(":feature:account:data")
 include(":feature:account:domain")
 include(":feature:account:ui")
@@ -42,5 +44,6 @@ include(":feature:search:ui")
 include(":feature:tv:data")
 include(":feature:tv:domain")
 include(":feature:tv:ui")
-include(":shared")
-include(":shared-data")
+include(":shared:domain")
+include(":shared:data")
+include(":shared:ui")

@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zsoltbertalan.flickslate.shared.model.Failure
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

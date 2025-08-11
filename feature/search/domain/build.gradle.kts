@@ -9,8 +9,7 @@ android {
 
 dependencies {
 
-	api(project(":shared"))
-
+	api(project(":shared:domain"))
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.coroutinesCore)
 

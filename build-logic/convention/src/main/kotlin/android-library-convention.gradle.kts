@@ -15,3 +15,7 @@ android {
 kotlin {
 	jvmToolchain(libs.versions.jdk.get().toInt())
 }
+
+dependencies {
+	implementation(project(":base:kotlin"))
+}

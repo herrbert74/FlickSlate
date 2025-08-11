@@ -11,7 +11,8 @@ android {
 }
 
 dependencies {
-	api(project(":shared"))
+	api(project(":shared:domain"))
+	api(project(":shared:ui"))
 
 	implementation(platform(libs.androidx.compose.bom))
 
@@ -44,6 +45,7 @@ dependencies {
 	ksp(libs.dagger.hiltCompiler)
 	ksp(libs.dagger.hiltAndroidCompiler)
 
+	testImplementation(testFixtures(project(":shared:ui")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)

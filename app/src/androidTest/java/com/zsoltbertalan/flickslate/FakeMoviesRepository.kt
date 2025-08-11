@@ -5,11 +5,11 @@ import com.zsoltbertalan.flickslate.movies.data.repository.MoviesAccessor
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieMother
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

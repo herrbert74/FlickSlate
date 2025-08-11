@@ -7,9 +7,9 @@ import com.github.michaelbull.result.recover
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
-import com.zsoltbertalan.flickslate.shared.model.Failure
-import com.zsoltbertalan.flickslate.shared.model.images.ImagesReply
-import com.zsoltbertalan.flickslate.shared.util.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import jakarta.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

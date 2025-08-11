@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.search.data.db.model
 
 import androidx.room.Entity
-import com.zsoltbertalan.flickslate.shared.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 
 @Entity(tableName = "GenreMoviesPages", primaryKeys = ["genreId", "page"])
 data class GenreMoviesPageEntity(

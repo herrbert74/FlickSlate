@@ -14,7 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
-import com.zsoltbertalan.flickslate.shared.compose.waitUntilAtLeastOneExistsCopy
+import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.CoroutineScope

@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.tv.data.repository
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.shared.model.Failure
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import com.zsoltbertalan.flickslate.tv.data.network.model.TvDtoMother

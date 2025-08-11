@@ -8,8 +8,9 @@ ksp {
 }
 
 dependencies {
-	api(project(":shared"))
-	api(project(":shared-data"))
+	api(project(":base:kotlin"))
+	api(project(":shared:domain"))
+	api(project(":shared:data"))
 
 	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)

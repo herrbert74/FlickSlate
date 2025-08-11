@@ -32,9 +32,9 @@ dependencies {
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project(":feature:movies:domain")))
-	testImplementation(testFixtures(project("::shared-data")))
+	testImplementation(testFixtures(project("::shared:data")))
 
-	testFixturesApi(project(":shared-data"))
+	testFixturesApi(project(":shared:data"))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

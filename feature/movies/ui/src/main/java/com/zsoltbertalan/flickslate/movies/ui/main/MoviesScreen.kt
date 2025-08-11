@@ -14,21 +14,21 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.movies.ui.R
-import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
-import com.zsoltbertalan.flickslate.shared.compose.component.ShowCard
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageErrorIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.FirstPageProgressIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.NewPageErrorIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.NewPageProgressIndicator
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginatedLazyColumn
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginatedLazyRow
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationInternalState
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationState
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.rememberPaginationState
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.util.navigate
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ListTitle
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageErrorIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageProgressIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.NewPageErrorIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.NewPageProgressIndicator
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginatedLazyColumn
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginatedLazyRow
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.rememberPaginationState
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.util.navigate
 
 @Composable
 fun MoviesScreen(

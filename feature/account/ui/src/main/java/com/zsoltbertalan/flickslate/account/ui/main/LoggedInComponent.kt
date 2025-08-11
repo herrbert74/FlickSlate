@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zsoltbertalan.flickslate.shared.compose.component.ListTitle
-import com.zsoltbertalan.flickslate.shared.compose.component.autosizetext.AutoSizeText
-import com.zsoltbertalan.flickslate.shared.compose.design.Colors
-import com.zsoltbertalan.flickslate.shared.compose.design.FlickSlateTheme
-import com.zsoltbertalan.flickslate.shared.model.Account
+import com.zsoltbertalan.flickslate.shared.domain.model.Account
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ListTitle
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.autosizetext.AutoSizeText
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
+import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 
 @Composable
 fun LoggedInComponent(

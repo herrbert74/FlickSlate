@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.account.data.network.model
 
-import com.zsoltbertalan.flickslate.shared.model.Account
+import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming")

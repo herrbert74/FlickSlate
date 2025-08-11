@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
-import com.zsoltbertalan.flickslate.shared.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

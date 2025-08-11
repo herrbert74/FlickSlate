@@ -29,7 +29,7 @@ dependencies {
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::feature:tv:domain")))
-	testImplementation(testFixtures(project("::shared-data")))
+	testImplementation(testFixtures(project("::shared:data")))
 
-	testFixturesApi(project(":shared-data"))
+	testFixturesApi(project(":shared:data"))
 }

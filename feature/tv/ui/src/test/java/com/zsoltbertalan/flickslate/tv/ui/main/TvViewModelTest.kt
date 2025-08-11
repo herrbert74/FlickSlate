@@ -2,10 +2,10 @@ package com.zsoltbertalan.flickslate.tv.ui.main
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.shared.compose.component.paging.PaginationInternalState
-import com.zsoltbertalan.flickslate.shared.model.Failure
-import com.zsoltbertalan.flickslate.shared.model.PageData
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import io.kotest.assertions.throwables.shouldThrowExactly

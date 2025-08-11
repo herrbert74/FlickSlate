@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
 import com.zsoltbertalan.flickslate.shared.data.network.successResponseCall
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import io.kotest.matchers.shouldBe

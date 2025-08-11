@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.network.model
 
 import com.zsoltbertalan.flickslate.shared.data.network.model.toPagingReply
-import com.zsoltbertalan.flickslate.shared.model.Movie
-import com.zsoltbertalan.flickslate.shared.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import io.kotest.matchers.shouldBe
 import org.junit.Before
 import org.junit.Test

@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.account.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
-import com.zsoltbertalan.flickslate.shared.model.Account
+import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
