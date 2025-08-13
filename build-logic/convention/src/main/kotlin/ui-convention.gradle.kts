@@ -1,5 +1,3 @@
-import gradle.kotlin.dsl.accessors._083d9bfd8b4fd73cb595eadbb06fca91.api
-
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.android)
@@ -35,8 +33,6 @@ dependencies {
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
-	implementation(libs.coil.compose)
-	implementation(libs.coil.compose.base)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.collectionsImmutableJvm)

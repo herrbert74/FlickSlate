@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
+	id("coil-convention")
 	id("ui-convention")
 }
 
