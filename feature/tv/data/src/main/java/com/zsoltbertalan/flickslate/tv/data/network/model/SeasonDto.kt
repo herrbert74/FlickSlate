@@ -27,5 +27,5 @@ fun SeasonDto.toSeason() = Season(
 	this.season_number,
 )
 
-fun List<SeasonDto>?.toSeasons(): ImmutableList<Season> =
+internal fun List<SeasonDto>?.toSeasons(): ImmutableList<Season> =
 	mapImmutableNullInputList(this) { season -> season.toSeason() }

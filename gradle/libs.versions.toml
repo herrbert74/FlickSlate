@@ -210,7 +210,6 @@ dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-hiltCore = { module = "com.google.dagger:hilt-core", version.ref = "dagger" }
 dagger-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
-dagger-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 dagger-hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
 dagger-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 

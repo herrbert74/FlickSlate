@@ -3,7 +3,6 @@ plugins {
 	alias(libs.plugins.kotlin.composeCompiler)
 	alias(libs.plugins.compose.screenshotTesting)
 	alias(libs.plugins.kotlin.android)
-	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
 	id("android-library-convention")
@@ -24,6 +23,7 @@ android {
 		enable = true
 	}
 
+	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
@@ -60,15 +60,6 @@ dependencies {
 	testFixturesImplementation(libs.androidx.composeUiTest)
 	testFixturesImplementation(libs.androidx.testExtJUnit)
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)
-
-	kspTest(libs.dagger.compiler)
-
-	ksp(libs.dagger.compiler)
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.dagger.hiltAndroidCompiler)
-
-	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.hiltAndroidCompiler)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 
