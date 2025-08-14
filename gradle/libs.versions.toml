@@ -24,7 +24,7 @@ ksp = "2.2.0-2.0.2"
 
 androidx-activity = "1.10.1"
 androidx-appcompat = "1.7.1"
-androidx-composeBom = "2025.07.00"
+androidx-composeBom = "2025.08.00"
 androidx-composeMaterial3 = "1.4.0-alpha17" #For alpha releases only
 androidx-composeUi = "1.9.0" #For test libs not in the BOM
 androidx-lifecycle = "2.9.2"
