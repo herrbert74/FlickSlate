@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
+	id("dagger-convention")
 	id("data-convention")
 }
 

@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
+	id("dagger-convention")
 	id("ui-convention")
 }
 
@@ -24,8 +25,6 @@ dependencies {
 
 	api(libs.androidx.composeRuntime)
 	api(libs.androidx.lifecycleViewmodel)
-	api(libs.dagger.core)
-	api(libs.inject)
 	api(libs.kotlinx.coroutinesCore)
 
 	implementation(platform(libs.androidx.compose.bom))
@@ -43,12 +42,6 @@ dependencies {
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
-
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.androidx.roomCompiler)
-	ksp(libs.dagger.compiler)
-	ksp(libs.dagger.hiltCompiler)
-	ksp(libs.dagger.hiltAndroidCompiler)
 
 }
 

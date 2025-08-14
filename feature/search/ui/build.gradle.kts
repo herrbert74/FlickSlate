@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.dagger.hiltAndroid)
 	id("android-library-convention")
+	id("dagger-convention")
 	id("ui-convention")
 }
 
@@ -33,12 +34,9 @@ dependencies {
 	implementation(libs.androidx.composeAnimationCore)
 	implementation(libs.dagger.hiltAndroid)
 
-	ksp(libs.dagger.hiltAndroidCompiler)
-
 	kspTest(libs.autobind.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.compiler)
-	kspTest(libs.dagger.hiltAndroidCompiler)
 
 	testImplementation(testFixtures(project("::feature:movies:domain")))
 	testImplementation(testFixtures(project("::shared:domain")))

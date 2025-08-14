@@ -1,5 +1,3 @@
-import gradle.kotlin.dsl.accessors._083d9bfd8b4fd73cb595eadbb06fca91.api
-
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.ksp)
@@ -14,10 +12,8 @@ dependencies {
 	api(project(":shared:domain"))
 	api(project(":shared:data"))
 
-	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)
 	api(libs.dagger.hiltAndroid)
-	api(libs.inject)
 	api(libs.retrofit)
 
 	implementation(libs.kotlinx.coroutinesCore)
@@ -33,11 +29,8 @@ dependencies {
 	implementation(libs.okhttp3)
 	implementation(libs.timber)
 
-	ksp(libs.androidx.hiltCompiler)
 	ksp(libs.androidx.roomCompiler)
 	ksp(libs.autobind.compiler)
-	ksp(libs.dagger.compiler)
-	ksp(libs.dagger.hiltCompiler)
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)

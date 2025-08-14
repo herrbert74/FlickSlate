@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
+	id("dagger-convention")
 }
 
 android {
@@ -22,14 +23,8 @@ dependencies {
 	implementation(project(":base:kotlin"))
 	implementation(platform(libs.androidx.compose.bom))
 
-	api(libs.dagger.core)
-	implementation(libs.inject)
 	api(libs.kotlinx.coroutinesCore)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.dagger.hiltCore)
-
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.dagger.compiler)
-	ksp(libs.dagger.hiltCompiler)
 
 }

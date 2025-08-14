@@ -20,7 +20,7 @@ import kotlinx.collections.immutable.toImmutableList
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
+internal fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
 	LazyRow(
 		modifier
 			.fillMaxWidth(1f)

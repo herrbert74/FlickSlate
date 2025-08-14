@@ -5,6 +5,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
+	id("dagger-convention")
 	id("data-convention")
 }
 
@@ -29,7 +30,6 @@ dependencies {
 
 	implementation(project(":shared:data"))
 
-	api(libs.dagger.core)
 	api(libs.dagger.hiltCore)
 	api(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
@@ -39,17 +39,13 @@ dependencies {
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.autobind.android.api)
 	implementation(libs.autobind.core) // transitive
-	implementation(libs.inject)
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.okhttp3)
 	implementation(libs.timber)
 
-	ksp(libs.androidx.hiltCompiler)
 	ksp(libs.androidx.roomCompiler)
 	ksp(libs.autobind.compiler)
-	ksp(libs.dagger.compiler)
-	ksp(libs.dagger.hiltCompiler)
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)

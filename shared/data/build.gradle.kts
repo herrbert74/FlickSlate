@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.serialization)
 	alias(libs.plugins.ksp)
+	id("dagger-convention")
 	id("android-library-convention")
 }
 
@@ -36,8 +37,6 @@ dependencies {
 	implementation(platform(libs.androidx.compose.bom))
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.baBeStudios.baseData)
-	api(libs.dagger.core)
-	implementation(libs.inject)
 	implementation(libs.kotlinResult.result)
 	api(libs.kotlinRetry)
 	api(libs.kotlinx.collectionsImmutableJvm)
@@ -51,10 +50,6 @@ dependencies {
 	implementation(libs.timber)
 	implementation(libs.dagger.hiltCore)
 
-	ksp(libs.dagger.compiler)
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.dagger.hiltAndroidCompiler)
-
 	testImplementation(testFixtures(project("::shared:domain")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsShared)
@@ -62,9 +57,9 @@ dependencies {
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotlinx.coroutinesTest)
 
-	kspTest(libs.dagger.compiler)
 	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.hiltAndroidCompiler)
+	kspTest(libs.dagger.compiler)
+	kspTest(libs.dagger.hiltCompiler)
 
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
 	testFixturesImplementation(libs.kotlinx.serializationJson)

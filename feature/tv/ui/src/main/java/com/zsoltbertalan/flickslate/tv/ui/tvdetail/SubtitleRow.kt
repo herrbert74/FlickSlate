@@ -23,7 +23,7 @@ import kotlinx.collections.immutable.toImmutableList
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SubtitleRow(tvDetail: TvDetailWithImages, modifier: Modifier = Modifier) {
+internal fun SubtitleRow(tvDetail: TvDetailWithImages, modifier: Modifier = Modifier) {
 	LazyRow(
 		modifier
 			.fillMaxWidth(1f)

@@ -1,7 +1,6 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.android)
-	alias(libs.plugins.ksp)
 }
 
 android {
@@ -20,8 +19,7 @@ dependencies {
 	api(libs.androidx.composeRuntime)
 	api(libs.androidx.lifecycleViewmodel)
 	api(libs.androidx.lifecycleViewmodelSavedstate)
-	api(libs.dagger.core)
-	api(libs.inject)
+
 	api(libs.kotlinx.coroutinesCore)
 
 	implementation(libs.androidx.composeFoundation)
@@ -37,12 +35,6 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.collectionsImmutableJvm)
 	implementation(libs.timber)
-
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.androidx.roomCompiler)
-	ksp(libs.dagger.compiler)
-	ksp(libs.dagger.hiltCompiler)
-	ksp(libs.dagger.hiltAndroidCompiler)
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)

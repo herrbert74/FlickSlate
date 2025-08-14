@@ -31,15 +31,6 @@ dependencies {
 
 	implementation(libs.kotlin.parcelizeRuntime)
 	implementation(libs.timber)
-
-	kspTest(libs.dagger.compiler)
-
-	ksp(libs.dagger.compiler)
-	ksp(libs.androidx.hiltCompiler)
-	ksp(libs.dagger.hiltAndroidCompiler)
-
-	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.hiltAndroidCompiler)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
