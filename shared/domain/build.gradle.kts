@@ -25,14 +25,8 @@ android {
 }
 
 dependencies {
-	implementation(platform(libs.androidx.compose.bom))
-
 	api(libs.kotlinx.serializationCore)
 
 	implementation(libs.kotlin.parcelizeRuntime)
 	implementation(libs.timber)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
 }

@@ -37,7 +37,3 @@ dependencies {
 
 	testFixturesApi(project(":shared:data"))
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=okhttp3.ExperimentalOkHttpApi")
-}

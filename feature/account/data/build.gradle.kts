@@ -60,7 +60,3 @@ dependencies {
 	testImplementation(testFixtures(project("::feature:account:domain")))
 	testImplementation(testFixtures(project("::shared:data")))
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=okhttp3.ExperimentalOkHttpApi")
-}

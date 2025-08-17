@@ -25,7 +25,7 @@ import javax.inject.Inject
 @ViewModelScoped
 class GenreMoviesRoomDataSource @Inject constructor(
 	private val searchDatabase: SearchDatabase,
-	@IoDispatcher private val ioContext: CoroutineDispatcher,
+	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {

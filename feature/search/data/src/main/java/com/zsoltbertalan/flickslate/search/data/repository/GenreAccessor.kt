@@ -22,7 +22,7 @@ class GenreAccessor @Inject constructor(
 	private val genreRemoteDataSource: GenreDataSource.Remote,
 	private val genreMoviesDataSource: GenreMoviesDataSource.Local,
 	private val genreMoviesRemoteDataSource: GenreMoviesDataSource.Remote,
-	@IoDispatcher val dispatcher: CoroutineDispatcher
+	@param:IoDispatcher val dispatcher: CoroutineDispatcher
 ) : GenreRepository {
 
 	override fun getGenresList(): Flow<Outcome<GenresReply>> {

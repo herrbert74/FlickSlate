@@ -22,7 +22,7 @@ import javax.inject.Inject
 @ViewModelScoped
 class GenresRoomDataSource @Inject constructor(
 	private val searchDatabase: SearchDatabase,
-	@IoDispatcher private val ioContext: CoroutineDispatcher,
+	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreDataSource.Local {
 
 	override suspend fun purgeDatabase() {
