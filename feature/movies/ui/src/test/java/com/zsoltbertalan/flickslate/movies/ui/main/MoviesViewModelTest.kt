@@ -59,7 +59,7 @@ class MoviesViewModelTest {
 
 	@Test
 	fun `when started then getMovies is called and returns correct list`() = runTest {
-		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 0)
+		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 1)
 
 		advanceUntilIdle()
 		coVerify(exactly = 1) { moviesRepository.getPopularMovies(any()) }
@@ -75,7 +75,7 @@ class MoviesViewModelTest {
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
 			flowOf(Err(Failure.UnknownHostFailure))
 		}
-		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 0)
+		moviesViewModel.popularMoviesPaginationState.onRequestPage(moviesViewModel.popularMoviesPaginationState, 1)
 
 		advanceUntilIdle()
 		coVerify(exactly = 1) { moviesRepository.getPopularMovies(any()) }
@@ -83,7 +83,7 @@ class MoviesViewModelTest {
 		backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
 			shouldThrowExactly<NoSuchElementException> { moviesViewModel.popularMoviesPaginationState.allItems }
 			moviesViewModel.popularMoviesPaginationState.internalState.value shouldBeEqualToComparingFields
-				PaginationInternalState.Error(0, 0, Exception("Unknown host"), null)
+				PaginationInternalState.Error(1, 1, Exception("Unknown host"), null)
 		}
 
 	}

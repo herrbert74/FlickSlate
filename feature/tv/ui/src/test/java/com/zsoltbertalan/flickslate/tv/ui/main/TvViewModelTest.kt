@@ -53,7 +53,7 @@ class TvViewModelTest {
 
 	@Test
 	fun `when started then getMovies is called and returns correct list`() = runTest {
-		tvViewModel.tvPaginationState.onRequestPage(tvViewModel.tvPaginationState, 0)
+		tvViewModel.tvPaginationState.onRequestPage(tvViewModel.tvPaginationState, 1)
 
 		advanceUntilIdle()
 		coVerify(exactly = 1) { tvRepository.getTopRatedTv(any()) }
@@ -69,7 +69,7 @@ class TvViewModelTest {
 		coEvery { tvRepository.getTopRatedTv(any()) } answers {
 			flowOf(Err(Failure.UnknownHostFailure))
 		}
-		tvViewModel.tvPaginationState.onRequestPage(tvViewModel.tvPaginationState, 0)
+		tvViewModel.tvPaginationState.onRequestPage(tvViewModel.tvPaginationState, 1)
 
 		advanceUntilIdle()
 		coVerify(exactly = 1) { tvRepository.getTopRatedTv(any()) }
@@ -77,7 +77,7 @@ class TvViewModelTest {
 		backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
 			shouldThrowExactly<NoSuchElementException> { tvViewModel.tvPaginationState.allItems }
 			tvViewModel.tvPaginationState.internalState.value shouldBeEqualToComparingFields
-				PaginationInternalState.Error(0, 0, Exception("Unknown host"), null)
+				PaginationInternalState.Error(1, 1, Exception("Unknown host"), null)
 		}
 
 	}

@@ -24,7 +24,6 @@ dependencies {
 	api(project(":feature:tv:domain"))
 	implementation(libs.baBeStudios.baseData)
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
