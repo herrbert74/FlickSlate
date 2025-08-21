@@ -34,7 +34,6 @@ dependencies {
 	testImplementation(testFixtures(project("::feature:tv:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl) // transitive
 
 }

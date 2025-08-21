@@ -49,7 +49,6 @@ dependencies {
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
 	testImplementation(libs.mockk.core)

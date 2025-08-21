@@ -280,7 +280,7 @@ jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 
 #kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertionsCore = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", version.ref = "kotest" }
+#kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", version.ref = "kotest" }
 #kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
 #kotlin-compilerEmbeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
