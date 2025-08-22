@@ -42,6 +42,7 @@ dependencies {
 	testImplementation(libs.mockk.dsl) // transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
+	screenshotTestImplementation(libs.android.screenshotValidationApi)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
