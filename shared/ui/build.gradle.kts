@@ -63,6 +63,7 @@ dependencies {
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
+	screenshotTestImplementation(libs.android.screenshotValidationApi)
 
 }
 

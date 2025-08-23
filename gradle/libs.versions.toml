@@ -80,6 +80,8 @@ robolectric = "4.15.1"
 
 [libraries]
 
+android-screenshotValidationApi = { module = "com.android.tools.screenshot:screenshot-validation-api", version.ref = "compose-screenshotTesting" }
+
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 #androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }

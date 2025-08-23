@@ -179,6 +179,7 @@ dependencies {
 	kspAndroidTest(libs.autobind.compiler)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
+	screenshotTestImplementation(libs.android.screenshotValidationApi)
 
 }
 
