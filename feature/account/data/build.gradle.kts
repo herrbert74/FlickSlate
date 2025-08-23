@@ -49,7 +49,6 @@ dependencies {
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
 	testImplementation(libs.mockk.core)
@@ -59,8 +58,4 @@ dependencies {
 	testImplementation(libs.robolectric)
 	testImplementation(testFixtures(project("::feature:account:domain")))
 	testImplementation(testFixtures(project("::shared:data")))
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=okhttp3.ExperimentalOkHttpApi")
 }

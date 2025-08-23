@@ -10,7 +10,7 @@ targetSdkVersion = "36"
 
 #platform
 
-androidGradlePlugin = "8.12.0"
+androidGradlePlugin = "8.12.1"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
 coroutines = "1.10.2"
 jdk = "21"
@@ -45,7 +45,7 @@ compose-screenshotTesting = "0.0.1-alpha11"
 #chucker = "4.0.0"
 coil = "2.7.0"
 crashlyticsPlugin = "3.0.4"
-dagger = "2.57"
+dagger = "2.57.1"
 #decompose = "3.3.0"
 dependencyAnalysis = "2.19.0"
 detekt = "1.23.8"
@@ -62,7 +62,7 @@ jakarta-inject = "2.0.1"
 jUnit = "4.13.2"
 jUnit5 = "5.13.4"
 #koin = "4.1.0"
-kotest = "5.9.1"
+kotest = "6.0.0"
 kotlinResult = "1.1.21"
 kotlinRetry = "2.0.2"
 #ktor = "3.2.1"
@@ -282,7 +282,7 @@ jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 
 #kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertionsCore = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", version.ref = "kotest" }
+#kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", version.ref = "kotest" }
 #kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
 #kotlin-compilerEmbeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }

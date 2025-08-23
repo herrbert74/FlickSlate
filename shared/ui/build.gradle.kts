@@ -57,6 +57,7 @@ dependencies {
 	testFixturesImplementation(platform(libs.androidx.compose.bom))
 
 	testFixturesImplementation(libs.androidx.activity)
+	testFixturesImplementation(libs.androidx.composeMaterial3)
 	testFixturesImplementation(libs.androidx.composeUiTest)
 	testFixturesImplementation(libs.androidx.testExtJUnit)
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)

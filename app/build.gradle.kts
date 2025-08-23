@@ -145,6 +145,8 @@ dependencies {
 	// Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
+	ksp(libs.dagger.hiltCompiler)
+
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
 

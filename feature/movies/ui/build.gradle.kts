@@ -38,7 +38,6 @@ dependencies {
 	testImplementation(testFixtures(project(":feature:movies:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl) // transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)

@@ -24,7 +24,7 @@ import javax.inject.Inject
 @ViewModelScoped
 class TvRoomDataSource @Inject constructor(
 	private val tvDatabase: TvDatabase,
-	@IoDispatcher private val ioContext: CoroutineDispatcher,
+	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : TvDataSource.Local {
 
 	override suspend fun purgeDatabase() {

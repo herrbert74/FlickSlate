@@ -27,7 +27,6 @@ android {
 dependencies {
 	api(project(":feature:movies:domain"))
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
@@ -36,8 +35,4 @@ dependencies {
 	testImplementation(testFixtures(project("::shared:data")))
 
 	testFixturesApi(project(":shared:data"))
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-	compilerOptions.freeCompilerArgs.add("-opt-in=okhttp3.ExperimentalOkHttpApi")
 }

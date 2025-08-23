@@ -24,7 +24,7 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class UpcomingMoviesRoomDataSource @Inject constructor(
 	private val moviesDatabase: MoviesDatabase,
-	@IoDispatcher private val ioContext: CoroutineDispatcher,
+	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : UpcomingMoviesDataSource.Local {
 
 	override suspend fun purgeDatabase() {
