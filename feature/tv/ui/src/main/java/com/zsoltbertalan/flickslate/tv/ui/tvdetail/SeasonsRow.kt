@@ -20,7 +20,11 @@ import kotlinx.collections.immutable.toImmutableList
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Modifier) {
+internal fun SeasonsRow(
+	seasons: ImmutableList<Season>,
+	onClick: (Int) -> Unit,
+	modifier: Modifier = Modifier
+) {
 	LazyRow(
 		modifier
 			.fillMaxWidth(1f)
@@ -32,7 +36,7 @@ internal fun SeasonsRow(seasons: ImmutableList<Season>, modifier: Modifier = Mod
 				FilledButton(
 					modifier = Modifier
 						.padding(end = Dimens.marginSmall),
-					onClick = { },
+					onClick = { onClick(index) },
 					content = {
 						Text(
 							modifier = Modifier.padding(Dimens.marginSmall),
@@ -66,7 +70,8 @@ internal fun SeasonChipsPreview() {
 				getSeason("Season 2"),
 				getSeason("Season 3"),
 				getSeason("Season 4"),
-			).toImmutableList()
+			).toImmutableList(),
+			onClick = {},
 		)
 	}
 

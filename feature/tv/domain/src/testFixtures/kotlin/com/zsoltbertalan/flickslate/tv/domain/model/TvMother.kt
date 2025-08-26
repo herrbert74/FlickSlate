@@ -97,4 +97,67 @@ object TvMother {
 		width = 3840
 	)
 
+	fun createTvDetailWithImages(
+		id: Int = 0,
+		title: String = "Detectorists",
+		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
+			|ploughed tracks and open fields, hoping to disturb the tedium by unearthing the fortune of a lifetime.
+		""".trimMargin(),
+		voteAverage: Float = 8.8473f,
+		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
+		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+		tagline: String = "Tagline"
+	): TvDetailWithImages = TvDetailWithImages(
+		id = id,
+		title = title,
+		overview = overview,
+		voteAverage = voteAverage,
+		posterPath = posterPath,
+		backdropPath = backdropPath,
+		seasons = listOf(
+			Season(
+				"2014-04-30",
+				episodeCount = 10,
+				id = 0,
+				name = "Season 1",
+				overview = "",
+				posterPath = "",
+				seasonNumber = 1
+			),
+		).toImmutableList(),
+		genres = listOf(
+			Genre(1, "Adventure"),
+			Genre(2, "Comedy")
+		).toImmutableList(),
+		tagline = tagline,
+		tvImages = createTvImages()
+	)
+
+	fun createSeasonDetail(
+		seriesId: Int,
+		seasonNumber: Int
+	) = SeasonDetail(
+		id = seriesId,
+		seasonNumber = seasonNumber,
+		episodes = listOf(
+			TvEpisodeDetail(
+				id = 0,
+				name = "Episode 1",
+				overview = "Overview ",
+				seasonNumber = 1,
+				episodeNumber = 1,
+				stillPath = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+				airDate = "20",
+				voteAverage = 6.7f,
+				voteCount = 3321,
+			)
+		),
+		airDate = "",
+		episodeCount = 10,
+		name = "",
+		overview = "",
+		posterPath = "",
+		voteAverage = 6.7f
+	)
+
 }

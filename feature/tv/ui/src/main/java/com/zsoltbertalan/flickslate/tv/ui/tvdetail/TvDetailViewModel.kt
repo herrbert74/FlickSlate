@@ -13,16 +13,18 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+const val SERIES_ID_ARG = "seriesId"
+
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
 	private val tvDetailsUseCase: TvDetailsUseCase
 ) : ViewModel() {
 
+	private val seriesId: Int = checkNotNull(savedStateHandle[SERIES_ID_ARG])
+
 	private val _tvStateData = MutableStateFlow(TvDetailState())
 	val tvStateData = _tvStateData.asStateFlow()
-
-	private val seriesId: Int = checkNotNull(savedStateHandle["seriesId"])
 
 	init {
 		getTvDetail()

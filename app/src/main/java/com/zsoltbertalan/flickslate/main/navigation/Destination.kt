@@ -23,6 +23,10 @@ sealed interface Destination {
 	data class TvDetails(val seriesId: Int) : Destination
 
 	@Serializable
+	data class SeasonDetails(val seriesId: Int, val seasonNumber: Int, val bgColor: Int, val bgColorDim: Int) :
+		Destination
+
+	@Serializable
 	data class GenreMovies(val genreId: Int, val genreName: String) : Destination
 
 }

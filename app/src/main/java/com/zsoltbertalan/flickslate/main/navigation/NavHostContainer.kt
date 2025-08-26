@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,8 +30,10 @@ import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
 import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
+import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailScreen
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Composable
 fun NavHostContainer(
@@ -139,7 +142,40 @@ fun NavHostContainer(
 					)
 				}
 			) {
-				TvDetailScreen(setTitle = setTitle, setBackgroundColor = setBackgroundColor)
+				TvDetailScreen(
+					setTitle = setTitle,
+					setBackgroundColor = setBackgroundColor,
+					navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim ->
+						Timber.d("zsoltbertalan* NavHostContainer: $tvShowId, $seasonNumber")
+						navController.navigate(
+							Destination.SeasonDetails(
+								tvShowId,
+								seasonNumber,
+								bgColor.toArgb(),
+								bgColorDim.toArgb()
+							)
+						) {
+							popUpTo(Destination.TvDetails(tvShowId))
+						}
+					}
+				)
+			}
+
+			composable<Destination.SeasonDetails>(
+				enterTransition = {
+					slideIntoContainer(
+						AnimatedContentTransitionScope.SlideDirection.Down,
+						animationSpec = tweenSpec()
+					)
+				},
+				popExitTransition = {
+					slideOutOfContainer(
+						AnimatedContentTransitionScope.SlideDirection.Up,
+						animationSpec = tweenSpec()
+					)
+				}
+			) {
+				TvSeasonDetailScreen()
 			}
 
 			composable<Destination.GenreMovies> {

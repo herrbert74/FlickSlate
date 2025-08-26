@@ -56,6 +56,7 @@ class FlickSlateActivity : ComponentActivity() {
 				when (currentDestination) {
 					Destination.MovieDetails::class,
 					Destination.TvDetails::class,
+					Destination.SeasonDetails::class,
 					Destination.GenreMovies::class -> SetLowLevelScaffoldParams(
 						setShowBack,
 						isBottomBarVisible,
@@ -126,11 +127,13 @@ class FlickSlateActivity : ComponentActivity() {
 private fun NavDestination?.getDestination(): KClass<out Destination> =
 	when (true) {
 		this?.hasRoute<Destination.Movies>() -> Destination.Movies::class
+		(this == null) -> Destination.Movies::class
 		this?.hasRoute<Destination.Tv>() -> Destination.Tv::class
 		this?.hasRoute<Destination.GenreMovies>() -> Destination.GenreMovies::class
 		this?.hasRoute<Destination.MovieDetails>() -> Destination.MovieDetails::class
 		this?.hasRoute<Destination.TvDetails>() -> Destination.TvDetails::class
+		this?.hasRoute<Destination.SeasonDetails>() -> Destination.SeasonDetails::class
 		this?.hasRoute<Destination.Search>() -> Destination.Search::class
 		this?.hasRoute<Destination.Account>() -> Destination.Account::class
-		else -> Destination.Movies::class
+		else -> error("Unknown destination: $this")
 	}
