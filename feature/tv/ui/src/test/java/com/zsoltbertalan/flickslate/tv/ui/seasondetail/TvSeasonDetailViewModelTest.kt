@@ -40,7 +40,6 @@ class TvSeasonDetailViewModelTest {
 	private val testBgColorDim = 2
 	private val testSeasonTitle = "Season 1"
 
-
 	@Before
 	fun setUp() {
 		Dispatchers.setMain(dispatcher)
@@ -59,8 +58,8 @@ class TvSeasonDetailViewModelTest {
 	@Test
 	fun `when viewModel initialized then fetchSeasonDetails is called and returns correct data on success`() = runTest {
 		val mockSeasonDetail = TvMother.createSeasonDetail(
-			seriesId = testSeriesId, seasonNumber =
-				testSeasonNumber
+			seriesId = testSeriesId,
+			seasonNumber = testSeasonNumber
 		)
 		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
 
@@ -143,7 +142,6 @@ class TvSeasonDetailViewModelTest {
 		}
 		job.cancel()
 	}
-
 
 	@Test
 	fun `when required args are missing from SavedStateHandle then viewModel init throws IllegalStateException`() =

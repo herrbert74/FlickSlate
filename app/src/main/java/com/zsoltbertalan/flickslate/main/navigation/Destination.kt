@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
-import androidx.compose.ui.graphics.Color
 import kotlinx.serialization.Serializable
 
 sealed interface Destination {

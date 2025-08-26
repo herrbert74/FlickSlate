@@ -73,7 +73,6 @@ fun TvSeasonDetailScreen(
 
 @Composable
 private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
-
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxSize()
