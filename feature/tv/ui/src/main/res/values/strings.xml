@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="air_date">Air Date: %1$s</string>
+	<string name="episodes_title">Episodes</string>
+	<string name="untitled_episode">Untitled Episode</string>
+	<string name="no_overview_available">No overview available.</string>
+	<string name="retry">Retry</string>
+	<string name="error_unknown">An unknown error occurred.</string>
+</resources>

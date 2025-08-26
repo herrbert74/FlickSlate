@@ -11,6 +11,7 @@ import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.TvService
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
+import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -54,6 +55,10 @@ class TvAccessor @Inject constructor(
 		return tvService.runCatchingApi {
 			getTvImages(seriesId).toImagesReply()
 		}
+	}
+
+	override suspend fun getTvSeasonDetail(seriesId: Int, seasonNumber: Int): Outcome<SeasonDetail> {
+		return tvRemoteDataSource.getTvSeasonDetails(seriesId, seasonNumber)
 	}
 
 }

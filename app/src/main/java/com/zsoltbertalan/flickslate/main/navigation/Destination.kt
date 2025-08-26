@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
+import androidx.compose.ui.graphics.Color
 import kotlinx.serialization.Serializable
 
 sealed interface Destination {
@@ -21,6 +22,10 @@ sealed interface Destination {
 
 	@Serializable
 	data class TvDetails(val seriesId: Int) : Destination
+
+	@Serializable
+	data class SeasonDetails(val seriesId: Int, val seasonNumber: Int, val bgColor: Int, val bgColorDim: Int) :
+		Destination
 
 	@Serializable
 	data class GenreMovies(val genreId: Int, val genreName: String) : Destination

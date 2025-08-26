@@ -97,4 +97,31 @@ object TvMother {
 		width = 3840
 	)
 
+	fun createSeasonDetail(
+		seriesId: Int,
+		seasonNumber: Int
+	) = SeasonDetail(
+		id = seriesId,
+		seasonNumber = seasonNumber,
+		episodes = listOf(
+			TvEpisodeDetail(
+				id = 0,
+				name = "Episode 1",
+				overview = "Overview ",
+				seasonNumber = 1,
+				episodeNumber = 1,
+				stillPath = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+				airDate = "20",
+				voteAverage = 6.7f,
+				voteCount = 3321,
+			)
+		),
+		airDate = "",
+		episodeCount = 10,
+		name = "",
+		overview = "",
+		posterPath = "",
+		voteAverage = 6.7f
+	)
+
 }
