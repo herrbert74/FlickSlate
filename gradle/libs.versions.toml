@@ -74,7 +74,7 @@ mockk = "1.14.5"
 okhttp = "5.1.0"
 #parcelize-darwin = "0.2.4"
 retrofit = "3.0.0"
-robolectric = "4.15.1"
+robolectric = "4.16"
 #skie = "0.10.4"
 #uri-kmp = "0.0.20"
 
