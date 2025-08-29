@@ -19,9 +19,7 @@ android {
 	}
 
 	@Suppress("UnstableApiUsage")
-	testFixtures {
-		enable = true
-	}
+	testFixtures.enable = true
 
 	@Suppress("UnstableApiUsage")
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true

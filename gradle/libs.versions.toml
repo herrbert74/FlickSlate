@@ -262,7 +262,7 @@ guava-jre = { module = "com.google.guava:guava", version.ref = "guava" }
 
 inject = "javax.inject:javax.inject:1"
 
-jakarta-inject = {module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject"}
+#jakarta-inject = {module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject"}
 
 #javaPoet = { module = "com.squareup:javapoet", version.ref = "javaPoet" } ":1.13.0"
 

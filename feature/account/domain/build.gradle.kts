@@ -7,9 +7,7 @@ android {
 	namespace = "com.zsoltbertalan.flickslate.account.domain"
 	buildFeatures {
 		@Suppress("UnstableApiUsage")
-		testFixtures {
-			enable = true
-		}
+		testFixtures.enable = true
 	}
 }
 

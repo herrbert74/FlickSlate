@@ -10,9 +10,9 @@ import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
-import jakarta.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 
 class MovieDetailsUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
 

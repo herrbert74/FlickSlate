@@ -5,18 +5,17 @@ plugins {
 
 android {
 	namespace = "com.zsoltbertalan.flickslate.movies.domain"
+
 	buildFeatures {
 		@Suppress("UnstableApiUsage")
-		testFixtures {
-			enable = true
-		}
+		testFixtures.enable = true
 	}
 }
 
 dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
-	api(libs.jakarta.inject) // transitive
+	api(libs.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)
 
 	implementation(libs.kotlinResult.result)

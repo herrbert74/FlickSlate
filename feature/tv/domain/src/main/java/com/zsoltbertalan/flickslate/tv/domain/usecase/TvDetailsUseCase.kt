@@ -10,9 +10,9 @@ import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
-import jakarta.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 
 class TvDetailsUseCase @Inject constructor(private val tvRepository: TvRepository) {
 

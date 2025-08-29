@@ -15,9 +15,7 @@ android {
 
 	buildFeatures {
 		@Suppress("UnstableApiUsage")
-		testFixtures {
-			enable = true
-		}
+		testFixtures.enable = true
 	}
 }
 
@@ -25,7 +23,7 @@ dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	api(libs.kotlinx.collectionsImmutableJvm)
-	api(libs.jakarta.inject)
+	api(libs.inject)
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.coroutinesCore)

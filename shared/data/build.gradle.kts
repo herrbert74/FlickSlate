@@ -26,6 +26,7 @@ android {
 	buildFeatures {
 		buildConfig = true
 
+		@Suppress("UnstableApiUsage")
 		testFixtures.enable = true
 	}
 }
@@ -64,7 +65,6 @@ dependencies {
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
 	testFixturesImplementation(libs.kotlinx.serializationJson)
 	testFixturesImplementation(libs.retrofit)
-
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

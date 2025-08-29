@@ -27,13 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
@@ -142,15 +140,12 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 private fun EpisodeItem(episode: TvEpisodeDetail) {
 	Column(modifier = Modifier.padding(vertical = Dimens.marginNormal)) {
 		episode.stillPath?.let {
-			AsyncImage(
-				model = ImageRequest.Builder(LocalContext.current)
-					.data(
-						"https://image.tmdb.org/t/p/w500$it"
-					)
-					.crossfade(true)
-					.build(),
-				// placeholder = painterResource(drawable.generic_placeholder),
-				// error = painterResource(drawable.generic_placeholder),
+			Image(
+				painter = rememberAsyncImagePainter(
+					model = BASE_IMAGE_PATH + it,
+					error = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie),
+					fallback = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie)
+				),
 				contentDescription = "Episode Still: ${episode.name}",
 				modifier = Modifier
 					.fillMaxWidth()
