@@ -7,6 +7,7 @@ plugins {
 	alias(libs.plugins.kotlin.jvm) apply false
 	alias(libs.plugins.dagger.hiltAndroid) apply false
 	alias(libs.plugins.ksp)
+	alias(libs.plugins.binaryCompatibilityValidator)
 	id("detekt-convention")
 }
 

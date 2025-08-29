@@ -1,0 +1,238 @@
+public final class com/zsoltbertalan/flickslate/tv/ui/main/ComposableSingletons$TvScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/ui/main/ComposableSingletons$TvScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1179843662$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1172945169$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvScreenKt {
+	public static final fun TvScreen (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/domain/api/TvRepository;)V
+	public final fun getTvPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/domain/api/TvRepository;)Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/main/TvViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/ComposableSingletons$TvSeasonDetailScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/ComposableSingletons$TvSeasonDetailScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$1201679541$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailScreenKt {
+	public static final fun TvSeasonDetailScreen (Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailUiState {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (ZLjava/lang/String;Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;IILcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)V
+	public synthetic fun <init> (ZLjava/lang/String;Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;IILcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun copy (ZLjava/lang/String;Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;IILcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailUiState;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailUiState;ZLjava/lang/String;Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;IILcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailUiState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBgColor ()I
+	public final fun getBgColorDim ()I
+	public final fun getFailure ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun getSeasonDetail ()Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isLoading ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/domain/usecase/GetSeasonDetailUseCase;Landroidx/lifecycle/SavedStateHandle;)V
+	public final fun fetchSeasonDetails ()V
+	public final fun getUiState ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModelKt {
+	public static final field BG_COLOR_ARG Ljava/lang/String;
+	public static final field BG_COLOR_DIM_ARG Ljava/lang/String;
+	public static final field SEASON_NUMBER_ARG Ljava/lang/String;
+	public static final field SEASON_TITLE_ARG Ljava/lang/String;
+	public static final field SERIES_ID_ARG Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/domain/usecase/GetSeasonDetailUseCase;Landroidx/lifecycle/SavedStateHandle;)Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/seasondetail/TvSeasonDetailViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/ComposableSingletons$SubtitleRowKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/ComposableSingletons$SubtitleRowKt;
+	public fun <init> ()V
+	public final fun getLambda$-1229241613$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1756635663$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-701847563$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$2006029427$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailScreenKt {
+	public static final fun TvDetailScreen (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel;Landroidx/compose/runtime/Composer;II)V
+	public static final fun isDarkMode (Landroid/content/Context;)Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailState {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)V
+	public synthetic fun <init> (Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;
+	public final fun component2 ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun copy (Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailState;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailState;Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFailure ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun getTvDetail ()Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetailWithImages;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/tv/domain/usecase/TvDetailsUseCase;)V
+	public final fun getTvStateData ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModelKt {
+	public static final field SERIES_ID_ARG Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/tv/domain/usecase/TvDetailsUseCase;)Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/tv/ui/tvdetail/TvDetailViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_main_TvViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_main_TvViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_seasondetail_TvSeasonDetailViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_seasondetail_TvSeasonDetailViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_tvdetail_TvDetailViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_ui_tvdetail_TvDetailViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+

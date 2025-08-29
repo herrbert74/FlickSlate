@@ -1,0 +1,214 @@
+public final class com/zsoltbertalan/flickslate/shared/domain/model/Account {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/Genre : android/os/Parcelable {
+	public static final field CREATOR Landroid/os/Parcelable$Creator;
+	public static final field Companion Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
+	public final fun describeContents ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun writeToParcel (Landroid/os/Parcel;I)V
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/shared/domain/model/Genre$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/Genre$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/GenresReply : android/os/Parcelable {
+	public static final field CREATOR Landroid/os/Parcelable$Creator;
+	public static final field Companion Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/util/List;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;
+	public final fun describeContents ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEtag ()Ljava/lang/String;
+	public final fun getGenres ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun writeToParcel (Landroid/os/Parcel;I)V
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/shared/domain/model/GenresReply$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/GenresReply$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/Movie {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie$Companion;
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/shared/domain/model/Movie$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/Movie$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/MovieCardType : java/lang/Enum {
+	public static final field FULL Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;
+	public static final field HALF Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;
+	public static fun values ()[Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/NotSerializable : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/domain/model/NotSerializable;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Void;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Void;)Ljava/lang/Void;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/PageData {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;ILjava/lang/String;II)V
+	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun copy (ILjava/lang/String;ILjava/lang/String;II)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;ILjava/lang/String;ILjava/lang/String;IIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()Ljava/lang/String;
+	public final fun getEtag ()Ljava/lang/String;
+	public final fun getExpires ()I
+	public final fun getPage ()I
+	public final fun getTotalPages ()I
+	public final fun getTotalResults ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/PagingReply {
+	public fun <init> (Ljava/util/List;ZLcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Z
+	public final fun component3 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public final fun copy (Ljava/util/List;ZLcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;Ljava/util/List;ZLcom/zsoltbertalan/flickslate/shared/domain/model/PageData;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPageData ()Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public final fun getPagingList ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun isLastPage ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/images/Image {
+	public fun <init> (DLjava/lang/String;ILjava/lang/String;DII)V
+	public final fun component1 ()D
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()D
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun copy (DLjava/lang/String;ILjava/lang/String;DII)Lcom/zsoltbertalan/flickslate/shared/domain/model/images/Image;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/images/Image;DLjava/lang/String;ILjava/lang/String;DIIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/images/Image;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAspectRatio ()D
+	public final fun getFilePath ()Ljava/lang/String;
+	public final fun getHeight ()I
+	public final fun getIso639dash1 ()Ljava/lang/String;
+	public final fun getVoteAverage ()D
+	public final fun getVoteCount ()I
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;I)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()I
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;Ljava/util/List;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdrops ()Ljava/util/List;
+	public final fun getId ()I
+	public final fun getLogos ()Ljava/util/List;
+	public final fun getPosters ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

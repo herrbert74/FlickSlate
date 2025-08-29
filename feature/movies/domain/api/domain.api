@@ -1,0 +1,65 @@
+public abstract interface class com/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository {
+	public abstract fun getMovieDetails (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getMovieImages (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/domain/model/MovieDetail {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;)Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetail;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetail;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetail;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getGenres ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun component8 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;)Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Lkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getGenres ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getMovieImages ()Lcom/zsoltbertalan/flickslate/shared/domain/model/images/ImagesReply;
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository;)V
+	public final fun getMovieDetails (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

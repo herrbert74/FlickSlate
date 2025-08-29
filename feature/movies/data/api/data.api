@@ -1,0 +1,709 @@
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource {
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Local {
+	public abstract fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertNowPlayingMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun insertNowPlayingMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote {
+	public abstract fun getNowPlayingMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getNowPlayingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote$DefaultImpls {
+	public static synthetic fun getNowPlayingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource {
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Local {
+	public abstract fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertPopularMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun insertPopularMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote {
+	public abstract fun getPopularMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getPopularMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote$DefaultImpls {
+	public static synthetic fun getPopularMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource {
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Local {
+	public abstract fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertUpcomingMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun insertUpcomingMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote {
+	public abstract fun getUpcomingMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getUpcomingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote$DefaultImpls {
+	public static synthetic fun getUpcomingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/db/AutoBindNowPlayingMoviesRoomDataSourceActivityRetainedModule {
+	public abstract fun bindNowPlayingMoviesRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Local;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/db/AutoBindPopularMoviesRoomDataSourceActivityRetainedModule {
+	public abstract fun bindPopularMoviesRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Local;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/db/AutoBindUpcomingMoviesRoomDataSourceActivityRetainedModule {
+	public abstract fun bindUpcomingMoviesRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Local;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/DatabaseModule {
+	public fun <init> ()V
+	public final fun provideMoviesDatabase (Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/DatabaseModule_ProvideMoviesDatabaseFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/movies/data/db/DatabaseModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/db/DatabaseModule_ProvideMoviesDatabaseFactory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideMoviesDatabase (Lcom/zsoltbertalan/flickslate/movies/data/db/DatabaseModule;Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase : androidx/room/RoomDatabase {
+	public fun <init> ()V
+	public abstract fun nowPlayingMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao;
+	public abstract fun nowPlayingMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao;
+	public abstract fun popularMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao;
+	public abstract fun popularMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao;
+	public abstract fun upcomingMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao;
+	public abstract fun upcomingMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase_Impl : com/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase {
+	public fun <init> ()V
+	public fun clearAllTables ()V
+	public fun createAutoMigrations (Ljava/util/Map;)Ljava/util/List;
+	public synthetic fun createOpenDelegate ()Landroidx/room/RoomOpenDelegateMarker;
+	public fun getRequiredAutoMigrationSpecClasses ()Ljava/util/Set;
+	public fun nowPlayingMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao;
+	public fun nowPlayingMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao;
+	public fun popularMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao;
+	public fun popularMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao;
+	public fun upcomingMoviesDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao;
+	public fun upcomingMoviesPageDao ()Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao {
+	public abstract fun getAll ()Ljava/util/List;
+	public abstract fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertNowPlayingMovies (Ljava/util/List;)V
+	public abstract fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getAll ()Ljava/util/List;
+	public fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertNowPlayingMovies (Ljava/util/List;)V
+	public fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao {
+	public abstract fun getPageData (I)Ljava/util/List;
+	public abstract fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getPageData (I)Ljava/util/List;
+	public fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesPageDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource : com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Local {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertNowPlayingMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun insertNowPlayingMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/movies/data/db/NowPlayingMoviesRoomDataSource;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao {
+	public abstract fun getAll ()Ljava/util/List;
+	public abstract fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertPopularMovies (Ljava/util/List;)V
+	public abstract fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getAll ()Ljava/util/List;
+	public fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertPopularMovies (Ljava/util/List;)V
+	public fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao {
+	public abstract fun getPageData (I)Ljava/util/List;
+	public abstract fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getPageData (I)Ljava/util/List;
+	public fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesPageDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource : com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Local {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertPopularMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun insertPopularMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/movies/data/db/PopularMoviesRoomDataSource;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao {
+	public abstract fun getAll ()Ljava/util/List;
+	public abstract fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun insertUpcomingMovies (Ljava/util/List;)V
+	public abstract fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getAll ()Ljava/util/List;
+	public fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertUpcomingMovies (Ljava/util/List;)V
+	public fun purgeDatabase ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao {
+	public abstract fun getPageData (I)Ljava/util/List;
+	public abstract fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao_Impl : com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao_Impl$Companion;
+	public fun <init> (Landroidx/room/RoomDatabase;)V
+	public fun getPageData (I)Ljava/util/List;
+	public fun insertPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesPageDao_Impl$Companion {
+	public final fun getRequiredConverters ()Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource : com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Local {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun insertUpcomingMovies (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun insertUpcomingMoviesPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/db/MoviesDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/movies/data/db/UpcomingMoviesRoomDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()I
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPage ()I
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntityKt {
+	public static final fun toMovie (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public static final fun toNowPlayingMoviesEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;I)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMovieEntity;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity {
+	public fun <init> (ILjava/lang/String;ILjava/lang/String;II)V
+	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun copy (ILjava/lang/String;ILjava/lang/String;II)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;ILjava/lang/String;ILjava/lang/String;IIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()Ljava/lang/String;
+	public final fun getEtag ()Ljava/lang/String;
+	public final fun getExpires ()I
+	public final fun getPage ()I
+	public final fun getTotalPages ()I
+	public final fun getTotalResults ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntityKt {
+	public static final fun toNowPlayingMoviesPageEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;
+	public static final fun toPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/NowPlayingMoviesPageEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()I
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPage ()I
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntityKt {
+	public static final fun toMovie (Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public static final fun toPopularMoviesEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;I)Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMovieEntity;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntity {
+	public fun <init> (ILjava/lang/String;ILjava/lang/String;II)V
+	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDate ()Ljava/lang/String;
+	public final fun getEtag ()Ljava/lang/String;
+	public final fun getExpires ()I
+	public final fun getPage ()I
+	public final fun getTotalPages ()I
+	public final fun getTotalResults ()I
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntityKt {
+	public static final fun toPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public static final fun toPopularMoviesPageEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/PopularMoviesPageEntity;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMovieEntity {
+	public fun <init> ()V
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBackdropPath ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPage ()I
+	public final fun getPosterPath ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVoteAverage ()Ljava/lang/Float;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMovieEntityKt {
+	public static final fun toMovie (Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMovieEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public static final fun toUpcomingMoviesEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;I)Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMovieEntity;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntity {
+	public fun <init> (ILjava/lang/String;ILjava/lang/String;II)V
+	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDate ()Ljava/lang/String;
+	public final fun getEtag ()Ljava/lang/String;
+	public final fun getExpires ()I
+	public final fun getPage ()I
+	public final fun getTotalPages ()I
+	public final fun getTotalResults ()I
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntityKt {
+	public static final fun toPageData (Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
+	public static final fun toUpcomingMoviesPageEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)Lcom/zsoltbertalan/flickslate/movies/data/db/model/UpcomingMoviesPageEntity;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/network/AutoBindNowPlayingMoviesRemoteDataSourceActivityRetainedModule {
+	public abstract fun bindNowPlayingMoviesRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/network/AutoBindPopularMoviesRemoteDataSourceActivityRetainedModule {
+	public abstract fun bindPopularMoviesRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/network/AutoBindUpcomingMoviesRemoteDataSourceActivityRetainedModule {
+	public abstract fun bindUpcomingMoviesRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource;)Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/movies/data/network/MoviesService {
+	public abstract fun getMovieDetails (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getMovieDetails$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getMovieImages (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getNowPlayingMovies (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getNowPlayingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getPopularMovies (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getPopularMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getUpcomingMovies (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getUpcomingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/MoviesService$DefaultImpls {
+	public static synthetic fun getMovieDetails$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getNowPlayingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getPopularMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getUpcomingMovies$default (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/MoviesServiceKt {
+	public static final field URL_MOVIES_NOW_PLAYING Ljava/lang/String;
+	public static final field URL_MOVIES_POPULAR Ljava/lang/String;
+	public static final field URL_MOVIES_UPCOMING Ljava/lang/String;
+	public static final field URL_MOVIE_DETAILS Ljava/lang/String;
+	public static final field URL_MOVIE_IMAGES Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/MoviesServiceModule_ProvideMoviesServiceFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesServiceModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesServiceModule_ProvideMoviesServiceFactory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideMoviesService (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource : com/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)V
+	public fun getNowPlayingMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)Lcom/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource : com/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)V
+	public fun getPopularMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)Lcom/zsoltbertalan/flickslate/movies/data/network/PopularMoviesRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource : com/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)V
+	public fun getUpcomingMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;)Lcom/zsoltbertalan/flickslate/movies/data/network/UpcomingMoviesRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/DatesDto {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaximum ()Ljava/lang/String;
+	public final fun getMinimum ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/movies/data/network/model/DatesDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/DatesDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Float;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/util/List;
+	public final fun component12 ()Ljava/lang/Float;
+	public final fun component13 ()Ljava/lang/String;
+	public final fun component14 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun component3 ()Ljava/lang/Boolean;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/Integer;
+	public final fun component6 ()Ljava/lang/Boolean;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdult ()Ljava/lang/Boolean;
+	public final fun getBackdrop_path ()Ljava/lang/String;
+	public final fun getGenres ()Ljava/util/List;
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getOriginal_language ()Ljava/lang/String;
+	public final fun getOriginal_title ()Ljava/lang/String;
+	public final fun getOverview ()Ljava/lang/String;
+	public final fun getPopularity ()Ljava/lang/Float;
+	public final fun getPoster_path ()Ljava/lang/String;
+	public final fun getRelease_date ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVideo ()Ljava/lang/Boolean;
+	public final fun getVote_average ()Ljava/lang/Float;
+	public final fun getVote_count ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDtoKt {
+	public static final fun toMovieDetail (Lcom/zsoltbertalan/flickslate/movies/data/network/model/MovieDetailsDto;)Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetail;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDates ()Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public final fun getPage ()Ljava/lang/Integer;
+	public final fun getResults ()Ljava/util/List;
+	public final fun getTotal_pages ()Ljava/lang/Integer;
+	public final fun getTotal_results ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/NowPlayingMoviesReplyDtoKt {
+	public static final fun toMoviesReply (Lretrofit2/Response;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDates ()Lcom/zsoltbertalan/flickslate/movies/data/network/model/DatesDto;
+	public final fun getPage ()Ljava/lang/Integer;
+	public final fun getResults ()Ljava/util/List;
+	public final fun getTotal_pages ()Ljava/lang/Integer;
+	public final fun getTotal_results ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/network/model/UpcomingMoviesReplyDtoKt {
+	public static final fun toMoviesReply (Lretrofit2/Response;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/data/repository/AutoBindMoviesAccessorActivityRetainedModule {
+	public abstract fun bindMoviesAccessorAsMoviesRepository (Lcom/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor;)Lcom/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor : com/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote;Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote;Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote;)V
+	public fun getMovieDetails (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getMovieImages (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getNowPlayingMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun getPopularMovies (I)Lkotlinx/coroutines/flow/Flow;
+	public fun getUpcomingMovies (I)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/data/network/MoviesService;Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/PopularMoviesDataSource$Remote;Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/NowPlayingMoviesDataSource$Remote;Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/movies/data/api/UpcomingMoviesDataSource$Remote;)Lcom/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor;
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_db_AutoBindNowPlayingMoviesRoomDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_db_AutoBindPopularMoviesRoomDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_db_AutoBindUpcomingMoviesRoomDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_db_DatabaseModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_network_AutoBindNowPlayingMoviesRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_network_AutoBindPopularMoviesRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_network_AutoBindUpcomingMoviesRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_network_MoviesServiceModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_data_repository_AutoBindMoviesAccessorActivityRetainedModule {
+	public fun <init> ()V
+}
+

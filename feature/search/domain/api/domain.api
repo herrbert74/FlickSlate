@@ -1,0 +1,27 @@
+public abstract interface class com/zsoltbertalan/flickslate/search/domain/api/GenreRepository {
+	public abstract fun getGenreDetail (II)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getGenresList ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/search/domain/api/SearchRepository {
+	public abstract fun getSearchResult (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getSearchResult$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/search/domain/api/SearchRepository$DefaultImpls {
+	public static synthetic fun getSearchResult$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/search/domain/api/model/GenreMoviesPagingReply {
+	public fun <init> (ILcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+	public final fun copy (ILcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;)Lcom/zsoltbertalan/flickslate/search/domain/api/model/GenreMoviesPagingReply;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/domain/api/model/GenreMoviesPagingReply;ILcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/domain/api/model/GenreMoviesPagingReply;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGenreId ()I
+	public final fun getPagingReply ()Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

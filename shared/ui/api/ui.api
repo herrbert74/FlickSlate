@@ -1,0 +1,522 @@
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ButtonsKt {
+	public static final fun FilledButton (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/ui/graphics/Shape;Landroidx/compose/material3/ButtonColors;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$ButtonsKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$ButtonsKt;
+	public fun <init> ()V
+	public final fun getLambda$-1892205415$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1942040788$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1735376903$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$GenreChipsKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$GenreChipsKt;
+	public fun <init> ()V
+	public final fun getLambda$1573857402$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$ShowCardKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$ShowCardKt;
+	public fun <init> ()V
+	public final fun getLambda$1575895959$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$TopAppBarKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/ComposableSingletons$TopAppBarKt;
+	public fun <init> ()V
+	public final fun getLambda$-698537553$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1217493548$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$852420616$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/DescriptionTextKt {
+	public static final fun DescriptionText (Ljava/lang/String;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/GenreChipsKt {
+	public static final fun GenreChips (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/HeaderImageKt {
+	public static final field HEADER_IMAGE_ASPECT_RATIO F
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ListTitleKt {
+	public static final fun ListTitle (ILandroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ListTitle (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/LoaderKt {
+	public static final fun ShowLoading (Landroidx/compose/ui/Modifier;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/RatingTextKt {
+	public static final fun RatingText (FLandroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ShowCardKt {
+	public static final fun ShowCard (Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun ShowDetailCard (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Float;Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/ThumbnailCardKt {
+	public static final field BASE_IMAGE_PATH Ljava/lang/String;
+	public static final fun ThumbnailCard (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/TitleTextKt {
+	public static final fun TitleText (Ljava/lang/String;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/TopAppBarKt {
+	public static final fun FlickSlateTopAppBar-8V94_ZQ (Lkotlin/jvm/functions/Function0;JLandroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/AutoSizeTextKt {
+	public static final fun AutoSizeText-EUA8-Og (Ljava/lang/String;Landroidx/compose/ui/Modifier;JLkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;JJJLandroidx/compose/ui/text/font/FontStyle;Landroidx/compose/ui/text/font/FontWeight;Landroidx/compose/ui/text/font/FontFamily;JLandroidx/compose/ui/text/style/TextDecoration;Landroidx/compose/ui/Alignment;IZIILkotlin/jvm/functions/Function1;Landroidx/compose/ui/text/TextStyle;FLandroidx/compose/runtime/Composer;IIII)V
+	public static final fun AutoSizeText-VkjzWmM (Landroidx/compose/ui/text/AnnotatedString;Landroidx/compose/ui/Modifier;JLkotlinx/collections/immutable/ImmutableList;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;JJJLandroidx/compose/ui/text/font/FontStyle;Landroidx/compose/ui/text/font/FontWeight;Landroidx/compose/ui/text/font/FontFamily;JLandroidx/compose/ui/text/style/TextDecoration;Landroidx/compose/ui/Alignment;IZIILkotlinx/collections/immutable/ImmutableMap;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/text/TextStyle;FLandroidx/compose/runtime/Composer;IIII)V
+	public static final fun findElectedValue (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/ComposableSingletons$AutoSizeTextKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/ComposableSingletons$AutoSizeTextKt;
+	public fun <init> ()V
+	public final fun getLambda$-1090885142$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-495817465$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-63429411$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-691540466$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-741791437$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1555947192$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1993688854$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$699445794$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$798425595$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$84584837$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/DensityKt {
+	public static final fun dpOffsetRoundToIntOffset-BkVx2pU (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpOffsetToIntOffset-BkVx2pU (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpOffsetToOffset-BkVx2pU (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpRoundToPx-3ABfNKs (Landroidx/compose/ui/unit/Density;F)I
+	public static final fun dpSizeRoundToIntSize-6HolHcs (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpSizeToIntSize-6HolHcs (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpSizeToSize-6HolHcs (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun dpToFloatPx-3ABfNKs (Landroidx/compose/ui/unit/Density;F)F
+	public static final fun dpToIntPx-3ABfNKs (Landroidx/compose/ui/unit/Density;F)I
+	public static final fun dpToSp-3ABfNKs (Landroidx/compose/ui/unit/Density;F)J
+	public static final fun floatPxToDp (Landroidx/compose/ui/unit/Density;F)F
+	public static final fun floatPxToSp (Landroidx/compose/ui/unit/Density;F)J
+	public static final fun intOffsetToDpOffset-I_oMVgE (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun intPxToDp (Landroidx/compose/ui/unit/Density;I)F
+	public static final fun intPxToSp (Landroidx/compose/ui/unit/Density;I)J
+	public static final fun intSizeToDpSize-O0kMr_c (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun isSpaced-EaSLcWc (J)Z
+	public static final fun isSpaced-ozmzZPI (J)Z
+	public static final fun isSpaced-uvyYCjk (J)Z
+	public static final fun offsetToDpOffset-Uv8p0NA (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun roundToIntOffset-rOJDEFc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun roundToIntSize-qzXmJYc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun roundToPx (F)I
+	public static final fun roundToPx-8Feqmps (FLandroidx/compose/runtime/Composer;I)I
+	public static final fun roundToPx-o2QH7mI (JLandroidx/compose/runtime/Composer;I)I
+	public static final fun sizeToDpSize-d16Qtg0 (Landroidx/compose/ui/unit/Density;J)J
+	public static final fun spRoundToPx-mpE4wyQ (Landroidx/compose/ui/unit/Density;J)I
+	public static final fun spToDp-mpE4wyQ (Landroidx/compose/ui/unit/Density;J)F
+	public static final fun spToFloatPx-mpE4wyQ (Landroidx/compose/ui/unit/Density;J)F
+	public static final fun spToIntPx-mpE4wyQ (Landroidx/compose/ui/unit/Density;J)I
+	public static final fun toDp (FLandroidx/compose/runtime/Composer;I)F
+	public static final fun toDp (ILandroidx/compose/runtime/Composer;I)F
+	public static final fun toDp-o2QH7mI (JLandroidx/compose/runtime/Composer;I)F
+	public static final fun toDpOffset-9KIMszo (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toDpOffset-f8xVGno (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toDpSize-Pq9zytI (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toDpSize-aZF9jCo (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toFloatPx (I)F
+	public static final fun toFloatPx-8Feqmps (FLandroidx/compose/runtime/Composer;I)F
+	public static final fun toFloatPx-o2QH7mI (JLandroidx/compose/runtime/Composer;I)F
+	public static final fun toIntOffset-k-4lQ0M (J)J
+	public static final fun toIntOffset-rOJDEFc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toIntPx (F)I
+	public static final fun toIntPx-8Feqmps (FLandroidx/compose/runtime/Composer;I)I
+	public static final fun toIntPx-o2QH7mI (JLandroidx/compose/runtime/Composer;I)I
+	public static final fun toIntSize-qzXmJYc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toIntSize-uvyYCjk (J)J
+	public static final fun toOffset--gyyYBs (J)J
+	public static final fun toOffset-rOJDEFc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toRecDpOffset-0680j_4 (F)J
+	public static final fun toRecDpSize-0680j_4 (F)J
+	public static final fun toRecIntOffset (I)J
+	public static final fun toRecIntSize (I)J
+	public static final fun toRecOffset (F)J
+	public static final fun toRecSize (F)J
+	public static final fun toSize-aZF9jCo (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toSize-qzXmJYc (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun toSp (FLandroidx/compose/runtime/Composer;I)J
+	public static final fun toSp (ILandroidx/compose/runtime/Composer;I)J
+	public static final fun toSp-8Feqmps (FLandroidx/compose/runtime/Composer;I)J
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus : java/lang/Enum {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus$Companion;
+	public static final field INVALID Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+	public static final field UNKNOWN Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+	public static final field VALID Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+	public static fun values ()[Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus$Companion {
+	public final fun getGetSuggestedFontSizesStatus (Ljava/util/List;)Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/autosizetext/SuggestedFontSizesStatus;
+	public final fun getValidSuggestedFontSizes (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyColumnKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyColumnKt;
+	public fun <init> ()V
+	public final fun getLambda$-1625864830$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1720722478$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-806715070$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$984952786$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyRowKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyRowKt;
+	public fun <init> ()V
+	public final fun getLambda$-1394836796$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-591952252$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$565710100$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$646734100$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyScrollableKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PaginatedLazyScrollableKt;
+	public fun <init> ()V
+	public final fun getLambda$1139383410$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$290860578$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$39012466$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$628857314$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PagingStatesKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/ComposableSingletons$PagingStatesKt;
+	public fun <init> ()V
+	public final fun getLambda$-1206044122$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1982046660$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/LazyScrollableKeys {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/LazyScrollableKeys;
+	public static final field NEW_PAGE_ERROR_INDICATOR_KEY Ljava/lang/String;
+	public static final field NEW_PAGE_PROGRESS_INDICATOR_KEY Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginatedLazyColumnKt {
+	public static final fun PaginatedLazyColumn (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZLandroidx/compose/foundation/layout/Arrangement$Vertical;Landroidx/compose/ui/Alignment$Horizontal;Landroidx/compose/foundation/gestures/FlingBehavior;ZLkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginatedLazyRowKt {
+	public static final fun PaginatedLazyRow (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/lazy/LazyListState;Landroidx/compose/foundation/layout/PaddingValues;ZLandroidx/compose/foundation/layout/Arrangement$Horizontal;Landroidx/compose/ui/Alignment$Vertical;Landroidx/compose/foundation/gestures/FlingBehavior;ZLkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+}
+
+public abstract class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState {
+	public static final field $stable I
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getInitialPageKey ()Ljava/lang/Object;
+	public fun getItems ()Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$Error : com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState, com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$IHasRequestedPageKey {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Exception;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Exception;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getException ()Ljava/lang/Exception;
+	public fun getInitialPageKey ()Ljava/lang/Object;
+	public fun getItems ()Ljava/util/List;
+	public fun getRequestedPageKey ()Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$IHasRequestedPageKey {
+	public abstract fun getRequestedPageKey ()Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$Initial : com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getInitialPageKey ()Ljava/lang/Object;
+	public fun getItems ()Ljava/util/List;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$Loaded : com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState, com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$IHasRequestedPageKey {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/util/List;Z)V
+	public fun getInitialPageKey ()Ljava/lang/Object;
+	public fun getItems ()Ljava/util/List;
+	public final fun getNextPageKey ()Ljava/lang/Object;
+	public fun getRequestedPageKey ()Ljava/lang/Object;
+	public final fun isLastPage ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$Loading : com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState, com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationInternalState$IHasRequestedPageKey {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getInitialPageKey ()Ljava/lang/Object;
+	public fun getItems ()Ljava/util/List;
+	public fun getRequestedPageKey ()Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)V
+	public final fun appendPage (Ljava/util/List;Ljava/lang/Object;Z)V
+	public static synthetic fun appendPage$default (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Ljava/util/List;Ljava/lang/Object;ZILjava/lang/Object;)V
+	public final fun getAllItems ()Ljava/util/List;
+	public final fun getInternalState ()Landroidx/compose/runtime/MutableState;
+	public final fun getOnRequestPage ()Lkotlin/jvm/functions/Function2;
+	public final fun getRequestedPageKey ()Ljava/lang/Object;
+	public final fun refresh (Ljava/lang/Object;)V
+	public static synthetic fun refresh$default (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Ljava/lang/Object;ILjava/lang/Object;)V
+	public final fun retryLastFailedRequest ()V
+	public final fun setError (Ljava/lang/Exception;)V
+	public final fun setInternalState (Landroidx/compose/runtime/MutableState;)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationStateKt {
+	public static final fun rememberPaginationState (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PagingStatesKt {
+	public static final fun FirstPageErrorIndicator (Ljava/lang/Exception;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FirstPageProgressIndicator (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun NewPageErrorIndicator (Ljava/lang/Exception;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun NewPageProgressIndicator (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme {
+	public static final field $stable I
+	public synthetic fun <init> (JJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun copy-ysEtTa8 (JJJ)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;
+	public static synthetic fun copy-ysEtTa8$default (Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;JJJILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getQuaternaryContainer-0d7_KjU ()J
+	public final fun getQuinaryContainer-0d7_KjU ()J
+	public final fun getSenaryContainer-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/ColorKt {
+	public static final fun getBackgroundDark ()J
+	public static final fun getBackgroundLight ()J
+	public static final fun getDarkAdditionalColorScheme ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;
+	public static final fun getErrorContainerDark ()J
+	public static final fun getErrorContainerLight ()J
+	public static final fun getErrorDark ()J
+	public static final fun getErrorLight ()J
+	public static final fun getFixedColors ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;
+	public static final fun getInverseOnSurfaceDark ()J
+	public static final fun getInverseOnSurfaceLight ()J
+	public static final fun getInversePrimaryDark ()J
+	public static final fun getInversePrimaryLight ()J
+	public static final fun getInverseSurfaceDark ()J
+	public static final fun getInverseSurfaceLight ()J
+	public static final fun getLightAdditionalColorScheme ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;
+	public static final fun getLocalAdditionalColors ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun getLocalFixedColors ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun getOnBackgroundDark ()J
+	public static final fun getOnBackgroundLight ()J
+	public static final fun getOnErrorContainerDark ()J
+	public static final fun getOnErrorContainerLight ()J
+	public static final fun getOnErrorDark ()J
+	public static final fun getOnErrorLight ()J
+	public static final fun getOnPrimaryContainerDark ()J
+	public static final fun getOnPrimaryContainerLight ()J
+	public static final fun getOnPrimaryDark ()J
+	public static final fun getOnPrimaryLight ()J
+	public static final fun getOnQuaternaryContainerDark ()J
+	public static final fun getOnQuaternaryContainerLight ()J
+	public static final fun getOnQuaternaryDark ()J
+	public static final fun getOnQuaternaryLight ()J
+	public static final fun getOnQuinaryContainerDark ()J
+	public static final fun getOnQuinaryContainerLight ()J
+	public static final fun getOnQuinaryDark ()J
+	public static final fun getOnQuinaryLight ()J
+	public static final fun getOnSecondaryContainerDark ()J
+	public static final fun getOnSecondaryContainerLight ()J
+	public static final fun getOnSecondaryDark ()J
+	public static final fun getOnSecondaryLight ()J
+	public static final fun getOnSenaryContainerDark ()J
+	public static final fun getOnSenaryContainerLight ()J
+	public static final fun getOnSenaryDark ()J
+	public static final fun getOnSenaryLight ()J
+	public static final fun getOnSurfaceDark ()J
+	public static final fun getOnSurfaceLight ()J
+	public static final fun getOnSurfaceVariantDark ()J
+	public static final fun getOnSurfaceVariantLight ()J
+	public static final fun getOnTertiaryContainerDark ()J
+	public static final fun getOnTertiaryContainerLight ()J
+	public static final fun getOnTertiaryDark ()J
+	public static final fun getOnTertiaryLight ()J
+	public static final fun getOutlineDark ()J
+	public static final fun getOutlineLight ()J
+	public static final fun getOutlineVariantDark ()J
+	public static final fun getOutlineVariantLight ()J
+	public static final fun getPrimaryContainerDark ()J
+	public static final fun getPrimaryContainerLight ()J
+	public static final fun getPrimaryDark ()J
+	public static final fun getPrimaryLight ()J
+	public static final fun getQuaternaryContainerDark ()J
+	public static final fun getQuaternaryContainerLight ()J
+	public static final fun getQuaternaryDark ()J
+	public static final fun getQuaternaryLight ()J
+	public static final fun getQuinaryContainerDark ()J
+	public static final fun getQuinaryContainerLight ()J
+	public static final fun getQuinaryDark ()J
+	public static final fun getQuinaryLight ()J
+	public static final fun getScrimDark ()J
+	public static final fun getScrimLight ()J
+	public static final fun getSecondaryContainerDark ()J
+	public static final fun getSecondaryContainerLight ()J
+	public static final fun getSecondaryDark ()J
+	public static final fun getSecondaryLight ()J
+	public static final fun getSenaryContainerDark ()J
+	public static final fun getSenaryContainerLight ()J
+	public static final fun getSenaryDark ()J
+	public static final fun getSenaryLight ()J
+	public static final fun getSurfaceBrightDark ()J
+	public static final fun getSurfaceBrightLight ()J
+	public static final fun getSurfaceContainerDark ()J
+	public static final fun getSurfaceContainerHighDark ()J
+	public static final fun getSurfaceContainerHighLight ()J
+	public static final fun getSurfaceContainerHighestDark ()J
+	public static final fun getSurfaceContainerHighestLight ()J
+	public static final fun getSurfaceContainerLight ()J
+	public static final fun getSurfaceContainerLowDark ()J
+	public static final fun getSurfaceContainerLowLight ()J
+	public static final fun getSurfaceContainerLowestDark ()J
+	public static final fun getSurfaceContainerLowestLight ()J
+	public static final fun getSurfaceDark ()J
+	public static final fun getSurfaceDimDark ()J
+	public static final fun getSurfaceDimLight ()J
+	public static final fun getSurfaceLight ()J
+	public static final fun getSurfaceVariantDark ()J
+	public static final fun getSurfaceVariantLight ()J
+	public static final fun getTertiaryContainerDark ()J
+	public static final fun getTertiaryContainerLight ()J
+	public static final fun getTertiaryDark ()J
+	public static final fun getTertiaryLight ()J
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/Dimensions {
+	public static final field $stable I
+	public synthetic fun <init> (FFFFFFFFFFFFFFFFFFFFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAppBarHeight-D9Ej5fM ()F
+	public final fun getButtonHeight-D9Ej5fM ()F
+	public final fun getButtonSmallHeight-D9Ej5fM ()F
+	public final fun getButtonWidth-D9Ej5fM ()F
+	public final fun getButtonWidthFitTwo-D9Ej5fM ()F
+	public final fun getButtonWidthShort-D9Ej5fM ()F
+	public final fun getFabSize-D9Ej5fM ()F
+	public final fun getIconSize-D9Ej5fM ()F
+	public final fun getListAvatarWidth-D9Ej5fM ()F
+	public final fun getListSingleItemDenseHeight-D9Ej5fM ()F
+	public final fun getListSingleItemHeight-D9Ej5fM ()F
+	public final fun getListSingleItemLargeHeight-D9Ej5fM ()F
+	public final fun getListSubheadingHeight-D9Ej5fM ()F
+	public final fun getListThreeLineHeight-D9Ej5fM ()F
+	public final fun getListTwoLineDenseHeight-D9Ej5fM ()F
+	public final fun getListTwoLineHeight-D9Ej5fM ()F
+	public final fun getMarginDoubleLarge-D9Ej5fM ()F
+	public final fun getMarginExtraLarge-D9Ej5fM ()F
+	public final fun getMarginExtraSmall-D9Ej5fM ()F
+	public final fun getMarginLarge-D9Ej5fM ()F
+	public final fun getMarginNormal-D9Ej5fM ()F
+	public final fun getMarginSmall-D9Ej5fM ()F
+	public final fun getMarginSmallest-D9Ej5fM ()F
+	public final fun getMarginTripleLarge-D9Ej5fM ()F
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/DimensionsKt {
+	public static final field SMALLEST_WIDTH_480 I
+	public static final field SMALLEST_WIDTH_600 I
+	public static final field SMALLEST_WIDTH_720 I
+	public static final fun getSmallDimensions ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/Dimensions;
+	public static final fun getSw600Dimensions ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/Dimensions;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component10-0d7_KjU ()J
+	public final fun component11-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun component7-0d7_KjU ()J
+	public final fun component8-0d7_KjU ()J
+	public final fun component9-0d7_KjU ()J
+	public final fun copy-KpyCeHw (JJJJJJJJJJJ)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;
+	public static synthetic fun copy-KpyCeHw$default (Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;JJJJJJJJJJJILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOnPrimaryFixed-0d7_KjU ()J
+	public final fun getOnQuinaryFixed-0d7_KjU ()J
+	public final fun getOnSecondaryFixed-0d7_KjU ()J
+	public final fun getOnTertiaryFixed-0d7_KjU ()J
+	public final fun getPrimaryFixed-0d7_KjU ()J
+	public final fun getPrimaryFixedDim-0d7_KjU ()J
+	public final fun getQuinaryFixed-0d7_KjU ()J
+	public final fun getSecondaryFixed-0d7_KjU ()J
+	public final fun getSecondaryFixedDim-0d7_KjU ()J
+	public final fun getTertiaryFixed-0d7_KjU ()J
+	public final fun getTertiaryFixedDim-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/ThemeKt {
+	public static final fun FlickSlateTheme (ZZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ProvideColors (Landroidx/compose/material3/ColorScheme;Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ProvideDimens (Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/Dimensions;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
+	public static final fun getAdditionalColors (Landroidx/compose/runtime/Composer;I)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/AdditionalColorScheme;
+	public static final fun getColors (Landroidx/compose/runtime/Composer;I)Landroidx/compose/material3/ColorScheme;
+	public static final fun getDimens (Landroidx/compose/runtime/Composer;I)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/Dimensions;
+	public static final fun getFixedColors (Landroidx/compose/runtime/Composer;I)Lcom/zsoltbertalan/flickslate/shared/ui/compose/design/FixedColorScheme;
+	public static final fun getFlickSlateDarkColorScheme ()Landroidx/compose/material3/ColorScheme;
+	public static final fun getFlickSlateLightColorScheme ()Landroidx/compose/material3/ColorScheme;
+	public static final fun getLocalAppColors ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/design/TypeKt {
+	public static final field MINUS_QUARTER F
+	public static final fun getFlickSlateTypography ()Landroidx/compose/material3/Typography;
+	public static final fun getRoboto ()Landroidx/compose/ui/text/font/SystemFontFamily;
+	public static final fun getTitleMediumBold (Landroidx/compose/material3/Typography;)Landroidx/compose/ui/text/TextStyle;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/util/ImageParsingKt {
+	public static final fun convertImageUrlToBitmap (Ljava/lang/String;Landroid/content/Context;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun extractColorsFromBitmap (Landroid/graphics/Bitmap;Z)Ljava/util/Map;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/util/ModifierExtensionsKt {
+	public static final fun movieCardWidth (Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/shared/domain/model/MovieCardType;)Landroidx/compose/ui/Modifier;
+	public static final fun navigate (Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function1;)Landroidx/compose/ui/Modifier;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/ui/compose/util/RecomposeHighlighterKt {
+	public static final field RECOMPOSE_HIGHLIGHT_DENOMINATOR F
+	public static final field RECOMPOSE_TIMEOUT J
+	public static final fun recomposeHighlighter (Landroidx/compose/ui/Modifier;)Landroidx/compose/ui/Modifier;
+}
+

@@ -1,0 +1,62 @@
+public abstract interface annotation class com/zsoltbertalan/flickslate/shared/kotlin/async/DefaultDispatcher : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/zsoltbertalan/flickslate/shared/kotlin/async/IoDispatcher : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/zsoltbertalan/flickslate/shared/kotlin/async/MainDispatcher : java/lang/annotation/Annotation {
+}
+
+public abstract class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getMessage ()Ljava/lang/String;
+	public fun setMessage (Ljava/lang/String;)V
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$IoFailure : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$IoFailure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$NotModified : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$NotModified;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$ServerError : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$ServerError;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$ServerError;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$ServerError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun setMessage (Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnexpectedFailure : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnexpectedFailure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnknownApiError : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnknownApiError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnknownHostFailure : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UnknownHostFailure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

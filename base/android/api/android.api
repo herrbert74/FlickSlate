@@ -1,0 +1,39 @@
+public final class com/zsoltbertalan/flickslate/shared/android/async/SingletonModule {
+	public fun <init> ()V
+	public final fun providesDefaultDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun providesIoDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun providesMainDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvideConnectivityManager$android_releaseFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvideConnectivityManager$android_releaseFactory;
+	public fun get ()Landroid/net/ConnectivityManager;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideConnectivityManager$android_release (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;Landroid/content/Context;)Landroid/net/ConnectivityManager;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesDefaultDispatcherFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesDefaultDispatcherFactory;
+	public synthetic fun get ()Ljava/lang/Object;
+	public fun get ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public static fun providesDefaultDispatcher (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesIoDispatcherFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesIoDispatcherFactory;
+	public synthetic fun get ()Ljava/lang/Object;
+	public fun get ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public static fun providesIoDispatcher (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class com/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesMainDispatcherFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule_ProvidesMainDispatcherFactory;
+	public synthetic fun get ()Ljava/lang/Object;
+	public fun get ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public static fun providesMainDispatcher (Lcom/zsoltbertalan/flickslate/shared/android/async/SingletonModule;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_shared_android_async_SingletonModule {
+	public fun <init> ()V
+}
+

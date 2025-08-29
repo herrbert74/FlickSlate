@@ -1,0 +1,141 @@
+public final class com/zsoltbertalan/flickslate/movies/ui/main/ComposableSingletons$MoviesScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/movies/ui/main/ComposableSingletons$MoviesScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1010096720$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1422613637$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1554937382$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-528729031$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$135468542$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1431361070$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$233152280$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$608061686$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$797058015$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesScreenKt {
+	public static final fun MoviesScreen (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository;)V
+	public final fun getNowPlayingMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getPopularMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getUpcomingMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/movies/domain/api/MoviesRepository;)Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailScreenKt {
+	public static final fun MovieDetailScreen (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;Landroidx/compose/runtime/Composer;II)V
+	public static final fun isDarkMode (Landroid/content/Context;)Z
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)V
+	public synthetic fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
+	public final fun component2 ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun copy (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFailure ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
+	public final fun getMovieDetail ()Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;)V
+	public final fun getMovieStateData ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_ui_main_MoviesViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_ui_main_MoviesViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_ui_moviedetails_MovieDetailViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_movies_ui_moviedetails_MovieDetailViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+

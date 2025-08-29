@@ -1,0 +1,252 @@
+public final class com/zsoltbertalan/flickslate/BuildConfig {
+	public static final field APPLICATION_ID Ljava/lang/String;
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field TMDB_API_KEY Ljava/lang/String;
+	public static final field VERSION_CODE I
+	public static final field VERSION_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/FlickSlateApp : android/app/Application {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun onCreate ()V
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/FlickSlateApp_GeneratedInjector {
+	public abstract fun injectFlickSlateApp (Lcom/zsoltbertalan/flickslate/FlickSlateApp;)V
+}
+
+public final class com/zsoltbertalan/flickslate/main/ComposableSingletons$NavigationBarKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/ComposableSingletons$NavigationBarKt;
+	public fun <init> ()V
+	public final fun getLambda$1069957610$app_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1827010051$app_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/main/FlickSlateActivity : androidx/activity/ComponentActivity {
+	public static final field $stable I
+	public field ioContext Lkotlinx/coroutines/CoroutineDispatcher;
+	public field mainContext Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun <init> ()V
+	public final fun getIoContext ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun getMainContext ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun setIoContext (Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public final fun setMainContext (Lkotlinx/coroutines/CoroutineDispatcher;)V
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/main/FlickSlateActivity_GeneratedInjector {
+	public abstract fun injectFlickSlateActivity (Lcom/zsoltbertalan/flickslate/main/FlickSlateActivity;)V
+}
+
+public final class com/zsoltbertalan/flickslate/main/FlickSlateActivity_MembersInjector : dagger/MembersInjector {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Ldagger/MembersInjector;
+	public static fun injectIoContext (Lcom/zsoltbertalan/flickslate/main/FlickSlateActivity;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public static fun injectMainContext (Lcom/zsoltbertalan/flickslate/main/FlickSlateActivity;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun injectMembers (Lcom/zsoltbertalan/flickslate/main/FlickSlateActivity;)V
+	public synthetic fun injectMembers (Ljava/lang/Object;)V
+}
+
+public abstract class com/zsoltbertalan/flickslate/main/Hilt_FlickSlateActivity : androidx/activity/ComponentActivity, dagger/hilt/internal/GeneratedComponentManagerHolder {
+	public final fun componentManager ()Ldagger/hilt/android/internal/managers/ActivityComponentManager;
+	public synthetic fun componentManager ()Ldagger/hilt/internal/GeneratedComponentManager;
+	protected fun createComponentManager ()Ldagger/hilt/android/internal/managers/ActivityComponentManager;
+	public final fun generatedComponent ()Ljava/lang/Object;
+	public fun getDefaultViewModelProviderFactory ()Landroidx/lifecycle/ViewModelProvider$Factory;
+	protected fun inject ()V
+	protected fun onCreate (Landroid/os/Bundle;)V
+	protected fun onDestroy ()V
+}
+
+public final class com/zsoltbertalan/flickslate/main/NavigationBarKt {
+	public static final fun FlickSlateBottomNavigationBar (Landroidx/navigation/NavHostController;Landroidx/compose/ui/Modifier;Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FlickSlateNavigationBar (Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FlickSlateNavigationBarItem (Landroidx/compose/foundation/layout/RowScope;ZLandroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;ZLkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/ComposableSingletons$NavHostContainerKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/ComposableSingletons$NavHostContainerKt;
+	public fun <init> ()V
+	public final fun getLambda$1625639015$app_release ()Lkotlin/jvm/functions/Function4;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/main/navigation/Destination {
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$Account : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$Account;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field Companion Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies$Companion;
+	public fun <init> (ILjava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies;ILjava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGenreId ()I
+	public final fun getGenreName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$GenreMovies$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field Companion Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMovieId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$MovieDetails$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$Movies : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$Movies;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$Search : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$Search;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field Companion Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails$Companion;
+	public fun <init> (IIII)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun copy (IIII)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails;IIIIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBgColor ()I
+	public final fun getBgColorDim ()I
+	public final fun getSeasonNumber ()I
+	public final fun getSeriesId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$SeasonDetails$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$Tv : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$Tv;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails : com/zsoltbertalan/flickslate/main/navigation/Destination {
+	public static final field $stable I
+	public static final field Companion Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSeriesId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/Destination$TvDetails$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/zsoltbertalan/flickslate/main/navigation/NavHostContainerKt {
+	public static final fun NavHostContainer (Landroidx/navigation/NavHostController;Landroidx/compose/foundation/layout/PaddingValues;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel;Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel;Lcom/zsoltbertalan/flickslate/tv/ui/main/TvViewModel;Lcom/zsoltbertalan/flickslate/account/ui/main/AccountViewModel;Landroidx/compose/runtime/Composer;II)V
+}
+
+public class dagger/hilt/internal/aggregatedroot/codegen/_com_zsoltbertalan_flickslate_FlickSlateApp {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_FlickSlateApp_GeneratedInjector {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_main_FlickSlateActivity_GeneratedInjector {
+	public fun <init> ()V
+}
+

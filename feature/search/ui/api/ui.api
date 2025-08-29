@@ -1,0 +1,164 @@
+public final class com/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$GenreDetailScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$GenreDetailScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1397541397$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$811583084$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$SearchScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$SearchScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$878741054$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailScreenKt {
+	public static final fun GenreDetailScreen (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;)V
+	public final fun getGenreMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getGenreName ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;)Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/search/ui/main/SearchEvent {
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchClear : com/zsoltbertalan/flickslate/search/ui/main/SearchEvent {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchClear;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchQuery : com/zsoltbertalan/flickslate/search/ui/main/SearchEvent {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchQuery;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchQuery;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchEvent$SearchQuery;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getQuery ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchScreenKt {
+	public static final fun SearchScreen (Lcom/zsoltbertalan/flickslate/search/ui/main/SearchState;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchState {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lkotlinx/collections/immutable/ImmutableList;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Lkotlinx/collections/immutable/ImmutableList;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Lkotlinx/collections/immutable/ImmutableList;Ljava/lang/String;Ljava/util/List;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchState;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/ui/main/SearchState;Lkotlinx/collections/immutable/ImmutableList;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGenreResult ()Lkotlinx/collections/immutable/ImmutableList;
+	public final fun getSearchQuery ()Ljava/lang/String;
+	public final fun getSearchResult ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;)V
+	public final fun emitEvent (Lcom/zsoltbertalan/flickslate/search/ui/main/SearchEvent;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getSearchStateData ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;)Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/search/ui/main/SearchViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_ui_main_GenreDetailViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_ui_main_GenreDetailViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_ui_main_SearchViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_ui_main_SearchViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+

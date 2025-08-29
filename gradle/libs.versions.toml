@@ -391,3 +391,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 #mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
 #parcelize-darwin = { id = "com.arkivanov.parcelize.darwin", version.ref = "parcelize-darwin" }
 #touchlab-skie = { id = "co.touchlab.skie", version.ref = "skie" }
+
+# This is replaced by KGP, but KGP generates empty files for Android modules as of 2.2.10:
+# https://kotlinlang.org/docs/gradle-binary-compatibility-validation.html
+binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.18.1" }
