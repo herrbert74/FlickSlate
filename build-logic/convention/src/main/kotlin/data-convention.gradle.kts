@@ -8,12 +8,12 @@ ksp {
 }
 
 dependencies {
-	api(project(":base:kotlin"))
-	api(project(":shared:domain"))
-	api(project(":shared:data"))
+	implementation(project(":base:kotlin"))
+	implementation(project(":shared:domain"))
+	implementation(project(":shared:data"))
 
 	api(libs.dagger.hiltCore)
-	api(libs.dagger.hiltAndroid)
+	implementation(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
 
 	implementation(libs.kotlinx.coroutinesCore)

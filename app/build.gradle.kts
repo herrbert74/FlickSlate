@@ -156,10 +156,10 @@ dependencies {
 
 	androidTestCompileOnly(libs.autobind.android.testing)
 
-	androidTestImplementation(testFixtures(project("::feature:movies:domain")))
-	androidTestImplementation(testFixtures(project("::feature:tv:domain")))
-	androidTestImplementation(testFixtures(project("::shared:domain")))
-	androidTestImplementation(testFixtures(project("::shared:ui")))
+	androidTestImplementation(testFixtures(project(":feature:movies:domain")))
+	androidTestImplementation(testFixtures(project(":feature:tv:domain")))
+	androidTestImplementation(testFixtures(project(":shared:domain")))
+	androidTestImplementation(testFixtures(project(":shared:ui")))
 	androidTestImplementation(libs.androidx.fragmentKtx) // transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)
 	androidTestImplementation(libs.androidx.testExtJUnit)

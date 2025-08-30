@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ViewModelScoped
-class GenresRoomDataSource @Inject constructor(
+internal class GenresRoomDataSource @Inject constructor(
 	private val searchDatabase: SearchDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreDataSource.Local {

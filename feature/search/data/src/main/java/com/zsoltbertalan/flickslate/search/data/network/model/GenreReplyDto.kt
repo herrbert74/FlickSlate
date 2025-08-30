@@ -9,13 +9,13 @@ import kotlinx.serialization.Serializable
 import retrofit2.Response
 
 @Serializable
-data class GenreReplyDto(
+internal data class GenreReplyDto(
 	val genres: List<GenreDto> = emptyList(),
 )
 
-fun GenreReplyDto.toGenres(): List<Genre> = this.genres.toGenresReply()
+internal fun GenreReplyDto.toGenres(): List<Genre> = this.genres.toGenresReply()
 
-fun Response<GenreReplyDto>.toGenresReply(): GenresReply {
+internal fun Response<GenreReplyDto>.toGenresReply(): GenresReply {
 	val body = this.body()!!
 	val genres = body.genres
 	val etag = this.headers()["etag"] ?: ""

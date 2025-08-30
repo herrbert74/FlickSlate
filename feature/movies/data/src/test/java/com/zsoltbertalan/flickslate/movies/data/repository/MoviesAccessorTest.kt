@@ -7,7 +7,7 @@ import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDtoMother
-import com.zsoltbertalan.flickslate.movies.domain.model.MovieMother
+import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure

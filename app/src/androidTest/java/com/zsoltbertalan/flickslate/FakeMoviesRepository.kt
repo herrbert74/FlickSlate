@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.movies.data.repository.MoviesAccessor
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
-import com.zsoltbertalan.flickslate.movies.domain.model.MovieMother
+import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
@@ -13,10 +13,8 @@ import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import se.ansman.dagger.auto.android.testing.Replaces
 import javax.inject.Inject
 
-@Replaces(MoviesAccessor::class)
 @ActivityRetainedScoped
 class FakeMoviesRepository @Inject constructor() : MoviesRepository {
 
@@ -38,7 +36,8 @@ class FakeMoviesRepository @Inject constructor() : MoviesRepository {
 		)
 	)
 
-	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> = Ok(MovieMother.createMovieDetail())
+	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> =
+		Ok(MovieDetailMother.createMovieDetail())
 
 	override suspend fun getMovieImages(movieId: Int): Outcome<ImagesReply> = Ok(MovieMother.createMovieImages())
 

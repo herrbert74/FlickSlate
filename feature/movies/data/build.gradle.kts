@@ -25,13 +25,15 @@ android {
 
 dependencies {
 	api(project(":feature:movies:domain"))
+
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
+	testImplementation(testFixtures(project(":feature:movies:data")))
+	testImplementation(testFixtures(project(":shared:data")))
+	testImplementation(testFixtures(project(":shared:domain")))
 	testRuntimeOnly(libs.robolectric)
-	testImplementation(testFixtures(project(":feature:movies:domain")))
-	testImplementation(testFixtures(project("::shared:data")))
 
-	testFixturesApi(project(":shared:data"))
+	testFixturesImplementation(project(":shared:data"))
 }

@@ -7,11 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-const val URL_GENRE = "genre/movie/list"
-const val URL_MOVIES_SEARCH = "search/movie"
-const val URL_DISCOVER_MOVIE = "discover/movie"
+private const val URL_GENRE = "genre/movie/list"
+private const val URL_MOVIES_SEARCH = "search/movie"
+private const val URL_DISCOVER_MOVIE = "discover/movie"
 
-interface SearchService {
+internal interface SearchService {
 
 	@GET(URL_GENRE)
 	suspend fun getGenres(

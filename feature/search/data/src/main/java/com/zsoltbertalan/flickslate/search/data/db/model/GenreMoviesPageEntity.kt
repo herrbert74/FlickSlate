@@ -4,7 +4,7 @@ import androidx.room.Entity
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 
 @Entity(tableName = "GenreMoviesPages", primaryKeys = ["genreId", "page"])
-data class GenreMoviesPageEntity(
+internal data class GenreMoviesPageEntity(
 	val genreId: Int,
 	val page: Int,
 	val date: String = "",
@@ -14,10 +14,10 @@ data class GenreMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toGenreMoviesPageEntity(genreId: Int): GenreMoviesPageEntity =
+internal fun PageData.toGenreMoviesPageEntity(genreId: Int): GenreMoviesPageEntity =
 	GenreMoviesPageEntity(genreId, page, date, expires, etag, totalPages, totalResults)
 
-fun GenreMoviesPageEntity.toPageData(): PageData = PageData(
+internal fun GenreMoviesPageEntity.toPageData(): PageData = PageData(
 	page,
 	date,
 	expires,

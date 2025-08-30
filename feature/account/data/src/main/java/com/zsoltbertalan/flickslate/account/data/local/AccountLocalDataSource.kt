@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ActivityRetainedScoped
-class AccountLocalDataSource @Inject constructor(
+internal class AccountLocalDataSource @Inject constructor(
 	@param:ApplicationContext val context: Context
 ) : AccountDataSource.Local {
 

@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming")
 @Serializable
-data class AccountDetailsReplyDto(val name: String?, val username: String)
+internal data class AccountDetailsReplyDto(val name: String?, val username: String)
 
-fun AccountDetailsReplyDto.toAccount(): Account {
+internal fun AccountDetailsReplyDto.toAccount(): Account {
 	val accountName = if (name.isNullOrEmpty()) username else name
 	return Account(accountName)
 }

@@ -38,9 +38,8 @@ dependencies {
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.compiler)
 
-	testImplementation(testFixtures(project("::feature:movies:domain")))
-	testImplementation(testFixtures(project("::shared:domain")))
-	testImplementation(testFixtures(project("::shared:ui")))
+	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":shared:ui")))
 
 	testImplementation(libs.androidx.activity)
 	testImplementation(libs.androidx.annotation) // transitive

@@ -17,7 +17,7 @@ const val URL_TV_IMAGES = "tv/{series_id}/images"
 const val URL_TV_SEASON_DETAILS = "tv/{series_id}/season/{season_number}"
 const val URL_TV_EPISODE_DETAILS = "tv/{series_id}/season/{season_number}/episode/{episode_number}"
 
-interface TvService {
+internal interface TvService {
 
 	@GET(URL_TV_TOP_RATED)
 	suspend fun getTopRatedTv(

@@ -4,4 +4,4 @@ import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming", "PropertyName")
 @Serializable
-data class CreateRequestTokenReplyDto(val success: Boolean, val expires_at: String, val request_token: String)
+internal data class CreateRequestTokenReplyDto(val success: Boolean, val expires_at: String, val request_token: String)

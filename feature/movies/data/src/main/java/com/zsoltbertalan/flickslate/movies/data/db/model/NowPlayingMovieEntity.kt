@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "nowPlayingMovies")
-data class NowPlayingMovieEntity(
+internal data class NowPlayingMovieEntity(
 	@PrimaryKey val id: Int = 0,
 	val title: String = "",
 	val overview: String? = null,
@@ -15,7 +15,7 @@ data class NowPlayingMovieEntity(
 	val page: Int = 0,
 )
 
-fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = NowPlayingMovieEntity(
+internal fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = NowPlayingMovieEntity(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,
@@ -25,7 +25,7 @@ fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = NowPlayin
 	page = page,
 )
 
-fun NowPlayingMovieEntity.toMovie(): Movie = Movie(
+internal fun NowPlayingMovieEntity.toMovie(): Movie = Movie(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,

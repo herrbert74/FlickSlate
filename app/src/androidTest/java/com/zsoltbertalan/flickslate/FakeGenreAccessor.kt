@@ -2,7 +2,6 @@ package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.zsoltbertalan.flickslate.search.data.repository.GenreAccessor
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.GenreMother
@@ -12,10 +11,8 @@ import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import se.ansman.dagger.auto.android.testing.Replaces
 import javax.inject.Inject
 
-@Replaces(GenreAccessor::class)
 @ViewModelScoped
 class FakeGenreAccessor @Inject constructor() : GenreRepository {
 

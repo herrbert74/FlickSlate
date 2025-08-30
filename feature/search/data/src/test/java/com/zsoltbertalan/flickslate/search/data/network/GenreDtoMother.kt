@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.search.data.network
 import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 
-object GenreDtoMother {
+internal object GenreDtoMother {
 
 	fun createGenreReplyDto() = GenreReplyDto(createGenreDtoList())
 

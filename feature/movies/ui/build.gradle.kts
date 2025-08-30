@@ -35,7 +35,7 @@ dependencies {
 	implementation(libs.androidx.hiltNavigationCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 
-	testImplementation(testFixtures(project(":feature:movies:domain")))
+	testImplementation(testFixtures(project(":shared:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl) // transitive

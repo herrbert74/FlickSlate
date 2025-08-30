@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Suppress("PropertyName", "ConstructorParameterNaming")
-data class TvEpisodeDetailsDto(
+internal data class TvEpisodeDetailsDto(
 	val id: Int? = null,
 	val air_date: String? = null,
 	val episode_number: Int? = null,
@@ -17,7 +17,7 @@ data class TvEpisodeDetailsDto(
 	val vote_count: Int? = null,
 )
 
-fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
+internal fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
 	this.id ?: 0,
 	this.air_date ?: "",
 	this.episode_number ?: 0,

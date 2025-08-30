@@ -9,7 +9,7 @@ private const val YEAR_CHARS = 4
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-data class TvDetailsDto(
+internal data class TvDetailsDto(
 	val popularity: Float? = null,
 	val vote_count: Int? = null,
 	val poster_path: String? = null,
@@ -31,7 +31,7 @@ data class TvDetailsDto(
 	val tagline: String? = null,
 )
 
-fun TvDetailsDto.toTvDetail() = TvDetail(
+internal fun TvDetailsDto.toTvDetail() = TvDetail(
 	this.id,
 	this.name,
 	this.overview,

@@ -7,7 +7,7 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.TvShowEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TvDao {
+internal interface TvDao {
 
 	@Query("SELECT * FROM tvshows")
 	fun getAll(): List<TvShowEntity>

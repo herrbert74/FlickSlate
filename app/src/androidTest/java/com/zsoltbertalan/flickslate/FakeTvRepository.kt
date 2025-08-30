@@ -5,7 +5,6 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
-import com.zsoltbertalan.flickslate.tv.data.repository.TvAccessor
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
@@ -14,10 +13,8 @@ import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import se.ansman.dagger.auto.android.testing.Replaces
 import javax.inject.Inject
 
-@Replaces(TvAccessor::class)
 @ViewModelScoped
 class FakeTvRepository @Inject constructor() : TvRepository {
 

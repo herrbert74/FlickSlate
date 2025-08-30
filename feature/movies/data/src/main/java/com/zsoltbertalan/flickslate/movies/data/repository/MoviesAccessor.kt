@@ -17,12 +17,10 @@ import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
 @ActivityRetainedScoped
-class MoviesAccessor @Inject constructor(
+internal class MoviesAccessor @Inject constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,
 	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote,

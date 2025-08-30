@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ViewModelScoped
-class TvRoomDataSource @Inject constructor(
+internal class TvRoomDataSource @Inject constructor(
 	private val tvDatabase: TvDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : TvDataSource.Local {

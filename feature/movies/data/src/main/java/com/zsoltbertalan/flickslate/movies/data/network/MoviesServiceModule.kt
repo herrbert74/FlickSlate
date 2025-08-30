@@ -13,7 +13,7 @@ internal class MoviesServiceModule {
 
 	@Provides
 	@ActivityRetainedScoped
-	fun provideMoviesService(retroFit: Retrofit): MoviesService {
+	internal fun provideMoviesService(retroFit: Retrofit): MoviesService {
 		return retroFit.create(MoviesService::class.java)
 	}
 
