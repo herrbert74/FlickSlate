@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "eTags")
-data class EtagEntity(
+internal data class EtagEntity(
 
 	@PrimaryKey
 	val id: String,

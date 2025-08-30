@@ -11,11 +11,11 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-class DatabaseModule {
+internal class DatabaseModule {
 
 	@Provides
 	@ActivityRetainedScoped
-	fun provideMoviesDatabase(@ApplicationContext context: Context) =
+	internal fun provideMoviesDatabase(@ApplicationContext context: Context) =
 		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase").build()
 
 }

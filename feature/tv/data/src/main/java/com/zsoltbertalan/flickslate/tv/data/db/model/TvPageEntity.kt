@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 
 @Entity(tableName = "TvPages")
-data class TvPageEntity(
+internal data class TvPageEntity(
 
 	@PrimaryKey
 	val page: Int,
@@ -17,8 +17,8 @@ data class TvPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toTvPageEntity(): TvPageEntity =
+internal fun PageData.toTvPageEntity(): TvPageEntity =
 	TvPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun TvPageEntity.toPageData(): PageData =
+internal fun TvPageEntity.toPageData(): PageData =
 	PageData(page, date, expires, etag, totalPages, totalResults)

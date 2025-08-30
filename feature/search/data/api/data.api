@@ -1,8 +1,3 @@
-public final class com/zsoltbertalan/flickslate/search/data/SearchDatabaseModule {
-	public fun <init> ()V
-	public final fun provideSearchDatabase (Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;
-}
-
 public final class com/zsoltbertalan/flickslate/search/data/SearchDatabaseModule_ProvideSearchDatabaseFactory : dagger/internal/Factory {
 	public static fun create (Lcom/zsoltbertalan/flickslate/search/data/SearchDatabaseModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/data/SearchDatabaseModule_ProvideSearchDatabaseFactory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;
@@ -10,113 +5,10 @@ public final class com/zsoltbertalan/flickslate/search/data/SearchDatabaseModule
 	public static fun provideSearchDatabase (Lcom/zsoltbertalan/flickslate/search/data/SearchDatabaseModule;Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;
 }
 
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreDataSource {
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Local {
-	public abstract fun getEtag (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getGenre (I)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
-	public abstract fun getGenres ()Lkotlinx/coroutines/flow/Flow;
-	public abstract fun insertEtag (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun insertGenres (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Remote {
-	public abstract fun getGenres (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource {
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Local {
-	public abstract fun getEtag (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getGenreMovies (II)Lkotlinx/coroutines/flow/Flow;
-	public abstract fun insertGenreMovies (ILjava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun insertGenreMoviesPageData (ILcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Remote {
-	public abstract fun getGenreMovies (Ljava/lang/String;ILjava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/SearchMoviesDataSource {
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/api/SearchMoviesDataSource$Remote {
-	public abstract fun searchMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public abstract class com/zsoltbertalan/flickslate/search/data/db/AutoBindGenreMoviesRoomDataSourceViewModelModule {
-	public abstract fun bindGenreMoviesRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesRoomDataSource;)Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Local;
 }
 
 public abstract class com/zsoltbertalan/flickslate/search/data/db/AutoBindGenresRoomDataSourceViewModelModule {
-	public abstract fun bindGenresRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource;)Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Local;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/db/ETagDao {
-	public abstract fun getAll ()Ljava/util/List;
-	public abstract fun insertEtag (Lcom/zsoltbertalan/flickslate/search/data/db/model/EtagEntity;)V
-	public abstract fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/ETagDao_Impl : com/zsoltbertalan/flickslate/search/data/db/ETagDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/search/data/db/ETagDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getAll ()Ljava/util/List;
-	public fun insertEtag (Lcom/zsoltbertalan/flickslate/search/data/db/model/EtagEntity;)V
-	public fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/ETagDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao {
-	public abstract fun getAll ()Ljava/util/List;
-	public abstract fun getGenreMovies (II)Lkotlinx/coroutines/flow/Flow;
-	public abstract fun insertGenreMovies (Ljava/util/List;)V
-	public abstract fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao_Impl : com/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getAll ()Ljava/util/List;
-	public fun getGenreMovies (II)Lkotlinx/coroutines/flow/Flow;
-	public fun insertGenreMovies (Ljava/util/List;)V
-	public fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao {
-	public abstract fun getPageData (I)Ljava/util/List;
-	public abstract fun insertPageData (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;)V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao_Impl : com/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getPageData (I)Ljava/util/List;
-	public fun insertPageData (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;)V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesRoomDataSource : com/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Local {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
-	public fun getEtag (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getGenreMovies (II)Lkotlinx/coroutines/flow/Flow;
-	public fun insertGenreMovies (ILjava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun insertGenreMoviesPageData (ILcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesRoomDataSource_Factory : dagger/internal/Factory {
@@ -126,36 +18,6 @@ public final class com/zsoltbertalan/flickslate/search/data/db/GenreMoviesRoomDa
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesRoomDataSource;
 }
 
-public abstract interface class com/zsoltbertalan/flickslate/search/data/db/GenresDao {
-	public abstract fun getAll ()Lkotlinx/coroutines/flow/Flow;
-	public abstract fun getGenre (I)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;
-	public abstract fun insertGenres (Ljava/util/List;)V
-	public abstract fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenresDao_Impl : com/zsoltbertalan/flickslate/search/data/db/GenresDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/search/data/db/GenresDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getAll ()Lkotlinx/coroutines/flow/Flow;
-	public fun getGenre (I)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;
-	public fun insertGenres (Ljava/util/List;)V
-	public fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenresDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource : com/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Local {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
-	public fun getEtag (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getGenre (I)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
-	public fun getGenres ()Lkotlinx/coroutines/flow/Flow;
-	public fun insertEtag (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun insertGenres (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource_Factory : dagger/internal/Factory {
 	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource;
@@ -163,129 +25,10 @@ public final class com/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSou
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/db/SearchDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/search/data/db/GenresRoomDataSource;
 }
 
-public abstract class com/zsoltbertalan/flickslate/search/data/db/SearchDatabase : androidx/room/RoomDatabase {
-	public fun <init> ()V
-	public abstract fun etagDao ()Lcom/zsoltbertalan/flickslate/search/data/db/ETagDao;
-	public abstract fun genreMoviesDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao;
-	public abstract fun genreMoviesPageDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao;
-	public abstract fun genresDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenresDao;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/SearchDatabase_Impl : com/zsoltbertalan/flickslate/search/data/db/SearchDatabase {
-	public fun <init> ()V
-	public fun clearAllTables ()V
-	public fun createAutoMigrations (Ljava/util/Map;)Ljava/util/List;
-	public synthetic fun createOpenDelegate ()Landroidx/room/RoomOpenDelegateMarker;
-	public fun etagDao ()Lcom/zsoltbertalan/flickslate/search/data/db/ETagDao;
-	public fun genreMoviesDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesDao;
-	public fun genreMoviesPageDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenreMoviesPageDao;
-	public fun genresDao ()Lcom/zsoltbertalan/flickslate/search/data/db/GenresDao;
-	public fun getRequiredAutoMigrationSpecClasses ()Ljava/util/Set;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/EtagEntity {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/search/data/db/model/EtagEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/data/db/model/EtagEntity;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/data/db/model/EtagEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getEtag ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreEntity {
-	public fun <init> (ILjava/lang/String;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (ILjava/lang/String;)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;ILjava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getId ()I
-	public final fun getName ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreEntityKt {
-	public static final fun toEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;
-	public static final fun toGenre (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Genre;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity {
-	public fun <init> ()V
-	public fun <init> (IILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)V
-	public synthetic fun <init> (IILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component2 ()I
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/Float;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()I
-	public final fun copy (IILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity;IILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBackdropPath ()Ljava/lang/String;
-	public final fun getGenreId ()I
-	public final fun getId ()I
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPage ()I
-	public final fun getPosterPath ()Ljava/lang/String;
-	public final fun getTitle ()Ljava/lang/String;
-	public final fun getVoteAverage ()Ljava/lang/Float;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntityKt {
-	public static final fun toGenreMoviesEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;II)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity;
-	public static final fun toMovie (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMovieEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity {
-	public fun <init> (IILjava/lang/String;ILjava/lang/String;II)V
-	public synthetic fun <init> (IILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component2 ()I
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()I
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()I
-	public final fun component7 ()I
-	public final fun copy (IILjava/lang/String;ILjava/lang/String;II)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;IILjava/lang/String;ILjava/lang/String;IIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDate ()Ljava/lang/String;
-	public final fun getEtag ()Ljava/lang/String;
-	public final fun getExpires ()I
-	public final fun getGenreId ()I
-	public final fun getPage ()I
-	public final fun getTotalPages ()I
-	public final fun getTotalResults ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntityKt {
-	public static final fun toGenreMoviesPageEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;I)Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;
-	public static final fun toPageData (Lcom/zsoltbertalan/flickslate/search/data/db/model/GenreMoviesPageEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
-}
-
 public abstract class com/zsoltbertalan/flickslate/search/data/network/AutoBindGenreMoviesRemoteDataSourceViewModelModule {
-	public abstract fun bindGenreMoviesRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/search/data/network/GenreMoviesRemoteDataSource;)Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Remote;
 }
 
 public abstract class com/zsoltbertalan/flickslate/search/data/network/AutoBindGenreRemoteDataSourceViewModelModule {
-	public abstract fun bindGenreRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource;)Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Remote;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/GenreMoviesRemoteDataSource : com/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Remote {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)V
-	public fun getGenreMovies (Ljava/lang/String;ILjava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/search/data/network/GenreMoviesRemoteDataSource_Factory : dagger/internal/Factory {
@@ -295,21 +38,11 @@ public final class com/zsoltbertalan/flickslate/search/data/network/GenreMoviesR
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)Lcom/zsoltbertalan/flickslate/search/data/network/GenreMoviesRemoteDataSource;
 }
 
-public final class com/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource : com/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Remote {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)V
-	public fun getGenres (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource_Factory : dagger/internal/Factory {
 	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)Lcom/zsoltbertalan/flickslate/search/data/network/GenreRemoteDataSource;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/SearchMoviesRemoteDataSource : com/zsoltbertalan/flickslate/search/data/api/SearchMoviesDataSource$Remote {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)V
-	public fun searchMovies (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/search/data/network/SearchMoviesRemoteDataSource_Factory : dagger/internal/Factory {
@@ -319,81 +52,11 @@ public final class com/zsoltbertalan/flickslate/search/data/network/SearchMovies
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;)Lcom/zsoltbertalan/flickslate/search/data/network/SearchMoviesRemoteDataSource;
 }
 
-public abstract interface class com/zsoltbertalan/flickslate/search/data/network/SearchService {
-	public abstract fun getGenreMovie (Ljava/lang/String;ILjava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getGenreMovie$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;ILjava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getGenres (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getGenres$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun searchMovies (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun searchMovies$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/SearchService$DefaultImpls {
-	public static synthetic fun getGenreMovie$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;ILjava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getGenres$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun searchMovies$default (Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/SearchServiceKt {
-	public static final field URL_DISCOVER_MOVIE Ljava/lang/String;
-	public static final field URL_GENRE Ljava/lang/String;
-	public static final field URL_MOVIES_SEARCH Ljava/lang/String;
-}
-
 public final class com/zsoltbertalan/flickslate/search/data/network/SearchServiceModule_ProvideSearchServiceFactory : dagger/internal/Factory {
 	public static fun create (Lcom/zsoltbertalan/flickslate/search/data/network/SearchServiceModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/search/data/network/SearchServiceModule_ProvideSearchServiceFactory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun provideSearchService (Lcom/zsoltbertalan/flickslate/search/data/network/SearchServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/search/data/network/SearchService;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;Ljava/util/List;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getGenres ()Ljava/util/List;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDtoKt {
-	public static final fun toGenres (Lcom/zsoltbertalan/flickslate/search/data/network/model/GenreReplyDto;)Ljava/util/List;
-	public static final fun toGenresReply (Lretrofit2/Response;)Lcom/zsoltbertalan/flickslate/shared/domain/model/GenresReply;
-}
-
-public abstract class com/zsoltbertalan/flickslate/search/data/repository/AutoBindGenreAccessorViewModelModule {
-	public abstract fun bindGenreAccessorAsGenreRepository (Lcom/zsoltbertalan/flickslate/search/data/repository/GenreAccessor;)Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;
-}
-
-public abstract class com/zsoltbertalan/flickslate/search/data/repository/AutoBindSearchAccessorViewModelModule {
-	public abstract fun bindSearchAccessorAsSearchRepository (Lcom/zsoltbertalan/flickslate/search/data/repository/SearchAccessor;)Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;
-}
-
-public final class com/zsoltbertalan/flickslate/search/data/repository/GenreAccessor : com/zsoltbertalan/flickslate/search/domain/api/GenreRepository {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Local;Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Remote;Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Remote;Lkotlinx/coroutines/CoroutineDispatcher;)V
-	public final fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
-	public fun getGenreDetail (II)Lkotlinx/coroutines/flow/Flow;
-	public fun getGenresList ()Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class com/zsoltbertalan/flickslate/search/data/repository/GenreAccessor_Factory : dagger/internal/Factory {
@@ -403,9 +66,8 @@ public final class com/zsoltbertalan/flickslate/search/data/repository/GenreAcce
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Local;Lcom/zsoltbertalan/flickslate/search/data/api/GenreDataSource$Remote;Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Local;Lcom/zsoltbertalan/flickslate/search/data/api/GenreMoviesDataSource$Remote;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/search/data/repository/GenreAccessor;
 }
 
-public final class com/zsoltbertalan/flickslate/search/data/repository/SearchAccessor : com/zsoltbertalan/flickslate/search/domain/api/SearchRepository {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/search/data/network/SearchMoviesRemoteDataSource;)V
-	public fun getSearchResult (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+public final class com/zsoltbertalan/flickslate/search/data/repository/HiltWrapper_InternalSearchRepositoryModule {
+	public fun <init> ()V
 }
 
 public final class com/zsoltbertalan/flickslate/search/data/repository/SearchAccessor_Factory : dagger/internal/Factory {
@@ -413,6 +75,11 @@ public final class com/zsoltbertalan/flickslate/search/data/repository/SearchAcc
 	public fun get ()Lcom/zsoltbertalan/flickslate/search/data/repository/SearchAccessor;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/search/data/network/SearchMoviesRemoteDataSource;)Lcom/zsoltbertalan/flickslate/search/data/repository/SearchAccessor;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/search/data/repository/SearchRepositoryModule {
+	public abstract fun bindGenreRepository (Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;)Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;
+	public abstract fun bindSearchRepository (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;)Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_SearchDatabaseModule {
@@ -439,11 +106,11 @@ public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_netw
 	public fun <init> ()V
 }
 
-public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_repository_AutoBindGenreAccessorViewModelModule {
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_repository_HiltWrapper_InternalSearchRepositoryModule {
 	public fun <init> ()V
 }
 
-public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_repository_AutoBindSearchAccessorViewModelModule {
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_search_data_repository_SearchRepositoryModule {
 	public fun <init> ()V
 }
 

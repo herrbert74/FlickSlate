@@ -8,7 +8,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
 @Suppress("unused")
-fun failNetworkRequestResponse(): () -> Response<GenreReplyDto> = {
+internal fun failNetworkRequestResponse(): () -> Response<GenreReplyDto> = {
 	val errorBody = ErrorBody(
 		success = false,
 		status_code = 6,

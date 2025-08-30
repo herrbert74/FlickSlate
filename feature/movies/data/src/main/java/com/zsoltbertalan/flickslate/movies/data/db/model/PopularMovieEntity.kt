@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "popularMovies")
-data class PopularMovieEntity(
+internal data class PopularMovieEntity(
 	@PrimaryKey
 	val id: Int = 0,
 
@@ -17,7 +17,7 @@ data class PopularMovieEntity(
 	val page: Int = 0,
 )
 
-fun Movie.toPopularMoviesEntity(page: Int): PopularMovieEntity = PopularMovieEntity(
+internal fun Movie.toPopularMoviesEntity(page: Int): PopularMovieEntity = PopularMovieEntity(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,
@@ -27,7 +27,7 @@ fun Movie.toPopularMoviesEntity(page: Int): PopularMovieEntity = PopularMovieEnt
 	page = page,
 )
 
-fun PopularMovieEntity.toMovie(): Movie = Movie(
+internal fun PopularMovieEntity.toMovie(): Movie = Movie(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,

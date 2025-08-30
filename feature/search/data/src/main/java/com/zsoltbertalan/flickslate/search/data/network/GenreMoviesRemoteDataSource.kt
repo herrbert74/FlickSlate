@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ViewModelScoped
-class GenreMoviesRemoteDataSource @Inject constructor(
+internal class GenreMoviesRemoteDataSource @Inject constructor(
 	private val searchService: SearchService
 ) : GenreMoviesDataSource.Remote {
 

@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ActivityRetainedScoped
-class UpcomingMoviesRoomDataSource @Inject constructor(
+internal class UpcomingMoviesRoomDataSource @Inject constructor(
 	private val moviesDatabase: MoviesDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : UpcomingMoviesDataSource.Local {

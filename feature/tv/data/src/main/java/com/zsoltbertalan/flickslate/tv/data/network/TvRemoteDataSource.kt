@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ViewModelScoped
-class TvRemoteDataSource @Inject constructor(
+internal class TvRemoteDataSource @Inject constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {
 

@@ -4,7 +4,7 @@ const val TOTAL_RESULTS = 300
 
 const val TOTAL_PAGES = 3
 
-object TvDtoMother {
+internal object TvDtoMother {
 
 	fun createTopRatedTvReplyDto() = TopRatedTvReplyDto(
 		0,

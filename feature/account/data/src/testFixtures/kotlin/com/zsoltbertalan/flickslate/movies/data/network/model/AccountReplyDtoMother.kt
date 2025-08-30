@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.movies.data.network.model
 
 import com.zsoltbertalan.flickslate.account.data.network.model.AccountDetailsReplyDto
 
-object AccountReplyDtoMother {
+internal object AccountReplyDtoMother {
 
 	fun createAccountReplyDto() = AccountDetailsReplyDto(
 		name = "John Doe",

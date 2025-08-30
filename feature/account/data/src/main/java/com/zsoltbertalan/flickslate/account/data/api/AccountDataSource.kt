@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.account.data.api
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 
-interface AccountDataSource {
+internal interface AccountDataSource {
 
 	interface Local {
 

@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ActivityRetainedScoped
-class AccountRemoteDataSource @Inject constructor(
+internal class AccountRemoteDataSource @Inject constructor(
 	private val accountService: AccountService
 ) : AccountDataSource.Remote {
 

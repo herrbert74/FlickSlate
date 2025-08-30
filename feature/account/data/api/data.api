@@ -1,30 +1,3 @@
-public abstract interface class com/zsoltbertalan/flickslate/account/data/api/AccountDataSource {
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Local {
-	public abstract fun deleteAccessToken ()V
-	public abstract fun getAccessToken ()Ljava/lang/String;
-	public abstract fun getAccount ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;
-	public abstract fun saveAccessToken (Ljava/lang/String;)V
-	public abstract fun saveAccount (Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;)V
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Remote {
-	public abstract fun createSessionId (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun deleteSessionId (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getAccountDetails (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/local/AccountLocalDataSource : com/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Local {
-	public fun <init> (Landroid/content/Context;)V
-	public fun deleteAccessToken ()V
-	public fun getAccessToken ()Ljava/lang/String;
-	public fun getAccount ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;
-	public final fun getContext ()Landroid/content/Context;
-	public fun saveAccessToken (Ljava/lang/String;)V
-	public fun saveAccount (Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;)V
-}
-
 public final class com/zsoltbertalan/flickslate/account/data/local/AccountLocalDataSource_Factory : dagger/internal/Factory {
 	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/local/AccountLocalDataSource_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/local/AccountLocalDataSource;
@@ -33,14 +6,6 @@ public final class com/zsoltbertalan/flickslate/account/data/local/AccountLocalD
 }
 
 public abstract class com/zsoltbertalan/flickslate/account/data/local/AutoBindAccountLocalDataSourceActivityRetainedModule {
-	public abstract fun bindAccountLocalDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/account/data/local/AccountLocalDataSource;)Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Local;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/AccountRemoteDataSource : com/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Remote {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/account/data/network/AccountService;)V
-	public fun createSessionId (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun deleteSessionId (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getAccountDetails (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/account/data/network/AccountRemoteDataSource_Factory : dagger/internal/Factory {
@@ -48,22 +13,6 @@ public final class com/zsoltbertalan/flickslate/account/data/network/AccountRemo
 	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/network/AccountRemoteDataSource;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/network/AccountService;)Lcom/zsoltbertalan/flickslate/account/data/network/AccountRemoteDataSource;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/account/data/network/AccountService {
-	public abstract fun createRequestToken (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun createSession (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun deleteSession (Lokhttp3/RequestBody;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getAccountDetails (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun validateRequestTokenWithLogin (Lokhttp3/RequestBody;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/AccountServiceKt {
-	public static final field URL_CREATE_REQUEST_TOKEN Ljava/lang/String;
-	public static final field URL_CREATE_SESSION Ljava/lang/String;
-	public static final field URL_DELETE_SESSION Ljava/lang/String;
-	public static final field URL_GET_ACCOUNT_DETAILS Ljava/lang/String;
-	public static final field URL_VALIDATE_REQUEST_TOKEN_WITH_LOGIN Ljava/lang/String;
 }
 
 public final class com/zsoltbertalan/flickslate/account/data/network/AccountServiceModule_ProvideAccountServiceFactory : dagger/internal/Factory {
@@ -74,134 +23,6 @@ public final class com/zsoltbertalan/flickslate/account/data/network/AccountServ
 }
 
 public abstract class com/zsoltbertalan/flickslate/account/data/network/AutoBindAccountRemoteDataSourceActivityRetainedModule {
-	public abstract fun bindAccountRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/account/data/network/AccountRemoteDataSource;)Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Remote;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getName ()Ljava/lang/String;
-	public final fun getUsername ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDtoKt {
-	public static final fun toAccount (Lcom/zsoltbertalan/flickslate/account/data/network/model/AccountDetailsReplyDto;)Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto$Companion;
-	public fun <init> (ZLjava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Z
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (ZLjava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getExpires_at ()Ljava/lang/String;
-	public final fun getRequest_token ()Ljava/lang/String;
-	public final fun getSuccess ()Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/CreateRequestTokenReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto$Companion;
-	public fun <init> (ZLjava/lang/String;)V
-	public final fun component1 ()Z
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (ZLjava/lang/String;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto;ZLjava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getSession_id ()Ljava/lang/String;
-	public final fun getSuccess ()Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/CreateSessionReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto$Companion;
-	public fun <init> (Z)V
-	public final fun component1 ()Z
-	public final fun copy (Z)Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto;ZILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getSuccess ()Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/network/model/DeleteSessionReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/account/data/repository/AccountAccessor : com/zsoltbertalan/flickslate/account/domain/api/AccountRepository {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Remote;Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Local;)V
-	public fun getAccount (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun login (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun logout (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/account/data/repository/AccountAccessor_Factory : dagger/internal/Factory {
@@ -212,7 +33,6 @@ public final class com/zsoltbertalan/flickslate/account/data/repository/AccountA
 }
 
 public abstract class com/zsoltbertalan/flickslate/account/data/repository/AutoBindAccountAccessorActivityRetainedModule {
-	public abstract fun bindAccountAccessorAsAccountRepository (Lcom/zsoltbertalan/flickslate/account/data/repository/AccountAccessor;)Lcom/zsoltbertalan/flickslate/account/domain/api/AccountRepository;
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_local_AutoBindAccountLocalDataSourceActivityRetainedModule {

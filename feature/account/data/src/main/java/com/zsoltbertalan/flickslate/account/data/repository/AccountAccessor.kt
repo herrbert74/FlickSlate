@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ActivityRetainedScoped
-class AccountAccessor @Inject constructor(
+internal class AccountAccessor @Inject constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
 	private val accountLocalDataSource: AccountDataSource.Local
 ) : AccountRepository {

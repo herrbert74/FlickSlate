@@ -1,10 +1,7 @@
-package com.zsoltbertalan.flickslate.movies.domain.model
+package com.zsoltbertalan.flickslate.shared.domain.model
 
-import com.zsoltbertalan.flickslate.shared.domain.model.Genre
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.images.Image
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
-import kotlinx.collections.immutable.toImmutableList
 
 object MovieMother {
 
@@ -74,26 +71,6 @@ object MovieMother {
 		createDefaultMovie(id = 11, title = "name6"),
 		createDefaultMovie(id = 12, title = "name6"),
 		createDefaultMovie(id = 13, title = "name6"),
-	)
-
-	fun createMovieDetail(
-		id: Int = 0,
-		title: String = "Brazil",
-		overview: String = "Best film ever",
-		voteAverage: Float = 8.7800f,
-		posterPath: String = "app1",
-		backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
-	): MovieDetail = MovieDetail(
-		id = id,
-		title = title,
-		overview = overview,
-		voteAverage = voteAverage,
-		posterPath = posterPath,
-		backdropPath = backdropPath,
-		genres = listOf(
-			Genre(1, "Adventure"),
-			Genre(2, "Comedy")
-		).toImmutableList()
 	)
 
 	fun createMovieImages(): ImagesReply = ImagesReply(

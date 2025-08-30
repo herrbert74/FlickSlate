@@ -11,7 +11,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @ViewModelScoped
-class SearchMoviesRemoteDataSource @Inject constructor(
+internal class SearchMoviesRemoteDataSource @Inject constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {
 

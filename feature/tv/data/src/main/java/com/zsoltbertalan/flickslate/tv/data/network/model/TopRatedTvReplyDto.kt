@@ -8,14 +8,14 @@ import retrofit2.Response
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-data class TopRatedTvReplyDto(
+internal data class TopRatedTvReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,
 	val results: List<TvDto>? = null,
 )
 
-fun Response<TopRatedTvReplyDto>.toTvShowsReply(): PagingReply<TvShow> {
+internal fun Response<TopRatedTvReplyDto>.toTvShowsReply(): PagingReply<TvShow> {
 	val body = this.body()!!
 	val etag = this.headers()["etag"] ?: ""
 	val date = this.headers()["date"] ?: ""

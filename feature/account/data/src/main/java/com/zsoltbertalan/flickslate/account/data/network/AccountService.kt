@@ -11,11 +11,11 @@ import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-const val URL_CREATE_REQUEST_TOKEN = "authentication/token/new"
-const val URL_VALIDATE_REQUEST_TOKEN_WITH_LOGIN = "authentication/token/validate_with_login"
-const val URL_CREATE_SESSION = "authentication/session/new"
-const val URL_DELETE_SESSION = "authentication/session"
-const val URL_GET_ACCOUNT_DETAILS = "account"
+private const val URL_CREATE_REQUEST_TOKEN = "authentication/token/new"
+private const val URL_VALIDATE_REQUEST_TOKEN_WITH_LOGIN = "authentication/token/validate_with_login"
+private const val URL_CREATE_SESSION = "authentication/session/new"
+private const val URL_DELETE_SESSION = "authentication/session"
+private const val URL_GET_ACCOUNT_DETAILS = "account"
 
 /**
  * As of December 2024, the API reference for login with password is wrong here:
@@ -27,7 +27,7 @@ const val URL_GET_ACCOUNT_DETAILS = "account"
  * The login replaces not the third, but the second step in the process, and you still have to create the session,
  * because the second step is only validation, not the session creation.
  */
-interface AccountService {
+internal interface AccountService {
 
 	@GET(URL_CREATE_REQUEST_TOKEN)
 	suspend fun createRequestToken(): CreateRequestTokenReplyDto

@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
-interface UpcomingMoviesDataSource {
+internal interface UpcomingMoviesDataSource {
 
 	interface Local {
 

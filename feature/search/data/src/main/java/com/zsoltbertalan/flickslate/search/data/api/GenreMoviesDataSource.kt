@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
-interface GenreMoviesDataSource {
+internal interface GenreMoviesDataSource {
 
 	interface Local {
 

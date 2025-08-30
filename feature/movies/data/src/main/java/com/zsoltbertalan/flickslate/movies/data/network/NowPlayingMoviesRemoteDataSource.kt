@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @AutoBind
 @ActivityRetainedScoped
-class NowPlayingMoviesRemoteDataSource @Inject constructor(
+internal class NowPlayingMoviesRemoteDataSource @Inject constructor(
 	private val moviesService: MoviesService
 ) : NowPlayingMoviesDataSource.Remote {
 

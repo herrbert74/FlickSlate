@@ -11,13 +11,13 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-const val URL_MOVIES_POPULAR = "movie/popular"
-const val URL_MOVIES_NOW_PLAYING = "movie/now_playing"
-const val URL_MOVIES_UPCOMING = "movie/upcoming"
-const val URL_MOVIE_DETAILS = "movie/{movie_id}"
-const val URL_MOVIE_IMAGES = "movie/{movie_id}/images"
+private const val URL_MOVIES_POPULAR = "movie/popular"
+private const val URL_MOVIES_NOW_PLAYING = "movie/now_playing"
+private const val URL_MOVIES_UPCOMING = "movie/upcoming"
+private const val URL_MOVIE_DETAILS = "movie/{movie_id}"
+private const val URL_MOVIE_IMAGES = "movie/{movie_id}/images"
 
-interface MoviesService {
+internal interface MoviesService {
 
 	@GET(URL_MOVIES_POPULAR)
 	suspend fun getPopularMovies(

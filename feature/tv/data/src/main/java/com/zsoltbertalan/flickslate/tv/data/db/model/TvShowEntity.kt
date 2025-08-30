@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 
 @Entity(tableName = "TvShows")
-data class TvShowEntity(
+internal data class TvShowEntity(
 
 	@PrimaryKey
 	val id: Int = 0,
@@ -18,7 +18,7 @@ data class TvShowEntity(
 	val page: Int = 0,
 )
 
-fun TvShow.toTvEntity(page: Int): TvShowEntity = TvShowEntity(
+internal fun TvShow.toTvEntity(page: Int): TvShowEntity = TvShowEntity(
 	id = this.id,
 	name = this.name,
 	overview = this.overview,
@@ -28,7 +28,7 @@ fun TvShow.toTvEntity(page: Int): TvShowEntity = TvShowEntity(
 	page = page,
 )
 
-fun TvShowEntity.toTvShow(): TvShow = TvShow(
+internal fun TvShowEntity.toTvShow(): TvShow = TvShow(
 	id = this.id,
 	name = this.name,
 	overview = this.overview,

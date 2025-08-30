@@ -4,7 +4,7 @@ import androidx.room.Entity
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "genreMovies", primaryKeys = ["id", "genreId"])
-data class GenreMovieEntity(
+internal data class GenreMovieEntity(
 	val id: Int = 0,
 	val genreId: Int = 0,
 	val title: String = "",
@@ -15,7 +15,7 @@ data class GenreMovieEntity(
 	val page: Int = 0,
 )
 
-fun Movie.toGenreMoviesEntity(genreId: Int, page: Int): GenreMovieEntity = GenreMovieEntity(
+internal fun Movie.toGenreMoviesEntity(genreId: Int, page: Int): GenreMovieEntity = GenreMovieEntity(
 	id = id,
 	genreId = genreId,
 	title = this.title,
@@ -26,7 +26,7 @@ fun Movie.toGenreMoviesEntity(genreId: Int, page: Int): GenreMovieEntity = Genre
 	page = page,
 )
 
-fun GenreMovieEntity.toMovie(): Movie = Movie(
+internal fun GenreMovieEntity.toMovie(): Movie = Movie(
 	id = this.id,
 	title = this.title,
 	overview = this.overview,

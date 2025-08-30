@@ -1,8 +1,3 @@
-public final class com/zsoltbertalan/flickslate/tv/data/TvDatabaseModule {
-	public fun <init> ()V
-	public final fun provideMoviesDatabase (Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;
-}
-
 public final class com/zsoltbertalan/flickslate/tv/data/TvDatabaseModule_ProvideMoviesDatabaseFactory : dagger/internal/Factory {
 	public static fun create (Lcom/zsoltbertalan/flickslate/tv/data/TvDatabaseModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/TvDatabaseModule_ProvideMoviesDatabaseFactory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;
@@ -10,90 +5,7 @@ public final class com/zsoltbertalan/flickslate/tv/data/TvDatabaseModule_Provide
 	public static fun provideMoviesDatabase (Lcom/zsoltbertalan/flickslate/tv/data/TvDatabaseModule;Landroid/content/Context;)Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;
 }
 
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/api/TvDataSource {
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local {
-	public abstract fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getTv (I)Lkotlinx/coroutines/flow/Flow;
-	public abstract fun insertTv (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun insertTvPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote {
-	public abstract fun getTopRatedTv (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTopRatedTv$default (Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getTvSeasonDetails (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote$DefaultImpls {
-	public static synthetic fun getTopRatedTv$default (Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-}
-
 public abstract class com/zsoltbertalan/flickslate/tv/data/db/AutoBindTvRoomDataSourceViewModelModule {
-	public abstract fun bindTvRoomDataSourceAsLocal (Lcom/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource;)Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/db/TvDao {
-	public abstract fun getAll ()Ljava/util/List;
-	public abstract fun getTvShows (I)Lkotlinx/coroutines/flow/Flow;
-	public abstract fun insertTvShows (Ljava/util/List;)V
-	public abstract fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvDao_Impl : com/zsoltbertalan/flickslate/tv/data/db/TvDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/db/TvDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getAll ()Ljava/util/List;
-	public fun getTvShows (I)Lkotlinx/coroutines/flow/Flow;
-	public fun insertTvShows (Ljava/util/List;)V
-	public fun purgeDatabase ()V
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public abstract class com/zsoltbertalan/flickslate/tv/data/db/TvDatabase : androidx/room/RoomDatabase {
-	public fun <init> ()V
-	public abstract fun tvShowsDao ()Lcom/zsoltbertalan/flickslate/tv/data/db/TvDao;
-	public abstract fun tvShowsPageDao ()Lcom/zsoltbertalan/flickslate/tv/data/db/TvPageDao;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvDatabase_Impl : com/zsoltbertalan/flickslate/tv/data/db/TvDatabase {
-	public fun <init> ()V
-	public fun clearAllTables ()V
-	public fun createAutoMigrations (Ljava/util/Map;)Ljava/util/List;
-	public synthetic fun createOpenDelegate ()Landroidx/room/RoomOpenDelegateMarker;
-	public fun getRequiredAutoMigrationSpecClasses ()Ljava/util/Set;
-	public fun tvShowsDao ()Lcom/zsoltbertalan/flickslate/tv/data/db/TvDao;
-	public fun tvShowsPageDao ()Lcom/zsoltbertalan/flickslate/tv/data/db/TvPageDao;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/db/TvPageDao {
-	public abstract fun getPageData (I)Ljava/util/List;
-	public abstract fun insertPageData (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;)V
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvPageDao_Impl : com/zsoltbertalan/flickslate/tv/data/db/TvPageDao {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/db/TvPageDao_Impl$Companion;
-	public fun <init> (Landroidx/room/RoomDatabase;)V
-	public fun getPageData (I)Ljava/util/List;
-	public fun insertPageData (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;)V
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvPageDao_Impl$Companion {
-	public final fun getRequiredConverters ()Ljava/util/List;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource : com/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)V
-	public fun getEtag (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getTv (I)Lkotlinx/coroutines/flow/Flow;
-	public fun insertTv (Ljava/util/List;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun insertTvPageData (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun purgeDatabase (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource_Factory : dagger/internal/Factory {
@@ -103,71 +15,7 @@ public final class com/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource_Fact
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource;
 }
 
-public final class com/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity {
-	public fun <init> (ILjava/lang/String;ILjava/lang/String;II)V
-	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()I
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()I
-	public final fun component6 ()I
-	public final fun copy (ILjava/lang/String;ILjava/lang/String;II)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;ILjava/lang/String;ILjava/lang/String;IIILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDate ()Ljava/lang/String;
-	public final fun getEtag ()Ljava/lang/String;
-	public final fun getExpires ()I
-	public final fun getPage ()I
-	public final fun getTotalPages ()I
-	public final fun getTotalResults ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntityKt {
-	public static final fun toPageData (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;
-	public static final fun toTvPageEntity (Lcom/zsoltbertalan/flickslate/shared/domain/model/PageData;)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvPageEntity;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity {
-	public fun <init> ()V
-	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)V
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/Float;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()I
-	public final fun copy (ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;I)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity;ILjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBackdropPath ()Ljava/lang/String;
-	public final fun getId ()I
-	public final fun getName ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPage ()I
-	public final fun getPosterPath ()Ljava/lang/String;
-	public final fun getVoteAverage ()Ljava/lang/Float;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntityKt {
-	public static final fun toTvEntity (Lcom/zsoltbertalan/flickslate/tv/domain/model/TvShow;I)Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity;
-	public static final fun toTvShow (Lcom/zsoltbertalan/flickslate/tv/data/db/model/TvShowEntity;)Lcom/zsoltbertalan/flickslate/tv/domain/model/TvShow;
-}
-
 public abstract class com/zsoltbertalan/flickslate/tv/data/network/AutoBindTvRemoteDataSourceViewModelModule {
-	public abstract fun bindTvRemoteDataSourceAsRemote (Lcom/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource;)Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource : com/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;)V
-	public fun getTopRatedTv (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getTvSeasonDetails (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource_Factory : dagger/internal/Factory {
@@ -175,27 +23,6 @@ public final class com/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSour
 	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource;
-}
-
-public abstract interface class com/zsoltbertalan/flickslate/tv/data/network/TvService {
-	public abstract fun getTopRatedTv (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTopRatedTv$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getTvDetails (Ljava/lang/String;ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTvDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;ILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getTvEpisodeDetails (Ljava/lang/String;IIILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTvEpisodeDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;IIILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getTvImages (ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTvImages$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;ILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public abstract fun getTvSeasonDetails (Ljava/lang/String;IILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getTvSeasonDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;IILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/TvService$DefaultImpls {
-	public static synthetic fun getTopRatedTv$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getTvDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;ILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getTvEpisodeDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;IIILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getTvImages$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;ILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getTvSeasonDetails$default (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Ljava/lang/String;IILjava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceKt {
@@ -213,321 +40,8 @@ public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceModule_
 	public static fun provideTvService (Lcom/zsoltbertalan/flickslate/tv/data/network/TvServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;
 }
 
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/Integer;
-	public final fun component3 ()I
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAir_date ()Ljava/lang/String;
-	public final fun getEpisode_count ()Ljava/lang/Integer;
-	public final fun getId ()I
-	public final fun getName ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPoster_path ()Ljava/lang/String;
-	public final fun getSeason_number ()Ljava/lang/Integer;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/SeasonDtoKt {
-	public static final fun toSeason (Lcom/zsoltbertalan/flickslate/tv/data/network/model/SeasonDto;)Lcom/zsoltbertalan/flickslate/tv/domain/model/Season;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto$Companion;
+public final class com/zsoltbertalan/flickslate/tv/data/repository/HiltWrapper_InternalTvRepositoryModule {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/Integer;
-	public final fun component2 ()Ljava/lang/Integer;
-	public final fun component3 ()Ljava/lang/Integer;
-	public final fun component4 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getPage ()Ljava/lang/Integer;
-	public final fun getResults ()Ljava/util/List;
-	public final fun getTotal_pages ()Ljava/lang/Integer;
-	public final fun getTotal_results ()Ljava/lang/Integer;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TopRatedTvReplyDtoKt {
-	public static final fun toTvShowsReply (Lretrofit2/Response;)Lcom/zsoltbertalan/flickslate/shared/domain/model/PagingReply;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/Float;
-	public final fun component10 ()Ljava/util/List;
-	public final fun component11 ()Ljava/lang/Float;
-	public final fun component12 ()Ljava/lang/String;
-	public final fun component13 ()Ljava/lang/String;
-	public final fun component14 ()Ljava/lang/String;
-	public final fun component15 ()Ljava/lang/Integer;
-	public final fun component16 ()Ljava/lang/Integer;
-	public final fun component17 ()Ljava/util/List;
-	public final fun component18 ()Ljava/lang/String;
-	public final fun component19 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/Integer;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/Integer;
-	public final fun component5 ()Ljava/lang/Boolean;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/Float;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAdult ()Ljava/lang/Boolean;
-	public final fun getBackdrop_path ()Ljava/lang/String;
-	public final fun getFirst_air_date ()Ljava/lang/String;
-	public final fun getGenres ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/Integer;
-	public final fun getLast_air_date ()Ljava/lang/String;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getNumber_of_episodes ()Ljava/lang/Integer;
-	public final fun getNumber_of_seasons ()Ljava/lang/Integer;
-	public final fun getOriginal_language ()Ljava/lang/String;
-	public final fun getOriginal_title ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPopularity ()Ljava/lang/Float;
-	public final fun getPoster_path ()Ljava/lang/String;
-	public final fun getSeasons ()Ljava/util/List;
-	public final fun getStatus ()Ljava/lang/String;
-	public final fun getTagline ()Ljava/lang/String;
-	public final fun getVote_average ()Ljava/lang/Float;
-	public final fun getVote_count ()Ljava/lang/Integer;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDtoKt {
-	public static final fun toTvDetail (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDetailsDto;)Lcom/zsoltbertalan/flickslate/tv/domain/model/TvDetail;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/Float;
-	public final fun component10 ()Ljava/lang/String;
-	public final fun component11 ()Ljava/lang/Float;
-	public final fun component12 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/Integer;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/Integer;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBackdrop_path ()Ljava/lang/String;
-	public final fun getFirst_air_date ()Ljava/lang/String;
-	public final fun getGenre_ids ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/Integer;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getOriginal_language ()Ljava/lang/String;
-	public final fun getOriginal_title ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPopularity ()Ljava/lang/Float;
-	public final fun getPoster_path ()Ljava/lang/String;
-	public final fun getVote_average ()Ljava/lang/Float;
-	public final fun getVote_count ()Ljava/lang/Integer;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/TvDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvDtoKt {
-	public static final fun toTv (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvDto;)Lcom/zsoltbertalan/flickslate/tv/domain/model/TvShow;
-	public static final fun toTvList (Ljava/util/List;)Ljava/util/List;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;)V
-	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/Integer;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/Integer;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/Integer;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/Float;
-	public final fun component9 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAir_date ()Ljava/lang/String;
-	public final fun getEpisode_number ()Ljava/lang/Integer;
-	public final fun getId ()Ljava/lang/Integer;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getSeason_number ()Ljava/lang/Integer;
-	public final fun getStill_path ()Ljava/lang/String;
-	public final fun getVote_average ()Ljava/lang/Float;
-	public final fun getVote_count ()Ljava/lang/Integer;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDtoKt {
-	public static final fun toTvEpisodeDetail (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvEpisodeDetailsDto;)Lcom/zsoltbertalan/flickslate/tv/domain/model/TvEpisodeDetail;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto {
-	public static final field Companion Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Float;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/util/List;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/Integer;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/Integer;
-	public final fun component9 ()Ljava/lang/Float;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Float;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Float;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAir_date ()Ljava/lang/String;
-	public final fun getEpisodes ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/Integer;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getOverview ()Ljava/lang/String;
-	public final fun getPoster_path ()Ljava/lang/String;
-	public final fun getSeason_number ()Ljava/lang/Integer;
-	public final fun getVote_average ()Ljava/lang/Float;
-	public final fun get_id ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class com/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDtoKt {
-	public static final fun toTvSeasonDetails (Lcom/zsoltbertalan/flickslate/tv/data/network/model/TvSeasonDetailsDto;)Lcom/zsoltbertalan/flickslate/tv/domain/model/SeasonDetail;
-}
-
-public abstract class com/zsoltbertalan/flickslate/tv/data/repository/AutoBindTvAccessorViewModelModule {
-	public abstract fun bindTvAccessorAsTvRepository (Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;)Lcom/zsoltbertalan/flickslate/tv/domain/api/TvRepository;
-}
-
-public final class com/zsoltbertalan/flickslate/tv/data/repository/TvAccessor : com/zsoltbertalan/flickslate/tv/domain/api/TvRepository {
-	public fun <init> (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;)V
-	public fun getTopRatedTv (I)Lkotlinx/coroutines/flow/Flow;
-	public fun getTvDetails (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getTvImages (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getTvSeasonDetail (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/repository/TvAccessor_Factory : dagger/internal/Factory {
@@ -535,6 +49,10 @@ public final class com/zsoltbertalan/flickslate/tv/data/repository/TvAccessor_Fa
 	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;
 	public synthetic fun get ()Ljava/lang/Object;
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/tv/data/repository/TvRepositoryModule {
+	public abstract fun bindTvRepository (Lcom/zsoltbertalan/flickslate/tv/domain/api/TvRepository;)Lcom/zsoltbertalan/flickslate/tv/domain/api/TvRepository;
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_TvDatabaseModule {
@@ -553,7 +71,11 @@ public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_
 	public fun <init> ()V
 }
 
-public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_repository_AutoBindTvAccessorViewModelModule {
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_repository_HiltWrapper_InternalTvRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_repository_TvRepositoryModule {
 	public fun <init> ()V
 }
 

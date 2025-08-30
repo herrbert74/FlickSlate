@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 
 @Entity(tableName = "popularMoviesPages")
-class PopularMoviesPageEntity(
+internal class PopularMoviesPageEntity(
 
 	@PrimaryKey
 	val page: Int,
@@ -17,8 +17,8 @@ class PopularMoviesPageEntity(
 	val totalResults: Int = 0,
 )
 
-fun PageData.toPopularMoviesPageEntity(): PopularMoviesPageEntity =
+internal fun PageData.toPopularMoviesPageEntity(): PopularMoviesPageEntity =
 	PopularMoviesPageEntity(page, date, expires, etag, totalPages, totalResults)
 
-fun PopularMoviesPageEntity.toPageData(): PageData =
+internal fun PopularMoviesPageEntity.toPageData(): PageData =
 	PageData(page, date, expires, etag, totalPages, totalResults)
