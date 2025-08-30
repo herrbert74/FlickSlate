@@ -20,7 +20,7 @@ dependencies {
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.coroutinesCore)
-	"testFixturesApi"(project(":shared:domain"))
+	testFixturesImplementation(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 

@@ -24,13 +24,13 @@ android {
 }
 
 dependencies {
-	api(project(":feature:account:domain"))
-	api(project(":shared:domain"))
+	implementation(project(":feature:account:domain"))
+	implementation(project(":shared:domain"))
 
 	implementation(project(":shared:data"))
 
 	api(libs.dagger.hiltCore)
-	api(libs.dagger.hiltAndroid)
+	implementation(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
 
 	implementation(libs.androidx.coreKtx) // transitive
@@ -55,6 +55,6 @@ dependencies {
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)
-	testImplementation(testFixtures(project("::feature:account:domain")))
-	testImplementation(testFixtures(project("::shared:data")))
+	testImplementation(testFixtures(project(":feature:account:domain")))
+	testImplementation(testFixtures(project(":shared:data")))
 }

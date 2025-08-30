@@ -18,9 +18,6 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
-
-	@Suppress("UnstableApiUsage")
-	testFixtures.enable = true
 }
 
 dependencies {
@@ -31,18 +28,6 @@ dependencies {
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testRuntimeOnly(libs.robolectric)
-	testImplementation(testFixtures(project("::feature:tv:domain")))
-	testImplementation(testFixtures(project("::shared:data")))
-
-	testFixturesApi(project(":base:kotlin"))
-	testFixturesApi(project(":feature:tv:domain"))
-	testFixturesApi(project(":shared:domain"))
-	testFixturesApi(libs.inject)
-
-	testFixturesImplementation(project(":shared:data"))
-	testFixturesImplementation(testFixtures(project(":feature:tv:domain")))
-	testFixturesImplementation(libs.kotlinResult.result)
-	testFixturesImplementation(libs.autobind.android.testing)
-	testFixturesImplementation(libs.dagger.hiltAndroid)
-
+	testImplementation(testFixtures(project(":feature:tv:domain")))
+	testImplementation(testFixtures(project(":shared:data")))
 }

@@ -51,7 +51,7 @@ dependencies {
 	implementation(libs.timber)
 	implementation(libs.dagger.hiltCore)
 
-	testImplementation(testFixtures(project("::shared:domain")))
+	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.core)
