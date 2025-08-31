@@ -25,6 +25,7 @@ dependencies {
 	implementation(libs.androidx.composeFoundation)
 	implementation(libs.androidx.composeFoundationLayout)
 	implementation(libs.androidx.composeMaterial3)
+	implementation(libs.androidx.composeRuntimeAnnotation)
 	implementation(libs.androidx.composeRuntimeSaveable)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGraphics)

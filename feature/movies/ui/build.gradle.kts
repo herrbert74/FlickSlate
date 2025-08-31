@@ -38,6 +38,7 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl) // transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)

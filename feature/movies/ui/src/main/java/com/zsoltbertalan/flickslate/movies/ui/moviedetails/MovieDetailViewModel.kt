@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +21,7 @@ class MovieDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 	private val _movieStateData = MutableStateFlow(MovieDetailState())
-	val movieStateData = _movieStateData.asStateFlow()
+	internal val movieStateData = _movieStateData.asStateFlow()
 
 	private val movieId: Int = checkNotNull(savedStateHandle["movieId"])
 
@@ -51,7 +52,8 @@ class MovieDetailViewModel @Inject constructor(
 	}
 }
 
-data class MovieDetailState(
+@Immutable
+internal data class MovieDetailState(
 	val movieDetail: MovieDetailWithImages? = null,
 	val failure: Failure? = null,
 )

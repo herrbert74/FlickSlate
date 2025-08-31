@@ -38,6 +38,7 @@ dependencies {
 	implementation(libs.androidx.annotation)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.composeMaterialIconsCore)
+	implementation(libs.androidx.composeRuntimeAnnotation)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGeometry)
 	implementation(libs.androidx.composeUiGraphics)
