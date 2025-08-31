@@ -24,7 +24,7 @@ internal fun SeasonDto.toSeason() = Season(
 	this.name,
 	this.overview,
 	this.poster_path,
-	this.season_number,
+	this.season_number ?: 0,
 )
 
 internal fun List<SeasonDto>?.toSeasons(): ImmutableList<Season> =
