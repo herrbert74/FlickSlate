@@ -7,5 +7,5 @@ data class Season(
 	val name: String?,
 	val overview: String?,
 	val posterPath: String?,
-	val seasonNumber: Int?
+	val seasonNumber: Int
 )

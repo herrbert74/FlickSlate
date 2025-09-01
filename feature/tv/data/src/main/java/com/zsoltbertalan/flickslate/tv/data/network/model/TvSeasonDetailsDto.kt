@@ -22,7 +22,7 @@ internal fun TvSeasonDetailsDto.toTvSeasonDetails() = SeasonDetail(
 	this.episodes?.size ?: 0,
 	this.id ?: 0,
 	this.name ?: "",
-	this.overview ?: "",
+	this.overview,
 	this.poster_path,
 	this.season_number ?: 0,
 	this.episodes?.map { it.toTvEpisodeDetail() } ?: emptyList(),

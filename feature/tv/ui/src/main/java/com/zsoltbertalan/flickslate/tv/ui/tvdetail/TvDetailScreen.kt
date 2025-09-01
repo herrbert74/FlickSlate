@@ -141,8 +141,13 @@ fun TvDetailScreen(
 						SeasonsRow(
 							seasons = it,
 							modifier = Modifier.padding(16.dp),
-							onClick = { seasonNumber ->
-								navigateToSeasonDetails(detail.tvDetail.id!!, seasonNumber, color1, color2)
+							onClick = { index ->
+								navigateToSeasonDetails(
+									detail.tvDetail.id!!,
+									detail.tvDetail.seasons[index].seasonNumber,
+									color1,
+									color2
+								)
 							}
 						)
 					}

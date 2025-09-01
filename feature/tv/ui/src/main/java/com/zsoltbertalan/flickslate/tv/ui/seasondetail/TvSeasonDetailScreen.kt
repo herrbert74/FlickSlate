@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.tv.ui.seasondetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,7 +56,8 @@ fun TvSeasonDetailScreen(
 		} else if (uiState.failure != null) {
 			Column(
 				horizontalAlignment = Alignment.CenterHorizontally,
-				verticalArrangement = Arrangement.Center
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier.padding(horizontal = Dimens.marginLarge)
 			) {
 				Text(text = uiState.failure?.message ?: stringResource(id = R.string.error_unknown))
 				Spacer(modifier = Modifier.height(Dimens.marginLarge))
@@ -64,13 +66,19 @@ fun TvSeasonDetailScreen(
 				}
 			}
 		} else {
-			TvSeasonDetailContent(uiState)
+			TvSeasonDetailContent(
+				uiState = uiState,
+				onEpisodeClick = { episodeId -> viewModel.toggleEpisodeExpanded(episodeId) }
+			)
 		}
 	}
 }
 
 @Composable
-private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
+private fun TvSeasonDetailContent(
+	uiState: TvSeasonDetailUiState,
+	onEpisodeClick: (Int) -> Unit
+) {
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxSize()
@@ -79,30 +87,29 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 					listOf(Color(uiState.bgColor), Color(uiState.bgColorDim))
 				),
 			),
-		contentPadding = PaddingValues(Dimens.marginLarge)
+		contentPadding = PaddingValues(vertical = Dimens.marginLarge)
 	) {
 		item {
-			Column {
-				uiState.seasonDetail?.name?.let {
-					Text(
-						text = it,
-						style = MaterialTheme.typography.titleLarge
-					)
-				}
-				Spacer(modifier = Modifier.height(Dimens.marginLarge))
-				uiState.seasonDetail?.posterPath?.let {
-					Image(
-						painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + it),
-						contentDescription = "",
-						modifier = Modifier
-							.fillMaxWidth()
-							.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
-						contentScale = ContentScale.Crop
-					)
-				}
-
+			uiState.seasonDetail?.name?.let {
+				Text(
+					text = it,
+					style = MaterialTheme.typography.titleLarge,
+					modifier = Modifier.padding(horizontal = Dimens.marginLarge)
+				)
+			}
+			Spacer(modifier = Modifier.height(Dimens.marginLarge))
+			uiState.seasonDetail?.posterPath?.let {
+				Image(
+					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + it),
+					contentDescription = uiState.seasonDetail.name ?: "Season Poster",
+					modifier = Modifier
+						.fillMaxWidth()
+						.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+					contentScale = ContentScale.Crop
+				)
+			}
+			Column(modifier = Modifier.padding(all = Dimens.marginLarge)) {
 				uiState.seasonDetail?.airDate?.let {
-					Spacer(modifier = Modifier.height(Dimens.marginNormal))
 					Text(
 						text = stringResource(R.string.air_date, it),
 						style = MaterialTheme.typography.bodyMedium
@@ -110,8 +117,9 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 					Spacer(modifier = Modifier.height(Dimens.marginNormal))
 				}
 
-				val seasonOverview =
-					uiState.seasonDetail?.overview ?: stringResource(id = R.string.no_overview_available)
+				val seasonOverview = (uiState.seasonDetail?.overview ?: "").ifEmpty {
+					stringResource(id = R.string.no_overview_available)
+				}
 				Text(text = seasonOverview, style = MaterialTheme.typography.bodyLarge)
 				Spacer(modifier = Modifier.height(Dimens.marginLarge))
 
@@ -121,24 +129,39 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 						style = MaterialTheme.typography.titleMedium
 					)
 					Spacer(modifier = Modifier.height(Dimens.marginNormal))
-					HorizontalDivider(color = Colors.onBackground)
+
 				}
 			}
+
+			HorizontalDivider(color = Colors.onBackground)
 		}
 
 		itemsIndexed(
 			items = uiState.seasonDetail?.episodes ?: emptyList(),
 			key = { _, item -> item.id }
 		) { index, item ->
-			EpisodeItem(episode = item)
+			EpisodeItem(
+				episode = item,
+				isExpanded = item.id == uiState.expandedEpisodeId,
+				onEpisodeClick = { onEpisodeClick(item.id) }
+			)
 			HorizontalDivider(color = Colors.onBackground)
 		}
 	}
 }
 
 @Composable
-private fun EpisodeItem(episode: TvEpisodeDetail) {
-	Column(modifier = Modifier.padding(vertical = Dimens.marginNormal)) {
+private fun EpisodeItem(
+	episode: TvEpisodeDetail,
+	isExpanded: Boolean,
+	onEpisodeClick: () -> Unit
+) {
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.clickable(onClick = onEpisodeClick)
+			.padding(horizontal = Dimens.marginLarge, vertical = Dimens.marginLarge)
+	) {
 		episode.stillPath?.let {
 			Image(
 				painter = rememberAsyncImagePainter(
@@ -146,7 +169,7 @@ private fun EpisodeItem(episode: TvEpisodeDetail) {
 					error = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie),
 					fallback = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie)
 				),
-				contentDescription = "Episode Still: ${episode.name}",
+				contentDescription = "Still image for episode: ${episode.name}",
 				modifier = Modifier
 					.fillMaxWidth()
 					.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
@@ -162,7 +185,7 @@ private fun EpisodeItem(episode: TvEpisodeDetail) {
 		Text(
 			text = episode.overview,
 			style = MaterialTheme.typography.bodyMedium,
-			maxLines = 3
+			maxLines = if (isExpanded) Int.MAX_VALUE else 3
 		)
 	}
 }
