@@ -117,8 +117,9 @@ private fun TvSeasonDetailContent(
 					Spacer(modifier = Modifier.height(Dimens.marginNormal))
 				}
 
-				val seasonOverview =
-					uiState.seasonDetail?.overview ?: stringResource(id = R.string.no_overview_available)
+				val seasonOverview = (uiState.seasonDetail?.overview ?: "").ifEmpty {
+					stringResource(id = R.string.no_overview_available)
+				}
 				Text(text = seasonOverview, style = MaterialTheme.typography.bodyLarge)
 				Spacer(modifier = Modifier.height(Dimens.marginLarge))
 
