@@ -85,4 +85,3 @@ data class TvSeasonDetailUiState(
 	val failure: Failure? = null,
 	val expandedEpisodeId: Int? = null // Added this line
 )
-

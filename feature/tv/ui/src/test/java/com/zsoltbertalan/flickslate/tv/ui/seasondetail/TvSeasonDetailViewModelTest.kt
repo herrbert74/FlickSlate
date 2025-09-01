@@ -190,4 +190,5 @@ class TvSeasonDetailViewModelTest {
 		val stateAfterToggle = viewModel.uiState.value
 		stateAfterToggle.copy(expandedEpisodeId = initialState.expandedEpisodeId) shouldBe initialState
 	}
+
 }

@@ -56,7 +56,8 @@ fun TvSeasonDetailScreen(
 		} else if (uiState.failure != null) {
 			Column(
 				horizontalAlignment = Alignment.CenterHorizontally,
-				verticalArrangement = Arrangement.Center
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier.padding(horizontal = Dimens.marginLarge)
 			) {
 				Text(text = uiState.failure?.message ?: stringResource(id = R.string.error_unknown))
 				Spacer(modifier = Modifier.height(Dimens.marginLarge))
@@ -86,30 +87,29 @@ private fun TvSeasonDetailContent(
 					listOf(Color(uiState.bgColor), Color(uiState.bgColorDim))
 				),
 			),
-		contentPadding = PaddingValues(Dimens.marginLarge)
+		contentPadding = PaddingValues(vertical = Dimens.marginLarge)
 	) {
 		item {
-			Column {
-				uiState.seasonDetail?.name?.let {
-					Text(
-						text = it,
-						style = MaterialTheme.typography.titleLarge
-					)
-				}
-				Spacer(modifier = Modifier.height(Dimens.marginLarge))
-				uiState.seasonDetail?.posterPath?.let {
-					Image(
-						painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + it),
-						contentDescription = uiState.seasonDetail.name ?: "Season Poster",
-						modifier = Modifier
-							.fillMaxWidth()
-							.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
-						contentScale = ContentScale.Crop
-					)
-				}
-
+			uiState.seasonDetail?.name?.let {
+				Text(
+					text = it,
+					style = MaterialTheme.typography.titleLarge,
+					modifier = Modifier.padding(horizontal = Dimens.marginLarge)
+				)
+			}
+			Spacer(modifier = Modifier.height(Dimens.marginLarge))
+			uiState.seasonDetail?.posterPath?.let {
+				Image(
+					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + it),
+					contentDescription = uiState.seasonDetail.name ?: "Season Poster",
+					modifier = Modifier
+						.fillMaxWidth()
+						.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
+					contentScale = ContentScale.Crop
+				)
+			}
+			Column(modifier = Modifier.padding(all = Dimens.marginLarge)) {
 				uiState.seasonDetail?.airDate?.let {
-					Spacer(modifier = Modifier.height(Dimens.marginNormal))
 					Text(
 						text = stringResource(R.string.air_date, it),
 						style = MaterialTheme.typography.bodyMedium
@@ -129,9 +129,11 @@ private fun TvSeasonDetailContent(
 						style = MaterialTheme.typography.titleMedium
 					)
 					Spacer(modifier = Modifier.height(Dimens.marginNormal))
-					HorizontalDivider(color = Colors.onBackground)
+
 				}
 			}
+
+			HorizontalDivider(color = Colors.onBackground)
 		}
 
 		itemsIndexed(
@@ -158,7 +160,7 @@ private fun EpisodeItem(
 		modifier = Modifier
 			.fillMaxWidth()
 			.clickable(onClick = onEpisodeClick)
-			.padding(vertical = Dimens.marginNormal)
+			.padding(horizontal = Dimens.marginLarge, vertical = Dimens.marginLarge)
 	) {
 		episode.stillPath?.let {
 			Image(
@@ -187,4 +189,3 @@ private fun EpisodeItem(
 		)
 	}
 }
-
