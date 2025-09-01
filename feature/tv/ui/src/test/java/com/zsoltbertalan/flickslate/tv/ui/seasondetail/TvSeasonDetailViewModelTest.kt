@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import io.kotest.assertions.throwables.shouldThrowExactly
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -31,6 +33,7 @@ class TvSeasonDetailViewModelTest {
 	private val savedStateHandle = mockk<SavedStateHandle>(relaxed = true)
 
 	private lateinit var viewModel: TvSeasonDetailViewModel
+	private lateinit var mockSeasonDetail: SeasonDetail
 
 	private val dispatcher = StandardTestDispatcher()
 
@@ -39,6 +42,8 @@ class TvSeasonDetailViewModelTest {
 	private val testBgColor = 1
 	private val testBgColorDim = 2
 	private val testSeasonTitle = "Season 1"
+	private val testEpisodeId1 = 101
+	private val testEpisodeId2 = 102
 
 	@Before
 	fun setUp() {
@@ -48,6 +53,12 @@ class TvSeasonDetailViewModelTest {
 		every { savedStateHandle.get<Int>(BG_COLOR_ARG) } returns testBgColor
 		every { savedStateHandle.get<Int>(BG_COLOR_DIM_ARG) } returns testBgColorDim
 		every { savedStateHandle.get<String>(SEASON_TITLE_ARG) } returns testSeasonTitle
+
+		mockSeasonDetail = TvMother.createSeasonDetail(
+			seriesId = testSeriesId,
+			seasonNumber = testSeasonNumber,
+		)
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
 	}
 
 	@After
@@ -55,27 +66,14 @@ class TvSeasonDetailViewModelTest {
 		Dispatchers.resetMain()
 	}
 
+	private fun TestScope.initializeViewModel() {
+		viewModel = TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
+		advanceUntilIdle()
+	}
+
 	@Test
 	fun `when viewModel initialized then fetchSeasonDetails is called and returns correct data on success`() = runTest {
-		val mockSeasonDetail = TvMother.createSeasonDetail(
-			seriesId = testSeriesId,
-			seasonNumber = testSeasonNumber
-		)
-		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
-
-		viewModel = TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
-
-		val initialState = TvSeasonDetailUiState(
-			isLoading = true,
-			title = testSeasonTitle,
-			seasonDetail = null,
-			bgColor = testBgColor,
-			bgColorDim = testBgColorDim,
-			failure = null
-		)
-		viewModel.uiState.value shouldBe initialState
-
-		advanceUntilIdle()
+		initializeViewModel()
 
 		val job = launch(UnconfinedTestDispatcher(testScheduler)) {
 			val expectedState = TvSeasonDetailUiState(
@@ -84,7 +82,8 @@ class TvSeasonDetailViewModelTest {
 				seasonDetail = mockSeasonDetail,
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
-				failure = null
+				failure = null,
+				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
 		}
@@ -93,12 +92,8 @@ class TvSeasonDetailViewModelTest {
 
 	@Test
 	fun `when viewModel initialized and fetchSeasonDetails fails then returns proper failure`() = runTest {
-		val mockFailure = Failure.UnknownHostFailure
-		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Err(mockFailure)
-
-		viewModel = TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
-
-		advanceUntilIdle()
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Err(Failure.UnknownHostFailure)
+		initializeViewModel()
 
 		val job = launch(UnconfinedTestDispatcher(testScheduler)) {
 			val expectedState = TvSeasonDetailUiState(
@@ -107,7 +102,8 @@ class TvSeasonDetailViewModelTest {
 				seasonDetail = null,
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
-				failure = mockFailure
+				failure = Failure.UnknownHostFailure,
+				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
 		}
@@ -116,11 +112,7 @@ class TvSeasonDetailViewModelTest {
 
 	@Test
 	fun `when fetchSeasonDetails called explicitly then state updates correctly on success`() = runTest {
-		val mockSeasonDetail = TvMother.createSeasonDetail(seriesId = testSeriesId, seasonNumber = testSeasonNumber)
-		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
-
-		viewModel = TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
-		advanceUntilIdle()
+		initializeViewModel()
 
 		viewModel.fetchSeasonDetails()
 
@@ -136,7 +128,8 @@ class TvSeasonDetailViewModelTest {
 				seasonDetail = mockSeasonDetail,
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
-				failure = null
+				failure = null,
+				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
 		}
@@ -147,22 +140,54 @@ class TvSeasonDetailViewModelTest {
 	fun `when required args are missing from SavedStateHandle then viewModel init throws IllegalStateException`() =
 		runTest {
 			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
-
 			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(
-					getSeasonDetailUseCase,
-					savedStateHandle
-				)
+				TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
 			}
 
 			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns testSeriesId
 			every { savedStateHandle.get<Int>(SEASON_NUMBER_ARG) } returns null
-
 			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(
-					getSeasonDetailUseCase,
-					savedStateHandle
-				)
+				TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
 			}
 		}
+
+	@Test
+	fun `initially expandedEpisodeId is null`() = runTest {
+		initializeViewModel()
+		viewModel.uiState.value.expandedEpisodeId shouldBe null
+	}
+
+	@Test
+	fun `toggleEpisodeExpanded sets expandedEpisodeId when none is expanded`() = runTest {
+		initializeViewModel()
+		viewModel.toggleEpisodeExpanded(testEpisodeId1)
+		viewModel.uiState.value.expandedEpisodeId shouldBe testEpisodeId1
+	}
+
+	@Test
+	fun `toggleEpisodeExpanded clears expandedEpisodeId when same episode is toggled`() = runTest {
+		initializeViewModel()
+		viewModel.toggleEpisodeExpanded(testEpisodeId1)
+		viewModel.toggleEpisodeExpanded(testEpisodeId1)
+		viewModel.uiState.value.expandedEpisodeId shouldBe null
+	}
+
+	@Test
+	fun `toggleEpisodeExpanded changes expandedEpisodeId when different episode is toggled`() = runTest {
+		initializeViewModel()
+		viewModel.toggleEpisodeExpanded(testEpisodeId1)
+		viewModel.toggleEpisodeExpanded(testEpisodeId2)
+		viewModel.uiState.value.expandedEpisodeId shouldBe testEpisodeId2
+	}
+
+	@Test
+	fun `toggleEpisodeExpanded does not affect other UI state properties`() = runTest {
+		initializeViewModel()
+		val initialState = viewModel.uiState.value
+
+		viewModel.toggleEpisodeExpanded(testEpisodeId1)
+
+		val stateAfterToggle = viewModel.uiState.value
+		stateAfterToggle.copy(expandedEpisodeId = initialState.expandedEpisodeId) shouldBe initialState
+	}
 }

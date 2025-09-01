@@ -62,6 +62,17 @@ class TvSeasonDetailViewModel @Inject constructor(
 			}
 		}
 	}
+
+	fun toggleEpisodeExpanded(episodeId: Int) {
+		_uiState.update { currentState ->
+			val newExpandedId = if (currentState.expandedEpisodeId == episodeId) {
+				null // Collapse if already expanded
+			} else {
+				episodeId // Expand new one
+			}
+			currentState.copy(expandedEpisodeId = newExpandedId)
+		}
+	}
 }
 
 @Immutable
@@ -72,4 +83,6 @@ data class TvSeasonDetailUiState(
 	val bgColor: Int = 0,
 	val bgColorDim: Int = 0,
 	val failure: Failure? = null,
+	val expandedEpisodeId: Int? = null // Added this line
 )
+

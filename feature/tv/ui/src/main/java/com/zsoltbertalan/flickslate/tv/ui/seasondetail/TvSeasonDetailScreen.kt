@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.tv.ui.seasondetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,13 +65,19 @@ fun TvSeasonDetailScreen(
 				}
 			}
 		} else {
-			TvSeasonDetailContent(uiState)
+			TvSeasonDetailContent(
+				uiState = uiState,
+				onEpisodeClick = { episodeId -> viewModel.toggleEpisodeExpanded(episodeId) }
+			)
 		}
 	}
 }
 
 @Composable
-private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
+private fun TvSeasonDetailContent(
+	uiState: TvSeasonDetailUiState,
+	onEpisodeClick: (Int) -> Unit
+) {
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxSize()
@@ -93,7 +100,7 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 				uiState.seasonDetail?.posterPath?.let {
 					Image(
 						painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + it),
-						contentDescription = "",
+						contentDescription = uiState.seasonDetail.name ?: "Season Poster",
 						modifier = Modifier
 							.fillMaxWidth()
 							.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
@@ -130,15 +137,28 @@ private fun TvSeasonDetailContent(uiState: TvSeasonDetailUiState) {
 			items = uiState.seasonDetail?.episodes ?: emptyList(),
 			key = { _, item -> item.id }
 		) { index, item ->
-			EpisodeItem(episode = item)
+			EpisodeItem(
+				episode = item,
+				isExpanded = item.id == uiState.expandedEpisodeId,
+				onEpisodeClick = { onEpisodeClick(item.id) }
+			)
 			HorizontalDivider(color = Colors.onBackground)
 		}
 	}
 }
 
 @Composable
-private fun EpisodeItem(episode: TvEpisodeDetail) {
-	Column(modifier = Modifier.padding(vertical = Dimens.marginNormal)) {
+private fun EpisodeItem(
+	episode: TvEpisodeDetail,
+	isExpanded: Boolean,
+	onEpisodeClick: () -> Unit
+) {
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.clickable(onClick = onEpisodeClick)
+			.padding(vertical = Dimens.marginNormal)
+	) {
 		episode.stillPath?.let {
 			Image(
 				painter = rememberAsyncImagePainter(
@@ -146,7 +166,7 @@ private fun EpisodeItem(episode: TvEpisodeDetail) {
 					error = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie),
 					fallback = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie)
 				),
-				contentDescription = "Episode Still: ${episode.name}",
+				contentDescription = "Still image for episode: ${episode.name}",
 				modifier = Modifier
 					.fillMaxWidth()
 					.aspectRatio(HEADER_IMAGE_ASPECT_RATIO),
@@ -162,7 +182,8 @@ private fun EpisodeItem(episode: TvEpisodeDetail) {
 		Text(
 			text = episode.overview,
 			style = MaterialTheme.typography.bodyMedium,
-			maxLines = 3
+			maxLines = if (isExpanded) Int.MAX_VALUE else 3
 		)
 	}
 }
+
