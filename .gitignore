@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/gradle-user-home
+/profile-out*

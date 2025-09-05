@@ -1,0 +1,36 @@
+non_abi_change_movie_data {
+    tasks = [":app:assembleDebug"]
+    apply-non-abi-change-to = ["feature/movies/data/src/main/java/com/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource.kt"]
+    show-build-cache-size = true
+}
+
+abi_change_movie_data {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["feature/movies/data/src/main/java/com/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor.kt"]
+    show-build-cache-size = true
+}
+
+abi_change_movie_ui {
+    tasks = [":app:assembleDebug"]
+    apply-kotlin-composable-change-to = ["feature/movies/ui/src/main/java/com/zsoltbertalan/flickslate/movies/ui/main/MoviesScreen.kt"]
+}
+
+abi_change_shared_domain {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["shared/domain/src/main/java/com/zsoltbertalan/flickslate/shared/domain/model/Movie.kt"]
+}
+
+abi_change_base_kotlin {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["base/kotlin/src/main/java/com/zsoltbertalan/flickslate/shared/kotlin/result/Outcome.kt"]
+}
+
+build_script_change_movies_data {
+    tasks = [":app:assembleDebug"]
+    apply-build-script-change-to = ["feature/movies/data/build.gradle.kts"]
+}
+
+build_script_change_base_kotlin {
+    tasks = [":app:assembleDebug"]
+    apply-build-script-change-to = ["base/kotlin/build.gradle.kts"]
+}
