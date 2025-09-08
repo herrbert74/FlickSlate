@@ -6,6 +6,13 @@ The goal of FlickSlate is to showcase best practices and learn some new techniqu
 
 It also showcases some of the techniques used in my articles about [caching](https://herrbert74.github.io/posts/caching-strategies-in-android/) and [architecture](https://herrbert74.github.io/posts/architecture-related-decisions-introduction/)
 
+## 🧩 Setup
+
+Register an account [here](https://developer.themoviedb.org/docs/getting-started), 
+and follow the instructions to get an API key. Add the API key to the gradle properties file. 
+The project already has an empty value, but I recommend adding this to your global gradle properties
+file to avoid committing it accidentally. That's it! You are all set up!
+
 ## 📚 Tech stack
 
 - Application entirely written in [Kotlin](https://kotlinlang.org)
@@ -29,11 +36,13 @@ Let's take a look in each major part of the application:
   * **movies**
   * **tv**
   * **search**
-* **feature** - Submodules within above features.
+* **Submodules** within above features.
   * **domain** - Contains the **shared** **domain model**, the **api interface**, and optionally **use cases**. Domain depends only on itself and all interaction it does is via _dependency
     inversion_.
   * **data** - Contains the (**db**, **network**, etc) modules.
   * **ui** - Presentation layer
+* **shared** - **Shared** domain, UI and data modules specific to this app, as described in [this article](https://herrbert74.github.io/posts/architectural-evolution-of-an-app/)
+* **base** - Kotlin and Android base classes, reusable in any apps. Also described in the in [above article](https://herrbert74.github.io/posts/architectural-evolution-of-an-app/)
 
 In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 15-25 features). This app is much smaller than that, so this is for demonstration purposes and to facilitate future growth.
 
