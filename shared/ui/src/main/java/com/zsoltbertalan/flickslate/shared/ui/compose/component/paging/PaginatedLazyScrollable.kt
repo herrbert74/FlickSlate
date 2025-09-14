@@ -88,21 +88,22 @@ internal fun <KEY, T, LAZY_STATE, LAZY_SCROLLABLE_SCOPE> PaginatedLazyScrollable
 		}
 
 		concreteLazyList { clientContent ->
+			val scope = this
 			val internalStateRef = internalState
 
 			val item: (
 				key: Any?,
 				content: @Composable LAZY_SCROLLABLE_SCOPE.() -> Unit
 			) -> Unit = { key, content ->
-				when (this) {
-					is LazyListScope -> item(key) { content() }
-					is LazyGridScope -> item(key) { content() }
+				when (scope) {
+					is LazyListScope -> scope.item(key) { scope.content() }
+					is LazyGridScope -> scope.item(key) { scope.content() }
 					else -> error("Unsupported Lazy scrollable scope type")
 				}
 			}
 
 			if (internalStateRef.items != null) {
-				clientContent()
+				scope.clientContent()
 			}
 
 			if (internalStateRef is PaginationInternalState.Loading) {
