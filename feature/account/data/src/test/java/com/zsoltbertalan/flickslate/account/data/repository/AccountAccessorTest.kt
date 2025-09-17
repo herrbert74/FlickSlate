@@ -29,7 +29,7 @@ class AccountAccessorTest {
 			"session123abc"
 		)
 		coEvery { accountRemoteDataSource.getAccountDetails(any()) } returns Ok(
-			Account("John Doe")
+			AccountMother.createAccount()
 		)
 		coEvery { accountRemoteDataSource.deleteSessionId(any()) } returns Ok(
 			true

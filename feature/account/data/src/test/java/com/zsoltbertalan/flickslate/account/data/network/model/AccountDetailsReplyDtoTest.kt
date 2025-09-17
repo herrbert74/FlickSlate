@@ -10,14 +10,14 @@ class AccountDetailsReplyDtoTest {
 	fun `when there is a name in response then name is mapped`() {
 		val responseDto = AccountReplyDtoMother.createAccountReplyDto()
 		val mappedResponse = responseDto.toAccount()
-		mappedResponse.name shouldBe "John Doe"
+		mappedResponse.displayName shouldBe "John Doe"
 	}
 
 	@Test
 	fun `when there is no name in response then username is mapped`() {
 		val responseDto = AccountReplyDtoMother.createAccountReplyDtoWithoutName()
 		val mappedResponse = responseDto.toAccount()
-		mappedResponse.name shouldBe "Jane Doe"
+		mappedResponse.displayName shouldBe "john.doe"
 	}
 
 }

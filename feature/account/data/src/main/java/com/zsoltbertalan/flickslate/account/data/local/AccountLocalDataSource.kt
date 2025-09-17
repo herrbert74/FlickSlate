@@ -32,12 +32,21 @@ internal class AccountLocalDataSource @Inject constructor(
 
 	override fun saveAccount(account: Account) {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
-		sharedPreferences.edit { putString("account_name", account.name) }
+		sharedPreferences.edit { putString("account_display_name", account.displayName) }
+		sharedPreferences.edit { putString("account_name", account.username) }
+		sharedPreferences.edit { putString("account_id", account.id.toString()) }
+		sharedPreferences.edit { putString("account_language", account.language) }
+		sharedPreferences.edit { putBoolean("account_include_adult", account.includeAdult) }
 	}
 
 	override fun getAccount(): Account? {
 		val sharedPreferences = context.getSharedPreferences("Account", Context.MODE_PRIVATE)
-		return sharedPreferences.getString("account_name", null)?.let { Account(it) }
+		val accountName = sharedPreferences.getString("account_name", null) ?: return null
+		val displayName = sharedPreferences.getString("account_display_name", null) ?: accountName
+		val language = sharedPreferences.getString("account_language", null) ?: "en-US"
+		val id = sharedPreferences.getString("account_id", null)?.toIntOrNull() ?: 0
+		val includeAdult = sharedPreferences.getBoolean("account_include_adult", false)
+		return Account(displayName, accountName, language, id, includeAdult)
 	}
 
 }
