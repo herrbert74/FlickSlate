@@ -16,14 +16,14 @@ coroutines = "1.10.2"
 jdk = "21"
 kotlin = "2.2.20"
 kotlinx-collections = "0.4.0"
-kotlinx-datetime = "0.7.1-0.6.x-compat"
+#kotlinx-datetime = "0.7.1-0.6.x-compat"
 kotlinx-serialization = "1.9.0"
 ksp = "2.2.20-2.0.3"
 
 #other
 
 androidx-activity = "1.11.0"
-androidx-appcompat = "1.7.1"
+#androidx-appcompat = "1.7.1"
 androidx-composeBom = "2025.09.00"
 androidx-composeMaterial3 = "1.4.0-alpha17" #For alpha releases only
 androidx-composeUi = "1.9.1" #For test libs not in the BOM
@@ -44,7 +44,7 @@ buildKonfig = "0.17.1"
 compose-screenshotTesting = "0.0.1-alpha11"
 #chucker = "4.0.0"
 coil = "2.7.0"
-crashlyticsPlugin = "3.0.4"
+#crashlyticsPlugin = "3.0.4"
 dagger = "2.57.1"
 #decompose = "3.3.0"
 dependencyAnalysis = "3.0.3"
@@ -57,7 +57,7 @@ detekt-compose = "0.4.27"
 gradleDoctor = "0.11.0"
 #graphql = "4.3.1"
 guava = "33.4.8-jre"
-jakarta-inject = "2.0.1"
+#jakarta-inject = "2.0.1"
 #javaPoet = "1.13.0"
 jUnit = "4.13.2"
 jUnit5 = "5.13.4"
@@ -181,7 +181,7 @@ androidx-sqlite = "androidx.sqlite:sqlite:2.6.0"
 
 androidx-testCore = { group = "androidx.test", name = "core", version.ref = "androidx-testCore" }
 androidx-testCoreKtx = { module = "androidx.test:core-ktx", version.ref = "androidx-testCore" }
-androidx-testEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-testEspresso" }
+#androidx-testEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-testEspresso" }
 #androidx-testEspressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidx-test-espresso" }
 #androidx-testEspressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidx-test-espresso" }
 androidx-testExtJUnit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExtJUnit" }
@@ -192,15 +192,15 @@ androidx-testRunner = { module = "androidx.test:runner", version.ref = "androidx
 #androidx-testUiAutomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 
 autobind-core = { module = "se.ansman.dagger.auto:core", version.ref = "autoBind" } # For Kotlin modules
-autobind-android = { module = "se.ansman.dagger.auto:android", version.ref = "autoBind" }
+#autobind-android = { module = "se.ansman.dagger.auto:android", version.ref = "autoBind" }
 autobind-android-api = { module = "se.ansman.dagger.auto:android-api", version.ref = "autoBind" }
 autobind-android-testing = { module = "se.ansman.dagger.auto:android-testing", version.ref = "autoBind" }
 autobind-compiler = { module = "se.ansman.dagger.auto:compiler", version.ref = "autoBind" }
 
-baBeStudios-baseKotlin = { module ="io.bitbucket.babestudios:base-kotlin", version.ref = "babestudios-base"}
+#baBeStudios-baseKotlin = { module ="io.bitbucket.babestudios:base-kotlin", version.ref = "babestudios-base"}
 baBeStudios-baseData = { module ="io.bitbucket.babestudios:base-data", version.ref = "babestudios-base"}
-baBeStudios-baseAndroid = { module ="io.bitbucket.babestudios:base-android", version.ref = "babestudios-base"}
-baBeStudios-baseCompose = { module ="io.bitbucket.babestudios:base-compose", version.ref = "babestudios-base"}
+#baBeStudios-baseAndroid = { module ="io.bitbucket.babestudios:base-android", version.ref = "babestudios-base"}
+#baBeStudios-baseCompose = { module ="io.bitbucket.babestudios:base-compose", version.ref = "babestudios-base"}
 
 #chucker-library = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 #chucker-noop = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
@@ -268,7 +268,7 @@ inject = "javax.inject:javax.inject:1"
 #javaPoet = { module = "com.squareup:javapoet", version.ref = "javaPoet" } ":1.13.0"
 
 jUnit = { group = "junit", name = "junit", version.ref = "jUnit" }
-jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
+#jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
 #jUnit5-jupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
 #jUnit5-jupiterParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
 #jUnit5-vintageEngine = { module = "org.junit.jupiter:junit-vintage-engine", version.ref = "jUnit5" }
