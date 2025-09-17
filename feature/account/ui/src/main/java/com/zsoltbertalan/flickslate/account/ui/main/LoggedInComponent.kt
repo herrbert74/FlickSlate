@@ -62,7 +62,6 @@ fun LoggedInComponent(
 	}
 }
 
-
 @Composable
 private fun AccountDetailRow(label: String, value: String) {
 	Row(
