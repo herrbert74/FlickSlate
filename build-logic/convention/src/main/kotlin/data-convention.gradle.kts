@@ -16,16 +16,24 @@ dependencies {
 	implementation(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
 
-	implementation(libs.kotlinx.coroutinesCore)
-	implementation(libs.androidx.roomCommon)
+	excludeFrom("account") {
+		implementation(libs.androidx.roomCommon)
+	}
 	implementation(libs.androidx.roomRuntime)
-	implementation(libs.androidx.sqlite)
+	excludeFrom("account") {
+		implementation(libs.androidx.sqlite)
+	}
 	implementation(libs.autobind.android.api)
 	implementation(libs.autobind.core) // transitive
-	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinRetry)
-	implementation(libs.kotlinx.collectionsImmutableJvm)
+	excludeFrom("account") {
+		implementation(libs.kotlinRetry)
+	}
+	excludeFrom("account") {
+		implementation(libs.kotlinx.collectionsImmutableJvm)
+		implementation(libs.kotlinx.coroutinesCore)
+	}
+	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.okhttp3)
 	implementation(libs.timber)
 
@@ -37,4 +45,10 @@ dependencies {
 	testImplementation(libs.mockk.dsl) // transitive
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
+}
+
+fun excludeFrom(excluded: String, dependency: () -> Unit) {
+	if (!(project.parent?.name.equals(excluded))) {
+		dependency()
+	}
 }

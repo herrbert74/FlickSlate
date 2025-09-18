@@ -104,6 +104,7 @@ dependencies {
 
 	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
+	implementation(libs.androidx.annotation)
 	implementation(platform(libs.androidx.compose.bom))
 	implementation(libs.androidx.composeAnimation)
 	implementation(libs.androidx.composeAnimationCore)

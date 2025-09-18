@@ -56,7 +56,6 @@ dependencies {
 	testCompileOnly(libs.autobind.android.testing)
 	testImplementation(libs.autobind.core) // transitive
 	testImplementation(libs.dagger.hiltAndroidTesting)
-	testImplementation(libs.dagger.hiltCore)
 	testImplementation(libs.guava.jre) // transitive
 	testImplementation(libs.jUnit)
 	testRuntimeOnly(libs.robolectric)

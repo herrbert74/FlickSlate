@@ -46,7 +46,6 @@ dependencies {
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
-	implementation(libs.androidx.composeUiUtil) // transitive
 	implementation(libs.androidx.paletteKtx)
 	implementation(libs.coil.base)
 	implementation(libs.coil.compose)

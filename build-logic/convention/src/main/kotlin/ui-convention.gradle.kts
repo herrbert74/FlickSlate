@@ -10,38 +10,78 @@ android {
 }
 
 dependencies {
-	api(project(":base:kotlin"))
-	api(project(":shared:domain"))
-	api(project(":shared:ui"))
+	if (project.parent?.name == "tv") {
+		api(project(":base:kotlin"))
+	} else if (project.parent?.name != "account") {
+		implementation(project(":base:kotlin"))
+	}
+
+	if (project.parent?.name == "tv") {
+		implementation(project(":shared:domain"))
+	} else {
+		api(project(":shared:domain"))
+	}
+
+	if (project.parent?.name == "account") {
+		implementation(project(":shared:ui"))
+	} else {
+		api(project(":shared:ui"))
+	}
 
 	implementation(platform(libs.androidx.compose.bom))
 
 	api(libs.androidx.composeRuntime)
 	api(libs.androidx.lifecycleViewmodel)
-	api(libs.androidx.lifecycleViewmodelSavedstate)
+
+	excludeFrom(listOf("account")) {
+		api(libs.androidx.lifecycleViewmodelSavedstate)
+	}
 
 	api(libs.kotlinx.coroutinesCore)
 
 	implementation(libs.androidx.composeFoundation)
 	implementation(libs.androidx.composeFoundationLayout)
 	implementation(libs.androidx.composeMaterial3)
-	implementation(libs.androidx.composeRuntimeAnnotation)
-	implementation(libs.androidx.composeRuntimeSaveable)
+
+	excludeFrom(listOf("account")) {
+		implementation(libs.androidx.composeRuntimeAnnotation)
+	}
+
+	excludeFrom(listOf("account")) {
+		implementation(libs.androidx.composeRuntimeSaveable)
+	}
+
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGraphics)
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.dagger.hiltAndroid)
+	implementation(libs.dagger.hiltCore)
 	implementation(libs.kotlinResult.result)
-	implementation(libs.kotlinx.collectionsImmutableJvm)
+
+	if (project.parent?.name == "search") {
+		api(libs.kotlinx.collectionsImmutableJvm)
+	} else if (project.parent?.name != "account") {
+		implementation(libs.kotlinx.collectionsImmutableJvm)
+	}
+
 	implementation(libs.timber)
 
-	testImplementation(libs.jUnit)
+	excludeFrom(listOf("account")) {
+		testImplementation(libs.jUnit)
+	}
+
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
+}
+
+fun excludeFrom(excluded: List<String>, dependency: () -> Unit) {
+	if (!(excluded.contains(project.parent?.name))) {
+		dependency()
+	}
 }
