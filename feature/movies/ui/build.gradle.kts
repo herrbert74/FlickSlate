@@ -32,7 +32,7 @@ dependencies {
 
 	implementation(libs.androidx.composeUiToolingPreview) // transitive
 	implementation(libs.androidx.coreKtx) // transitive
-	implementation(libs.androidx.hiltNavigationCompose)
+	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 
 	testImplementation(testFixtures(project(":shared:domain")))

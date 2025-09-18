@@ -119,7 +119,7 @@ dependencies {
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.fragmentKtx) // transitive
-	implementation(libs.androidx.hiltNavigationCompose)
+	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)

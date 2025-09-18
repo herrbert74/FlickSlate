@@ -136,7 +136,7 @@ androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.8.9"
 androidx-hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 #androidx-hiltWork = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 #androidx-hiltNavigation = { module = "androidx.hilt:hilt-navigation", version.ref = "androidx-hilt" }
-androidx-hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
+androidx-hiltLifeCycleViewModelCompose = { module = "androidx.hilt:hilt-lifecycle-viewmodel-compose", version.ref = "androidx-hilt" }
 #androidx-hiltNavigationFragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "androidx-hilt" }
 
 androidx-lifecycleCommon = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidx-lifecycle" }

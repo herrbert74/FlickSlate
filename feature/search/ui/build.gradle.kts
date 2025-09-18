@@ -46,7 +46,7 @@ dependencies {
 	testImplementation(libs.androidx.composeUiTest) // transitive
 	testImplementation(libs.androidx.composeUiTestJunit4)
 	testImplementation(libs.androidx.fragmentKtx) // transitive
-	testImplementation(libs.androidx.hiltNavigationCompose)
+	testImplementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	testImplementation(libs.androidx.lifecycleCommon) // transitive
 	testImplementation(libs.androidx.lifecycleRuntimeCompose) // transitive
 	testImplementation(libs.androidx.lifecycleViewmodelCompose) // transitive
