@@ -24,7 +24,6 @@ class LinesOfCodePlugin : Plugin<Project> {
 			description = "Uploads Kotlin and Java lines of code metrics to New Relic"
 
 			doFirst {
-
 				if (apiKey.isNullOrBlank()) {
 					throw IllegalStateException(
 						"New Relic credentials not found. " +
@@ -150,4 +149,3 @@ class LinesOfCodePlugin : Plugin<Project> {
 		return LocResults(totalKotlin, totalJava, results)
 	}
 }
-
