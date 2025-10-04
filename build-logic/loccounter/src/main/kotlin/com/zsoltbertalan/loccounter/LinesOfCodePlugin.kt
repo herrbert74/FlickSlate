@@ -17,7 +17,6 @@ class LinesOfCodePlugin : Plugin<Project> {
 
 		val apiKey = project.findProperty("newRelicApiKey")?.toString()
 		println("key: $apiKey")
-		val accountId = project.findProperty("newRelicAccountId")?.toString()
 		val locResults = calculateLinesOfCode(project)
 
 		project.tasks.register("uploadLocToNewRelic", Exec::class.java) {
@@ -26,7 +25,7 @@ class LinesOfCodePlugin : Plugin<Project> {
 
 			doFirst {
 
-				if (apiKey.isNullOrBlank() || accountId.isNullOrBlank()) {
+				if (apiKey.isNullOrBlank()) {
 					throw IllegalStateException(
 						"New Relic credentials not found. " +
 							"Please add 'newRelicApiKey' and 'newRelicAccountId' to your local.properties file."
