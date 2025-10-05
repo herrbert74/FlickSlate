@@ -78,7 +78,7 @@ class LinesOfCodePlugin : Plugin<Project> {
 				val stdout = ByteArrayOutputStream()
 
 				standardOutput = stdout
-				commandLine("curl", "-L", "-X", "POST", "https://metric-api.eu.newrelic.com/metric/v1")
+				commandLine("curl", "-vvv", "-L", "-X", "POST", "https://metric-api.eu.newrelic.com/metric/v1")
 				args("-H", "Api-Key: $apiKey")
 				args("-H", "Content-Type: application/json")
 				args("-d", jsonPayload)
