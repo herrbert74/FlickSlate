@@ -3,7 +3,7 @@ name: Lines of Code
 on:
   schedule:
     #- cron: '0 19 * * *' # Runs every day at 7 PM UTC
-    - cron: '50 * * * *' # Runs every hour
+    - cron: '10 * * * *' # Runs every hour
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -25,4 +25,4 @@ jobs:
       - name: Run LinesOfCodePlugin
         env:
           newRelicLicenseKey: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
-        run: ./gradlew uploadLocToNewRelic "-PnewRelicApiKey=\"$newRelicLicenseKey\""
+        run: ./gradlew uploadLocToNewRelic "-PnewRelicApiKey=$newRelicLicenseKey"

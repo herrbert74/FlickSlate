@@ -9,7 +9,6 @@ import java.io.File
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-@Suppress("MagicNumber")
 class LinesOfCodePlugin : Plugin<Project> {
 
 	@OptIn(ExperimentalTime::class)
@@ -17,7 +16,6 @@ class LinesOfCodePlugin : Plugin<Project> {
 		if (project != project.rootProject) return
 
 		val apiKey = project.findProperty("newRelicApiKey")?.toString()
-		println("key: ${apiKey?.substring(0, 6)}")
 		val locResults = calculateLinesOfCode(project)
 
 		project.tasks.register("uploadLocToNewRelic", Exec::class.java) {
