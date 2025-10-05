@@ -9,6 +9,7 @@ import java.io.File
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+@Suppress("MagicNumber")
 class LinesOfCodePlugin : Plugin<Project> {
 
 	@OptIn(ExperimentalTime::class)
