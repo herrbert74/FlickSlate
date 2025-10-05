@@ -25,4 +25,4 @@ jobs:
       - name: Run LinesOfCodePlugin
         env:
           newRelicApiKey: ${{ secrets.NEW_RELIC_API_KEY }}
-        run: ./gradlew uploadLocToNewRelic "-PnewRelicApiKey=newRelicApiKey"
+        run: ./gradlew uploadLocToNewRelic "-PnewRelicApiKey=\"$newRelicApiKey\""
