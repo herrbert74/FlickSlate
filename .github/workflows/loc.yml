@@ -2,8 +2,7 @@ name: Lines of Code
 
 on:
   schedule:
-    #- cron: '0 19 * * *' # Runs every day at 7 PM UTC
-    - cron: '10 * * * *' # Runs every hour
+    - cron: '0 19 * * *' # Runs every day at 7 PM UTC
   workflow_dispatch: # Allows manual triggering
 
 jobs:
