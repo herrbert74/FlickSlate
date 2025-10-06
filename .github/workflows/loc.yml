@@ -1,0 +1,27 @@
+name: Lines of Code
+
+on:
+  schedule:
+    - cron: '0 19 * * *' # Runs every day at 7 PM UTC
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  upload_loc:
+    name: Upload Lines of Code to New Relic
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+
+      - name: Run LinesOfCodePlugin
+        env:
+          newRelicLicenseKey: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+        run: ./gradlew uploadLocToNewRelic "-PnewRelicApiKey=$newRelicLicenseKey"
