@@ -16,7 +16,8 @@ class LinesOfCodePlugin : Plugin<Project> {
 		if (project != project.rootProject) return
 
 		val apiKey = project.findProperty("newRelicApiKey")?.toString()
-		val locResults = calculateLinesOfCode(project)
+
+		val subprojectInfos = getSubProjectInfos(project)
 
 		project.tasks.register("uploadLocToNewRelic", Exec::class.java) {
 			group = "reporting"
@@ -29,6 +30,8 @@ class LinesOfCodePlugin : Plugin<Project> {
 							"Please add 'newRelicApiKey' to your local.properties file."
 					)
 				}
+
+				val locResults = calculateLinesOfCode(subprojectInfos)
 
 				val timestamp = Clock.System.now().toEpochMilliseconds()
 
@@ -92,19 +95,7 @@ class LinesOfCodePlugin : Plugin<Project> {
 	/**
 	 * Calculates lines of code for Kotlin and Java in all subprojects.
 	 */
-	private fun calculateLinesOfCode(project: Project): LocResults {
-		val subprojectInfos = project.subprojects
-			.filter { sub -> sub.subprojects.isEmpty() }
-			.map { sub ->
-				val name = StringBuilder()
-				name.append(sub.name)
-				var parent = sub.parent
-				while (parent != null && parent != project.rootProject) {
-					name.insert(0, "${parent.name}:")
-					parent = parent.parent
-				}
-				name.toString() to sub.projectDir
-			}
+	private fun calculateLinesOfCode(subprojectInfos: List<Pair<String, File>>): LocResults {
 
 		fun countLinesInProject(projectDir: File, ext: String): Int {
 			val srcDirs = listOf(
@@ -146,5 +137,21 @@ class LinesOfCodePlugin : Plugin<Project> {
 		println("Total lines of code: Kotlin=$totalKotlin, Java=$totalJava")
 
 		return LocResults(totalKotlin, totalJava, results)
+	}
+
+	private fun getSubProjectInfos(project: Project): List<Pair<String, File>> {
+		val subprojectInfos = project.subprojects
+			.filter { sub -> sub.subprojects.isEmpty() }
+			.map { sub ->
+				val name = StringBuilder()
+				name.append(sub.name)
+				var parent = sub.parent
+				while (parent != null && parent != project.rootProject) {
+					name.insert(0, "${parent.name}:")
+					parent = parent.parent
+				}
+				name.toString() to sub.projectDir
+			}
+		return subprojectInfos
 	}
 }
