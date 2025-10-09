@@ -96,7 +96,6 @@ class LinesOfCodePlugin : Plugin<Project> {
 	 * Calculates lines of code for Kotlin and Java in all subprojects.
 	 */
 	private fun calculateLinesOfCode(subprojectInfos: List<Pair<String, File>>): LocResults {
-
 		fun countLinesInProject(projectDir: File, ext: String): Int {
 			val srcDirs = listOf(
 				"src/main/java",
