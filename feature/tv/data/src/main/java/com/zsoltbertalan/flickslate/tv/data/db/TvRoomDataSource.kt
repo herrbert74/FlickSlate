@@ -9,7 +9,7 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvShow
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

@@ -25,7 +25,23 @@ This document provides a set of rules and guidelines for the AI agent to follow 
     * **ui** - Presentation layer
 * **shared** - **Shared** domain, UI and data modules specific to this app.
 * **base** - Kotlin and Android base classes, reusable in any apps. 
- 
+
+## Rule: Naming
+
+Add suffixes to designate types and prefixes for designate the features.
+
+### Data classes
+
+* Retrofit interfaces have the suffix Service.
+* Room interfaces have the suffix Dao, databases the suffix DataBase.
+* DataSources using the above have the suffixes RemoteDataSource and LocalDataSource.
+* The DataSource interfaces have the suffix DataSource, and nested within them are the interfaces Local and Remote.
+* The Repository interfaces using the DataSources have the suffix Repository, while their implementations have the suffix Accessor.
+
+### Presentation classes
+
+Top level composables that represent a screen have the Screen suffix.
+
 ## Rule: Prioritize Kotlin Libraries Over Java Equivalents
 
 When a task requires adding a new library or using a library for a common problem (like JSON serialization, HTTP requests, etc.), **always prefer the Kotlin-first or Kotlin-native equivalent if one exists.**
@@ -59,3 +75,29 @@ Before adding a dependency or writing code that relies on a common Java library,
 3.  Evaluate the Kotlin-first option for maturity, community adoption, and suitability for the project.
 4.  Default to the Kotlin-native choice unless there is a compelling, documented reason not to.
 
+## Rule: Make everything internal if possible
+
+In the data layer almost everything is internal, with the exception of Repository interfaces.
+This requires som tricks for dependency injection. When we want to override Dagger modules in the app module,
+we need to remove the AutoBind annotation, create an internal module with a named binding, and use this internal binding to create a public binding.
+
+It will look like this:
+
+@Module(includes = [InternalTvRepositoryModule::class])
+@InstallIn(ViewModelComponent::class)
+interface TvRepositoryModule {
+
+  @Binds
+  fun bindTvRepository(@Named("Internal") impl: TvRepository): TvRepository
+
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
+internal interface InternalTvRepositoryModule {
+
+  @Binds
+  @Named("Internal")
+  fun bindTvRepository(impl: TvAccessor): TvRepository
+
+}

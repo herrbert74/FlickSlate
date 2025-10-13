@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.tv.data.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 
 @Entity(tableName = "TvShows")
 internal data class TvShowEntity(

@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageErrorIndicator
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.FirstPageProgressIndicator
@@ -13,7 +14,6 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.NewPagePr
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginatedLazyColumn
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.navigate
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 
 @Composable
 fun TvScreen(

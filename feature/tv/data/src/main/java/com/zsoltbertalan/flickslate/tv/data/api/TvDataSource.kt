@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import kotlinx.coroutines.flow.Flow
 
 internal interface TvDataSource {

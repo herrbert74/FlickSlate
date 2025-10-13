@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.tv.data.network
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.ImagesReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TvDetailsDto
-import com.zsoltbertalan.flickslate.tv.data.network.model.TvEpisodeDetailsDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.TvSeasonDetailsDto
 import retrofit2.Response
 import retrofit2.http.GET

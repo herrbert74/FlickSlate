@@ -1,5 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
+import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
+
 data class SeasonDetail(
 	val airDate: String,
 	val episodeCount: Int,
