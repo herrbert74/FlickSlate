@@ -28,36 +28,4 @@ internal class RatingsAccessor @Inject constructor(
         return ratingsRemoteDataSource.getRatedTvShowEpisodes()
     }
 
-    override suspend fun rateMovie(movieId: Int, rating: Float): Outcome<Unit> {
-        return ratingsRemoteDataSource.rateMovie(movieId, rating)
-    }
-
-    override suspend fun deleteMovieRating(movieId: Int): Outcome<Unit> {
-        return ratingsRemoteDataSource.deleteMovieRating(movieId)
-    }
-
-    override suspend fun rateTvShow(tvShowId: Int, rating: Float): Outcome<Unit> {
-        return ratingsRemoteDataSource.rateTvShow(tvShowId, rating)
-    }
-
-    override suspend fun deleteTvShowRating(tvShowId: Int): Outcome<Unit> {
-        return ratingsRemoteDataSource.deleteTvShowRating(tvShowId)
-    }
-
-    override suspend fun rateTvShowEpisode(
-        tvShowId: Int,
-        seasonNumber: Int,
-        episodeNumber: Int,
-        rating: Float
-    ): Outcome<Unit> {
-        return ratingsRemoteDataSource.rateTvShowEpisode(tvShowId, seasonNumber, episodeNumber, rating)
-    }
-
-    override suspend fun deleteTvShowEpisodeRating(
-        tvShowId: Int,
-        seasonNumber: Int,
-        episodeNumber: Int
-    ): Outcome<Unit> {
-        return ratingsRemoteDataSource.deleteTvShowEpisodeRating(tvShowId, seasonNumber, episodeNumber)
-    }
 }
