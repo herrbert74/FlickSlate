@@ -16,16 +16,16 @@ internal class RatingsAccessor @Inject constructor(
     private val ratingsRemoteDataSource: RatingsDataSource.Remote,
 ) : RatingsRepository {
 
-    override suspend fun getRatedMovies(): Outcome<List<Movie>> {
-        return ratingsRemoteDataSource.getRatedMovies()
+    override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<Movie>> {
+        return ratingsRemoteDataSource.getRatedMovies(accountId, sessionId)
     }
 
-    override suspend fun getRatedTvShows(): Outcome<List<TvShow>> {
-        return ratingsRemoteDataSource.getRatedTvShows()
+    override suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<TvShow>> {
+        return ratingsRemoteDataSource.getRatedTvShows(accountId, sessionId)
     }
 
-    override suspend fun getRatedTvShowEpisodes(): Outcome<List<TvEpisodeDetail>> {
-        return ratingsRemoteDataSource.getRatedTvShowEpisodes()
+    override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<TvEpisodeDetail>> {
+        return ratingsRemoteDataSource.getRatedTvShowEpisodes(accountId, sessionId)
     }
 
 }

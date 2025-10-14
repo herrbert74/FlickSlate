@@ -9,11 +9,11 @@ internal interface RatingsDataSource {
 
 	interface Remote {
 
-		suspend fun getRatedMovies(): Outcome<List<Movie>>
+		suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<Movie>>
 
-		suspend fun getRatedTvShows(): Outcome<List<TvShow>>
+		suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<TvShow>>
 
-		suspend fun getRatedTvShowEpisodes(): Outcome<List<TvEpisodeDetail>>
+		suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<TvEpisodeDetail>>
 
 	}
 
