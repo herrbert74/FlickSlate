@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.tv.data.network
 
-import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.tv.data.api.TvRatingsDataSource
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
@@ -17,33 +16,28 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 internal class TvRatingsRemoteDataSource @Inject constructor(
     private val tvService: TvService,
-    private val accountDataSource: AccountDataSource.Local,
 ) : TvRatingsDataSource.Remote {
 
-    override suspend fun rateTvShow(tvShowId: Int, rating: Float): Outcome<Unit> {
+    override suspend fun rateTvShow(tvShowId: Int, rating: Float, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             tvService.rateTvShow(tvShowId, sessionId, createRatingRequestBody(rating))
         }
     }
 
-    override suspend fun deleteTvShowRating(tvShowId: Int): Outcome<Unit> {
+    override suspend fun deleteTvShowRating(tvShowId: Int, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             tvService.deleteTvShowRating(tvShowId, sessionId)
         }
     }
 
-    override suspend fun rateTvShowEpisode(tvShowId: Int, seasonNumber: Int, episodeNumber: Int, rating: Float): Outcome<Unit> {
+    override suspend fun rateTvShowEpisode(tvShowId: Int, seasonNumber: Int, episodeNumber: Int, rating: Float, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             tvService.rateTvShowEpisode(tvShowId, seasonNumber, episodeNumber, sessionId, createRatingRequestBody(rating))
         }
     }
 
-    override suspend fun deleteTvShowEpisodeRating(tvShowId: Int, seasonNumber: Int, episodeNumber: Int): Outcome<Unit> {
+    override suspend fun deleteTvShowEpisodeRating(tvShowId: Int, seasonNumber: Int, episodeNumber: Int, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             tvService.deleteTvShowEpisodeRating(tvShowId, seasonNumber, episodeNumber, sessionId)
         }
     }

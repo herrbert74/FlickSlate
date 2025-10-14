@@ -13,12 +13,12 @@ internal class MovieRatingsAccessor @Inject constructor(
     private val movieRatingsRemoteDataSource: MovieRatingsDataSource.Remote,
 ) : MovieRatingsRepository {
 
-    override suspend fun rateMovie(movieId: Int, rating: Float): Outcome<Unit> {
-        return movieRatingsRemoteDataSource.rateMovie(movieId, rating)
+    override suspend fun rateMovie(movieId: Int, rating: Float, sessionId: String): Outcome<Unit> {
+        return movieRatingsRemoteDataSource.rateMovie(movieId, rating, sessionId)
     }
 
-    override suspend fun deleteMovieRating(movieId: Int): Outcome<Unit> {
-        return movieRatingsRemoteDataSource.deleteMovieRating(movieId)
+    override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
+        return movieRatingsRemoteDataSource.deleteMovieRating(movieId, sessionId)
     }
 
 }

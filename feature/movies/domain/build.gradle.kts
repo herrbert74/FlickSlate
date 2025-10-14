@@ -15,6 +15,7 @@ android {
 dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
+	api(project(":feature:account:domain"))
 	api(libs.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)
 

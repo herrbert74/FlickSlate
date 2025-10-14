@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
-import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.MovieRatingsDataSource
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
@@ -17,19 +16,16 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 internal class MovieRatingsRemoteDataSource @Inject constructor(
     private val moviesService: MoviesService,
-    private val accountDataSource: AccountDataSource.Local,
 ) : MovieRatingsDataSource.Remote {
 
-    override suspend fun rateMovie(movieId: Int, rating: Float): Outcome<Unit> {
+    override suspend fun rateMovie(movieId: Int, rating: Float, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             moviesService.rateMovie(movieId, sessionId, createRatingRequestBody(rating))
         }
     }
 
-    override suspend fun deleteMovieRating(movieId: Int): Outcome<Unit> {
+    override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
         return runCatchingApi {
-            val sessionId = accountDataSource.getAccessToken() ?: throw Exception("User not logged in")
             moviesService.deleteMovieRating(movieId, sessionId)
         }
     }

@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RatingsService {
+internal interface RatingsService {
 
 	@GET("account/{account_id}/rated/movies")
 	suspend fun getRatedMovies(

@@ -25,6 +25,9 @@ android {
 
 dependencies {
 	api(project(":feature:movies:domain"))
+	api(project(":feature:account:domain"))
+
+	implementation(libs.kotlinx.serializationJson)
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl)
