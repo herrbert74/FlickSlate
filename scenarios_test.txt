@@ -1,0 +1,10 @@
+abi_change_base_kotlin {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["base/kotlin/src/main/java/com/zsoltbertalan/flickslate/shared/kotlin/result/Outcome.kt"]
+}
+
+abi_change_movie_data {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["feature/movies/data/src/main/java/com/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor.kt"]
+    show-build-cache-size = true
+}
