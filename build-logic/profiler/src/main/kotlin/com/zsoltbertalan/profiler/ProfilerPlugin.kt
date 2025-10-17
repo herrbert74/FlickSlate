@@ -4,117 +4,158 @@ import kotlinx.serialization.json.Json
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
+import org.gradle.kotlin.dsl.newInstance
+import org.gradle.process.ExecOperations
 import java.io.ByteArrayOutputStream
 import java.io.File
+import javax.inject.Inject
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+/**
+ * Runs the gradle-profiler and uploads results to New Relic.
+ *
+ * This has two command line tasks, which needs doLast, but from Gradle 9.0 we cannot use exec for it.
+ * To understand why we need to inject execOp to use it in doLast, read:
+ * https://discuss.gradle.org/t/replacing-deprecated-project-exec-in-dofirst-dolast/51381
+ * https://stackoverflow.com/questions/79720795/replacing-deprecated-projectexec-in-dofirst-dolast
+ *
+ */
 class ProfilerPlugin : Plugin<Project> {
 
-    @OptIn(ExperimentalTime::class)
-    override fun apply(project: Project) {
-        if (project != project.rootProject) return
+	interface InjectedExecOps {
+		@get:Inject
+		val execOps: ExecOperations
+	}
 
-        project.tasks.register("profileAndUpload", Exec::class.java) {
-            group = "profiling"
-            description = "Runs gradle-profiler and uploads the results to New Relic"
+	@OptIn(ExperimentalTime::class)
+	override fun apply(project: Project) {
+		if (project != project.rootProject) return
 
-            // gradle-profiler must be on the system's PATH
-            val profilerExecutable = "gradle-profiler"
-            val outputDir = project.buildDir.resolve("profiler-out")
-            val outputFile = outputDir.resolve("benchmark.csv")
-            val scenarioFile = project.rootDir.resolve("scenarios.txt")
+		val apiKey = project.findProperty("newRelicApiKey")?.toString()
 
-            // Configure the exec task to run gradle-profiler
-            commandLine(
-                profilerExecutable,
-                "--benchmark",
-                "--project-dir", project.rootDir.absolutePath,
-                "--scenario-file", scenarioFile.absolutePath,
-                "--output-dir", outputDir.absolutePath,
-                "--output-format", "csv"
-            )
+		val profilerExecutable = "/opt/homebrew/bin/gradle-profiler"
 
-            doLast {
-                // After the profiler runs, parse the output and upload it.
-                val apiKey = project.findProperty("newRelicApiKey")?.toString()
-                if (apiKey.isNullOrBlank()) {
-                    throw IllegalStateException(
-                        "New Relic API key not found. " +
-                            "Please add 'newRelicApiKey' to your local.properties file or as a project property."
-                    )
-                }
+		val outputDir = project.layout.buildDirectory.file("profile-out").get().asFile
+		val outputFile = outputDir.resolve("benchmark.csv")
+		val rootDir = project.rootDir
+		val scenarioFile = rootDir.resolve("scenarios_test.txt")
 
-                if (!outputFile.exists()) {
-                    project.logger.warn("Profiler output file not found: ${outputFile.absolutePath}")
-                    return@doLast
-                }
+		println("outputDir: ${outputDir.absolutePath}")
+		println("outputFile: $outputFile")
+		println("scenarioFile: ${scenarioFile.absolutePath}")
 
-                val metrics = parseProfilerOutput(outputFile)
-                if (metrics.isEmpty()) {
-                    project.logger.warn("No metrics parsed from profiler output.")
-                    return@doLast
-                }
+		project.tasks.register("profileAndUpload", Exec::class.java) {
+			group = "profiling"
+			description = "Runs gradle-profiler and uploads the results to New Relic"
 
-                val timestamp = Clock.System.now().toEpochMilliseconds()
-                val newRelicMetrics = metrics.map { (scenario, value) ->
-                    ProfilerMetric(
-                        name = "profiler.execution.time",
-                        value = value,
-                        timestamp = timestamp,
-                        attributes = mapOf("scenario" to scenario)
-                    )
-                }
+			val injected = project.objects.newInstance<InjectedExecOps>()
 
-                val payload = listOf(
-                    ProfilerNewRelicPayload(
-                        common = ProfilerCommonBlock(
-                            attributes = ProfilerCommonAttributes(
-                                serviceName = "FlickSlate-Android",
-                                host = "CI"
-                            )
-                        ),
-                        metrics = newRelicMetrics
-                    )
-                )
+			doFirst {
+				commandLine(
+					profilerExecutable,
+					"--benchmark",
+					"--project-dir", rootDir.absolutePath,
+					"--scenario-file", scenarioFile.absolutePath,
+					"--output-dir", outputDir.absolutePath,
+					"--no-daemon"
+				)
+			}
+			doLast {
+				if (apiKey.isNullOrBlank()) {
+					throw IllegalStateException(
+						"New Relic API key not found. " +
+							"Please add 'newRelicApiKey' to your local.properties file or as a project property."
+					)
+				}
 
-                val jsonPayload = Json.encodeToString(payload)
+				if (!outputFile.exists()) {
+					println("Profiler output file not found: ${outputFile.absolutePath}")
+					return@doLast
+				}
 
-                project.logger.lifecycle("Uploading profiler metrics to New Relic...")
-                project.logger.info(jsonPayload)
+				val metrics = parseProfilerOutput(outputFile)
 
-                val stdout = ByteArrayOutputStream()
-                project.exec {
-                    it.commandLine("curl", "-L", "-X", "POST", "https://metric-api.eu.newrelic.com/metric/v1")
-                    it.args("-H", "Api-Key: $apiKey")
-                    it.args("-H", "Content-Type: application/json")
-                    it.args("-d", jsonPayload)
-                    it.standardOutput = stdout
-                }
+				if (metrics.isEmpty()) {
+					println("No metrics parsed from profiler output.")
+					return@doLast
+				}
 
-                project.logger.lifecycle("New Relic API response: ${stdout.toString().trim()}")
-            }
-        }
-    }
+				val timestamp = Clock.System.now().toEpochMilliseconds()
+				val newRelicMetrics = metrics.map { (scenario, value) ->
+					ProfilerMetric(
+						name = "profiler.execution.time",
+						value = value,
+						timestamp = timestamp,
+						attributes = mapOf("scenario" to scenario)
+					)
+				}
 
-    private fun parseProfilerOutput(csvFile: File): Map<String, Double> {
-        val metrics = mutableMapOf<String, Double>()
-        // The first line is the header
-        csvFile.readLines().drop(1).forEach { line ->
-            val columns = line.split(',')
-            if (columns.size >= 4) {
-                // Assuming format: scenario,version,value,metric
-                // We're interested in 'execution_time'
-                val metricName = columns[3]
-                if (metricName.trim() == "execution_time") {
-                    val scenario = columns[0].trim()
-                    val value = columns[2].trim().toDoubleOrNull()
-                    if (value != null) {
-                        metrics[scenario] = value
-                    }
-                }
-            }
-        }
-        return metrics
-    }
+				val payload = listOf(
+					ProfilerNewRelicPayload(
+						common = ProfilerCommonBlock(
+							attributes = ProfilerCommonAttributes(
+								serviceName = "FlickSlate-Android",
+								host = "CI"
+							)
+						),
+						metrics = newRelicMetrics
+					)
+				)
+
+				val jsonPayload = Json.encodeToString(payload)
+
+				println("Uploading profiler metrics to New Relic...")
+				println(jsonPayload)
+
+				val stdout = ByteArrayOutputStream()
+
+				injected.execOps.exec {
+					standardOutput = stdout
+					commandLine("curl", "-vvv", "-L", "-X", "POST", "https://metric-api.eu.newrelic.com/metric/v1")
+					args("-H", "Api-Key: $apiKey")
+					args("-H", "Content-Type: application/json")
+					args("-d", jsonPayload)
+
+				}
+				println("New Relic API response: ${stdout.toString().trim()}")
+
+			}
+		}
+	}
+
+	private fun parseProfilerOutput(csvFile: File): Map<String, Double> {
+		val metrics = addUpMetricsForEachScenario(csvFile)
+		return getAverageResultForEachScenario(metrics)
+	}
+
+	private fun addUpMetricsForEachScenario(csvFile: File): MutableMap<String, MutableList<Double>> {
+		val metrics = mutableMapOf<String, MutableList<Double>>()
+		val header = csvFile.readLines().first().split(',')
+		csvFile.readLines().drop(4).forEach { line ->
+			val columns = line.split(',')
+			if (columns[0].startsWith("measured")) {
+				columns.forEachIndexed { index, metric ->
+					if (index > 0) {
+						val scenario = header[index].trim()
+						val value = metric.trim().toDoubleOrNull() ?: 0f.toDouble()
+						metrics[scenario]?.add(value) ?: run { metrics[scenario] = mutableListOf(value) }
+					}
+				}
+			}
+		}
+		return metrics
+	}
+
+	private fun getAverageResultForEachScenario(
+		metrics: MutableMap<String, MutableList<Double>>
+	): MutableMap<String, Double> {
+		val result = mutableMapOf<String, Double>()
+		metrics.forEach { (scenario, values) ->
+			val average = values.average()
+			result[scenario] = average
+		}
+		println("result: $result")
+		return result
+	}
 }

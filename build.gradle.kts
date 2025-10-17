@@ -10,6 +10,7 @@ plugins {
 	alias(libs.plugins.binaryCompatibilityValidator)
 	id("detekt-convention")
 	id("loccounter")
+	id("profiler")
 }
 
 dependencyAnalysis {
