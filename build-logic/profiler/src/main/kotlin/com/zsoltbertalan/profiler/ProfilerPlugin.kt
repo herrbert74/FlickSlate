@@ -12,6 +12,8 @@ import javax.inject.Inject
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+const val HEADER_LINE_COUNT = 4
+
 /**
  * Runs the gradle-profiler and uploads results to New Relic.
  *
@@ -132,7 +134,7 @@ class ProfilerPlugin : Plugin<Project> {
 	private fun addUpMetricsForEachScenario(csvFile: File): MutableMap<String, MutableList<Double>> {
 		val metrics = mutableMapOf<String, MutableList<Double>>()
 		val header = csvFile.readLines().first().split(',')
-		csvFile.readLines().drop(4).forEach { line ->
+		csvFile.readLines().drop(HEADER_LINE_COUNT).forEach { line ->
 			val columns = line.split(',')
 			if (columns[0].startsWith("measured")) {
 				columns.forEachIndexed { index, metric ->

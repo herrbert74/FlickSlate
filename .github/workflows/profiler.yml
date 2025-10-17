@@ -2,7 +2,7 @@ name: Gradle Profiler
 
 on:
   schedule:
-    - cron: '30 * * * *' # Runs every hour
+    - cron: '50 * * * *' # Runs every hour
 #    - cron: '0 2 * * 0' # Runs every Sunday at 2 AM UTC
   workflow_dispatch: # Allows manual triggering
 
