@@ -31,5 +31,5 @@ jobs:
 
       - name: Run ProfilerPlugin
         env:
-          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-        run: ./gradlew profileAndUpload "-PnewRelicApiKey=$NEW_RELIC_API_KEY"
+          newRelicLicenseKey: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+        run: ./gradlew profileAndUpload "-PnewRelicApiKey=$newRelicLicenseKey"
