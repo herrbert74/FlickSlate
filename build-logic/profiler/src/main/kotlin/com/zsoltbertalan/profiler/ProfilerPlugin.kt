@@ -151,13 +151,9 @@ class ProfilerPlugin : Plugin<Project> {
 
 	private fun getAverageResultForEachScenario(
 		metrics: MutableMap<String, MutableList<Double>>
-	): MutableMap<String, Double> {
-		val result = mutableMapOf<String, Double>()
-		metrics.forEach { (scenario, values) ->
-			val average = values.average()
-			result[scenario] = average
+	): Map<String, Double> {
+		return metrics.mapValues { entry ->
+			entry.value.average()
 		}
-		println("result: $result")
-		return result
 	}
 }
