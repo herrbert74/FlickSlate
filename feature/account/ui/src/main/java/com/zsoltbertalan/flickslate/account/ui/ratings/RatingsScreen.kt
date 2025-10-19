@@ -2,16 +2,11 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,7 +18,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
-import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
 
 @Composable
 fun RatingsScreen(viewModel: RatingsViewModel = hiltViewModel()) {
@@ -49,43 +44,36 @@ private fun RatingsContent(
 	ratedTvShows: List<TvShow>,
 	ratedTvEpisodes: List<TvEpisodeDetail>
 ) {
-	LazyColumn(modifier = Modifier.padding(16.dp)) {
-		item {
-			Text("Rated Movies", style = MaterialTheme.typography.titleLarge)
-			Spacer(modifier = Modifier.height(Dimens.marginNormal))
-		}
+	LazyColumn(
+		modifier = Modifier.fillMaxSize(),
+		contentPadding = PaddingValues(vertical = 16.dp)
+	) {
 		items(ratedMovies) { movie ->
-			ListItem(
-				headlineContent = { Text(movie.title) },
+			ShowCard(
 				modifier = Modifier.clickable { /* Handle movie click */ },
+				title = movie.title,
+				voteAverage = movie.voteAverage,
+				overview = movie.overview,
+				posterPath = movie.posterPath
 			)
-			HorizontalDivider()
-		}
-
-		item {
-			Spacer(modifier = Modifier.height(Dimens.marginLarge))
-			Text("Rated TV Shows", style = MaterialTheme.typography.titleLarge)
-			Spacer(modifier = Modifier.height(Dimens.marginNormal))
 		}
 		items(ratedTvShows) { tvShow ->
-			ListItem(
-				headlineContent = { Text(tvShow.name) },
-				modifier = Modifier.clickable { /* Handle TV show click */ },
+			ShowCard(
+				modifier = Modifier.clickable { /* Handle movie click */ },
+				title = tvShow.name,
+				voteAverage = tvShow.voteAverage,
+				overview = tvShow.overview,
+				posterPath = tvShow.posterPath
 			)
-			HorizontalDivider()
-		}
-
-		item {
-			Spacer(modifier = Modifier.height(Dimens.marginLarge))
-			Text("Rated TV Episodes", style = MaterialTheme.typography.titleLarge)
-			Spacer(modifier = Modifier.height(Dimens.marginNormal))
 		}
 		items(ratedTvEpisodes) { episode ->
-			ListItem(
-				headlineContent = { Text(episode.name ?: "") },
-				modifier = Modifier.clickable { /* Handle episode click */ },
+			ShowCard(
+				modifier = Modifier.clickable { /* Handle movie click */ },
+				title = episode.name,
+				voteAverage = episode.voteAverage,
+				overview = episode.overview,
+				posterPath = episode.stillPath
 			)
-			HorizontalDivider()
 		}
 	}
 }
