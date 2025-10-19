@@ -10,10 +10,21 @@ fun AccountScreen(
 	account: Account?,
 	login: (String, String) -> Unit,
 	logout: () -> Unit,
+	navigateToMovieDetails: (Int) -> Unit,
+	navigateToTvShowDetails: (Int) -> Unit,
+	navigateToTvSeasonDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	if (account != null) {
-		LoggedInComponent(Colors, account, modifier, logout)
+		LoggedInComponent(
+			Colors,
+			account,
+			logout,
+			navigateToMovieDetails,
+			navigateToTvShowDetails,
+			navigateToTvSeasonDetails,
+			modifier,
+		)
 	} else {
 		LoginComponent(Colors, modifier, login)
 	}

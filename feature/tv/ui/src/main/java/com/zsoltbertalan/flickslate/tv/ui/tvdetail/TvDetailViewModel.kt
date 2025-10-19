@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val SERIES_ID_ARG = "seriesId"
+const val SEASON_NUMBER_ARG = "seasonNumber"
+const val EPISODE_NUMBER_ARG = "episodeNumber"
 
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(
@@ -22,8 +24,12 @@ class TvDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 	private val seriesId: Int = checkNotNull(savedStateHandle[SERIES_ID_ARG])
+	private val seasonNumber: Int? = savedStateHandle[SEASON_NUMBER_ARG]
+	private val episodeNumber: Int? = savedStateHandle[EPISODE_NUMBER_ARG]
 
-	private val _tvStateData = MutableStateFlow(TvDetailState())
+	private val _tvStateData = MutableStateFlow(
+		TvDetailState(seasonNumber = seasonNumber, episodeNumber = episodeNumber)
+	)
 	val tvStateData = _tvStateData.asStateFlow()
 
 	init {
@@ -56,4 +62,6 @@ class TvDetailViewModel @Inject constructor(
 data class TvDetailState(
 	val tvDetail: TvDetailWithImages? = null,
 	val failure: Failure? = null,
+	val seasonNumber: Int? = null,
+	val episodeNumber: Int? = null,
 )

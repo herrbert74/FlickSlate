@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 @Suppress("PropertyName", "ConstructorParameterNaming")
 data class TvEpisodeDetailsDto(
 	val id: Int? = null,
+	val show_id: Int? = null,
 	val air_date: String? = null,
 	val episode_number: Int? = null,
 	val name: String? = null,
@@ -23,6 +24,7 @@ fun List<TvEpisodeDetailsDto>.toTvEpisodeList(): List<TvEpisodeDetail> =
 
 fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
 	this.id ?: 0,
+	this.show_id ?: 0,
 	this.air_date ?: "",
 	this.episode_number ?: 0,
 	this.name ?: "",

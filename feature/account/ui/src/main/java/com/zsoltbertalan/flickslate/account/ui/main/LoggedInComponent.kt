@@ -38,8 +38,11 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.titleMediumBold
 fun LoggedInComponent(
 	colorScheme: ColorScheme,
 	account: Account,
+	logout: () -> Unit,
+	navigateToMovieDetails: (Int) -> Unit,
+	navigateToTvShowDetails: (Int) -> Unit,
+	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
-	logout: () -> Unit
 ) {
 	Column(
 		modifier = modifier
@@ -83,7 +86,7 @@ fun LoggedInComponent(
 			}
 
 			when (selectedTabIndex) {
-				0 -> RatingsScreen()
+				0 -> RatingsScreen(navigateToMovieDetails, navigateToTvShowDetails, navigateToTvEpisodeDetails)
 				1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
 					Text("Favorites Screen - Coming Soon!")
 				}
@@ -128,6 +131,9 @@ private fun PreviewAutoSizeTextWithMaxLinesSetToOne() {
 				includeAdult = false,
 			),
 			logout = {},
+			navigateToMovieDetails = {},
+			navigateToTvShowDetails = {},
+			navigateToTvEpisodeDetails = { _, _, _ -> }
 		)
 	}
 }

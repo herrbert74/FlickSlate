@@ -108,7 +108,28 @@ fun NavHostContainer(
 				AccountScreen(
 					account = account,
 					login = { username, password -> accountViewModel.login(username, password) },
-					logout = { accountViewModel.logout() }
+					logout = { accountViewModel.logout() },
+					navigateToMovieDetails = { id ->
+						navController.navigate(Destination.MovieDetails(id)) {
+							popUpTo(Destination.Account)
+						}
+					},
+					navigateToTvShowDetails = { id ->
+						navController.navigate(Destination.TvDetails(id)) {
+							popUpTo(Destination.Account)
+						}
+					},
+					navigateToTvSeasonDetails = { tvShowId, seasonNumber, episodeNumber ->
+						navController.navigate(
+							Destination.TvDetails(
+								tvShowId,
+								seasonNumber,
+								episodeNumber
+							)
+						) {
+							popUpTo(Destination.Account)
+						}
+					},
 				)
 			}
 			composable<Destination.MovieDetails>(
@@ -145,7 +166,7 @@ fun NavHostContainer(
 				TvDetailScreen(
 					setTitle = setTitle,
 					setBackgroundColor = setBackgroundColor,
-					navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim ->
+					navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
 						Timber.d("zsoltbertalan* NavHostContainer: $tvShowId, $seasonNumber")
 						navController.navigate(
 							Destination.SeasonDetails(

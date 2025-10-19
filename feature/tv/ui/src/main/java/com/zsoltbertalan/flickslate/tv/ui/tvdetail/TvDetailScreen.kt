@@ -50,7 +50,7 @@ val Context.isDarkMode
 fun TvDetailScreen(
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
-	navigateToSeasonDetails: (Int, Int, Color, Color) -> Unit,
+	navigateToSeasonDetails: (Int, Int, Color, Color, Int?) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: TvDetailViewModel = hiltViewModel(),
 ) {
@@ -68,6 +68,7 @@ fun TvDetailScreen(
 
 	// To prevent LambdaParameterInRestartableEffect
 	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
+	val setLatestNavigateToSeasonDetails by rememberUpdatedState(navigateToSeasonDetails)
 
 	LaunchedEffect(imageUrl) {
 		imageUrl.value?.let {
@@ -85,6 +86,18 @@ fun TvDetailScreen(
 				)["muted"] ?: bgDim.toString()
 				color2 = Color(darkVibrantColor.toColorInt())
 			}
+			val seasonToNavigateTo = viewModel.tvStateData.value.seasonNumber
+			val episodeToNavigateTo = viewModel.tvStateData.value.episodeNumber
+			if (seasonToNavigateTo != null && episodeToNavigateTo != null) {
+				setLatestNavigateToSeasonDetails(
+					detail.tvDetail!!.id!!,
+					seasonToNavigateTo,
+					color1,
+					color2,
+					episodeToNavigateTo
+				)
+			}
+
 		}
 	}
 
@@ -146,7 +159,8 @@ fun TvDetailScreen(
 									detail.tvDetail.id!!,
 									detail.tvDetail.seasons[index].seasonNumber,
 									color1,
-									color2
+									color2,
+									null
 								)
 							}
 						)

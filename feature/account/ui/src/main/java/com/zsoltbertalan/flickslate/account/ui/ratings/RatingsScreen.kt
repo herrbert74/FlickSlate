@@ -23,8 +23,11 @@ import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun RatingsScreen(
+	navigateToMovieDetails: (Int) -> Unit,
+	navigateToTvShowDetails: (Int) -> Unit,
+	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
-	viewModel: RatingsViewModel = hiltViewModel()
+	viewModel: RatingsViewModel = hiltViewModel(),
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 
@@ -34,7 +37,15 @@ fun RatingsScreen(
 		}
 
 		is RatingsUiState.Success ->
-			RatingsContent(state.ratedMovies, state.ratedTvShows, state.ratedTvEpisodes, modifier)
+			RatingsContent(
+				state.ratedMovies,
+				state.ratedTvShows,
+				state.ratedTvEpisodes,
+				navigateToMovieDetails,
+				navigateToTvShowDetails,
+				navigateToTvEpisodeDetails,
+				modifier,
+			)
 
 		is RatingsUiState.Error -> Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 			Text(text = state.message)
@@ -47,6 +58,9 @@ private fun RatingsContent(
 	ratedMovies: ImmutableList<Movie>,
 	ratedTvShows: ImmutableList<TvShow>,
 	ratedTvEpisodes: ImmutableList<TvEpisodeDetail>,
+	navigateToMovieDetails: (Int) -> Unit,
+	navigateToTvShowDetails: (Int) -> Unit,
+	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier
 ) {
 	LazyColumn(
@@ -55,7 +69,7 @@ private fun RatingsContent(
 	) {
 		items(ratedMovies) { movie ->
 			ShowCard(
-				modifier = Modifier.clickable { /* Handle movie click */ },
+				modifier = Modifier.clickable { navigateToMovieDetails(movie.id) },
 				title = movie.title,
 				voteAverage = movie.voteAverage,
 				overview = movie.overview,
@@ -64,7 +78,7 @@ private fun RatingsContent(
 		}
 		items(ratedTvShows) { tvShow ->
 			ShowCard(
-				modifier = Modifier.clickable { /* Handle movie click */ },
+				modifier = Modifier.clickable { navigateToTvShowDetails(tvShow.id) },
 				title = tvShow.name,
 				voteAverage = tvShow.voteAverage,
 				overview = tvShow.overview,
@@ -73,7 +87,9 @@ private fun RatingsContent(
 		}
 		items(ratedTvEpisodes) { episode ->
 			ShowCard(
-				modifier = Modifier.clickable { /* Handle movie click */ },
+				modifier = Modifier.clickable {
+					navigateToTvEpisodeDetails(episode.showId, episode.seasonNumber, episode.episodeNumber)
+				},
 				title = episode.name,
 				voteAverage = episode.voteAverage,
 				overview = episode.overview,
