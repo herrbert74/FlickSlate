@@ -3,7 +3,6 @@ package com.zsoltbertalan.flickslate.account.data.network
 import com.zsoltbertalan.flickslate.account.data.network.model.RatedMovieReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.RatedTvShowEpisodeReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.RatedTvShowReplyDto
-import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

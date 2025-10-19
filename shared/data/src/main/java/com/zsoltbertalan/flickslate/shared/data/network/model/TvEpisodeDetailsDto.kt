@@ -2,7 +2,6 @@ package com.zsoltbertalan.flickslate.shared.data.network.model
 
 import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import kotlinx.serialization.Serializable
 
 @Serializable

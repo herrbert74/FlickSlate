@@ -8,8 +8,19 @@ interface TvRatingsRepository {
 
 	suspend fun deleteTvShowRating(tvShowId: Int, sessionId: String): Outcome<Unit>
 
-	suspend fun rateTvShowEpisode(tvShowId: Int, seasonNumber: Int, episodeNumber: Int, rating: Float, sessionId: String): Outcome<Unit>
+	suspend fun rateTvShowEpisode(
+		tvShowId: Int,
+		seasonNumber: Int,
+		episodeNumber: Int,
+		rating: Float,
+		sessionId: String
+	): Outcome<Unit>
 
-	suspend fun deleteTvShowEpisodeRating(tvShowId: Int, seasonNumber: Int, episodeNumber: Int, sessionId: String): Outcome<Unit>
+	suspend fun deleteTvShowEpisodeRating(
+		tvShowId: Int,
+		seasonNumber: Int,
+		episodeNumber: Int,
+		sessionId: String
+	): Outcome<Unit>
 
 }

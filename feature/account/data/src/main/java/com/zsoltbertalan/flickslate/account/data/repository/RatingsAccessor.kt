@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.account.data.repository
 import com.zsoltbertalan.flickslate.account.data.api.RatingsDataSource
 import com.zsoltbertalan.flickslate.account.domain.api.RatingsRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import se.ansman.dagger.auto.AutoBind

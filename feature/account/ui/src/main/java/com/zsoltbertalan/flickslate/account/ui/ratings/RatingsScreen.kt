@@ -19,20 +19,24 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-fun RatingsScreen(viewModel: RatingsViewModel = hiltViewModel()) {
-
+fun RatingsScreen(
+	modifier: Modifier = Modifier,
+	viewModel: RatingsViewModel = hiltViewModel()
+) {
 	val uiState by viewModel.uiState.collectAsState()
 
 	when (val state = uiState) {
-		is RatingsUiState.Loading -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+		is RatingsUiState.Loading -> Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 			CircularProgressIndicator()
 		}
 
-		is RatingsUiState.Success -> RatingsContent(state.ratedMovies, state.ratedTvShows, state.ratedTvEpisodes)
+		is RatingsUiState.Success ->
+			RatingsContent(state.ratedMovies, state.ratedTvShows, state.ratedTvEpisodes, modifier)
 
-		is RatingsUiState.Error -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+		is RatingsUiState.Error -> Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 			Text(text = state.message)
 		}
 	}
@@ -40,12 +44,13 @@ fun RatingsScreen(viewModel: RatingsViewModel = hiltViewModel()) {
 
 @Composable
 private fun RatingsContent(
-	ratedMovies: List<Movie>,
-	ratedTvShows: List<TvShow>,
-	ratedTvEpisodes: List<TvEpisodeDetail>
+	ratedMovies: ImmutableList<Movie>,
+	ratedTvShows: ImmutableList<TvShow>,
+	ratedTvEpisodes: ImmutableList<TvEpisodeDetail>,
+	modifier: Modifier = Modifier
 ) {
 	LazyColumn(
-		modifier = Modifier.fillMaxSize(),
+		modifier = modifier.fillMaxSize(),
 		contentPadding = PaddingValues(vertical = 16.dp)
 	) {
 		items(ratedMovies) { movie ->

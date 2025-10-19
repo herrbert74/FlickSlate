@@ -3,13 +3,13 @@ package com.zsoltbertalan.flickslate.tv.data.db
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvShow
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

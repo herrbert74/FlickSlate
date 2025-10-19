@@ -9,6 +9,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -37,9 +39,9 @@ class RatingsViewModel @Inject constructor(
 
             if (moviesResult.isOk && tvShowsResult.isOk && tvEpisodesResult.isOk) {
                 _uiState.value = RatingsUiState.Success(
-                    ratedMovies = moviesResult.value,
-                    ratedTvShows = tvShowsResult.value,
-                    ratedTvEpisodes = tvEpisodesResult.value,
+                    ratedMovies = moviesResult.value.toImmutableList(),
+                    ratedTvShows = tvShowsResult.value.toImmutableList(),
+                    ratedTvEpisodes = tvEpisodesResult.value.toImmutableList(),
                 )
             } else {
                  _uiState.value = RatingsUiState.Error("Failed to load ratings.")
@@ -51,9 +53,9 @@ class RatingsViewModel @Inject constructor(
 sealed class RatingsUiState {
     data object Loading : RatingsUiState()
     data class Success(
-        val ratedMovies: List<Movie>,
-        val ratedTvShows: List<TvShow>,
-        val ratedTvEpisodes: List<TvEpisodeDetail>
+		val ratedMovies: ImmutableList<Movie> = listOf<Movie>().toImmutableList(),
+		val ratedTvShows: ImmutableList<TvShow> = listOf<TvShow>().toImmutableList(),
+		val ratedTvEpisodes: ImmutableList<TvEpisodeDetail> = listOf<TvEpisodeDetail>().toImmutableList()
     ) : RatingsUiState()
     data class Error(val message: String) : RatingsUiState()
 }
