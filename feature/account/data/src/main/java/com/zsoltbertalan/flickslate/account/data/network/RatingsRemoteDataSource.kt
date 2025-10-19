@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.account.data.network
 
 import com.zsoltbertalan.flickslate.account.data.api.RatingsDataSource
 import com.zsoltbertalan.flickslate.shared.data.network.model.toMovieList
-import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
+import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeList
 import com.zsoltbertalan.flickslate.shared.data.network.model.toTvList
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
@@ -36,7 +36,7 @@ internal class RatingsRemoteDataSource @Inject constructor(
 	override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<TvEpisodeDetail>> {
 		return safeCall(
 			{ ratingsService.getRatedTvShowEpisodes(accountId, sessionId) },
-			{ map { it.toTvEpisodeDetail() } }
+			{ results.toTvEpisodeList() }
 		)
 	}
 }

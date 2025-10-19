@@ -7,6 +7,7 @@ This document provides a set of rules and guidelines for the AI agent to follow 
 - **Kotlin First**: The project is written in Kotlin. The agent must produce idiomatic Kotlin code.
 - **Modern Android Development**: Adhere to the latest Android development best practices, including Jetpack Compose, Coroutines, and a well-defined architecture.
 - **Dependency Awareness**: Be mindful of the existing project structure and dependencies.
+- Use **tabs** instead of spaces.
 
 ---
 
@@ -101,3 +102,9 @@ internal interface InternalTvRepositoryModule {
   fun bindTvRepository(impl: TvAccessor): TvRepository
 
 }
+
+## Rule: Use kotlin-result library
+
+Due to the Result class in the standard library is not a full implementation we need to use this library.
+Due to problems with inline value classes, we cannot use the 2.0 version of this library.
+This means that for example we cannot use isOk() as a function, but only the old isOk value.

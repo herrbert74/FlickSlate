@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.shared.data.network.model
 
+import com.babestudios.base.data.mapNullInputList
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,6 +18,9 @@ data class TvEpisodeDetailsDto(
 	val vote_average: Float? = null,
 	val vote_count: Int? = null,
 )
+
+fun List<TvEpisodeDetailsDto>.toTvEpisodeList(): List<TvEpisodeDetail> =
+	mapNullInputList(this) { tvDto -> tvDto.toTvEpisodeDetail() }
 
 fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
 	this.id ?: 0,

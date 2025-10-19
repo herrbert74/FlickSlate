@@ -28,7 +28,6 @@ dependencies {
 
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.coreKtx) // transitive
-	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 
 	testImplementation(testFixtures(project(":feature:tv:domain")))
