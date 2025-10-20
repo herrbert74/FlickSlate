@@ -1,12 +1,14 @@
-package com.zsoltbertalan.flickslate.tv.data.network.model
+package com.zsoltbertalan.flickslate.shared.data.network.model
 
-import com.zsoltbertalan.flickslate.tv.domain.model.TvEpisodeDetail
+import com.babestudios.base.data.mapNullInputList
+import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import kotlinx.serialization.Serializable
 
 @Serializable
 @Suppress("PropertyName", "ConstructorParameterNaming")
-internal data class TvEpisodeDetailsDto(
+data class TvEpisodeDetailsDto(
 	val id: Int? = null,
+	val show_id: Int? = null,
 	val air_date: String? = null,
 	val episode_number: Int? = null,
 	val name: String? = null,
@@ -17,8 +19,12 @@ internal data class TvEpisodeDetailsDto(
 	val vote_count: Int? = null,
 )
 
-internal fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
+fun List<TvEpisodeDetailsDto>.toTvEpisodeList(): List<TvEpisodeDetail> =
+	mapNullInputList(this) { tvDto -> tvDto.toTvEpisodeDetail() }
+
+fun TvEpisodeDetailsDto.toTvEpisodeDetail() = TvEpisodeDetail(
 	this.id ?: 0,
+	this.show_id ?: 0,
 	this.air_date ?: "",
 	this.episode_number ?: 0,
 	this.name ?: "",

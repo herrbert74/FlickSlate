@@ -1,5 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import kotlinx.serialization.Serializable
 

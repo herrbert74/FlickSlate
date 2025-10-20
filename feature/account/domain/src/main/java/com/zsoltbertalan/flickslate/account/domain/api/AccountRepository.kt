@@ -8,5 +8,6 @@ interface AccountRepository {
 	suspend fun getAccount(): Account?
 	suspend fun login(username: String, password: String): Outcome<Account>
 	suspend fun logout()
+	suspend fun getAccessToken(): Outcome<String>
 
 }

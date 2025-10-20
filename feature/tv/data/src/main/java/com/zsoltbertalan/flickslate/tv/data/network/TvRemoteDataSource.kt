@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.tv.data.network
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto
@@ -10,7 +11,6 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.TvSeasonDetailsDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvSeasonDetails
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import se.ansman.dagger.auto.AutoBind

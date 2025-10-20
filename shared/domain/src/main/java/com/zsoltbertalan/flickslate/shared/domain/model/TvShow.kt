@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.tv.domain.model
+package com.zsoltbertalan.flickslate.shared.domain.model
 
 data class TvShow(
 	val id: Int = 0,

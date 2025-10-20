@@ -157,6 +157,7 @@ dependencies {
 
 	androidTestCompileOnly(libs.autobind.android.testing)
 
+	androidTestImplementation(testFixtures(project(":feature:account:domain")))
 	androidTestImplementation(testFixtures(project(":feature:movies:domain")))
 	androidTestImplementation(testFixtures(project(":feature:tv:domain")))
 	androidTestImplementation(testFixtures(project(":shared:domain")))

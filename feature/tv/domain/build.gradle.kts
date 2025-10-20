@@ -22,6 +22,7 @@ android {
 dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
+	api(project(":feature:account:domain"))
 	api(libs.kotlinx.collectionsImmutableJvm)
 	api(libs.inject)
 

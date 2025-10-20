@@ -56,6 +56,7 @@ dependencies {
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
+	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.dagger.hiltCore)
 	implementation(libs.kotlinResult.result)
@@ -68,10 +69,7 @@ dependencies {
 
 	implementation(libs.timber)
 
-	excludeFrom(listOf("account")) {
-		testImplementation(libs.jUnit)
-	}
-
+	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
 }

@@ -15,6 +15,7 @@ dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinResult.coroutines)
 	"testFixturesApi"(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)

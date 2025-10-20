@@ -294,7 +294,7 @@ kotlin-parcelizeRuntime = { module = "org.jetbrains.kotlin:kotlin-parcelize-runt
 #kotlin-testJUnit = { module = "org.jetbrains.kotlin:kotlin-test-jUnit", version.ref = "kotlin" }
 
 kotlinResult-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlinResult" }
-#kotlinResult-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlinResult" }
+kotlinResult-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlinResult" }
 kotlinRetry = { module = "com.michael-bull.kotlin-retry:kotlin-retry", version.ref = "kotlinRetry" }
 
 #kotlinx-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

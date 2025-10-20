@@ -1,7 +1,8 @@
-package com.zsoltbertalan.flickslate.tv.domain.model
+package com.zsoltbertalan.flickslate.shared.domain.model
 
 data class TvEpisodeDetail(
 	val id: Int,
+	val showId: Int,
 	val airDate: String,
 	val episodeNumber: Int,
 	val name: String? = null,

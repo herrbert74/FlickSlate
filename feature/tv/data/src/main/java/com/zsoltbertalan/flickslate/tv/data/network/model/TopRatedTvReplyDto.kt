@@ -1,8 +1,10 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.TvShowDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.toTvList
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.tv.domain.model.TvShow
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import kotlinx.serialization.Serializable
 import retrofit2.Response
 
@@ -12,7 +14,7 @@ internal data class TopRatedTvReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,
-	val results: List<TvDto>? = null,
+	val results: List<TvShowDto>? = null,
 )
 
 internal fun Response<TopRatedTvReplyDto>.toTvShowsReply(): PagingReply<TvShow> {

@@ -22,6 +22,9 @@ android {
 
 dependencies {
 	api(project(":feature:tv:domain"))
+	api(project(":feature:account:domain"))
+
+	implementation(libs.kotlinx.serializationJson)
 	implementation(libs.baBeStudios.baseData)
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl)

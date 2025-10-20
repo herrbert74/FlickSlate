@@ -1,15 +1,15 @@
 package com.zsoltbertalan.flickslate.account.data.repository
 
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.toResultOr
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
+import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
 @ActivityRetainedScoped
 internal class AccountAccessor @Inject constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
@@ -36,5 +36,9 @@ internal class AccountAccessor @Inject constructor(
 			val success = accountRemoteDataSource.deleteSessionId(accessToken)
 			if (success.isOk) accountLocalDataSource.getAccessToken()
 		}
+	}
+
+	override suspend fun getAccessToken(): Outcome<String> {
+		return accountLocalDataSource.getAccessToken().toResultOr { Failure.UserNotLoggedIn }
 	}
 }
