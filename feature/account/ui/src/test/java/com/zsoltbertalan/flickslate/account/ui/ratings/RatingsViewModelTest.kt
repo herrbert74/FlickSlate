@@ -45,7 +45,6 @@ class RatingsViewModelTest {
 
 	@Test
 	fun `when viewmodel is created then success state is emitted`() = runTest {
-		// Given
 		val movies = MovieMother.createPopularMovieList()
 		val tvShows = TvMother.createTvList()
 		val tvEpisodes = listOf(TvMother.createSeasonDetail(1, 1).episodes.first())
@@ -54,11 +53,9 @@ class RatingsViewModelTest {
 		coEvery { getRatedTvShowsUseCase.execute() } returns Ok(tvShows)
 		coEvery { getRatedTvShowEpisodesUseCase.execute() } returns Ok(tvEpisodes)
 
-		// When
 		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
 		advanceUntilIdle()
 
-		// Then
 		val expectedState = RatingsUiState.Success(
 			ratedMovies = movies.toImmutableList(),
 			ratedTvShows = tvShows.toImmutableList(),
@@ -69,20 +66,16 @@ class RatingsViewModelTest {
 
 	@Test
 	fun `when getRatedMoviesUseCase fails then error state is emitted`() = runTest {
-		// Given
 		val error = Failure.UnknownHostFailure
 		coEvery { getRatedMoviesUseCase.execute() } returns Err(error)
 		coEvery { getRatedTvShowsUseCase.execute() } returns Ok(emptyList())
 		coEvery { getRatedTvShowEpisodesUseCase.execute() } returns Ok(emptyList())
 
-		// When
 		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
 		advanceUntilIdle()
 
-		// Then
 		val expectedState = RatingsUiState.Error(error.message)
 		viewModel.uiState.value shouldBe expectedState
 	}
-
 
 }
