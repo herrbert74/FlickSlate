@@ -40,6 +40,8 @@ class TvDetailViewModelTest {
 	fun setUp() {
 		Dispatchers.setMain(dispatcher)
 		every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns testSeriesId
+		every { savedStateHandle.get<Int>(SEASON_NUMBER_ARG) } returns null
+		every { savedStateHandle.get<Int>(EPISODE_NUMBER_ARG) } returns null
 	}
 
 	@After

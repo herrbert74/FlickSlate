@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.tv.domain.model
 
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
+import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
+import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.images.Image
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import kotlinx.collections.immutable.toImmutableList
@@ -142,6 +144,7 @@ object TvMother {
 		episodes = listOf(
 			TvEpisodeDetail(
 				id = 0,
+				showId = 1,
 				name = "Episode 1",
 				overview = "Overview ",
 				seasonNumber = 1,

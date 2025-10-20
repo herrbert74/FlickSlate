@@ -1,5 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.data.network.model
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.TvShowDto
+
 const val TOTAL_RESULTS = 300
 
 const val TOTAL_PAGES = 3
@@ -36,7 +38,7 @@ internal object TvDtoMother {
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
-	): TvDto = TvDto(
+	): TvShowDto = TvShowDto(
 		id = id,
 		name = name,
 		overview = overview,
