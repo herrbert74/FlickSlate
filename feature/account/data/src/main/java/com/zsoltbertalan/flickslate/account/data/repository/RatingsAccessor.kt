@@ -7,10 +7,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
 @ActivityRetainedScoped
 internal class RatingsAccessor @Inject constructor(
     private val ratingsRemoteDataSource: RatingsDataSource.Remote,

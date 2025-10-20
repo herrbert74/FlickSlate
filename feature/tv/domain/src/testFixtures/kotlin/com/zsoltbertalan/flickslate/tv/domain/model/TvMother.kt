@@ -29,7 +29,7 @@ object TvMother {
 		createDefaultTv(id = 12, name = "name6"),
 	)
 
-	private fun createDefaultTv(
+	fun createDefaultTv(
 		id: Int = 0,
 		name: String = "Detectorists",
 		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 

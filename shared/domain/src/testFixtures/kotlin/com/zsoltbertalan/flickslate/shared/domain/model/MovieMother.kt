@@ -80,23 +80,22 @@ object MovieMother {
 		id = 0
 	)
 
+	fun createDefaultMovie(
+		id: Int = 0,
+		title: String = "Brazil",
+		overview: String = "Best film ever",
+		voteAverage: Float = 8.7800f,
+		posterPath: String = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
+		backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
+	): Movie = Movie(
+		id = id,
+		title = title,
+		overview = overview,
+		voteAverage = voteAverage,
+		posterPath = posterPath,
+		backdropPath = backdropPath
+	)
 }
-
-private fun createDefaultMovie(
-	id: Int = 0,
-	title: String = "Brazil",
-	overview: String = "Best film ever",
-	voteAverage: Float = 8.7800f,
-	posterPath: String = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
-	backdropPath: String = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
-): Movie = Movie(
-	id = id,
-	title = title,
-	overview = overview,
-	voteAverage = voteAverage,
-	posterPath = posterPath,
-	backdropPath = backdropPath
-)
 
 private fun createDefaultImage(): Image = Image(
 	aspectRatio = 0.0,

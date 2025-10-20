@@ -8,10 +8,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
 @ActivityRetainedScoped
 internal class AccountAccessor @Inject constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
