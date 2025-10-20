@@ -69,10 +69,7 @@ dependencies {
 
 	implementation(libs.timber)
 
-	excludeFrom(listOf("account")) {
-		testImplementation(libs.jUnit)
-	}
-
+	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
 }

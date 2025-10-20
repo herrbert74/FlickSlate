@@ -38,10 +38,18 @@ dependencies {
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
+	implementation(libs.kotlinResult.coroutines)
 
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
+
+	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":feature:tv:domain")))
+
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
+	testImplementation(libs.mockk.dsl) // transitive
 
 }
 

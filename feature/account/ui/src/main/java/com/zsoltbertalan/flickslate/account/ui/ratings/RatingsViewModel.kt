@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.coroutines.coroutineBinding
+import com.github.michaelbull.result.fold
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
@@ -11,6 +13,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -18,44 +21,52 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RatingsViewModel @Inject constructor(
-    private val getRatedMoviesUseCase: GetRatedMoviesUseCase,
-    private val getRatedTvShowsUseCase: GetRatedTvShowsUseCase,
-    private val getRatedTvShowEpisodesUseCase: GetRatedTvShowEpisodesUseCase,
+	private val getRatedMoviesUseCase: GetRatedMoviesUseCase,
+	private val getRatedTvShowsUseCase: GetRatedTvShowsUseCase,
+	private val getRatedTvShowEpisodesUseCase: GetRatedTvShowEpisodesUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<RatingsUiState>(RatingsUiState.Loading)
-    val uiState = _uiState.asStateFlow()
+	private val _uiState = MutableStateFlow<RatingsUiState>(RatingsUiState.Loading)
+	val uiState = _uiState.asStateFlow()
 
-    init {
-        fetchRatings()
-    }
+	init {
+		fetchRatings()
+	}
 
-    private fun fetchRatings() {
-        viewModelScope.launch {
-            _uiState.value = RatingsUiState.Loading
-            val moviesResult = getRatedMoviesUseCase.execute()
-            val tvShowsResult = getRatedTvShowsUseCase.execute()
-            val tvEpisodesResult = getRatedTvShowEpisodesUseCase.execute()
+	private fun fetchRatings() {
+		viewModelScope.launch {
+			_uiState.value = RatingsUiState.Loading
 
-            if (moviesResult.isOk && tvShowsResult.isOk && tvEpisodesResult.isOk) {
-                _uiState.value = RatingsUiState.Success(
-                    ratedMovies = moviesResult.value.toImmutableList(),
-                    ratedTvShows = tvShowsResult.value.toImmutableList(),
-                    ratedTvEpisodes = tvEpisodesResult.value.toImmutableList(),
-                )
-            } else {
-                 _uiState.value = RatingsUiState.Error("Failed to load ratings.")
-            }
-        }
-    }
+			val result = coroutineBinding {
+				val movies = async { getRatedMoviesUseCase.execute().bind() }
+				val tvShows = async { getRatedTvShowsUseCase.execute().bind() }
+				val episodes = async { getRatedTvShowEpisodesUseCase.execute().bind() }
+				Triple(movies.await(), tvShows.await(), episodes.await())
+			}
+
+			result.fold(
+				success = {
+					_uiState.value = RatingsUiState.Success(
+						ratedMovies = it.first.toImmutableList(),
+						ratedTvShows = it.second.toImmutableList(),
+						ratedTvEpisodes = it.third.toImmutableList()
+					)
+				},
+				failure = {
+					_uiState.value = RatingsUiState.Error(it.message)
+				}
+			)
+		}
+	}
 }
 
 sealed class RatingsUiState {
-    data object Loading : RatingsUiState()
-    data class Success(
+	data object Loading : RatingsUiState()
+	data class Success(
 		val ratedMovies: ImmutableList<Movie> = listOf<Movie>().toImmutableList(),
 		val ratedTvShows: ImmutableList<TvShow> = listOf<TvShow>().toImmutableList(),
 		val ratedTvEpisodes: ImmutableList<TvEpisodeDetail> = listOf<TvEpisodeDetail>().toImmutableList()
-    ) : RatingsUiState()
-    data class Error(val message: String) : RatingsUiState()
+	) : RatingsUiState()
+
+	data class Error(val message: String) : RatingsUiState()
 }
