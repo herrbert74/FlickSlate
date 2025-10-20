@@ -56,6 +56,8 @@ fun TvDetailScreen(
 ) {
 	val detail = viewModel.tvStateData.collectAsStateWithLifecycle().value
 
+	val redirectedToSeasonDetail = rememberSaveable { mutableStateOf(false) }
+
 	val bg = Colors.surface
 	val bgDim = Colors.surfaceDim
 	val context = LocalContext.current
@@ -88,7 +90,8 @@ fun TvDetailScreen(
 			}
 			val seasonToNavigateTo = viewModel.tvStateData.value.seasonNumber
 			val episodeToNavigateTo = viewModel.tvStateData.value.episodeNumber
-			if (seasonToNavigateTo != null && episodeToNavigateTo != null) {
+			if (seasonToNavigateTo != null && episodeToNavigateTo != null && !redirectedToSeasonDetail.value) {
+				redirectedToSeasonDetail.value = true
 				setLatestNavigateToSeasonDetails(
 					detail.tvDetail!!.id!!,
 					seasonToNavigateTo,
