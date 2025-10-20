@@ -18,6 +18,7 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsScreen
+import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsViewModel
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
@@ -86,7 +89,12 @@ fun LoggedInComponent(
 			}
 
 			when (selectedTabIndex) {
-				0 -> RatingsScreen(navigateToMovieDetails, navigateToTvShowDetails, navigateToTvEpisodeDetails)
+				0 -> RatingsScreen(
+					navigateToMovieDetails,
+					navigateToTvShowDetails,
+					navigateToTvEpisodeDetails,
+					hiltViewModel<RatingsViewModel>().uiState.collectAsState()
+				)
 				1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
 					Text("Favorites Screen - Coming Soon!")
 				}
