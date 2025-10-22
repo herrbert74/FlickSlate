@@ -12,15 +12,11 @@ android {
 dependencies {
 	if (project.parent?.name == "tv") {
 		api(project(":base:kotlin"))
-	} else if (project.parent?.name != "account") {
+	} else {
 		implementation(project(":base:kotlin"))
 	}
 
-	if (project.parent?.name == "tv") {
-		implementation(project(":shared:domain"))
-	} else {
-		api(project(":shared:domain"))
-	}
+	api(project(":shared:domain"))
 
 	if (project.parent?.name == "account") {
 		implementation(project(":shared:ui"))
@@ -51,19 +47,22 @@ dependencies {
 		implementation(libs.androidx.composeRuntimeSaveable)
 	}
 
+	excludeFrom(listOf("search")) {
+		implementation(libs.androidx.hiltLifeCycleViewModelCompose)
+	}
+
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGraphics)
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
-	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.dagger.hiltCore)
 	implementation(libs.kotlinResult.result)
 
-	if (project.parent?.name == "search") {
+	if (project.parent?.name == "search" || project.parent?.name == "account") {
 		api(libs.kotlinx.collectionsImmutableJvm)
-	} else if (project.parent?.name != "account") {
+	} else {
 		implementation(libs.kotlinx.collectionsImmutableJvm)
 	}
 

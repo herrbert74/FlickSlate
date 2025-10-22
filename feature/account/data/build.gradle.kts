@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-	implementation(project(":feature:account:domain"))
+	api(project(":feature:account:domain"))
 	implementation(project(":shared:domain"))
 
 	implementation(project(":shared:data"))

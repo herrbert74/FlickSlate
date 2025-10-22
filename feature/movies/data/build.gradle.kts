@@ -25,7 +25,6 @@ android {
 
 dependencies {
 	api(project(":feature:movies:domain"))
-	api(project(":feature:account:domain"))
 
 	implementation(libs.kotlinx.serializationJson)
 

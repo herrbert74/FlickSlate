@@ -14,9 +14,12 @@ android {
 dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
+	api(libs.inject)
+
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
-	"testFixturesApi"(project(":shared:domain"))
+	implementation(libs.kotlinx.coroutinesCore)
+	testFixturesApi(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 

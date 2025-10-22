@@ -21,7 +21,6 @@ android {
 
 dependencies {
 	api(project(":feature:account:domain"))
-	api(project(":shared:domain"))
 
 	api(libs.androidx.composeRuntime)
 	api(libs.androidx.lifecycleViewmodel)
@@ -38,17 +37,18 @@ dependencies {
 	implementation(libs.androidx.composeUiUnit)
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
+	implementation(libs.androidx.lifecycleViewmodelCompose)
 	implementation(libs.kotlinResult.coroutines)
 
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
 
+	testImplementation(project(":feature:tv:domain"))
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(testFixtures(project(":feature:tv:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl) // transitive
 
 }

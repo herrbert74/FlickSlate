@@ -7,11 +7,9 @@ dependencies {
 	api(libs.dagger.core)
 	// api(libs.dagger.hiltAndroid) // data version
 	// api(libs.dagger.hiltCore) // data version
-	if (project.name == "data" && project.parent?.name == "account") {
-		implementation(libs.inject)
-	} else if (project.name == "android" && project.parent?.name == "base") {
-		implementation(libs.inject)
-	} else if (project.name == "data" && project.parent?.name == "shared") {
+	val androidBase = project.name == "android" && project.parent?.name == "base"
+	val dataShared = project.name == "data" && project.parent?.name == "shared"
+	if (androidBase || dataShared) {
 		implementation(libs.inject)
 	} else {
 		api(libs.inject)
