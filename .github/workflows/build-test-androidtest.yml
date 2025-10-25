@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload Test Reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-report
           path: '**/build/reports/tests/'
@@ -88,7 +88,7 @@ jobs:
         run: ./gradlew :app:validateScreenshotTest :feature:movies:ui:validateScreenshotTest :shared:ui:validateScreenshotTest --continue "-PtmdbApiKey=\"$tmdbApiKey\""
       - name: Upload Screenshot Test Reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: screenshot-test-report
           path: |
@@ -163,7 +163,7 @@ jobs:
 
       - name: Upload Test Reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: android-test-report-${{ matrix.api-level }}
           path: '**/build/reports/androidTests/connected/'
