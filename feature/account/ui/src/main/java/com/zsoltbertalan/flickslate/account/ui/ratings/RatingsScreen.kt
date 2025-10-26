@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
@@ -55,7 +56,7 @@ fun RatingsScreen(
 
 @Composable
 private fun RatingsContent(
-	ratedMovies: ImmutableList<Movie>,
+	ratedMovies: ImmutableList<RatedMovie>,
 	ratedTvShows: ImmutableList<TvShow>,
 	ratedTvEpisodes: ImmutableList<TvEpisodeDetail>,
 	navigateToMovieDetails: (Int) -> Unit,
@@ -67,13 +68,12 @@ private fun RatingsContent(
 		modifier = modifier.fillMaxSize(),
 		contentPadding = PaddingValues(vertical = 16.dp)
 	) {
-		items(ratedMovies) { movie ->
-			ShowCard(
-				modifier = Modifier.clickable { navigateToMovieDetails(movie.id) },
-				title = movie.title,
-				voteAverage = movie.voteAverage,
-				overview = movie.overview,
-				posterPath = movie.posterPath
+		items(ratedMovies) { ratedMovie ->
+			RatedShowCard(
+				modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
+				title = ratedMovie.movie.title,
+				posterPath = ratedMovie.movie.posterPath,
+				rating = ratedMovie.rating
 			)
 		}
 		items(ratedTvShows) { tvShow ->
@@ -110,12 +110,15 @@ internal fun RatingsScreenPreview() {
 			mutableStateOf(
 				RatingsUiState.Success(
 					ratedMovies = persistentListOf(
-						Movie(
-							id = 1,
-							title = "Sample Movie",
-							voteAverage = 8.5f,
-							overview = "Overview",
-							posterPath = null
+						RatedMovie(
+							movie = Movie(
+								id = 1,
+								title = "Sample Movie",
+								voteAverage = 8.5f,
+								overview = "Overview",
+								posterPath = null
+							),
+							rating = 9.0f
 						)
 					),
 					ratedTvShows = persistentListOf(

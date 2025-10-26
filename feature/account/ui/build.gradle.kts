@@ -28,6 +28,7 @@ dependencies {
 
 	implementation(platform(libs.androidx.compose.bom))
 
+	implementation(libs.coil.compose)
 	implementation(libs.androidx.composeFoundation)
 	implementation(libs.androidx.composeFoundationLayout)
 	implementation(libs.androidx.composeMaterial3)

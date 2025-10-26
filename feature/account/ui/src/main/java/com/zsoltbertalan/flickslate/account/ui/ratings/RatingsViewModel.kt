@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.coroutines.coroutineBinding
 import com.github.michaelbull.result.fold
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,7 +63,7 @@ class RatingsViewModel @Inject constructor(
 sealed class RatingsUiState {
 	data object Loading : RatingsUiState()
 	data class Success(
-		val ratedMovies: ImmutableList<Movie> = listOf<Movie>().toImmutableList(),
+		val ratedMovies: ImmutableList<RatedMovie> = listOf<RatedMovie>().toImmutableList(),
 		val ratedTvShows: ImmutableList<TvShow> = listOf<TvShow>().toImmutableList(),
 		val ratedTvEpisodes: ImmutableList<TvEpisodeDetail> = listOf<TvEpisodeDetail>().toImmutableList()
 	) : RatingsUiState()
