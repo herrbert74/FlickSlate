@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.zsoltbertalan.flickslate.account.data.api.RatingsDataSource
-import com.zsoltbertalan.flickslate.shared.data.network.model.toMovieList
+import com.zsoltbertalan.flickslate.account.data.network.model.toRatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeList
 import com.zsoltbertalan.flickslate.shared.data.network.model.toTvList
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
@@ -19,10 +19,10 @@ internal class RatingsRemoteDataSource @Inject constructor(
 	private val ratingsService: RatingsService,
 ) : RatingsDataSource.Remote {
 
-	override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<Movie>> {
+	override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<RatedMovie>> {
 		return safeCall(
 			{ ratingsService.getRatedMovies(accountId, sessionId) },
-			{ results.toMovieList() }
+			{ results.map { it.toRatedMovie() } }
 		)
 	}
 
