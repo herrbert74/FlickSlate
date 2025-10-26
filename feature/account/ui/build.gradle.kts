@@ -28,7 +28,6 @@ dependencies {
 
 	implementation(platform(libs.androidx.compose.bom))
 
-	implementation(libs.coil.compose)
 	implementation(libs.androidx.composeFoundation)
 	implementation(libs.androidx.composeFoundationLayout)
 	implementation(libs.androidx.composeMaterial3)
@@ -46,7 +45,7 @@ dependencies {
 	implementation(libs.timber)
 
 	testImplementation(project(":feature:tv:domain"))
-	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":feature:account:domain")))
 	testImplementation(testFixtures(project(":feature:tv:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
