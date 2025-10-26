@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.movies.domain.model
+package com.zsoltbertalan.flickslate.account.domain.model
 
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 

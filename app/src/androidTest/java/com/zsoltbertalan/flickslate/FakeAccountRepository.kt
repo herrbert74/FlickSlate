@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
-import com.zsoltbertalan.flickslate.movies.domain.model.AccountMother
+import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
