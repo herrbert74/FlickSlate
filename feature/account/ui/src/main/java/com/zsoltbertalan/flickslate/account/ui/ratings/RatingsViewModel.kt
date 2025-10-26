@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.coroutines.coroutineBinding
 import com.github.michaelbull.result.fold
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
-import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -64,8 +64,8 @@ sealed class RatingsUiState {
 	data object Loading : RatingsUiState()
 	data class Success(
 		val ratedMovies: ImmutableList<RatedMovie> = listOf<RatedMovie>().toImmutableList(),
-		val ratedTvShows: ImmutableList<TvShow> = listOf<TvShow>().toImmutableList(),
-		val ratedTvEpisodes: ImmutableList<TvEpisodeDetail> = listOf<TvEpisodeDetail>().toImmutableList()
+		val ratedTvShows: ImmutableList<RatedTvShow> = listOf<RatedTvShow>().toImmutableList(),
+		val ratedTvEpisodes: ImmutableList<RatedTvEpisode> = listOf<RatedTvEpisode>().toImmutableList()
 	) : RatingsUiState()
 
 	data class Error(val message: String) : RatingsUiState()

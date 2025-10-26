@@ -21,9 +21,9 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 @Composable
 fun PosterImage(
 	posterThumbnail: String?,
-	modifier: Modifier = Modifier,
 	imageWidth: Int,
-	imageHeight: Int
+	imageHeight: Int,
+	modifier: Modifier = Modifier,
 ) {
 	val painter = rememberAsyncImagePainter(
 		model = ImageRequest.Builder(LocalContext.current)
@@ -36,34 +36,27 @@ fun PosterImage(
 
 	Box(modifier = modifier) {
 		when (painter.state) {
-			is AsyncImagePainter.State.Success -> {
-				Image(
-					painter = painter,
-					contentDescription = "Poster image",
-					modifier = Modifier.fillMaxSize(),
-					contentScale = ContentScale.Crop
-				)
-			}
-			is AsyncImagePainter.State.Error -> {
-				Icon(
-					modifier = Modifier.align(Alignment.Center),
-					painter = painterResource(id = R.drawable.ic_movie),
-					contentDescription = "Error loading image",
-				)
-			}
-			is AsyncImagePainter.State.Loading -> {
-				CircularProgressIndicator(
-					modifier = Modifier.align(Alignment.Center),
-					color = Colors.primary
-				)
-			}
-			else -> { // Empty state
+			is AsyncImagePainter.State.Success -> Image(
+				painter = painter,
+				contentDescription = "Poster image",
+				modifier = Modifier.fillMaxSize(),
+				contentScale = ContentScale.Crop
+			)
+			is AsyncImagePainter.State.Error -> Icon(
+				modifier = Modifier.align(Alignment.Center),
+				painter = painterResource(id = R.drawable.ic_movie),
+				contentDescription = "Error loading image",
+			)
+			is AsyncImagePainter.State.Loading -> CircularProgressIndicator(
+				modifier = Modifier.align(Alignment.Center),
+				color = Colors.primary
+			)
+			else -> // Empty state
 				Icon(
 					modifier = Modifier.align(Alignment.Center),
 					painter = painterResource(id = R.drawable.ic_movie),
 					contentDescription = "No image available",
 				)
-			}
 		}
 	}
 }

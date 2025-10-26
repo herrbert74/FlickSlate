@@ -16,11 +16,11 @@ const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/original"
 @Composable
 fun ThumbnailCard(
 	posterThumbnail: String,
-	modifier: Modifier = Modifier,
 	width: Dp,
 	height: Dp,
 	imageWidth: Int,
-	imageHeight: Int
+	imageHeight: Int,
+	modifier: Modifier = Modifier,
 ) {
 	Card(
 		modifier = modifier

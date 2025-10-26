@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.account.domain.usecase
 
 import com.github.michaelbull.result.coroutines.coroutineBinding
 import com.zsoltbertalan.flickslate.account.domain.api.RatingsRepository
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.async
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class GetRatedTvShowsUseCase @Inject constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) {
 
-	suspend fun execute(): Outcome<List<TvShow>> {
+	suspend fun execute(): Outcome<List<RatedTvShow>> {
 		return coroutineBinding {
 			val accountId = async { getAccountIdUseCase.execute().bind() }
 			val sessionId = async { getSessionIdUseCase.execute().bind() }

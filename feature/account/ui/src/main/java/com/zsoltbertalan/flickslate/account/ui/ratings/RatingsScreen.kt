@@ -17,10 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
-import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -57,8 +58,8 @@ fun RatingsScreen(
 @Composable
 private fun RatingsContent(
 	ratedMovies: ImmutableList<RatedMovie>,
-	ratedTvShows: ImmutableList<TvShow>,
-	ratedTvEpisodes: ImmutableList<TvEpisodeDetail>,
+	ratedTvShows: ImmutableList<RatedTvShow>,
+	ratedTvEpisodes: ImmutableList<RatedTvEpisode>,
 	navigateToMovieDetails: (Int) -> Unit,
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
@@ -76,24 +77,26 @@ private fun RatingsContent(
 				rating = ratedMovie.rating
 			)
 		}
-		items(ratedTvShows) { tvShow ->
-			ShowCard(
-				modifier = Modifier.clickable { navigateToTvShowDetails(tvShow.id) },
-				title = tvShow.name,
-				voteAverage = tvShow.voteAverage,
-				overview = tvShow.overview,
-				posterPath = tvShow.posterPath
+		items(ratedTvShows) { ratedTvShow ->
+			RatedShowCard(
+				modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
+				title = ratedTvShow.tvShow.name,
+				posterPath = ratedTvShow.tvShow.posterPath,
+				rating = ratedTvShow.rating
 			)
 		}
-		items(ratedTvEpisodes) { episode ->
-			ShowCard(
+		items(ratedTvEpisodes) { ratedTvEpisode ->
+			RatedShowCard(
 				modifier = Modifier.clickable {
-					navigateToTvEpisodeDetails(episode.showId, episode.seasonNumber, episode.episodeNumber)
+					navigateToTvEpisodeDetails(
+						ratedTvEpisode.tvEpisodeDetail.showId,
+						ratedTvEpisode.tvEpisodeDetail.seasonNumber,
+						ratedTvEpisode.tvEpisodeDetail.episodeNumber
+					)
 				},
-				title = episode.name,
-				voteAverage = episode.voteAverage,
-				overview = episode.overview,
-				posterPath = episode.stillPath
+				title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
+				posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
+				rating = ratedTvEpisode.rating
 			)
 		}
 	}
@@ -122,26 +125,32 @@ internal fun RatingsScreenPreview() {
 						)
 					),
 					ratedTvShows = persistentListOf(
-						TvShow(
-							id = 2,
-							name = "Sample Show",
-							voteAverage = 7.9f,
-							overview = "Show Overview",
-							posterPath = null
+						RatedTvShow(
+							tvShow = TvShow(
+								id = 2,
+								name = "Sample Show",
+								voteAverage = 7.9f,
+								overview = "Show Overview",
+								posterPath = null
+							),
+							rating = 8.0f
 						)
 					),
 					ratedTvEpisodes = persistentListOf(
-						TvEpisodeDetail(
-							id = 3,
-							showId = 2,
-							seasonNumber = 1,
-							episodeNumber = 1,
-							name = "Episode 1",
-							voteAverage = 8.0f,
-							overview = "Episode Overview",
-							stillPath = null,
-							airDate = "2024-01-01",
-							voteCount = 1202
+						RatedTvEpisode(
+							tvEpisodeDetail = TvEpisodeDetail(
+								id = 3,
+								showId = 2,
+								seasonNumber = 1,
+								episodeNumber = 1,
+								name = "Episode 1",
+								voteAverage = 8.0f,
+								overview = "Episode Overview",
+								stillPath = null,
+								airDate = "2024-01-01",
+								voteCount = 1202
+							),
+							rating = 7.0f
 						)
 					)
 				)

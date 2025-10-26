@@ -26,10 +26,10 @@ private const val IMAGE_REQUEST_HEIGHT = 180
 
 @Composable
 fun RatedShowCard(
-	modifier: Modifier = Modifier,
 	title: String,
 	posterPath: String?,
 	rating: Float,
+	modifier: Modifier = Modifier,
 ) {
 	Card(
 		modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
