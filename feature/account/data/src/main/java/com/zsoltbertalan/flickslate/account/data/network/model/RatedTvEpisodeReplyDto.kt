@@ -3,6 +3,6 @@ package com.zsoltbertalan.flickslate.account.data.network.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class RatedTvShowReplyDto(
-    val results: List<RatedTvShowDto>
+internal data class RatedTvEpisodeReplyDto(
+    val results: List<RatedTvEpisodeDto>
 )

@@ -9,7 +9,7 @@ class MoviesScreenScreenshots {
 	@PreviewTest
 	@Preview(showBackground = true)
 	@Composable
-	private fun TopAppBarPreviewTest() {
+	private fun ShowNowPlayingMoviesPreviewTest() {
 		ShowNowPlayingMoviesPreview()
 	}
 

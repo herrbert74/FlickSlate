@@ -1,16 +1,16 @@
 package com.zsoltbertalan.flickslate.account.domain.api
 
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
-import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 
 interface RatingsRepository {
 
-	suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<Movie>>
+	suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<RatedMovie>>
 
-	suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<TvShow>>
+	suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<RatedTvShow>>
 
-	suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<TvEpisodeDetail>>
+	suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<RatedTvEpisode>>
 
 }

@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.zsoltbertalan.flickslate.account.data.network.model.RatedMovieReplyDto
-import com.zsoltbertalan.flickslate.account.data.network.model.RatedTvShowEpisodeReplyDto
+import com.zsoltbertalan.flickslate.account.data.network.model.RatedTvEpisodeReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.RatedTvShowReplyDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -26,6 +26,6 @@ internal interface RatingsService {
 	suspend fun getRatedTvShowEpisodes(
 		@Path("account_id") accountId: Int,
 		@Query("session_id") sessionId: String,
-	): Response<RatedTvShowEpisodeReplyDto>
+	): Response<RatedTvEpisodeReplyDto>
 
 }

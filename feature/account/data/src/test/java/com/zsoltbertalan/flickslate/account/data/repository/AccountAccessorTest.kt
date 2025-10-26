@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.account.data.repository
 
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
-import com.zsoltbertalan.flickslate.movies.domain.model.AccountMother
+import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.coVerify

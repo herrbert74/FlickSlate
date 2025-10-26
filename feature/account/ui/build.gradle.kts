@@ -45,7 +45,7 @@ dependencies {
 	implementation(libs.timber)
 
 	testImplementation(project(":feature:tv:domain"))
-	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":feature:account:domain")))
 	testImplementation(testFixtures(project(":feature:tv:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)

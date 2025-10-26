@@ -1,13 +1,13 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.zsoltbertalan.flickslate.account.data.api.RatingsDataSource
-import com.zsoltbertalan.flickslate.shared.data.network.model.toMovieList
-import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeList
-import com.zsoltbertalan.flickslate.shared.data.network.model.toTvList
+import com.zsoltbertalan.flickslate.account.data.network.model.toRatedMovie
+import com.zsoltbertalan.flickslate.account.data.network.model.toRatedTvEpisode
+import com.zsoltbertalan.flickslate.account.data.network.model.toRatedTvShow
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
-import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
-import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import se.ansman.dagger.auto.AutoBind
@@ -19,24 +19,24 @@ internal class RatingsRemoteDataSource @Inject constructor(
 	private val ratingsService: RatingsService,
 ) : RatingsDataSource.Remote {
 
-	override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<Movie>> {
+	override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<RatedMovie>> {
 		return safeCall(
 			{ ratingsService.getRatedMovies(accountId, sessionId) },
-			{ results.toMovieList() }
+			{ results.map { it.toRatedMovie() } }
 		)
 	}
 
-	override suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<TvShow>> {
+	override suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<RatedTvShow>> {
 		return safeCall(
 			{ ratingsService.getRatedTvShows(accountId, sessionId) },
-			{ results.toTvList() }
+			{ results.map { it.toRatedTvShow() } }
 		)
 	}
 
-	override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<TvEpisodeDetail>> {
+	override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<RatedTvEpisode>> {
 		return safeCall(
 			{ ratingsService.getRatedTvShowEpisodes(accountId, sessionId) },
-			{ results.toTvEpisodeList() }
+			{ results.map { it.toRatedTvEpisode() } }
 		)
 	}
 }

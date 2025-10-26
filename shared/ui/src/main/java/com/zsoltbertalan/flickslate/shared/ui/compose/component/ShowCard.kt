@@ -19,6 +19,9 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FixedColors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.movieCardWidth
 
+private val IMAGE_REQUEST_WIDTH = 200.dp
+private const val IMAGE_REQUEST_HEIGHT = 380
+
 @Composable
 fun ShowCard(
 	title: String?,
@@ -42,7 +45,13 @@ fun ShowCard(
 			isFirst = isFirst,
 		)
 		posterPath?.let {
-			ThumbnailCard(posterThumbnail = it)
+			ThumbnailCard(
+				posterThumbnail = it,
+				width = 120.dp,
+				height = IMAGE_REQUEST_WIDTH,
+				imageWidth = IMAGE_REQUEST_WIDTH.value.toInt(),
+				imageHeight = IMAGE_REQUEST_HEIGHT
+			)
 		}
 	}
 }
@@ -64,11 +73,11 @@ fun ShowDetailCard(
 		shape = RoundedCornerShape(8.dp),
 		elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
 		colors =
-		if (isFirst) {
-			CardDefaults.cardColors(containerColor = FixedColors.quinaryFixed)
-		} else {
-			CardDefaults.cardColors(containerColor = Colors.surfaceContainerHighest)
-		}
+			if (isFirst) {
+				CardDefaults.cardColors(containerColor = FixedColors.quinaryFixed)
+			} else {
+				CardDefaults.cardColors(containerColor = Colors.surfaceContainerHighest)
+			}
 	) {
 		Column(
 			modifier = Modifier

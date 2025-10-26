@@ -2,10 +2,12 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovieMother
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
-import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import io.kotest.matchers.shouldBe
@@ -45,9 +47,9 @@ class RatingsViewModelTest {
 
 	@Test
 	fun `when viewmodel is created then success state is emitted`() = runTest {
-		val movies = MovieMother.createPopularMovieList()
-		val tvShows = TvMother.createTvList()
-		val tvEpisodes = listOf(TvMother.createSeasonDetail(1, 1).episodes.first())
+		val movies = RatedMovieMother.createRatedMovieList()
+		val tvShows = listOf(RatedTvShow(TvMother.createTvList().first(), 7.0f))
+		val tvEpisodes = listOf(RatedTvEpisode(TvMother.createSeasonDetail(1, 1).episodes.first(), 8.0f))
 
 		coEvery { getRatedMoviesUseCase.execute() } returns Ok(movies)
 		coEvery { getRatedTvShowsUseCase.execute() } returns Ok(tvShows)

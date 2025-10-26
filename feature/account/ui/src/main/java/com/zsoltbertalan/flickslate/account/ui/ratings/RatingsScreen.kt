@@ -16,10 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
+import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
-import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -55,9 +57,9 @@ fun RatingsScreen(
 
 @Composable
 private fun RatingsContent(
-	ratedMovies: ImmutableList<Movie>,
-	ratedTvShows: ImmutableList<TvShow>,
-	ratedTvEpisodes: ImmutableList<TvEpisodeDetail>,
+	ratedMovies: ImmutableList<RatedMovie>,
+	ratedTvShows: ImmutableList<RatedTvShow>,
+	ratedTvEpisodes: ImmutableList<RatedTvEpisode>,
 	navigateToMovieDetails: (Int) -> Unit,
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
@@ -67,33 +69,34 @@ private fun RatingsContent(
 		modifier = modifier.fillMaxSize(),
 		contentPadding = PaddingValues(vertical = 16.dp)
 	) {
-		items(ratedMovies) { movie ->
-			ShowCard(
-				modifier = Modifier.clickable { navigateToMovieDetails(movie.id) },
-				title = movie.title,
-				voteAverage = movie.voteAverage,
-				overview = movie.overview,
-				posterPath = movie.posterPath
+		items(ratedMovies) { ratedMovie ->
+			RatedShowCard(
+				modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
+				title = ratedMovie.movie.title,
+				posterPath = ratedMovie.movie.posterPath,
+				rating = ratedMovie.rating
 			)
 		}
-		items(ratedTvShows) { tvShow ->
-			ShowCard(
-				modifier = Modifier.clickable { navigateToTvShowDetails(tvShow.id) },
-				title = tvShow.name,
-				voteAverage = tvShow.voteAverage,
-				overview = tvShow.overview,
-				posterPath = tvShow.posterPath
+		items(ratedTvShows) { ratedTvShow ->
+			RatedShowCard(
+				modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
+				title = ratedTvShow.tvShow.name,
+				posterPath = ratedTvShow.tvShow.posterPath,
+				rating = ratedTvShow.rating
 			)
 		}
-		items(ratedTvEpisodes) { episode ->
-			ShowCard(
+		items(ratedTvEpisodes) { ratedTvEpisode ->
+			RatedShowCard(
 				modifier = Modifier.clickable {
-					navigateToTvEpisodeDetails(episode.showId, episode.seasonNumber, episode.episodeNumber)
+					navigateToTvEpisodeDetails(
+						ratedTvEpisode.tvEpisodeDetail.showId,
+						ratedTvEpisode.tvEpisodeDetail.seasonNumber,
+						ratedTvEpisode.tvEpisodeDetail.episodeNumber
+					)
 				},
-				title = episode.name,
-				voteAverage = episode.voteAverage,
-				overview = episode.overview,
-				posterPath = episode.stillPath
+				title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
+				posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
+				rating = ratedTvEpisode.rating
 			)
 		}
 	}
@@ -110,35 +113,44 @@ internal fun RatingsScreenPreview() {
 			mutableStateOf(
 				RatingsUiState.Success(
 					ratedMovies = persistentListOf(
-						Movie(
-							id = 1,
-							title = "Sample Movie",
-							voteAverage = 8.5f,
-							overview = "Overview",
-							posterPath = null
+						RatedMovie(
+							movie = Movie(
+								id = 1,
+								title = "Sample Movie",
+								voteAverage = 8.5f,
+								overview = "Overview",
+								posterPath = null
+							),
+							rating = 9.0f
 						)
 					),
 					ratedTvShows = persistentListOf(
-						TvShow(
-							id = 2,
-							name = "Sample Show",
-							voteAverage = 7.9f,
-							overview = "Show Overview",
-							posterPath = null
+						RatedTvShow(
+							tvShow = TvShow(
+								id = 2,
+								name = "Sample Show",
+								voteAverage = 7.9f,
+								overview = "Show Overview",
+								posterPath = null
+							),
+							rating = 8.0f
 						)
 					),
 					ratedTvEpisodes = persistentListOf(
-						TvEpisodeDetail(
-							id = 3,
-							showId = 2,
-							seasonNumber = 1,
-							episodeNumber = 1,
-							name = "Episode 1",
-							voteAverage = 8.0f,
-							overview = "Episode Overview",
-							stillPath = null,
-							airDate = "2024-01-01",
-							voteCount = 1202
+						RatedTvEpisode(
+							tvEpisodeDetail = TvEpisodeDetail(
+								id = 3,
+								showId = 2,
+								seasonNumber = 1,
+								episodeNumber = 1,
+								name = "Episode 1",
+								voteAverage = 8.0f,
+								overview = "Episode Overview",
+								stillPath = null,
+								airDate = "2024-01-01",
+								voteCount = 1202
+							),
+							rating = 7.0f
 						)
 					)
 				)
