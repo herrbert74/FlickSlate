@@ -1,11 +1,16 @@
 package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,14 +19,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
+import com.zsoltbertalan.flickslate.account.ui.R
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ListTitle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -65,46 +73,113 @@ private fun RatingsContent(
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier
 ) {
-	LazyColumn(
-		modifier = modifier.fillMaxSize(),
-		contentPadding = PaddingValues(vertical = 16.dp)
+	Column(
+		modifier = modifier
+			.fillMaxSize()
+			.verticalScroll(rememberScrollState()),
 	) {
-		items(ratedMovies) { ratedMovie ->
-			RatedShowCard(
-				modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
-				title = ratedMovie.movie.title,
-				posterPath = ratedMovie.movie.posterPath,
-				rating = ratedMovie.rating
+		ListTitle(title = stringResource(id = R.string.rated_movies))
+		if (ratedMovies.isEmpty()) {
+			EmptyRatedListCard(
+				text = stringResource(id = R.string.no_rated_movies),
+				modifier = Modifier.padding(horizontal = 16.dp)
 			)
-		}
-		items(ratedTvShows) { ratedTvShow ->
-			RatedShowCard(
-				modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
-				title = ratedTvShow.tvShow.name,
-				posterPath = ratedTvShow.tvShow.posterPath,
-				rating = ratedTvShow.rating
-			)
-		}
-		items(ratedTvEpisodes) { ratedTvEpisode ->
-			RatedShowCard(
-				modifier = Modifier.clickable {
-					navigateToTvEpisodeDetails(
-						ratedTvEpisode.tvEpisodeDetail.showId,
-						ratedTvEpisode.tvEpisodeDetail.seasonNumber,
-						ratedTvEpisode.tvEpisodeDetail.episodeNumber
+		} else {
+			LazyRow(
+				contentPadding = PaddingValues(horizontal = 16.dp),
+				horizontalArrangement = Arrangement.spacedBy(16.dp),
+			) {
+				items(ratedMovies) { ratedMovie ->
+					RatedShowCard(
+						modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
+						title = ratedMovie.movie.title,
+						posterPath = ratedMovie.movie.posterPath,
+						rating = ratedMovie.rating
 					)
-				},
-				title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
-				posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
-				rating = ratedTvEpisode.rating
+				}
+			}
+		}
+
+		ListTitle(
+			title = stringResource(id = R.string.rated_tv_shows),
+			modifier = Modifier.padding(top = 16.dp)
+		)
+		if (ratedTvShows.isEmpty()) {
+			EmptyRatedListCard(
+				text = stringResource(id = R.string.no_rated_tv_shows),
+				modifier = Modifier.padding(horizontal = 16.dp)
 			)
+		} else {
+			LazyRow(
+				contentPadding = PaddingValues(horizontal = 16.dp),
+				horizontalArrangement = Arrangement.spacedBy(16.dp),
+			) {
+				items(ratedTvShows) { ratedTvShow ->
+					RatedShowCard(
+						modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
+						title = ratedTvShow.tvShow.name,
+						posterPath = ratedTvShow.tvShow.posterPath,
+						rating = ratedTvShow.rating
+					)
+				}
+			}
+		}
+
+		ListTitle(
+			title = stringResource(id = R.string.rated_tv_episodes),
+			modifier = Modifier.padding(top = 16.dp)
+		)
+		if (ratedTvEpisodes.isEmpty()) {
+			EmptyRatedListCard(
+				text = stringResource(id = R.string.no_rated_tv_episodes),
+				modifier = Modifier.padding(horizontal = 16.dp)
+			)
+		} else {
+			LazyRow(
+				contentPadding = PaddingValues(horizontal = 16.dp),
+				horizontalArrangement = Arrangement.spacedBy(16.dp),
+			) {
+				items(ratedTvEpisodes) { ratedTvEpisode ->
+					RatedShowCard(
+						modifier = Modifier.clickable {
+							navigateToTvEpisodeDetails(
+								ratedTvEpisode.tvEpisodeDetail.showId,
+								ratedTvEpisode.tvEpisodeDetail.seasonNumber,
+								ratedTvEpisode.tvEpisodeDetail.episodeNumber
+							)
+						},
+						title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
+						posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
+						rating = ratedTvEpisode.rating
+					)
+				}
+			}
 		}
 	}
 }
 
 @Composable
-@Preview(showBackground = true)
-internal fun RatingsScreenPreview() {
+@Preview(name = "Empty Lists", showBackground = true)
+internal fun RatingsScreenEmptyPreview() {
+	RatingsScreen(
+		navigateToMovieDetails = {},
+		navigateToTvShowDetails = {},
+		navigateToTvEpisodeDetails = { _, _, _ -> },
+		uiState = remember {
+			mutableStateOf(
+				RatingsUiState.Success(
+					ratedMovies = persistentListOf(),
+					ratedTvShows = persistentListOf(),
+					ratedTvEpisodes = persistentListOf()
+				)
+			)
+		}
+	)
+}
+
+@Composable
+@Preview(name = "With Content", showBackground = true)
+internal fun RatingsScreenWithContentPreview() {
 	RatingsScreen(
 		navigateToMovieDetails = {},
 		navigateToTvShowDetails = {},
@@ -157,5 +232,4 @@ internal fun RatingsScreenPreview() {
 			)
 		}
 	)
-
 }

@@ -1,32 +1,30 @@
 package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zsoltbertalan.flickslate.shared.ui.compose.component.PosterImage
+import com.zsoltbertalan.flickslate.account.ui.R
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 
-val IMAGE_WIDTH = 100.dp
-val IMAGE_HEIGHT = 150.dp
-private const val IMAGE_REQUEST_WIDTH = 150
-private const val IMAGE_REQUEST_HEIGHT = 225
-
 @Composable
-fun RatedShowCard(
-	title: String,
-	posterPath: String?,
-	rating: Float,
+fun EmptyRatedListCard(
+	text: String,
 	modifier: Modifier = Modifier,
 ) {
 	Card(
@@ -36,26 +34,20 @@ fun RatedShowCard(
 			containerColor = Colors.surfaceContainerHighest,
 		)
 	) {
-		Column {
-			PosterImage(
-				posterThumbnail = posterPath,
-				imageWidth = IMAGE_REQUEST_WIDTH,
-				imageHeight = IMAGE_REQUEST_HEIGHT,
-				modifier = Modifier.height(IMAGE_HEIGHT)
+		Column(
+			modifier = Modifier.padding(8.dp),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			Icon(
+				painter = painterResource(id = com.zsoltbertalan.flickslate.shared.ui.R.drawable.ic_movie),
+				contentDescription = null,
+				modifier = Modifier.width(IMAGE_WIDTH).height(IMAGE_HEIGHT)
 			)
+			Spacer(modifier = Modifier.height(8.dp))
 			Text(
-				text = title,
-				style = MaterialTheme.typography.titleSmall,
-				minLines = 2,
-				maxLines = 2,
-				overflow = TextOverflow.Ellipsis,
-				modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
-			)
-
-			Text(
-				text = "Your rating: $rating",
+				text = text,
 				style = MaterialTheme.typography.bodySmall,
-				modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 8.dp)
+				textAlign = TextAlign.Center,
 			)
 		}
 	}
@@ -63,12 +55,8 @@ fun RatedShowCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun RatedShowCardPreview() {
+private fun EmptyRatedListCardPreview() {
 	FlickSlateTheme {
-		RatedShowCard(
-			title = "Sample Movie With A Very Long Title That Overflows",
-			posterPath = null,
-			rating = 8.5f
-		)
+		EmptyRatedListCard(text = "You have no rated movies")
 	}
 }
