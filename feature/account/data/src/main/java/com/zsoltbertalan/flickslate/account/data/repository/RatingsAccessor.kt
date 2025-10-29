@@ -5,6 +5,7 @@ import com.zsoltbertalan.flickslate.account.domain.api.RatingsRepository
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
@@ -14,16 +15,28 @@ internal class RatingsAccessor @Inject constructor(
     private val ratingsRemoteDataSource: RatingsDataSource.Remote,
 ) : RatingsRepository {
 
-    override suspend fun getRatedMovies(accountId: Int, sessionId: String): Outcome<List<RatedMovie>> {
-        return ratingsRemoteDataSource.getRatedMovies(accountId, sessionId)
+    override suspend fun getRatedMovies(
+		accountId: Int,
+		sessionId: String,
+		page: Int
+	): Outcome<PagingReply<RatedMovie>> {
+        return ratingsRemoteDataSource.getRatedMovies(accountId, sessionId, page)
     }
 
-    override suspend fun getRatedTvShows(accountId: Int, sessionId: String): Outcome<List<RatedTvShow>> {
-        return ratingsRemoteDataSource.getRatedTvShows(accountId, sessionId)
+    override suspend fun getRatedTvShows(
+		accountId: Int,
+		sessionId: String,
+		page: Int
+	): Outcome<PagingReply<RatedTvShow>> {
+        return ratingsRemoteDataSource.getRatedTvShows(accountId, sessionId, page)
     }
 
-    override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String): Outcome<List<RatedTvEpisode>> {
-        return ratingsRemoteDataSource.getRatedTvShowEpisodes(accountId, sessionId)
+    override suspend fun getRatedTvShowEpisodes(
+		accountId: Int,
+		sessionId: String,
+		page: Int
+	): Outcome<PagingReply<RatedTvEpisode>> {
+        return ratingsRemoteDataSource.getRatedTvShowEpisodes(accountId, sessionId, page)
     }
 
 }

@@ -14,18 +14,21 @@ internal interface RatingsService {
 	suspend fun getRatedMovies(
 		@Path("account_id") accountId: Int,
 		@Query("session_id") sessionId: String,
+		@Query("page") page: Int,
 	): Response<RatedMovieReplyDto>
 
 	@GET("account/{account_id}/rated/tv")
 	suspend fun getRatedTvShows(
 		@Path("account_id") accountId: Int,
 		@Query("session_id") sessionId: String,
+		@Query("page") page: Int,
 	): Response<RatedTvShowReplyDto>
 
 	@GET("account/{account_id}/rated/tv/episodes")
 	suspend fun getRatedTvShowEpisodes(
 		@Path("account_id") accountId: Int,
 		@Query("session_id") sessionId: String,
+		@Query("page") page: Int,
 	): Response<RatedTvEpisodeReplyDto>
 
 }

@@ -38,18 +38,18 @@ class RatingsViewModel @Inject constructor(
 			_uiState.value = RatingsUiState.Loading
 
 			val result = coroutineBinding {
-				val movies = async { getRatedMoviesUseCase.execute().bind() }
-				val tvShows = async { getRatedTvShowsUseCase.execute().bind() }
-				val episodes = async { getRatedTvShowEpisodesUseCase.execute().bind() }
+				val movies = async { getRatedMoviesUseCase.execute(page = 1).bind() }
+				val tvShows = async { getRatedTvShowsUseCase.execute(page = 1).bind() }
+				val episodes = async { getRatedTvShowEpisodesUseCase.execute(page = 1).bind() }
 				Triple(movies.await(), tvShows.await(), episodes.await())
 			}
 
 			result.fold(
 				success = {
 					_uiState.value = RatingsUiState.Success(
-						ratedMovies = it.first.toImmutableList(),
-						ratedTvShows = it.second.toImmutableList(),
-						ratedTvEpisodes = it.third.toImmutableList()
+						ratedMovies = it.first.pagingList.toImmutableList(),
+						ratedTvShows = it.second.pagingList.toImmutableList(),
+						ratedTvEpisodes = it.third.pagingList.toImmutableList()
 					)
 				},
 				failure = {
