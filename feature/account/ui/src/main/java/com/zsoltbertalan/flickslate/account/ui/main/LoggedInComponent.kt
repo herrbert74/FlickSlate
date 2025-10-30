@@ -45,6 +45,7 @@ fun LoggedInComponent(
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
+	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>()
 ) {
 	Column(
 		modifier = modifier
@@ -86,18 +87,19 @@ fun LoggedInComponent(
 					)
 				}
 			}
-			val viewModel: RatingsViewModel = hiltViewModel<RatingsViewModel>()
-			when (selectedTabIndex) {
-				0 -> RatingsScreen(
-					viewModel.ratedMoviesPaginationState,
-					viewModel.ratedTvShowsPaginationState,
-					viewModel.ratedTvEpisodesPaginationState,
-					navigateToMovieDetails,
-					navigateToTvShowDetails,
-					navigateToTvEpisodeDetails,
-				)
-				1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
-					Text("Favorites Screen - Coming Soon!")
+			if (ratingsViewModel != null) {
+				when (selectedTabIndex) {
+					0 -> RatingsScreen(
+						ratingsViewModel.ratedMoviesPaginationState,
+						ratingsViewModel.ratedTvShowsPaginationState,
+						ratingsViewModel.ratedTvEpisodesPaginationState,
+						navigateToMovieDetails,
+						navigateToTvShowDetails,
+						navigateToTvEpisodeDetails,
+					)
+					1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
+						Text("Favorites Screen - Coming Soon!")
+					}
 				}
 			}
 		}
@@ -142,7 +144,8 @@ private fun PreviewAutoSizeTextWithMaxLinesSetToOne() {
 			logout = {},
 			navigateToMovieDetails = {},
 			navigateToTvShowDetails = {},
-			navigateToTvEpisodeDetails = { _, _, _ -> }
+			navigateToTvEpisodeDetails = { _, _, _ -> },
+			ratingsViewModel = null
 		)
 	}
 }
