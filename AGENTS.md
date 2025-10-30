@@ -108,3 +108,9 @@ internal interface InternalTvRepositoryModule {
 Due to the Result class in the standard library is not a full implementation we need to use this library.
 Due to problems with inline value classes, we cannot use the 2.0 version of this library.
 This means that for example we cannot use isOk() as a function, but only the old isOk value.
+
+## Rule: Use custom pagination
+
+The Google Pagination library is overcomplicated and inflexible. We use a few custom classes instead.
+When using pagination, refer to classes in package 'com.zsoltbertalan.flickslate.shared.ui.compose.component.paging',
+and for usage the classes MoviesScreen and MoviesViewModel.

@@ -48,6 +48,7 @@ fun EmptyRatedListCard(
 				text = text,
 				style = MaterialTheme.typography.bodySmall,
 				textAlign = TextAlign.Center,
+				minLines = 4
 			)
 		}
 	}

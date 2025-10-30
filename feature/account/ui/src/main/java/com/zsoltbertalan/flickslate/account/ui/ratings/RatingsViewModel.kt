@@ -2,20 +2,14 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.michaelbull.result.coroutines.coroutineBinding
-import com.github.michaelbull.result.fold
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,47 +20,70 @@ class RatingsViewModel @Inject constructor(
 	private val getRatedTvShowEpisodesUseCase: GetRatedTvShowEpisodesUseCase,
 ) : ViewModel() {
 
-	private val _uiState = MutableStateFlow<RatingsUiState>(RatingsUiState.Loading)
-	val uiState = _uiState.asStateFlow()
+	val ratedMoviesPaginationState = PaginationState<Int, RatedMovie>(
+		initialPageKey = 1,
+		onRequestPage = {
+			loadRatedMoviesPage(it)
+		}
+	)
 
-	init {
-		fetchRatings()
-	}
-
-	private fun fetchRatings() {
+	private fun loadRatedMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
-			_uiState.value = RatingsUiState.Loading
+			val reply = getRatedMoviesUseCase.execute(pageKey)
+			when {
+				reply.isOk -> ratedMoviesPaginationState.appendPage(
+					reply.value.pagingList,
+					if (reply.value.isLastPage) -1 else pageKey + 1,
+					isLastPage = reply.value.isLastPage
+				)
 
-			val result = coroutineBinding {
-				val movies = async { getRatedMoviesUseCase.execute(page = 1).bind() }
-				val tvShows = async { getRatedTvShowsUseCase.execute(page = 1).bind() }
-				val episodes = async { getRatedTvShowEpisodesUseCase.execute(page = 1).bind() }
-				Triple(movies.await(), tvShows.await(), episodes.await())
+				else -> ratedMoviesPaginationState.setError(Exception(reply.error.message))
 			}
-
-			result.fold(
-				success = {
-					_uiState.value = RatingsUiState.Success(
-						ratedMovies = it.first.pagingList.toImmutableList(),
-						ratedTvShows = it.second.pagingList.toImmutableList(),
-						ratedTvEpisodes = it.third.pagingList.toImmutableList()
-					)
-				},
-				failure = {
-					_uiState.value = RatingsUiState.Error(it.message)
-				}
-			)
 		}
 	}
-}
 
-sealed class RatingsUiState {
-	data object Loading : RatingsUiState()
-	data class Success(
-		val ratedMovies: ImmutableList<RatedMovie> = listOf<RatedMovie>().toImmutableList(),
-		val ratedTvShows: ImmutableList<RatedTvShow> = listOf<RatedTvShow>().toImmutableList(),
-		val ratedTvEpisodes: ImmutableList<RatedTvEpisode> = listOf<RatedTvEpisode>().toImmutableList()
-	) : RatingsUiState()
+	val ratedTvShowsPaginationState = PaginationState<Int, RatedTvShow>(
+		initialPageKey = 1,
+		onRequestPage = {
+			loadRatedTvShowsPage(it)
+		}
+	)
 
-	data class Error(val message: String) : RatingsUiState()
+	private fun loadRatedTvShowsPage(pageKey: Int) {
+		viewModelScope.launch {
+			val reply = getRatedTvShowsUseCase.execute(pageKey)
+			when {
+				reply.isOk -> ratedTvShowsPaginationState.appendPage(
+					reply.value.pagingList,
+					if (reply.value.isLastPage) -1 else pageKey + 1,
+					isLastPage = reply.value.isLastPage
+				)
+
+				else -> ratedTvShowsPaginationState.setError(Exception(reply.error.message))
+			}
+		}
+	}
+
+	val ratedTvEpisodesPaginationState = PaginationState<Int, RatedTvEpisode>(
+		initialPageKey = 1,
+		onRequestPage = {
+			loadRatedTvEpisodesPage(it)
+		}
+	)
+
+	private fun loadRatedTvEpisodesPage(pageKey: Int) {
+		viewModelScope.launch {
+			val reply = getRatedTvShowEpisodesUseCase.execute(pageKey)
+			when {
+				reply.isOk -> ratedTvEpisodesPaginationState.appendPage(
+					reply.value.pagingList,
+					if (reply.value.isLastPage) -1 else pageKey + 1,
+					isLastPage = reply.value.isLastPage
+				)
+
+				else -> ratedTvEpisodesPaginationState.setError(Exception(reply.error.message))
+			}
+		}
+	}
+
 }
