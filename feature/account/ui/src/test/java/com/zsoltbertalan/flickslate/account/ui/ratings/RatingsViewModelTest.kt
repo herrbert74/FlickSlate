@@ -2,18 +2,22 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovieMother
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
+import com.zsoltbertalan.flickslate.shared.domain.model.PageData
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -35,9 +39,21 @@ class RatingsViewModelTest {
 	private lateinit var viewModel: RatingsViewModel
 	private val dispatcher = StandardTestDispatcher()
 
+	val movies = RatedMovieMother.createRatedMovieList()
+	val tvShows = listOf(RatedTvShow(TvMother.createTvList().first(), 7.0f))
+	val tvEpisodes = listOf(RatedTvEpisode(TvMother.createSeasonDetail(1, 1).episodes.first(), 8.0f))
+
 	@Before
 	fun setUp() {
 		Dispatchers.setMain(dispatcher)
+
+		val moviesPagingReply = PagingReply(movies, isLastPage = false, PageData())
+		val tvShowsPagingReply = PagingReply(tvShows, isLastPage = true, PageData())
+		val tvEpisodesPagingReply = PagingReply(tvEpisodes, isLastPage = true, PageData())
+
+		coEvery { getRatedMoviesUseCase.execute(1) } returns Ok(moviesPagingReply)
+		coEvery { getRatedTvShowsUseCase.execute(1) } returns Ok(tvShowsPagingReply)
+		coEvery { getRatedTvShowEpisodesUseCase.execute(1) } returns Ok(tvEpisodesPagingReply)
 	}
 
 	@After
@@ -46,38 +62,57 @@ class RatingsViewModelTest {
 	}
 
 	@Test
-	fun `when viewmodel is created then success state is emitted`() = runTest {
-		val movies = RatedMovieMother.createRatedMovieList()
-		val tvShows = listOf(RatedTvShow(TvMother.createTvList().first(), 7.0f))
-		val tvEpisodes = listOf(RatedTvEpisode(TvMother.createSeasonDetail(1, 1).episodes.first(), 8.0f))
-
-		coEvery { getRatedMoviesUseCase.execute() } returns Ok(movies)
-		coEvery { getRatedTvShowsUseCase.execute() } returns Ok(tvShows)
-		coEvery { getRatedTvShowEpisodesUseCase.execute() } returns Ok(tvEpisodes)
+	fun `when viewmodel is created and use cases are successful then loaded state is emitted`() = runTest {
 
 		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
+
+		viewModel.ratedMoviesPaginationState.onRequestPage(viewModel.ratedMoviesPaginationState, 1)
+		viewModel.ratedTvShowsPaginationState.onRequestPage(viewModel.ratedTvShowsPaginationState, 1)
+		viewModel.ratedTvEpisodesPaginationState.onRequestPage(viewModel.ratedTvEpisodesPaginationState, 1)
+
 		advanceUntilIdle()
 
-		val expectedState = RatingsUiState.Success(
-			ratedMovies = movies.toImmutableList(),
-			ratedTvShows = tvShows.toImmutableList(),
-			ratedTvEpisodes = tvEpisodes.toImmutableList()
-		)
-		viewModel.uiState.value shouldBe expectedState
+		val moviesState = viewModel.ratedMoviesPaginationState.internalState.value
+		moviesState.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedMovie>>()
+		moviesState.items shouldBe movies
+		moviesState.nextPageKey shouldBe 2
+
+		val tvShowsState = viewModel.ratedTvShowsPaginationState.internalState.value
+		tvShowsState.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedTvShow>>()
+		tvShowsState.items shouldBe tvShows
+		tvShowsState.nextPageKey shouldBe -1
+
+		val tvEpisodesState = viewModel.ratedTvEpisodesPaginationState.internalState.value
+		tvEpisodesState.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedTvEpisode>>()
+		tvEpisodesState.items shouldBe tvEpisodes
+		tvEpisodesState.nextPageKey shouldBe -1
 	}
 
 	@Test
-	fun `when getRatedMoviesUseCase fails then error state is emitted`() = runTest {
+	fun `when getRatedMoviesUseCase fails then error state is emitted for movies`() = runTest {
 		val error = Failure.UnknownHostFailure
-		coEvery { getRatedMoviesUseCase.execute() } returns Err(error)
-		coEvery { getRatedTvShowsUseCase.execute() } returns Ok(emptyList())
-		coEvery { getRatedTvShowEpisodesUseCase.execute() } returns Ok(emptyList())
+
+		coEvery { getRatedMoviesUseCase.execute(1) } returns Err(error)
 
 		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
+
+		viewModel.ratedMoviesPaginationState.onRequestPage(viewModel.ratedMoviesPaginationState, 1)
+		viewModel.ratedTvShowsPaginationState.onRequestPage(viewModel.ratedTvShowsPaginationState, 1)
+		viewModel.ratedTvEpisodesPaginationState.onRequestPage(viewModel.ratedTvEpisodesPaginationState, 1)
+
 		advanceUntilIdle()
 
-		val expectedState = RatingsUiState.Error(error.message)
-		viewModel.uiState.value shouldBe expectedState
+		val moviesState = viewModel.ratedMoviesPaginationState.internalState.value
+		moviesState.shouldBeInstanceOf<PaginationInternalState.Error<Int, RatedMovie>>()
+		moviesState.exception.message shouldBe error.message
+
+		val tvShowsState = viewModel.ratedTvShowsPaginationState.internalState.value
+		tvShowsState.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedTvShow>>()
+		tvShowsState.items shouldBe tvShows
+
+		val tvEpisodesState = viewModel.ratedTvEpisodesPaginationState.internalState.value
+		tvEpisodesState.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedTvEpisode>>()
+		tvEpisodesState.items shouldBe tvEpisodes
 	}
 
 }
