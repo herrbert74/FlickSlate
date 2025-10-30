@@ -63,7 +63,6 @@ class RatingsViewModelTest {
 
 	@Test
 	fun `when viewmodel is created and use cases are successful then loaded state is emitted`() = runTest {
-
 		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
 
 		viewModel.ratedMoviesPaginationState.onRequestPage(viewModel.ratedMoviesPaginationState, 1)
