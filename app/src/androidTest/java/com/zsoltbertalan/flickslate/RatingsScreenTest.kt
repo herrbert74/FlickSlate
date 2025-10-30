@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate
 
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -36,13 +35,14 @@ class RatingsScreenTest {
 	fun ratingsScreen_whenLoaded_showsRatedContent() {
 		with(composeTestRule) {
 			setContent {
-				// Assuming Hilt is configured to provide a ViewModel that will
-				// return a Success state with mock data for this test.
+				val viewModel = hiltViewModel<RatingsViewModel>()
 				RatingsScreen(
+					ratedMovies = viewModel.ratedMoviesPaginationState,
+					ratedTvShows = viewModel.ratedTvShowsPaginationState,
+					ratedTvEpisodes = viewModel.ratedTvEpisodesPaginationState,
 					navigateToMovieDetails = { },
 					navigateToTvShowDetails = { },
 					navigateToTvEpisodeDetails = { _, _, _ -> },
-					uiState = hiltViewModel<RatingsViewModel>().uiState.collectAsState()
 				)
 			}
 
