@@ -6,7 +6,7 @@ object RatedTvMother {
 
 	fun createRatedTvList(): List<RatedTvShow> {
 		return listOf(
-			RatedTvShow(tvShow = TvMother.createTvList()[0], rating = 7f)
+			RatedTvShow(tvShow = TvMother.createTvList()[0], rating = 7f),
 		)
 	}
 

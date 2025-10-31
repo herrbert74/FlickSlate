@@ -1,0 +1,8 @@
+<resources>
+    <string name="rated_movies">Rated Movies</string>
+    <string name="rated_tv_shows">Rated TV Shows</string>
+    <string name="rated_tv_episodes">Rated TV Episodes</string>
+    <string name="no_rated_movies">You have no rated movies</string>
+    <string name="no_rated_tv_shows">You have no rated TV shows</string>
+    <string name="no_rated_tv_episodes">You have no rated TV episodes</string>
+</resources>

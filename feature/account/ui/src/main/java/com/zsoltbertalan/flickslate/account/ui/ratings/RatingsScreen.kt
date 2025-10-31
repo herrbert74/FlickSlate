@@ -1,161 +1,214 @@
 package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
+import com.zsoltbertalan.flickslate.account.ui.R
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.ListTitle
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginatedLazyRow
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.rememberPaginationState
 
 @Composable
 fun RatingsScreen(
+	ratedMovies: PaginationState<Int, RatedMovie>,
+	ratedTvShows: PaginationState<Int, RatedTvShow>,
+	ratedTvEpisodes: PaginationState<Int, RatedTvEpisode>,
 	navigateToMovieDetails: (Int) -> Unit,
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
-	uiState: State<RatingsUiState>,
 	modifier: Modifier = Modifier,
 ) {
-	when (val state = uiState.value) {
-		is RatingsUiState.Loading -> Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-			CircularProgressIndicator()
-		}
-
-		is RatingsUiState.Success ->
-			RatingsContent(
-				state.ratedMovies,
-				state.ratedTvShows,
-				state.ratedTvEpisodes,
-				navigateToMovieDetails,
-				navigateToTvShowDetails,
-				navigateToTvEpisodeDetails,
-				modifier,
-			)
-
-		is RatingsUiState.Error -> Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-			Text(text = state.message)
-		}
-	}
-}
-
-@Composable
-private fun RatingsContent(
-	ratedMovies: ImmutableList<RatedMovie>,
-	ratedTvShows: ImmutableList<RatedTvShow>,
-	ratedTvEpisodes: ImmutableList<RatedTvEpisode>,
-	navigateToMovieDetails: (Int) -> Unit,
-	navigateToTvShowDetails: (Int) -> Unit,
-	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
-	modifier: Modifier = Modifier
-) {
 	LazyColumn(
-		modifier = modifier.fillMaxSize(),
-		contentPadding = PaddingValues(vertical = 16.dp)
+		modifier = modifier
+			.fillMaxSize()
+			.testTag("RatingsColumn"),
 	) {
-		items(ratedMovies) { ratedMovie ->
-			RatedShowCard(
-				modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
-				title = ratedMovie.movie.title,
-				posterPath = ratedMovie.movie.posterPath,
-				rating = ratedMovie.rating
+		item { ListTitle(title = stringResource(id = R.string.rated_movies)) }
+
+		item {
+			val ratedMoviesState = ratedMovies.internalState.value
+			if (ratedMoviesState is PaginationInternalState.Loaded && ratedMoviesState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_movies),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedMovies
+				) {
+					items(ratedMovies.allItems) { ratedMovie ->
+						RatedShowCard(
+							modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
+							title = ratedMovie.movie.title,
+							posterPath = ratedMovie.movie.posterPath,
+							rating = ratedMovie.rating
+						)
+					}
+				}
+			}
+		}
+
+		item {
+			ListTitle(
+				title = stringResource(id = R.string.rated_tv_shows),
+				modifier = Modifier.padding(top = 16.dp)
 			)
 		}
-		items(ratedTvShows) { ratedTvShow ->
-			RatedShowCard(
-				modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
-				title = ratedTvShow.tvShow.name,
-				posterPath = ratedTvShow.tvShow.posterPath,
-				rating = ratedTvShow.rating
+
+		item {
+			val ratedTvShowsState = ratedTvShows.internalState.value
+			if (ratedTvShowsState is PaginationInternalState.Loaded && ratedTvShowsState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_tv_shows),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedTvShows,
+				) {
+					items(ratedTvShows.allItems) { ratedTvShow ->
+						RatedShowCard(
+							modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
+							title = ratedTvShow.tvShow.name,
+							posterPath = ratedTvShow.tvShow.posterPath,
+							rating = ratedTvShow.rating
+						)
+					}
+				}
+			}
+		}
+
+		item {
+			ListTitle(
+				title = stringResource(id = R.string.rated_tv_episodes),
+				modifier = Modifier.padding(top = 16.dp)
 			)
 		}
-		items(ratedTvEpisodes) { ratedTvEpisode ->
-			RatedShowCard(
-				modifier = Modifier.clickable {
-					navigateToTvEpisodeDetails(
-						ratedTvEpisode.tvEpisodeDetail.showId,
-						ratedTvEpisode.tvEpisodeDetail.seasonNumber,
-						ratedTvEpisode.tvEpisodeDetail.episodeNumber
-					)
-				},
-				title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
-				posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
-				rating = ratedTvEpisode.rating
-			)
+
+		item {
+			val ratedTvEpisodesState = ratedTvEpisodes.internalState.value
+			if (ratedTvEpisodesState is PaginationInternalState.Loaded && ratedTvEpisodesState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_tv_episodes),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedTvEpisodes,
+				) {
+					items(ratedTvEpisodes.allItems) { ratedTvEpisode ->
+						RatedShowCard(
+							modifier = Modifier.clickable {
+								navigateToTvEpisodeDetails(
+									ratedTvEpisode.tvEpisodeDetail.showId,
+									ratedTvEpisode.tvEpisodeDetail.seasonNumber,
+									ratedTvEpisode.tvEpisodeDetail.episodeNumber
+								)
+							},
+							title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
+							posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
+							rating = ratedTvEpisode.rating
+						)
+					}
+				}
+			}
 		}
 	}
 }
 
 @Composable
-@Preview(showBackground = true)
-internal fun RatingsScreenPreview() {
+@Preview(name = "Empty Lists", showBackground = true)
+internal fun RatingsScreenEmptyPreview() {
 	RatingsScreen(
+		ratedMovies = rememberPaginationState<Int, RatedMovie>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 0, emptyList(), true)
+		},
+		ratedTvShows = rememberPaginationState<Int, RatedTvShow>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 0, emptyList(), true)
+		},
+		ratedTvEpisodes = rememberPaginationState<Int, RatedTvEpisode>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 0, emptyList(), true)
+		},
 		navigateToMovieDetails = {},
 		navigateToTvShowDetails = {},
 		navigateToTvEpisodeDetails = { _, _, _ -> },
-		uiState = remember {
-			mutableStateOf(
-				RatingsUiState.Success(
-					ratedMovies = persistentListOf(
-						RatedMovie(
-							movie = Movie(
-								id = 1,
-								title = "Sample Movie",
-								voteAverage = 8.5f,
-								overview = "Overview",
-								posterPath = null
-							),
-							rating = 9.0f
-						)
-					),
-					ratedTvShows = persistentListOf(
-						RatedTvShow(
-							tvShow = TvShow(
-								id = 2,
-								name = "Sample Show",
-								voteAverage = 7.9f,
-								overview = "Show Overview",
-								posterPath = null
-							),
-							rating = 8.0f
-						)
-					),
-					ratedTvEpisodes = persistentListOf(
-						RatedTvEpisode(
-							tvEpisodeDetail = TvEpisodeDetail(
-								id = 3,
-								showId = 2,
-								seasonNumber = 1,
-								episodeNumber = 1,
-								name = "Episode 1",
-								voteAverage = 8.0f,
-								overview = "Episode Overview",
-								stillPath = null,
-								airDate = "2024-01-01",
-								voteCount = 1202
-							),
-							rating = 7.0f
-						)
-					)
-				)
-			)
-		}
 	)
+}
 
+@Composable
+@Preview(name = "With Content", showBackground = true)
+internal fun RatingsScreenWithContentPreview() {
+	val ratedMovie = RatedMovie(
+		movie = Movie(
+			id = 1,
+			title = "Sample Movie",
+			voteAverage = 8.5f,
+			overview = "Overview",
+			posterPath = null
+		),
+		rating = 9.0f
+	)
+	val ratedTvShow = RatedTvShow(
+		tvShow = TvShow(
+			id = 2,
+			name = "Sample Show",
+			voteAverage = 7.9f,
+			overview = "Show Overview",
+			posterPath = null
+		),
+		rating = 8.0f
+	)
+	val ratedTvEpisode = RatedTvEpisode(
+		tvEpisodeDetail = TvEpisodeDetail(
+			id = 3,
+			showId = 2,
+			seasonNumber = 1,
+			episodeNumber = 1,
+			name = "Episode 1",
+			voteAverage = 8.0f,
+			overview = "Episode Overview",
+			stillPath = null,
+			airDate = "2024-01-01",
+			voteCount = 1202
+		),
+		rating = 7.0f
+	)
+	RatingsScreen(
+		ratedMovies = rememberPaginationState<Int, RatedMovie>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 1, listOf(ratedMovie), true)
+		},
+		ratedTvShows = rememberPaginationState<Int, RatedTvShow>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 1, listOf(ratedTvShow), true)
+		},
+		ratedTvEpisodes = rememberPaginationState<Int, RatedTvEpisode>(initialPageKey = 1, onRequestPage = {}).apply {
+			internalState.value = PaginationInternalState.Loaded(1, 1, 1, listOf(ratedTvEpisode), true)
+		},
+		navigateToMovieDetails = {},
+		navigateToTvShowDetails = {},
+		navigateToTvEpisodeDetails = { _, _, _ -> },
+	)
 }

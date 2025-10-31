@@ -18,7 +18,6 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +45,7 @@ fun LoggedInComponent(
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
+	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>()
 ) {
 	Column(
 		modifier = modifier
@@ -87,16 +87,19 @@ fun LoggedInComponent(
 					)
 				}
 			}
-
-			when (selectedTabIndex) {
-				0 -> RatingsScreen(
-					navigateToMovieDetails,
-					navigateToTvShowDetails,
-					navigateToTvEpisodeDetails,
-					hiltViewModel<RatingsViewModel>().uiState.collectAsState()
-				)
-				1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
-					Text("Favorites Screen - Coming Soon!")
+			if (ratingsViewModel != null) {
+				when (selectedTabIndex) {
+					0 -> RatingsScreen(
+						ratingsViewModel.ratedMoviesPaginationState,
+						ratingsViewModel.ratedTvShowsPaginationState,
+						ratingsViewModel.ratedTvEpisodesPaginationState,
+						navigateToMovieDetails,
+						navigateToTvShowDetails,
+						navigateToTvEpisodeDetails,
+					)
+					1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
+						Text("Favorites Screen - Coming Soon!")
+					}
 				}
 			}
 		}
@@ -141,7 +144,8 @@ private fun PreviewAutoSizeTextWithMaxLinesSetToOne() {
 			logout = {},
 			navigateToMovieDetails = {},
 			navigateToTvShowDetails = {},
-			navigateToTvEpisodeDetails = { _, _, _ -> }
+			navigateToTvEpisodeDetails = { _, _, _ -> },
+			ratingsViewModel = null
 		)
 	}
 }
