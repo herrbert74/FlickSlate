@@ -3,7 +3,9 @@ package com.zsoltbertalan.flickslate
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performScrollToNode
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsScreen
@@ -46,12 +48,14 @@ class RatingsScreenTest {
 				)
 			}
 
-			// Wait for the content to be loaded and displayed
 			waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)
 
-			// Assert that items from each category are displayed
 			onNodeWithText("Brazil", useUnmergedTree = true).assertIsDisplayed()
 			onNodeWithText("Detectorists", useUnmergedTree = true).assertIsDisplayed()
+
+			onNodeWithTag("RatingsColumn").performScrollToNode(hasText("Episode 1"))
+			waitUntilAtLeastOneExistsCopy(hasText("Episode 1"), 1000L)
+
 			onNodeWithText("Episode 1", useUnmergedTree = true).assertIsDisplayed()
 		}
 	}

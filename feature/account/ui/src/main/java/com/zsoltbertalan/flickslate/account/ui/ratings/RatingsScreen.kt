@@ -2,15 +2,14 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,94 +36,104 @@ fun RatingsScreen(
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-	Column(
+	LazyColumn(
 		modifier = modifier
 			.fillMaxSize()
-			.verticalScroll(rememberScrollState()),
+			.testTag("RatingsColumn"),
 	) {
-		ListTitle(title = stringResource(id = R.string.rated_movies))
+		item { ListTitle(title = stringResource(id = R.string.rated_movies)) }
 
-		val ratedMoviesState = ratedMovies.internalState.value
-		if (ratedMoviesState is PaginationInternalState.Loaded && ratedMoviesState.items.isEmpty()) {
-			EmptyRatedListCard(
-				text = stringResource(id = R.string.no_rated_movies),
-				modifier = Modifier.padding(horizontal = 16.dp)
-			)
-		} else {
-			PaginatedLazyRow(
-				contentPadding = PaddingValues(horizontal = 16.dp),
-				horizontalArrangement = Arrangement.spacedBy(16.dp),
-				paginationState = ratedMovies
-			) {
-				items(ratedMovies.allItems) { ratedMovie ->
-					RatedShowCard(
-						modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
-						title = ratedMovie.movie.title,
-						posterPath = ratedMovie.movie.posterPath,
-						rating = ratedMovie.rating
-					)
+		item {
+			val ratedMoviesState = ratedMovies.internalState.value
+			if (ratedMoviesState is PaginationInternalState.Loaded && ratedMoviesState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_movies),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedMovies
+				) {
+					items(ratedMovies.allItems) { ratedMovie ->
+						RatedShowCard(
+							modifier = Modifier.clickable { navigateToMovieDetails(ratedMovie.movie.id) },
+							title = ratedMovie.movie.title,
+							posterPath = ratedMovie.movie.posterPath,
+							rating = ratedMovie.rating
+						)
+					}
 				}
 			}
 		}
 
-		ListTitle(
-			title = stringResource(id = R.string.rated_tv_shows),
-			modifier = Modifier.padding(top = 16.dp)
-		)
-
-		val ratedTvShowsState = ratedTvShows.internalState.value
-		if (ratedTvShowsState is PaginationInternalState.Loaded && ratedTvShowsState.items.isEmpty()) {
-			EmptyRatedListCard(
-				text = stringResource(id = R.string.no_rated_tv_shows),
-				modifier = Modifier.padding(horizontal = 16.dp)
+		item {
+			ListTitle(
+				title = stringResource(id = R.string.rated_tv_shows),
+				modifier = Modifier.padding(top = 16.dp)
 			)
-		} else {
-			PaginatedLazyRow(
-				contentPadding = PaddingValues(horizontal = 16.dp),
-				horizontalArrangement = Arrangement.spacedBy(16.dp),
-				paginationState = ratedTvShows,
-			) {
-				items(ratedTvShows.allItems) { ratedTvShow ->
-					RatedShowCard(
-						modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
-						title = ratedTvShow.tvShow.name,
-						posterPath = ratedTvShow.tvShow.posterPath,
-						rating = ratedTvShow.rating
-					)
+		}
+
+		item {
+			val ratedTvShowsState = ratedTvShows.internalState.value
+			if (ratedTvShowsState is PaginationInternalState.Loaded && ratedTvShowsState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_tv_shows),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedTvShows,
+				) {
+					items(ratedTvShows.allItems) { ratedTvShow ->
+						RatedShowCard(
+							modifier = Modifier.clickable { navigateToTvShowDetails(ratedTvShow.tvShow.id) },
+							title = ratedTvShow.tvShow.name,
+							posterPath = ratedTvShow.tvShow.posterPath,
+							rating = ratedTvShow.rating
+						)
+					}
 				}
 			}
 		}
 
-		ListTitle(
-			title = stringResource(id = R.string.rated_tv_episodes),
-			modifier = Modifier.padding(top = 16.dp)
-		)
-
-		val ratedTvEpisodesState = ratedTvEpisodes.internalState.value
-		if (ratedTvEpisodesState is PaginationInternalState.Loaded && ratedTvEpisodesState.items.isEmpty()) {
-			EmptyRatedListCard(
-				text = stringResource(id = R.string.no_rated_tv_episodes),
-				modifier = Modifier.padding(horizontal = 16.dp)
+		item {
+			ListTitle(
+				title = stringResource(id = R.string.rated_tv_episodes),
+				modifier = Modifier.padding(top = 16.dp)
 			)
-		} else {
-			PaginatedLazyRow(
-				contentPadding = PaddingValues(horizontal = 16.dp),
-				horizontalArrangement = Arrangement.spacedBy(16.dp),
-				paginationState = ratedTvEpisodes,
-			) {
-				items(ratedTvEpisodes.allItems) { ratedTvEpisode ->
-					RatedShowCard(
-						modifier = Modifier.clickable {
-							navigateToTvEpisodeDetails(
-								ratedTvEpisode.tvEpisodeDetail.showId,
-								ratedTvEpisode.tvEpisodeDetail.seasonNumber,
-								ratedTvEpisode.tvEpisodeDetail.episodeNumber
-							)
-						},
-						title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
-						posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
-						rating = ratedTvEpisode.rating
-					)
+		}
+
+		item {
+			val ratedTvEpisodesState = ratedTvEpisodes.internalState.value
+			if (ratedTvEpisodesState is PaginationInternalState.Loaded && ratedTvEpisodesState.items.isEmpty()) {
+				EmptyRatedListCard(
+					text = stringResource(id = R.string.no_rated_tv_episodes),
+					modifier = Modifier.padding(horizontal = 16.dp)
+				)
+			} else {
+				PaginatedLazyRow(
+					contentPadding = PaddingValues(horizontal = 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(16.dp),
+					paginationState = ratedTvEpisodes,
+				) {
+					items(ratedTvEpisodes.allItems) { ratedTvEpisode ->
+						RatedShowCard(
+							modifier = Modifier.clickable {
+								navigateToTvEpisodeDetails(
+									ratedTvEpisode.tvEpisodeDetail.showId,
+									ratedTvEpisode.tvEpisodeDetail.seasonNumber,
+									ratedTvEpisode.tvEpisodeDetail.episodeNumber
+								)
+							},
+							title = ratedTvEpisode.tvEpisodeDetail.name ?: "",
+							posterPath = ratedTvEpisode.tvEpisodeDetail.stillPath,
+							rating = ratedTvEpisode.rating
+						)
+					}
 				}
 			}
 		}
