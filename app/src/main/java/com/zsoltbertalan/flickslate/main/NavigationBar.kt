@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.main
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -42,6 +43,7 @@ fun FlickSlateBottomNavigationBar(
 		itemList.forEach { screen ->
 			FlickSlateNavigationBarItem(
 				selected = currentRoute == screen.javaClass.canonicalName,
+				iconResId = screen.toIconResourceId(),
 				label = {
 					Text(
 						style = MaterialTheme.typography.bodySmall,
@@ -70,6 +72,15 @@ private fun Destination.toResourceId(): Int = when (this) {
 	else -> R.string.movies
 }
 
+@DrawableRes
+private fun Destination.toIconResourceId(): Int = when (this) {
+	is Destination.Movies -> R.drawable.ic_movie
+	is Destination.Tv -> R.drawable.ic_tv
+	is Destination.Search -> R.drawable.ic_search
+	is Destination.Account -> R.drawable.ic_account_box
+	else -> R.drawable.ic_movie
+}
+
 @Composable
 fun FlickSlateNavigationBar(
 	modifier: Modifier = Modifier,
@@ -85,6 +96,7 @@ fun FlickSlateNavigationBar(
 @Composable
 fun RowScope.FlickSlateNavigationBarItem(
 	selected: Boolean,
+	@DrawableRes iconResId: Int,
 	modifier: Modifier = Modifier,
 	enabled: Boolean = true,
 	label: @Composable (() -> Unit)? = null,
@@ -104,7 +116,7 @@ fun RowScope.FlickSlateNavigationBarItem(
 		),
 		icon = {
 			Icon(
-				painter = painterResource(id = R.drawable.ic_stars),
+				painter = painterResource(id = iconResId),
 				contentDescription = "",
 				modifier = Modifier.height(20.dp),
 			)
