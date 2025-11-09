@@ -41,7 +41,7 @@ class ProfilerPlugin : Plugin<Project> {
 		val outputDir = project.layout.buildDirectory.file("profile-out").get().asFile
 		val outputFile = outputDir.resolve("benchmark.csv")
 		val rootDir = project.rootDir
-		val scenarioFile = rootDir.resolve("scenarios_test.txt")
+		val scenarioFile = rootDir.resolve("scenarios.txt")
 
 		println("outputDir: ${outputDir.absolutePath}")
 		println("outputFile: $outputFile")
