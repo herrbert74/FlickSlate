@@ -4,8 +4,10 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
+import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val movieDetailsUseCase: MovieDetailsUseCase
+	private val movieDetailsUseCase: MovieDetailsUseCase,
+	private val rateMovieUseCase: RateMovieUseCase,
+	private val getSessionIdUseCase: GetSessionIdUseCase
 ) : ViewModel() {
 
 	private val _movieStateData = MutableStateFlow(MovieDetailState())
@@ -27,6 +31,28 @@ class MovieDetailViewModel @Inject constructor(
 
 	init {
 		getMovieDetail()
+		checkLoginStatus()
+	}
+
+	private fun checkLoginStatus() {
+		viewModelScope.launch {
+			val sessionIdResult = getSessionIdUseCase.execute()
+			_movieStateData.update { it.copy(isLoggedIn = sessionIdResult.isOk) }
+		}
+	}
+
+	internal fun rateMovie(rating: Float) {
+		viewModelScope.launch {
+			_movieStateData.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
+			val rateMovieResult = rateMovieUseCase.execute(movieId, rating)
+			when {
+				rateMovieResult.isOk ->
+					_movieStateData.update { it.copy(isRatingInProgress = false, isRated = true) }
+
+				else ->
+					_movieStateData.update { it.copy(isRatingInProgress = false, failure = rateMovieResult.error) }
+			}
+		}
 	}
 
 	private fun getMovieDetail() {
@@ -55,5 +81,8 @@ class MovieDetailViewModel @Inject constructor(
 @Immutable
 internal data class MovieDetailState(
 	val movieDetail: MovieDetailWithImages? = null,
+	val isRatingInProgress: Boolean = false,
+	val isRated: Boolean = false,
+	val isLoggedIn: Boolean = false,
 	val failure: Failure? = null,
 )
