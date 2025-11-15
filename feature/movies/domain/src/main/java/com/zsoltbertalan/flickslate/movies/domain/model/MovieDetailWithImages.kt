@@ -14,4 +14,7 @@ data class MovieDetailWithImages(
 	val backdropPath: String? = null,
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
 	val movieImages: ImagesReply = ImagesReply(),
+	val personalRating: Float = 0f,
+	val favorite: Boolean = false,
+	val watchlist: Boolean = false,
 )

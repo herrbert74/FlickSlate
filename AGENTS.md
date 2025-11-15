@@ -114,3 +114,10 @@ This means that for example we cannot use isOk() as a function, but only the old
 The Google Pagination library is overcomplicated and inflexible. We use a few custom classes instead.
 When using pagination, refer to classes in package 'com.zsoltbertalan.flickslate.shared.ui.compose.component.paging',
 and for usage the classes MoviesScreen and MoviesViewModel.
+
+## Rule: DTOs and domain classes
+
+Do not change the names of DTO parameters to follow Kotlin naming patterns. Instead keep the API names and 
+suppress detekt with @Suppress("PropertyName", "ConstructorParameterNaming"), but only if needed, typically 
+when the API uses underscores.
+Use the correct pattern only in the domain model classes.

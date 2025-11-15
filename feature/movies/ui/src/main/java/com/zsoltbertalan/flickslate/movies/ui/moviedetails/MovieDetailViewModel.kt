@@ -60,8 +60,12 @@ class MovieDetailViewModel @Inject constructor(
 			val movieDetailsResult = movieDetailsUseCase.getMovieDetails(movieId)
 			when {
 				movieDetailsResult.isOk -> _movieStateData.update {
+					val movieDetail = movieDetailsResult.value
 					it.copy(
-						movieDetail = movieDetailsResult.value,
+						movieDetail = movieDetail,
+						isRated = movieDetail.personalRating > 0f,
+						isFavorite = movieDetail.favorite,
+						isWatchlist = movieDetail.watchlist,
 						failure = null
 					)
 				}
@@ -85,4 +89,6 @@ internal data class MovieDetailState(
 	val isRated: Boolean = false,
 	val isLoggedIn: Boolean = false,
 	val failure: Failure? = null,
+	val isFavorite: Boolean = false,
+	val isWatchlist: Boolean = false,
 )

@@ -47,8 +47,10 @@ internal interface MoviesService {
 
 	@GET(URL_MOVIE_DETAILS)
 	suspend fun getMovieDetails(
-		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Path("movie_id") movieId: Int,
+		@Header("If-None-Match") ifNoneMatch: String? = null,
+		@Query("session_id") sessionId: String? = null,
+		@Query("append_to_response") appendToResponse: String? = null
 	): MovieDetailsDto
 
 	@GET(URL_MOVIE_IMAGES)

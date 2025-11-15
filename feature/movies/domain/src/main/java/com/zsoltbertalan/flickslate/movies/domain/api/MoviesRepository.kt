@@ -12,7 +12,7 @@ interface MoviesRepository {
 	fun getPopularMovies(page: Int): Flow<Outcome<PagingReply<Movie>>>
 	fun getNowPlayingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>>
 	fun getUpcomingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>>
-	suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail>
+	suspend fun getMovieDetails(movieId: Int, sessionId: String? = null): Outcome<MovieDetail>
 	suspend fun getMovieImages(movieId: Int): Outcome<ImagesReply>
 
 }
