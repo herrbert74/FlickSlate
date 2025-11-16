@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.network.model
 
+import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.MovieDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 
@@ -88,6 +89,23 @@ internal object MovieDtoMother {
 			createDefaultMovieDto(id = 13, title = "name6"),
 		)
 	)
+
+	fun createMovieDetailsDto(
+		id: Int,
+		title: String,
+		accountStates: AccountStatesDto? = null
+	): MovieDetailsDto {
+		return MovieDetailsDto(
+			id = id,
+			title = title,
+			overview = "Overview of $title",
+			vote_average = 7.5f,
+			poster_path = "/poster.jpg",
+			backdrop_path = "/backdrop.jpg",
+			genres = listOf(GenreDto(1, "Action")),
+			account_states = accountStates
+		)
+	}
 }
 
 private fun createDefaultMovieDto(

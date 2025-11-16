@@ -121,3 +121,8 @@ Do not change the names of DTO parameters to follow Kotlin naming patterns. Inst
 suppress detekt with @Suppress("PropertyName", "ConstructorParameterNaming"), but only if needed, typically 
 when the API uses underscores.
 Use the correct pattern only in the domain model classes.
+
+## Rule: Comments
+
+Do not add any comments in Kotlin files, unless you are explicitly asked.
+If you think it's absolutely necessary, ask for permission.
