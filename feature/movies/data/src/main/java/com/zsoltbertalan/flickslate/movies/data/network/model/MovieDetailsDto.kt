@@ -5,6 +5,9 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toGenre
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
@@ -22,7 +25,7 @@ data class MovieDetailsDto(
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 data class AccountStatesDto(
-	val rated: RatedDto? = null,
+	val rated: JsonElement? = null,
 	val favorite: Boolean = false,
 	val watchlist: Boolean = false,
 )
@@ -34,6 +37,14 @@ data class RatedDto(
 )
 
 internal fun MovieDetailsDto.toMovieDetail(): MovieDetail {
+	val ratedDto = this.account_states?.rated?.let {
+		if (it is JsonObject) {
+			Json.decodeFromJsonElement(RatedDto.serializer(), it)
+		} else {
+			null
+		}
+	}
+
 	return MovieDetail(
 		id = this.id,
 		title = this.title,
@@ -43,7 +54,7 @@ internal fun MovieDetailsDto.toMovieDetail(): MovieDetail {
 		backdropPath = this.backdrop_path,
 		genres = this.genres?.map { it.toGenre() }?.toImmutableList()
 			?: emptyList<com.zsoltbertalan.flickslate.shared.domain.model.Genre>().toImmutableList(),
-		personalRating = this.account_states?.rated?.value ?: 0f,
+		personalRating = ratedDto?.value ?: 0f,
 		favorite = this.account_states?.favorite ?: false,
 		watchlist = this.account_states?.watchlist ?: false,
 	)
