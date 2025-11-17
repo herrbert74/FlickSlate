@@ -10,13 +10,15 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityRetainedScoped
+@Singleton
 class FakeMoviesRepository @Inject constructor() : MoviesRepository {
+
+	var movieDetail: MovieDetail = MovieDetailMother.createMovieDetail()
 
 	override fun getPopularMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> = flowOf(
 		Ok(
@@ -36,8 +38,8 @@ class FakeMoviesRepository @Inject constructor() : MoviesRepository {
 		)
 	)
 
-	override suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetail> =
-		Ok(MovieDetailMother.createMovieDetail())
+	override suspend fun getMovieDetails(movieId: Int, sessionId: String?): Outcome<MovieDetail> =
+		Ok(movieDetail)
 
 	override suspend fun getMovieImages(movieId: Int): Outcome<ImagesReply> = Ok(MovieMother.createMovieImages())
 

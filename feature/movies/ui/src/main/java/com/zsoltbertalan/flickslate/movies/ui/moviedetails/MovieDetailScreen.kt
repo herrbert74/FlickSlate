@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 
 import android.content.Context
 import android.content.res.Configuration
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -160,16 +162,15 @@ fun MovieDetailScreen(
 
 					if (detail.isLoggedIn) {
 						TitleText(
-							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp).testTag("rate_this_movie_title"),
 							title = "Rate this movie"
 						)
+						Log.d("MovieDetailScreen", "isLoggedIn: ${detail.isLoggedIn}, isRated: ${detail.isRated}, personalRating: ${detail.movieDetail?.personalRating}")
 						if (detail.isRated) {
-							detail.movieDetail.personalRating.takeIf { it > 0 }?.let {
-								Text(
-									modifier = Modifier.padding(16.dp),
-									text = "Your rating: %.1f".format(it)
-								)
-							}
+							Text(
+								modifier = Modifier.padding(16.dp).testTag("rating_text"),
+								text = "Your rating: %.1f".format(detail.movieDetail!!.personalRating)
+							)
 						} else {
 							var sliderPosition by remember { mutableFloatStateOf(0f) }
 							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -177,10 +178,14 @@ fun MovieDetailScreen(
 									value = sliderPosition,
 									onValueChange = { sliderPosition = it },
 									valueRange = 0f..10f,
-									steps = 9
+									steps = 9,
+									modifier = Modifier.testTag("rating_slider")
 								)
 								Text(text = "Your rating: %.1f".format(sliderPosition))
-								Button(onClick = { viewModel.rateMovie(sliderPosition) }) {
+								Button(
+									onClick = { viewModel.rateMovie(sliderPosition) },
+									modifier = Modifier.testTag("rate_button")
+								) {
 									Text("Rate")
 								}
 							}
