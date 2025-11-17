@@ -47,7 +47,14 @@ class MovieDetailViewModel @Inject constructor(
 			val rateMovieResult = rateMovieUseCase.execute(movieId, rating)
 			when {
 				rateMovieResult.isOk ->
-					_movieStateData.update { it.copy(isRatingInProgress = false, isRated = true) }
+					_movieStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = true,
+							movieDetail = it.movieDetail?.copy(personalRating = rating),
+							showRatingToast = true
+						)
+					}
 
 				else ->
 					_movieStateData.update { it.copy(isRatingInProgress = false, failure = rateMovieResult.error) }
@@ -80,6 +87,10 @@ class MovieDetailViewModel @Inject constructor(
 
 		}
 	}
+
+	internal fun toastShown() {
+		_movieStateData.update { it.copy(showRatingToast = false) }
+	}
 }
 
 @Immutable
@@ -91,4 +102,5 @@ internal data class MovieDetailState(
 	val failure: Failure? = null,
 	val isFavorite: Boolean = false,
 	val isWatchlist: Boolean = false,
+	val showRatingToast: Boolean = false,
 )

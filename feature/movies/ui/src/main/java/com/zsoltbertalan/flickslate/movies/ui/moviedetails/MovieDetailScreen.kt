@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 
 import android.content.Context
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -90,6 +91,13 @@ fun MovieDetailScreen(
 		}
 	}
 
+	if (detail.showRatingToast) {
+		LaunchedEffect(detail.showRatingToast) {
+			Toast.makeText(context, "Thanks for rating!", Toast.LENGTH_SHORT).show()
+			viewModel.toastShown()
+		}
+	}
+
 	if (detail.movieDetail != null) {
 		setTitle(detail.movieDetail.title.toString())
 		LazyColumn(modifier.fillMaxSize()) {
@@ -156,10 +164,12 @@ fun MovieDetailScreen(
 							title = "Rate this movie"
 						)
 						if (detail.isRated) {
-							Text(
-								modifier = Modifier.padding(16.dp),
-								text = "Thanks for rating!"
-							)
+							detail.movieDetail.personalRating.takeIf { it > 0 }?.let {
+								Text(
+									modifier = Modifier.padding(16.dp),
+									text = "Your rating: %.1f".format(it)
+								)
+							}
 						} else {
 							var sliderPosition by remember { mutableFloatStateOf(0f) }
 							Column(modifier = Modifier.padding(horizontal = 16.dp)) {

@@ -172,7 +172,7 @@ class MoviesAccessorTest {
 
 		val result = try {
 			 moviesAccessor.getMovieDetails(movieId, sessionId)
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			Err<Failure>(Failure.UnknownHostFailure)
 		}
 
