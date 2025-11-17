@@ -2,7 +2,6 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 
 import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -93,8 +92,8 @@ fun MovieDetailScreen(
 		}
 	}
 
-	if (detail.showRatingToast) {
-		LaunchedEffect(detail.showRatingToast) {
+	LaunchedEffect(detail.showRatingToast) {
+		if (detail.showRatingToast) {
 			Toast.makeText(context, "Thanks for rating!", Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
 		}
@@ -162,14 +161,17 @@ fun MovieDetailScreen(
 
 					if (detail.isLoggedIn) {
 						TitleText(
-							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp).testTag("rate_this_movie_title"),
+							modifier = Modifier
+								.padding(horizontal = 8.dp, vertical = 16.dp)
+								.testTag("rate_this_movie_title"),
 							title = "Rate this movie"
 						)
-						Log.d("MovieDetailScreen", "isLoggedIn: ${detail.isLoggedIn}, isRated: ${detail.isRated}, personalRating: ${detail.movieDetail?.personalRating}")
 						if (detail.isRated) {
 							Text(
-								modifier = Modifier.padding(16.dp).testTag("rating_text"),
-								text = "Your rating: %.1f".format(detail.movieDetail!!.personalRating)
+								modifier = Modifier
+									.padding(16.dp)
+									.testTag("rating_text"),
+								text = "Your rating: %.1f".format(detail.movieDetail.personalRating)
 							)
 						} else {
 							var sliderPosition by remember { mutableFloatStateOf(0f) }
