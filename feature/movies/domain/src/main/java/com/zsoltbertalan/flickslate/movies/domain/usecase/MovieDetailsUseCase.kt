@@ -4,6 +4,7 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.recover
+import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
@@ -14,11 +15,15 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
-class MovieDetailsUseCase @Inject constructor(private val moviesRepository: MoviesRepository) {
+class MovieDetailsUseCase @Inject constructor(
+	private val moviesRepository: MoviesRepository,
+	private val getSessionIdUseCase: GetSessionIdUseCase,
+) {
 
 	suspend fun getMovieDetails(movieId: Int): Outcome<MovieDetailWithImages> {
 		return coroutineScope {
-			val movieDetails = async { moviesRepository.getMovieDetails(movieId) }
+			val sessionId = async { getSessionIdUseCase.execute() }
+			val movieDetails = async { moviesRepository.getMovieDetails(movieId, sessionId.await().get()) }
 			val movieImages = async { moviesRepository.getMovieImages(movieId) }
 
 			return@coroutineScope movieDetailWithImages(movieDetails.await(), movieImages.await())
@@ -44,7 +49,10 @@ class MovieDetailsUseCase @Inject constructor(private val moviesRepository: Movi
 				posterPath = movieDetail.posterPath,
 				backdropPath = movieDetail.backdropPath,
 				genres = movieDetail.genres,
-				movieImages = images.get() ?: ImagesReply()
+				movieImages = images.get() ?: ImagesReply(),
+				personalRating = movieDetail.personalRating,
+				favorite = movieDetail.favorite,
+				watchlist = movieDetail.watchlist,
 			)
 		}
 	}

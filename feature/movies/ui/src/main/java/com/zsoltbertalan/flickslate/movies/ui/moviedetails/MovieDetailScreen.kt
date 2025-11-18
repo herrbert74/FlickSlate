@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 
 import android.content.Context
-import android.content.res.Configuration.UI_MODE_NIGHT_MASK
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,11 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -31,6 +34,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -46,7 +50,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitm
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
 
 val Context.isDarkMode
-	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+	get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
 @Composable
 fun MovieDetailScreen(
@@ -67,7 +71,6 @@ fun MovieDetailScreen(
 		mutableStateOf(detail.movieDetail?.backdropPath)
 	}
 
-	// To prevent LambdaParameterInRestartableEffect
 	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
 
 	LaunchedEffect(imageUrl) {
@@ -89,9 +92,20 @@ fun MovieDetailScreen(
 		}
 	}
 
+	LaunchedEffect(detail.showRatingToast) {
+		if (detail.showRatingToast) {
+			Toast.makeText(context, "Thanks for rating!", Toast.LENGTH_SHORT).show()
+			viewModel.toastShown()
+		}
+	}
+
 	if (detail.movieDetail != null) {
 		setTitle(detail.movieDetail.title.toString())
-		LazyColumn(modifier.fillMaxSize()) {
+		LazyColumn(
+			modifier
+				.fillMaxSize()
+				.testTag("Movie Detail Column")
+		) {
 			item {
 				Image(
 					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
@@ -147,6 +161,43 @@ fun MovieDetailScreen(
 							text = it
 						)
 					}
+					Spacer(modifier = Modifier.height(16.dp))
+
+					if (detail.isLoggedIn) {
+						TitleText(
+							modifier = Modifier
+								.padding(horizontal = 8.dp, vertical = 16.dp)
+								.testTag("Rate this movie title"),
+							title = "Rate this movie"
+						)
+						if (detail.isRated) {
+							Text(
+								modifier = Modifier
+									.padding(16.dp)
+									.testTag("Rating Text"),
+								text = "Your rating: %.1f".format(detail.movieDetail.personalRating)
+							)
+						} else {
+							var sliderPosition by remember { mutableFloatStateOf(0f) }
+							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+								Slider(
+									value = sliderPosition,
+									onValueChange = { sliderPosition = it },
+									valueRange = 0f..10f,
+									steps = 9,
+									modifier = Modifier.testTag("Rating Slider")
+								)
+								Text(text = "Your rating: %.1f".format(sliderPosition))
+								Button(
+									onClick = { viewModel.rateMovie(sliderPosition) },
+									modifier = Modifier.testTag("Rate Button")
+								) {
+									Text("Rate")
+								}
+							}
+						}
+					}
+
 					Spacer(modifier = Modifier.height(16.dp))
 
 					TitleText(
