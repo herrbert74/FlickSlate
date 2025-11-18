@@ -19,7 +19,7 @@ class FakeMovieRatingsRepository @Inject constructor() : MovieRatingsRepository 
 	}
 
 	override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
-		movieDetail = movieDetail.copy(personalRating = 0f)
+		movieDetail = movieDetail.copy(personalRating = -1f)
 		return Ok(Unit)
 	}
 

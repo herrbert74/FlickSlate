@@ -54,7 +54,7 @@ internal fun MovieDetailsDto.toMovieDetail(): MovieDetail {
 		backdropPath = this.backdrop_path,
 		genres = this.genres?.map { it.toGenre() }?.toImmutableList()
 			?: emptyList<com.zsoltbertalan.flickslate.shared.domain.model.Genre>().toImmutableList(),
-		personalRating = ratedDto?.value ?: 0f,
+		personalRating = ratedDto?.value ?: -1f,
 		favorite = this.account_states?.favorite ?: false,
 		watchlist = this.account_states?.watchlist ?: false,
 	)

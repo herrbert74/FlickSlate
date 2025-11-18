@@ -83,7 +83,7 @@ class MovieDetailViewModelTest {
 
 	@Test
 	fun `when movie is rated, state is updated`() = runTest {
-		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 0.0f)
+		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = -1f)
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 		coEvery { rateMovieUseCase.execute(1, 8.0f) } returns Ok(Unit)
 

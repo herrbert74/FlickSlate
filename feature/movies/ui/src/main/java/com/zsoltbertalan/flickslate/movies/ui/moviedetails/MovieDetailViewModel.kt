@@ -70,7 +70,7 @@ class MovieDetailViewModel @Inject constructor(
 					val movieDetail = movieDetailsResult.value
 					it.copy(
 						movieDetail = movieDetail,
-						isRated = movieDetail.personalRating > 0f,
+						isRated = movieDetail.personalRating > -1f,
 						isFavorite = movieDetail.favorite,
 						isWatchlist = movieDetail.watchlist,
 						failure = null

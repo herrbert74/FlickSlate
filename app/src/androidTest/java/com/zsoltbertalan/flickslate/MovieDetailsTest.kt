@@ -10,6 +10,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
@@ -86,25 +87,28 @@ class MovieDetailsTest {
 	@Test
 	fun rateMovie_whenLoggedIn_showsRatingSlider() {
 		fakeAccountRepository.isLoggedIn = true
-		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 0f)
+		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
 		navigateToMovieDetails()
 		with(composeTestRule) {
-			onNodeWithTag("rating_slider").assertIsDisplayed()
-			onNodeWithTag("rate_button").assertIsDisplayed()
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
+			onNodeWithTag("Rating Slider").assertIsDisplayed()
+			onNodeWithTag("Rate Button").assertIsDisplayed()
 		}
 	}
 
 	@Test
 	fun rateMovie_whenLoggedInAndRated_showsRating() {
 		fakeAccountRepository.isLoggedIn = true
-		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 0f)
+		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
 		navigateToMovieDetails()
 		with(composeTestRule) {
-			onNodeWithTag("rating_slider").assertIsDisplayed()
-			onNodeWithTag("rate_button").performClick()
-			waitUntilAtLeastOneExistsCopy(hasTestTag("rating_text"), 5000L)
-			onNodeWithTag("rating_text").assertIsDisplayed()
-			onNodeWithTag("rating_slider").assertDoesNotExist()
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
+			onNodeWithTag("Rating Slider").assertIsDisplayed()
+			onNodeWithTag("Rate Button").performClick()
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasText("Image gallery"))
+			waitUntilAtLeastOneExistsCopy(hasTestTag("Rating Text"), 5000L)
+			onNodeWithTag("Rating Text").assertIsDisplayed()
+			onNodeWithTag("Rating Slider").assertDoesNotExist()
 		}
 	}
 
@@ -115,9 +119,10 @@ class MovieDetailsTest {
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
-			onNodeWithTag("rating_text").assertIsDisplayed()
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithText("Your rating: 7.0").assertIsDisplayed()
-			onNodeWithTag("rating_slider").assertDoesNotExist()
+			onNodeWithTag("Rating Slider").assertDoesNotExist()
 		}
 	}
 
@@ -127,7 +132,7 @@ class MovieDetailsTest {
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
-			onNodeWithTag("rate_this_movie_title").assertDoesNotExist()
+			onNodeWithTag("Rate this movie title").assertDoesNotExist()
 		}
 	}
 

@@ -101,7 +101,11 @@ fun MovieDetailScreen(
 
 	if (detail.movieDetail != null) {
 		setTitle(detail.movieDetail.title.toString())
-		LazyColumn(modifier.fillMaxSize()) {
+		LazyColumn(
+			modifier
+				.fillMaxSize()
+				.testTag("Movie Detail Column")
+		) {
 			item {
 				Image(
 					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.movieDetail.backdropPath),
@@ -163,14 +167,14 @@ fun MovieDetailScreen(
 						TitleText(
 							modifier = Modifier
 								.padding(horizontal = 8.dp, vertical = 16.dp)
-								.testTag("rate_this_movie_title"),
+								.testTag("Rate this movie title"),
 							title = "Rate this movie"
 						)
 						if (detail.isRated) {
 							Text(
 								modifier = Modifier
 									.padding(16.dp)
-									.testTag("rating_text"),
+									.testTag("Rating Text"),
 								text = "Your rating: %.1f".format(detail.movieDetail.personalRating)
 							)
 						} else {
@@ -181,12 +185,12 @@ fun MovieDetailScreen(
 									onValueChange = { sliderPosition = it },
 									valueRange = 0f..10f,
 									steps = 9,
-									modifier = Modifier.testTag("rating_slider")
+									modifier = Modifier.testTag("Rating Slider")
 								)
 								Text(text = "Your rating: %.1f".format(sliderPosition))
 								Button(
 									onClick = { viewModel.rateMovie(sliderPosition) },
-									modifier = Modifier.testTag("rate_button")
+									modifier = Modifier.testTag("Rate Button")
 								) {
 									Text("Rate")
 								}

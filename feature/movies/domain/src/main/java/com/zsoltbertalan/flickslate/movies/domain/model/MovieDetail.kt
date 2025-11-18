@@ -20,7 +20,7 @@ data class MovieDetail(
 
 	val genres: ImmutableList<Genre> = listOf<Genre>().toImmutableList(),
 
-	val personalRating: Float = 0f,
+	val personalRating: Float = -1f,
 
 	val favorite: Boolean = false,
 
