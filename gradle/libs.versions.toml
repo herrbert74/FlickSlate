@@ -171,7 +171,7 @@ androidx-roomRuntime = { module = "androidx.room:room-runtime", version.ref = "a
 #androidx-savedState  = "androidx.savedstate:savedstate:1.2.1"
 ##androidx-splash = "androidx.core:core-splashscreen:1.0.1"
 #androidx-startup = "androidx.startup:startup-runtime:1.2.0"
-androidx-sqlite = "androidx.sqlite:sqlite:2.6.1"
+androidx-sqlite = "androidx.sqlite:sqlite:2.6.2"
 #androidx-swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 #androidx-viewPager2 = "androidx.viewpager2:viewpager2:1.1.0"
 
