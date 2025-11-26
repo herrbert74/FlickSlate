@@ -11,13 +11,14 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.TvSeasonDetailsDto
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvSeasonDetails
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
 @AutoBind
-@ViewModelScoped
+@ActivityRetainedScoped
 internal class TvRemoteDataSource @Inject constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {

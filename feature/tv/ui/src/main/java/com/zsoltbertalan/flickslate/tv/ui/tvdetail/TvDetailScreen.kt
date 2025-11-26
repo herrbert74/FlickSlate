@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,10 +16,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -29,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -42,6 +47,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.tv.ui.R
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
@@ -104,6 +110,13 @@ fun TvDetailScreen(
 		}
 	}
 
+	LaunchedEffect(detail.showRatingToast) {
+		if (detail.showRatingToast) {
+			Toast.makeText(context, context.getString(R.string.rating_thanks), Toast.LENGTH_SHORT).show()
+			viewModel.toastShown()
+		}
+	}
+
 	if (detail.tvDetail != null) {
 		setTitle(detail.tvDetail.title.toString())
 		LazyColumn(modifier.fillMaxSize()) {
@@ -147,6 +160,36 @@ fun TvDetailScreen(
 							text = it
 						)
 					}
+					Spacer(modifier = Modifier.height(16.dp))
+
+					// Rating section
+					if (detail.isLoggedIn) {
+						TitleText(
+							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+							title = stringResource(id = R.string.rate_show_title)
+						)
+						if (detail.isRated) {
+							Text(
+								modifier = Modifier.padding(16.dp),
+								text = stringResource(id = R.string.your_rating_value, detail.lastRatedValue ?: 0f)
+							)
+						} else {
+							var sliderPosition by remember { mutableFloatStateOf(0f) }
+							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+								Slider(
+									value = sliderPosition,
+									onValueChange = { sliderPosition = it },
+									valueRange = 0f..10f,
+									steps = 9,
+								)
+								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition))
+								Button(onClick = { viewModel.rateTvShow(sliderPosition) }) {
+									Text(stringResource(id = R.string.rate))
+								}
+							}
+						}
+					}
+
 					Spacer(modifier = Modifier.height(16.dp))
 
 					TitleText(

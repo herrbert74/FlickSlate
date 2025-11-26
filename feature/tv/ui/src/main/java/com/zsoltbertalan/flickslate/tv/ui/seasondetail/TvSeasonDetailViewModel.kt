@@ -4,9 +4,11 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +26,8 @@ const val BG_COLOR_DIM_ARG = "bgColorDim"
 @HiltViewModel
 class TvSeasonDetailViewModel @Inject constructor(
 	private val getSeasonDetailUseCase: GetSeasonDetailUseCase,
+	private val rateEpisodeUseCase: RateTvShowEpisodeUseCase,
+	private val getSessionIdUseCase: GetSessionIdUseCase,
 	savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -38,6 +42,14 @@ class TvSeasonDetailViewModel @Inject constructor(
 
 	init {
 		fetchSeasonDetails()
+		checkLoginStatus()
+	}
+
+	private fun checkLoginStatus() {
+		viewModelScope.launch {
+			val sessionIdResult = getSessionIdUseCase.execute()
+			_uiState.update { it.copy(isLoggedIn = sessionIdResult.isOk) }
+		}
 	}
 
 	fun fetchSeasonDetails() {
@@ -73,6 +85,27 @@ class TvSeasonDetailViewModel @Inject constructor(
 			currentState.copy(expandedEpisodeId = newExpandedId)
 		}
 	}
+
+	fun rateEpisode(episodeNumber: Int, rating: Float) {
+		viewModelScope.launch {
+			_uiState.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
+			val rateResult = rateEpisodeUseCase.execute(seriesId, seasonNumber, episodeNumber, rating)
+			when {
+				rateResult.isOk -> _uiState.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = true,
+						showRatingToast = true
+					)
+				}
+				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
+			}
+		}
+	}
+
+	fun toastShown() {
+		_uiState.update { it.copy(showRatingToast = false) }
+	}
 }
 
 @Immutable
@@ -83,5 +116,10 @@ data class TvSeasonDetailUiState(
 	val bgColor: Int = 0,
 	val bgColorDim: Int = 0,
 	val failure: Failure? = null,
-	val expandedEpisodeId: Int? = null // Added this line
+	val expandedEpisodeId: Int? = null,
+	// rating + login state
+	val isRatingInProgress: Boolean = false,
+	val isRated: Boolean = false,
+	val isLoggedIn: Boolean = false,
+	val showRatingToast: Boolean = false,
 )

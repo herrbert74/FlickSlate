@@ -19,15 +19,20 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,6 +51,14 @@ fun TvSeasonDetailScreen(
 	viewModel: TvSeasonDetailViewModel = hiltViewModel(),
 ) {
 	val uiState by viewModel.uiState.collectAsState()
+	val context = LocalContext.current
+
+	LaunchedEffect(uiState.showRatingToast) {
+		if (uiState.showRatingToast) {
+			android.widget.Toast.makeText(context, "Thanks for rating!", android.widget.Toast.LENGTH_SHORT).show()
+			viewModel.toastShown()
+		}
+	}
 
 	Box(
 		modifier = modifier.fillMaxSize(),
@@ -68,7 +81,8 @@ fun TvSeasonDetailScreen(
 		} else {
 			TvSeasonDetailContent(
 				uiState = uiState,
-				onEpisodeClick = { episodeId -> viewModel.toggleEpisodeExpanded(episodeId) }
+				onEpisodeClick = { episodeId -> viewModel.toggleEpisodeExpanded(episodeId) },
+				onRateEpisode = { episodeNumber, rating -> viewModel.rateEpisode(episodeNumber, rating) }
 			)
 		}
 	}
@@ -77,7 +91,8 @@ fun TvSeasonDetailScreen(
 @Composable
 private fun TvSeasonDetailContent(
 	uiState: TvSeasonDetailUiState,
-	onEpisodeClick: (Int) -> Unit
+	onEpisodeClick: (Int) -> Unit,
+	onRateEpisode: (Int, Float) -> Unit
 ) {
 	LazyColumn(
 		modifier = Modifier
@@ -143,7 +158,9 @@ private fun TvSeasonDetailContent(
 			EpisodeItem(
 				episode = item,
 				isExpanded = item.id == uiState.expandedEpisodeId,
-				onEpisodeClick = { onEpisodeClick(item.id) }
+				onEpisodeClick = { onEpisodeClick(item.id) },
+				isLoggedIn = uiState.isLoggedIn,
+				onRateEpisode = onRateEpisode
 			)
 			HorizontalDivider(color = Colors.onBackground)
 		}
@@ -154,7 +171,9 @@ private fun TvSeasonDetailContent(
 private fun EpisodeItem(
 	episode: TvEpisodeDetail,
 	isExpanded: Boolean,
-	onEpisodeClick: () -> Unit
+	onEpisodeClick: () -> Unit,
+	isLoggedIn: Boolean,
+	onRateEpisode: (Int, Float) -> Unit
 ) {
 	Column(
 		modifier = Modifier
@@ -187,5 +206,23 @@ private fun EpisodeItem(
 			style = MaterialTheme.typography.bodyMedium,
 			maxLines = if (isExpanded) Int.MAX_VALUE else 3
 		)
+
+		if (isLoggedIn) {
+			Spacer(modifier = Modifier.height(Dimens.marginNormal))
+			Text(text = stringResource(id = R.string.rate_episode_title), style = MaterialTheme.typography.titleSmall)
+			val sliderPosition = remember { mutableFloatStateOf(0f) }
+			Column(modifier = Modifier.padding(top = Dimens.marginNormal)) {
+				Slider(
+					value = sliderPosition.floatValue,
+					onValueChange = { sliderPosition.floatValue = it },
+					valueRange = 0f..10f,
+					steps = 9,
+				)
+				Text(text = stringResource(id = R.string.your_rating_value, sliderPosition.floatValue))
+				Button(onClick = { onRateEpisode(episode.episodeNumber, sliderPosition.floatValue) }) {
+					Text(text = stringResource(id = R.string.rate))
+				}
+			}
+		}
 	}
 }

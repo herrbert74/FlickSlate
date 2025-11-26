@@ -3,9 +3,11 @@ package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +22,9 @@ const val EPISODE_NUMBER_ARG = "episodeNumber"
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	private val tvDetailsUseCase: TvDetailsUseCase
+	private val tvDetailsUseCase: TvDetailsUseCase,
+	private val rateTvShowUseCase: RateTvShowUseCase,
+	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) : ViewModel() {
 
 	private val seriesId: Int = checkNotNull(savedStateHandle[SERIES_ID_ARG])
@@ -34,6 +38,33 @@ class TvDetailViewModel @Inject constructor(
 
 	init {
 		getTvDetail()
+		checkLoginStatus()
+	}
+
+	private fun checkLoginStatus() {
+		viewModelScope.launch {
+			val sessionIdResult = getSessionIdUseCase.execute()
+			_tvStateData.update { it.copy(isLoggedIn = sessionIdResult.isOk) }
+		}
+	}
+
+	internal fun rateTvShow(rating: Float) {
+		viewModelScope.launch {
+			_tvStateData.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
+			val rateResult = rateTvShowUseCase.execute(seriesId, rating)
+			when {
+				rateResult.isOk -> _tvStateData.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = true,
+						showRatingToast = true,
+						lastRatedValue = rating,
+					)
+				}
+
+				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
+			}
+		}
 	}
 
 	private fun getTvDetail() {
@@ -41,8 +72,10 @@ class TvDetailViewModel @Inject constructor(
 			val tvDetailsResult = tvDetailsUseCase.getTvDetails(seriesId)
 			when {
 				tvDetailsResult.isOk -> _tvStateData.update {
+					val detail = tvDetailsResult.value
 					it.copy(
-						tvDetail = tvDetailsResult.value,
+						tvDetail = detail,
+						isRated = false,
 						failure = null
 					)
 				}
@@ -57,6 +90,10 @@ class TvDetailViewModel @Inject constructor(
 
 		}
 	}
+
+	internal fun toastShown() {
+		_tvStateData.update { it.copy(showRatingToast = false) }
+	}
 }
 
 data class TvDetailState(
@@ -64,4 +101,10 @@ data class TvDetailState(
 	val failure: Failure? = null,
 	val seasonNumber: Int? = null,
 	val episodeNumber: Int? = null,
+	// rating + login state
+	val isRatingInProgress: Boolean = false,
+	val isRated: Boolean = false,
+	val isLoggedIn: Boolean = false,
+	val showRatingToast: Boolean = false,
+	val lastRatedValue: Float? = null,
 )
