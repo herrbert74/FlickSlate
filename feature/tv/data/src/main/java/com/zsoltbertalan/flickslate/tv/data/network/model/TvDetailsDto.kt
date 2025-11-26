@@ -4,10 +4,12 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.GenreDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toGenresReply
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 
 private const val YEAR_CHARS = 4
 
-@Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
 internal data class TvDetailsDto(
 	val popularity: Float? = null,
@@ -29,18 +31,40 @@ internal data class TvDetailsDto(
 	val seasons: List<SeasonDto>? = null,
 	val status: String? = null,
 	val tagline: String? = null,
+	val account_states: AccountStatesDto? = null,
 )
 
-internal fun TvDetailsDto.toTvDetail() = TvDetail(
-	this.id,
-	this.name,
-	this.overview,
-	this.vote_average,
-	this.poster_path,
-	this.backdrop_path,
-	this.genres.toGenresReply(),
-	this.seasons.toSeasons(),
-	this.status,
-	this.tagline,
-	"${this.first_air_date?.substring(0, YEAR_CHARS)} - ${this.last_air_date?.substring(0, YEAR_CHARS)}",
+@Serializable
+internal data class AccountStatesDto(
+	val rated: JsonElement? = null,
 )
+
+@Serializable
+internal data class RatedDto(
+	val value: Float? = null,
+)
+
+internal fun TvDetailsDto.toTvDetail(): TvDetail {
+	val ratedValue: Float? = this.account_states?.rated?.let {
+		if (it is JsonObject) {
+			Json.decodeFromJsonElement(RatedDto.serializer(), it).value
+		} else {
+			null
+		}
+	}
+
+	return TvDetail(
+		id = this.id,
+		title = this.name,
+		overview = this.overview,
+		voteAverage = this.vote_average,
+		posterPath = this.poster_path,
+		backdropPath = this.backdrop_path,
+		genres = this.genres.toGenresReply(),
+		seasons = this.seasons.toSeasons(),
+		status = this.status,
+		tagline = this.tagline,
+		years = "${this.first_air_date?.substring(0, YEAR_CHARS)} - ${this.last_air_date?.substring(0, YEAR_CHARS)}",
+		personalRating = ratedValue ?: -1f,
+	)
+}

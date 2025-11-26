@@ -43,9 +43,13 @@ internal class TvAccessor @Inject constructor(
 		)
 	}
 
-	override suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail> {
+	override suspend fun getTvDetails(seriesId: Int, sessionId: String?): Outcome<TvDetail> {
 		return runCatchingApi {
-			tvService.getTvDetails(seriesId = seriesId).toTvDetail()
+			tvService.getTvDetails(
+				seriesId = seriesId,
+				appendToResponse = "account_states",
+				sessionId = sessionId,
+			).toTvDetail()
 		}
 	}
 

@@ -171,7 +171,10 @@ fun TvDetailScreen(
 						if (detail.isRated) {
 							Text(
 								modifier = Modifier.padding(16.dp),
-								text = stringResource(id = R.string.your_rating_value, detail.lastRatedValue ?: 0f)
+								text = stringResource(
+									id = R.string.your_rating_value,
+									(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f)
+								)
 							)
 						} else {
 							var sliderPosition by remember { mutableFloatStateOf(0f) }

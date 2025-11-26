@@ -59,6 +59,7 @@ class TvDetailViewModel @Inject constructor(
 						isRated = true,
 						showRatingToast = true,
 						lastRatedValue = rating,
+						tvDetail = it.tvDetail?.copy(personalRating = rating),
 					)
 				}
 
@@ -75,7 +76,8 @@ class TvDetailViewModel @Inject constructor(
 					val detail = tvDetailsResult.value
 					it.copy(
 						tvDetail = detail,
-						isRated = false,
+						isRated = detail.personalRating > -1f,
+						lastRatedValue = null,
 						failure = null
 					)
 				}

@@ -14,7 +14,7 @@ interface TvRepository {
 		page: Int,
 	): Flow<Outcome<PagingReply<TvShow>>>
 
-	suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail>
+	suspend fun getTvDetails(seriesId: Int, sessionId: String? = null): Outcome<TvDetail>
 	suspend fun getTvImages(seriesId: Int): Outcome<ImagesReply>
 	suspend fun getTvSeasonDetail(seriesId: Int, seasonNumber: Int): Outcome<SeasonDetail>
 
