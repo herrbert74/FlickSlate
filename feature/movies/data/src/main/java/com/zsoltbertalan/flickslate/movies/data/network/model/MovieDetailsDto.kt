@@ -22,7 +22,7 @@ data class MovieDetailsDto(
 	val account_states: AccountStatesDto? = null,
 )
 
-@Suppress("PropertyName", "ConstructorParameterNaming")
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class AccountStatesDto(
 	val rated: JsonElement? = null,
@@ -30,7 +30,7 @@ data class AccountStatesDto(
 	val watchlist: Boolean = false,
 )
 
-@Suppress("PropertyName", "ConstructorParameterNaming")
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class RatedDto(
 	val value: Float? = null,

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
+import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +29,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 	private val getSeasonDetailUseCase: GetSeasonDetailUseCase,
 	private val rateEpisodeUseCase: RateTvShowEpisodeUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
+	private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase,
 	savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -77,12 +79,24 @@ class TvSeasonDetailViewModel @Inject constructor(
 
 	fun toggleEpisodeExpanded(episodeId: Int) {
 		_uiState.update { currentState ->
-			val newExpandedId = if (currentState.expandedEpisodeId == episodeId) {
-				null // Collapse if already expanded
-			} else {
-				episodeId // Expand new one
-			}
+			val newExpandedId = if (currentState.expandedEpisodeId == episodeId) null else episodeId
 			currentState.copy(expandedEpisodeId = newExpandedId)
+		}
+		// If expanded, fetch account_states for this episode and merge personal rating
+		val episode = _uiState.value.seasonDetail?.episodes?.firstOrNull { it.id == episodeId }
+		if (episode != null && _uiState.value.expandedEpisodeId == episodeId) {
+			viewModelScope.launch {
+				val result = getEpisodeDetailUseCase.execute(seriesId, seasonNumber, episode.episodeNumber)
+				if (result.isOk) {
+					val updated = result.value
+					_uiState.update { state ->
+						val updatedEpisodes = state.seasonDetail?.episodes?.map {
+							if (it.id == episodeId) it.copy(personalRating = updated.personalRating) else it
+						}
+						state.copy(seasonDetail = state.seasonDetail?.copy(episodes = updatedEpisodes ?: state.seasonDetail.episodes))
+					}
+				}
+			}
 		}
 	}
 

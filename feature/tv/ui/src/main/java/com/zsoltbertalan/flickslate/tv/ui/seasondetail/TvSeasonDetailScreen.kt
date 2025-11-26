@@ -210,17 +210,25 @@ private fun EpisodeItem(
 		if (isLoggedIn) {
 			Spacer(modifier = Modifier.height(Dimens.marginNormal))
 			Text(text = stringResource(id = R.string.rate_episode_title), style = MaterialTheme.typography.titleSmall)
-			val sliderPosition = remember { mutableFloatStateOf(0f) }
-			Column(modifier = Modifier.padding(top = Dimens.marginNormal)) {
-				Slider(
-					value = sliderPosition.floatValue,
-					onValueChange = { sliderPosition.floatValue = it },
-					valueRange = 0f..10f,
-					steps = 9,
+			if (episode.personalRating > -1f) {
+				Text(
+					text = stringResource(id = R.string.your_rating_value, episode.personalRating),
+					style = MaterialTheme.typography.bodyMedium,
+					modifier = Modifier.padding(top = Dimens.marginNormal)
 				)
-				Text(text = stringResource(id = R.string.your_rating_value, sliderPosition.floatValue))
-				Button(onClick = { onRateEpisode(episode.episodeNumber, sliderPosition.floatValue) }) {
-					Text(text = stringResource(id = R.string.rate))
+			} else {
+				val sliderPosition = remember { mutableFloatStateOf(0f) }
+				Column(modifier = Modifier.padding(top = Dimens.marginNormal)) {
+					Slider(
+						value = sliderPosition.floatValue,
+						onValueChange = { sliderPosition.floatValue = it },
+						valueRange = 0f..10f,
+						steps = 9,
+					)
+					Text(text = stringResource(id = R.string.your_rating_value, sliderPosition.floatValue))
+					Button(onClick = { onRateEpisode(episode.episodeNumber, sliderPosition.floatValue) }) {
+						Text(text = stringResource(id = R.string.rate))
+					}
 				}
 			}
 		}

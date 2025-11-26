@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
-import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

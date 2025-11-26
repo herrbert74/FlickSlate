@@ -11,6 +11,7 @@ import kotlinx.serialization.json.JsonObject
 private const val YEAR_CHARS = 4
 
 @Serializable
+@Suppress("PropertyName", "ConstructorParameterNaming")
 internal data class TvDetailsDto(
 	val popularity: Float? = null,
 	val vote_count: Int? = null,

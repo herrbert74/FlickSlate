@@ -61,7 +61,9 @@ internal interface TvService {
 		@Path("series_id") seriesId: Int,
 		@Path("season_number") seasonNumber: Int,
 		@Path("episode_number") episodeNumber: Int,
-		@Query("language") language: String? = "en"
+		@Query("language") language: String? = "en",
+		@Query("session_id") sessionId: String? = null,
+		@Query("append_to_response") appendToResponse: String? = null,
 	): TvEpisodeDetailsDto
 
 	@POST(URL_TV_RATE)
