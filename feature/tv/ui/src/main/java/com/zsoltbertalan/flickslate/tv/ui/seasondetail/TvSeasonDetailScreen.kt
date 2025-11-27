@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -151,10 +151,10 @@ private fun TvSeasonDetailContent(
 			HorizontalDivider(color = Colors.onBackground)
 		}
 
-		itemsIndexed(
+		items(
 			items = uiState.seasonDetail?.episodes ?: emptyList(),
-			key = { _, item -> item.id }
-		) { index, item ->
+			key = { item -> item.id }
+		) { item ->
 			EpisodeItem(
 				episode = item,
 				isExpanded = item.id == uiState.expandedEpisodeId,
@@ -209,15 +209,21 @@ private fun EpisodeItem(
 
 		if (isLoggedIn) {
 			Spacer(modifier = Modifier.height(Dimens.marginNormal))
-			Text(text = stringResource(id = R.string.rate_episode_title), style = MaterialTheme.typography.titleSmall)
+			val showRateLabel = episode.personalRating > -1f || isExpanded
+			if (showRateLabel) {
+				Text(
+					text = stringResource(id = R.string.rate_episode_title),
+					style = MaterialTheme.typography.titleSmall
+				)
+			}
 			if (episode.personalRating > -1f) {
 				Text(
 					text = stringResource(id = R.string.your_rating_value, episode.personalRating),
 					style = MaterialTheme.typography.bodyMedium,
 					modifier = Modifier.padding(top = Dimens.marginNormal)
 				)
-			} else {
-				val sliderPosition = remember { mutableFloatStateOf(0f) }
+			} else if (isExpanded) {
+				val sliderPosition = remember(episode.id) { mutableFloatStateOf(0f) }
 				Column(modifier = Modifier.padding(top = Dimens.marginNormal)) {
 					Slider(
 						value = sliderPosition.floatValue,
