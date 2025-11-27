@@ -42,4 +42,3 @@ class RateTvShowEpisodeUseCaseTest {
 		useCase.execute(tvShowId = 1, seasonNumber = 2, episodeNumber = 3, rating = 7.5f) shouldBeEqual Err(failure)
 	}
 }
-
