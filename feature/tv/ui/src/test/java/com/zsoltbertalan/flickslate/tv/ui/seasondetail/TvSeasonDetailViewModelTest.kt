@@ -108,7 +108,12 @@ class TvSeasonDetailViewModelTest {
 
 	@Test
 	fun `when viewModel initialized and fetchSeasonDetails fails then returns proper failure`() = runTest {
-		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Err(Failure.UnknownHostFailure)
+		coEvery {
+			getSeasonDetailUseCase.execute(
+				testSeriesId,
+				testSeasonNumber
+			)
+		} returns Err(Failure.UnknownHostFailure)
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 		initializeViewModel()
 
@@ -257,7 +262,14 @@ class TvSeasonDetailViewModelTest {
 	fun `rateEpisode failure sets failure`() = runTest {
 		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
-		coEvery { rateEpisodeUseCase.execute(testSeriesId, testSeasonNumber, any(), any()) } returns Err(Failure.ServerError("boom"))
+		coEvery {
+			rateEpisodeUseCase.execute(
+				testSeriesId,
+				testSeasonNumber,
+				any(),
+				any()
+			)
+		} returns Err(Failure.ServerError("boom"))
 		initializeViewModel()
 
 		viewModel.rateEpisode(mockSeasonDetail.episodes.first().episodeNumber, 5f)
