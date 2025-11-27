@@ -62,4 +62,70 @@ class TvAccessorTest {
 		result.value.pageData.page shouldBeEqual 1
 	}
 
+	@Test
+	fun `getTvDetails returns remote result`() = runTest {
+		val detail = TvMother.createTvDetail()
+		coEvery { tvRemoteDataSource.getTvDetails(any(), any()) } returns Ok(detail)
+
+		tvAccessor.getTvDetails(seriesId = 1, sessionId = "session") shouldBeEqual Ok(detail)
+	}
+
+	@Test
+	fun `getTvDetails propagates error`() = runTest {
+		val failure = Failure.ServerError("error")
+		coEvery { tvRemoteDataSource.getTvDetails(any(), any()) } returns Err(failure)
+
+		tvAccessor.getTvDetails(seriesId = 1, sessionId = "session") shouldBeEqual Err(failure)
+	}
+
+	@Test
+	fun `getTvImages returns remote result`() = runTest {
+		val images = TvMother.createTvImages()
+		coEvery { tvRemoteDataSource.getTvImages(any()) } returns Ok(images)
+
+		val result = tvAccessor.getTvImages(seriesId = 1)
+
+		result shouldBeEqual Ok(images)
+	}
+
+	@Test
+	fun `getTvImages propagates error`() = runTest {
+		val failure = Failure.ServerError("error")
+		coEvery { tvRemoteDataSource.getTvImages(any()) } returns Err(failure)
+
+		tvAccessor.getTvImages(seriesId = 1) shouldBeEqual Err(failure)
+	}
+
+	@Test
+	fun `getTvSeasonDetail returns remote result`() = runTest {
+		val season = TvMother.createSeasonDetail(seriesId = 1, seasonNumber = 1)
+		coEvery { tvRemoteDataSource.getTvSeasonDetails(any(), any()) } returns Ok(season)
+
+		tvAccessor.getTvSeasonDetail(seriesId = 1, seasonNumber = 1) shouldBeEqual Ok(season)
+	}
+
+	@Test
+	fun `getTvSeasonDetail propagates error`() = runTest {
+		val failure = Failure.ServerError("error")
+		coEvery { tvRemoteDataSource.getTvSeasonDetails(any(), any()) } returns Err(failure)
+
+		tvAccessor.getTvSeasonDetail(seriesId = 1, seasonNumber = 1) shouldBeEqual Err(failure)
+	}
+
+	@Test
+	fun `getTvEpisodeDetail returns remote result`() = runTest {
+		val episode = TvMother.createSeasonDetail(1, 1).episodes.first()
+		coEvery { tvRemoteDataSource.getTvEpisodeDetail(any(), any(), any(), any()) } returns Ok(episode)
+
+		tvAccessor.getTvEpisodeDetail(1, 1, 1, "session") shouldBeEqual Ok(episode)
+	}
+
+	@Test
+	fun `getTvEpisodeDetail propagates error`() = runTest {
+		val failure = Failure.ServerError("error")
+		coEvery { tvRemoteDataSource.getTvEpisodeDetail(any(), any(), any(), any()) } returns Err(failure)
+
+		tvAccessor.getTvEpisodeDetail(1, 1, 1, "session") shouldBeEqual Err(failure)
+	}
+
 }

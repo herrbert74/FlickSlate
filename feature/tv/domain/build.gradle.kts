@@ -28,7 +28,15 @@ dependencies {
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.coroutinesCore)
-	"testFixturesApi"(project(":shared:domain"))
+
+	testImplementation(libs.jUnit)
+	testImplementation(libs.mockk.core)
+	testImplementation(libs.mockk.dsl)
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotlinx.coroutinesTest)
+	testImplementation(libs.kotlinx.serializationJson)
+
+	testFixturesApi(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 
