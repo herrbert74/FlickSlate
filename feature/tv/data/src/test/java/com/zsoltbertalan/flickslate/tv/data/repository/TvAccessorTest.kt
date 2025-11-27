@@ -6,8 +6,6 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
-import com.zsoltbertalan.flickslate.tv.data.network.TvService
-import com.zsoltbertalan.flickslate.tv.data.network.model.TvDtoMother
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
@@ -17,11 +15,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Response
 
 class TvAccessorTest {
-
-	private val tvService: TvService = mockk()
 
 	private val tvLocalDataSource: TvDataSource.Local = mockk()
 	private val tvRemoteDataSource: TvDataSource.Remote = mockk()
@@ -30,9 +25,6 @@ class TvAccessorTest {
 
 	@Before
 	fun setup() {
-		coEvery {
-			tvService.getTopRatedTv(any(), any(), any())
-		} returns Response.success(TvDtoMother.createTopRatedTvReplyDto())
 		coEvery { tvLocalDataSource.getEtag(any()) } returns null
 		coEvery { tvLocalDataSource.insertTv(any(), any()) } returns Unit
 		coEvery { tvLocalDataSource.insertTvPageData(any()) } returns Unit
@@ -41,7 +33,6 @@ class TvAccessorTest {
 			PagingReply(TvMother.createTvList(), true, PageData())
 		)
 		tvAccessor = TvAccessor(
-			tvService,
 			tvLocalDataSource,
 			tvRemoteDataSource,
 		)
