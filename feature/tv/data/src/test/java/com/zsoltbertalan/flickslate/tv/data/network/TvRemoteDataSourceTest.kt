@@ -7,6 +7,7 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
 import com.zsoltbertalan.flickslate.shared.data.network.model.RatedDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
+import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_PAGES
@@ -18,7 +19,6 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.TvSeasonDetailsDtoMoth
 import com.zsoltbertalan.flickslate.tv.data.network.model.images.ImagesReplyDtoMother
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvSeasonDetails
-import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe

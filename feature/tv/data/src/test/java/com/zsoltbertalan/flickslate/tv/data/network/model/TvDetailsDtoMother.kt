@@ -47,4 +47,3 @@ internal object TvDetailsDtoMother {
 		)
 	}
 }
-

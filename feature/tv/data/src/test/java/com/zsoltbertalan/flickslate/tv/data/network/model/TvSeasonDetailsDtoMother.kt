@@ -31,4 +31,3 @@ internal object TvSeasonDetailsDtoMother {
 		)
 	}
 }
-
