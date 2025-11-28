@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
@@ -119,7 +120,11 @@ fun TvDetailScreen(
 
 	if (detail.tvDetail != null) {
 		setTitle(detail.tvDetail.title.toString())
-		LazyColumn(modifier.fillMaxSize()) {
+		LazyColumn(
+			modifier
+				.fillMaxSize()
+				.testTag("Tv Detail Column")
+		) {
 			item {
 				Image(
 					painter = rememberAsyncImagePainter(BASE_IMAGE_PATH + detail.tvDetail.backdropPath),
@@ -165,12 +170,16 @@ fun TvDetailScreen(
 					// Rating section
 					if (detail.isLoggedIn) {
 						TitleText(
-							modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+							modifier = Modifier
+								.padding(horizontal = 8.dp, vertical = 16.dp)
+								.testTag("Rate this show title"),
 							title = stringResource(id = R.string.rate_show_title)
 						)
 						if (detail.isRated) {
 							Text(
-								modifier = Modifier.padding(16.dp),
+								modifier = Modifier
+									.padding(16.dp)
+									.testTag("Rating Text"),
 								text = stringResource(
 									id = R.string.your_rating_value,
 									(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f)
@@ -184,9 +193,13 @@ fun TvDetailScreen(
 									onValueChange = { sliderPosition = it },
 									valueRange = 0f..10f,
 									steps = 9,
+									modifier = Modifier.testTag("Rating Slider"),
 								)
 								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition))
-								Button(onClick = { viewModel.rateTvShow(sliderPosition) }) {
+								Button(
+									onClick = { viewModel.rateTvShow(sliderPosition) },
+									modifier = Modifier.testTag("Rate Button")
+								) {
 									Text(stringResource(id = R.string.rate))
 								}
 							}
