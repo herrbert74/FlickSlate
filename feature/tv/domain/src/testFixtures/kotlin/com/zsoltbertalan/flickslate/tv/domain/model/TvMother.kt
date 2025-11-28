@@ -29,7 +29,7 @@ object TvMother {
 		createDefaultTv(id = 12, name = "name6"),
 	)
 
-	fun createDefaultTv(
+	private fun createDefaultTv(
 		id: Int = 0,
 		name: String = "Detectorists",
 		overview: String = """The lives of two eccentric metal detectorists, who spend their days plodding along 
@@ -56,7 +56,8 @@ object TvMother {
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
-		tagline: String = "Tagline"
+		tagline: String = "Tagline",
+		personalRating: Float = -1f,
 	): TvDetail = TvDetail(
 		id = id,
 		title = title,
@@ -80,6 +81,7 @@ object TvMother {
 			Genre(2, "Comedy")
 		).toImmutableList(),
 		tagline = tagline,
+		personalRating = personalRating,
 	)
 
 	fun createTvImages(): ImagesReply = ImagesReply(
@@ -108,7 +110,8 @@ object TvMother {
 		voteAverage: Float = 8.8473f,
 		posterPath: String = "/eclnU0b9BbvykXoXEd3CGAFwJUO.jpg",
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
-		tagline: String = "Tagline"
+		tagline: String = "Tagline",
+		personalRating: Float = -1f,
 	): TvDetailWithImages = TvDetailWithImages(
 		id = id,
 		title = title,
@@ -132,6 +135,7 @@ object TvMother {
 			Genre(2, "Comedy")
 		).toImmutableList(),
 		tagline = tagline,
+		personalRating = personalRating,
 		tvImages = createTvImages()
 	)
 
@@ -141,20 +145,7 @@ object TvMother {
 	) = SeasonDetail(
 		id = seriesId,
 		seasonNumber = seasonNumber,
-		episodes = listOf(
-			TvEpisodeDetail(
-				id = 0,
-				showId = 1,
-				name = "Episode 1",
-				overview = "Overview ",
-				seasonNumber = 1,
-				episodeNumber = 1,
-				stillPath = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
-				airDate = "20",
-				voteAverage = 6.7f,
-				voteCount = 3321,
-			)
-		),
+		episodes = listOf(createTvEpisodeDetail()),
 		airDate = "",
 		episodeCount = 10,
 		name = "",
@@ -162,5 +153,19 @@ object TvMother {
 		posterPath = "",
 		voteAverage = 6.7f
 	)
+
+	fun createTvEpisodeDetail(): TvEpisodeDetail =
+		TvEpisodeDetail(
+			id = 0,
+			showId = 1,
+			name = "Episode 1",
+			overview = "Overview ",
+			seasonNumber = 1,
+			episodeNumber = 1,
+			stillPath = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
+			airDate = "20",
+			voteAverage = 6.7f,
+			voteCount = 3321,
+		)
 
 }

@@ -17,5 +17,6 @@ data class TvDetailWithImages(
 	val tvImages: ImagesReply = ImagesReply(),
 	val status: String? = null,
 	val tagline: String? = null,
-	val years: String = ""
+	val years: String = "",
+	val personalRating: Float = -1f,
 )

@@ -3,10 +3,13 @@ package com.zsoltbertalan.flickslate.tv.ui.seasondetail
 import androidx.lifecycle.SavedStateHandle
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
+import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -30,6 +33,9 @@ import org.junit.Test
 class TvSeasonDetailViewModelTest {
 
 	private val getSeasonDetailUseCase = mockk<GetSeasonDetailUseCase>()
+	private val rateEpisodeUseCase = mockk<RateTvShowEpisodeUseCase>()
+	private val getSessionIdUseCase = mockk<GetSessionIdUseCase>()
+	private val getEpisodeDetailUseCase = mockk<GetEpisodeDetailUseCase>()
 	private val savedStateHandle = mockk<SavedStateHandle>(relaxed = true)
 
 	private lateinit var viewModel: TvSeasonDetailViewModel
@@ -59,6 +65,9 @@ class TvSeasonDetailViewModelTest {
 			seasonNumber = testSeasonNumber,
 		)
 		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { rateEpisodeUseCase.execute(any(), any(), any(), any()) } returns Ok(Unit)
+		coEvery { getEpisodeDetailUseCase.execute(any(), any(), any()) } returns Ok(mockSeasonDetail.episodes.first())
 	}
 
 	@After
@@ -67,7 +76,13 @@ class TvSeasonDetailViewModelTest {
 	}
 
 	private fun TestScope.initializeViewModel() {
-		viewModel = TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
+		viewModel = TvSeasonDetailViewModel(
+			getSeasonDetailUseCase,
+			rateEpisodeUseCase,
+			getSessionIdUseCase,
+			getEpisodeDetailUseCase,
+			savedStateHandle
+		)
 		advanceUntilIdle()
 	}
 
@@ -83,6 +98,7 @@ class TvSeasonDetailViewModelTest {
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
 				failure = null,
+				isLoggedIn = true,
 				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
@@ -92,7 +108,13 @@ class TvSeasonDetailViewModelTest {
 
 	@Test
 	fun `when viewModel initialized and fetchSeasonDetails fails then returns proper failure`() = runTest {
-		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Err(Failure.UnknownHostFailure)
+		coEvery {
+			getSeasonDetailUseCase.execute(
+				testSeriesId,
+				testSeasonNumber
+			)
+		} returns Err(Failure.UnknownHostFailure)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 		initializeViewModel()
 
 		val job = launch(UnconfinedTestDispatcher(testScheduler)) {
@@ -103,6 +125,7 @@ class TvSeasonDetailViewModelTest {
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
 				failure = Failure.UnknownHostFailure,
+				isLoggedIn = true,
 				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
@@ -129,6 +152,7 @@ class TvSeasonDetailViewModelTest {
 				bgColor = testBgColor,
 				bgColorDim = testBgColorDim,
 				failure = null,
+				isLoggedIn = true,
 				expandedEpisodeId = null
 			)
 			viewModel.uiState.value shouldBe expectedState
@@ -141,13 +165,25 @@ class TvSeasonDetailViewModelTest {
 		runTest {
 			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
 			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
+				TvSeasonDetailViewModel(
+					getSeasonDetailUseCase,
+					rateEpisodeUseCase,
+					getSessionIdUseCase,
+					getEpisodeDetailUseCase,
+					savedStateHandle
+				)
 			}
 
 			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns testSeriesId
 			every { savedStateHandle.get<Int>(SEASON_NUMBER_ARG) } returns null
 			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(getSeasonDetailUseCase, savedStateHandle)
+				TvSeasonDetailViewModel(
+					getSeasonDetailUseCase,
+					rateEpisodeUseCase,
+					getSessionIdUseCase,
+					getEpisodeDetailUseCase,
+					savedStateHandle
+				)
 			}
 		}
 
@@ -189,6 +225,78 @@ class TvSeasonDetailViewModelTest {
 
 		val stateAfterToggle = viewModel.uiState.value
 		stateAfterToggle.copy(expandedEpisodeId = initialState.expandedEpisodeId) shouldBe initialState
+	}
+
+	@Test
+	fun `checkLoginStatus updates isLoggedIn when session available`() = runTest {
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		initializeViewModel()
+		viewModel.uiState.value.isLoggedIn shouldBe true
+	}
+
+	@Test
+	fun `checkLoginStatus false when session missing`() = runTest {
+		coEvery { getSessionIdUseCase.execute() } returns Err(Failure.UserNotLoggedIn)
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		initializeViewModel()
+		viewModel.uiState.value.isLoggedIn shouldBe false
+	}
+
+	@Test
+	fun `rateEpisode success updates toast and flags`() = runTest {
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { rateEpisodeUseCase.execute(testSeriesId, testSeasonNumber, any(), any()) } returns Ok(Unit)
+		initializeViewModel()
+
+		viewModel.rateEpisode(episodeNumber = mockSeasonDetail.episodes.first().episodeNumber, rating = 7.5f)
+
+		advanceUntilIdle()
+		viewModel.uiState.value.isRatingInProgress shouldBe false
+		viewModel.uiState.value.isRated shouldBe true
+		viewModel.uiState.value.showRatingToast shouldBe true
+	}
+
+	@Test
+	fun `rateEpisode failure sets failure`() = runTest {
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery {
+			rateEpisodeUseCase.execute(
+				testSeriesId,
+				testSeasonNumber,
+				any(),
+				any()
+			)
+		} returns Err(Failure.ServerError("boom"))
+		initializeViewModel()
+
+		viewModel.rateEpisode(mockSeasonDetail.episodes.first().episodeNumber, 5f)
+		advanceUntilIdle()
+		viewModel.uiState.value.failure shouldBe Failure.ServerError("boom")
+	}
+
+	@Test
+	fun `toggleEpisodeExpanded fetches episode detail and updates personal rating`() = runTest {
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		val updatedDetail = mockSeasonDetail.episodes.first().copy(personalRating = 9f)
+		coEvery { getEpisodeDetailUseCase.execute(any(), any(), any()) } returns Ok(updatedDetail)
+		initializeViewModel()
+
+		viewModel.toggleEpisodeExpanded(mockSeasonDetail.episodes.first().id)
+		advanceUntilIdle()
+		viewModel.uiState.value.seasonDetail?.episodes?.first()?.personalRating shouldBe 9f
+	}
+
+	@Test
+	fun `toastShown resets flag`() = runTest {
+		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		initializeViewModel()
+		viewModel.toastShown()
+		viewModel.uiState.value.showRatingToast shouldBe false
 	}
 
 }

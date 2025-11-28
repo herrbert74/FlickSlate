@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.tv.domain.api
 
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
@@ -14,8 +15,14 @@ interface TvRepository {
 		page: Int,
 	): Flow<Outcome<PagingReply<TvShow>>>
 
-	suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail>
+	suspend fun getTvDetails(seriesId: Int, sessionId: String? = null): Outcome<TvDetail>
 	suspend fun getTvImages(seriesId: Int): Outcome<ImagesReply>
 	suspend fun getTvSeasonDetail(seriesId: Int, seasonNumber: Int): Outcome<SeasonDetail>
+	suspend fun getTvEpisodeDetail(
+		seriesId: Int,
+		seasonNumber: Int,
+		episodeNumber: Int,
+		sessionId: String? = null
+	): Outcome<TvEpisodeDetail>
 
 }

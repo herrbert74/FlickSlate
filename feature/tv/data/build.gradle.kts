@@ -25,7 +25,6 @@ dependencies {
 
 	implementation(libs.kotlinx.serializationJson)
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testRuntimeOnly(libs.robolectric)

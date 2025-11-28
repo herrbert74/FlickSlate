@@ -11,4 +11,5 @@ data class TvEpisodeDetail(
 	val stillPath: String?,
 	val voteAverage: Float,
 	val voteCount: Int,
+	val personalRating: Float = -1f,
 )

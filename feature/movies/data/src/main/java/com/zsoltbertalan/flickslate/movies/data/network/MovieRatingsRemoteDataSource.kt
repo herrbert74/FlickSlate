@@ -15,25 +15,25 @@ import javax.inject.Inject
 @AutoBind
 @ActivityRetainedScoped
 internal class MovieRatingsRemoteDataSource @Inject constructor(
-    private val moviesService: MoviesService,
+	private val moviesService: MoviesService,
 ) : MovieRatingsDataSource.Remote {
 
-    override suspend fun rateMovie(movieId: Int, rating: Float, sessionId: String): Outcome<Unit> {
-        return runCatchingApi {
-            moviesService.rateMovie(movieId, sessionId, createRatingRequestBody(rating))
-        }
-    }
+	override suspend fun rateMovie(movieId: Int, rating: Float, sessionId: String): Outcome<Unit> {
+		return runCatchingApi {
+			moviesService.rateMovie(movieId, sessionId, createRatingRequestBody(rating))
+		}
+	}
 
-    override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
-        return runCatchingApi {
-            moviesService.deleteMovieRating(movieId, sessionId)
-        }
-    }
+	override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
+		return runCatchingApi {
+			moviesService.deleteMovieRating(movieId, sessionId)
+		}
+	}
 }
 
 private fun createRatingRequestBody(rating: Float): RequestBody {
-    val body = buildJsonObject {
-        put("value", rating)
-    }
-    return body.toString().toRequestBody("application/json; charset=UTF-8".toMediaType())
+	val body = buildJsonObject {
+		put("value", rating)
+	}
+	return body.toString().toRequestBody("application/json; charset=UTF-8".toMediaType())
 }

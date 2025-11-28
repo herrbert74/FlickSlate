@@ -34,15 +34,17 @@ internal interface TvService {
 
 	@GET(URL_TV_DETAILS)
 	suspend fun getTvDetails(
-		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Path("series_id") seriesId: Int,
-		@Query("language") language: String? = "en" // Added language query parameter for consistency
+		@Header("If-None-Match") ifNoneMatch: String? = null,
+		@Query("language") language: String? = "en",
+		@Query("session_id") sessionId: String? = null,
+		@Query("append_to_response") appendToResponse: String? = null,
 	): TvDetailsDto
 
 	@GET(URL_TV_IMAGES)
 	suspend fun getTvImages(
 		@Path("series_id") tvId: Int,
-		@Query("language") language: String? = "en" // Added language query parameter
+		@Query("language") language: String? = "en"
 	): ImagesReplyDto
 
 	@GET(URL_TV_SEASON_DETAILS)
@@ -59,7 +61,9 @@ internal interface TvService {
 		@Path("series_id") seriesId: Int,
 		@Path("season_number") seasonNumber: Int,
 		@Path("episode_number") episodeNumber: Int,
-		@Query("language") language: String? = "en"
+		@Query("language") language: String? = "en",
+		@Query("session_id") sessionId: String? = null,
+		@Query("append_to_response") appendToResponse: String? = null,
 	): TvEpisodeDetailsDto
 
 	@POST(URL_TV_RATE)

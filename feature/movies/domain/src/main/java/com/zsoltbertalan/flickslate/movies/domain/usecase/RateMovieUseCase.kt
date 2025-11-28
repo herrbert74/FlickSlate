@@ -7,15 +7,15 @@ import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import javax.inject.Inject
 
 class RateMovieUseCase @Inject constructor(
-    private val getSessionIdUseCase: GetSessionIdUseCase,
-    private val movieRatingsRepository: MovieRatingsRepository,
+	private val getSessionIdUseCase: GetSessionIdUseCase,
+	private val movieRatingsRepository: MovieRatingsRepository,
 ) {
 
-    suspend fun execute(movieId: Int, rating: Float): Outcome<Unit> {
-        return getSessionIdUseCase.execute()
-            .andThen { sessionId ->
-                movieRatingsRepository.rateMovie(movieId, rating, sessionId)
-            }
-    }
+	suspend fun execute(movieId: Int, rating: Float): Outcome<Unit> {
+		return getSessionIdUseCase.execute()
+			.andThen { sessionId ->
+				movieRatingsRepository.rateMovie(movieId, rating, sessionId)
+			}
+	}
 
 }

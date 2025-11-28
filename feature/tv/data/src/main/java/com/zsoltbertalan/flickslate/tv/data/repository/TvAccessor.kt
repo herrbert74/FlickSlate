@@ -2,15 +2,12 @@ package com.zsoltbertalan.flickslate.tv.data.repository
 
 import com.zsoltbertalan.flickslate.shared.data.getresult.backoffRetryPolicy
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
-import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
-import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
-import com.zsoltbertalan.flickslate.tv.data.network.TvService
-import com.zsoltbertalan.flickslate.tv.data.network.model.toTvDetail
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
@@ -20,7 +17,6 @@ import javax.inject.Inject
 
 @ViewModelScoped
 internal class TvAccessor @Inject constructor(
-	private val tvService: TvService,
 	private val tvDataSource: TvDataSource.Local,
 	private val tvRemoteDataSource: TvDataSource.Remote,
 ) : TvRepository {
@@ -43,20 +39,25 @@ internal class TvAccessor @Inject constructor(
 		)
 	}
 
-	override suspend fun getTvDetails(seriesId: Int): Outcome<TvDetail> {
-		return runCatchingApi {
-			tvService.getTvDetails(seriesId = seriesId).toTvDetail()
-		}
+	override suspend fun getTvDetails(seriesId: Int, sessionId: String?): Outcome<TvDetail> {
+		return tvRemoteDataSource.getTvDetails(seriesId, sessionId)
 	}
 
 	override suspend fun getTvImages(seriesId: Int): Outcome<ImagesReply> {
-		return tvService.runCatchingApi {
-			getTvImages(seriesId).toImagesReply()
-		}
+		return tvRemoteDataSource.getTvImages(seriesId)
 	}
 
 	override suspend fun getTvSeasonDetail(seriesId: Int, seasonNumber: Int): Outcome<SeasonDetail> {
 		return tvRemoteDataSource.getTvSeasonDetails(seriesId, seasonNumber)
+	}
+
+	override suspend fun getTvEpisodeDetail(
+		seriesId: Int,
+		seasonNumber: Int,
+		episodeNumber: Int,
+		sessionId: String?
+	): Outcome<TvEpisodeDetail> {
+		return tvRemoteDataSource.getTvEpisodeDetail(seriesId, seasonNumber, episodeNumber, sessionId)
 	}
 
 }
