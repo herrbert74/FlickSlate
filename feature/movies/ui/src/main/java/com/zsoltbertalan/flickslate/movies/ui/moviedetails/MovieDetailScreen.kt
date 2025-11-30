@@ -17,8 +17,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -48,6 +51,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.movies.ui.R
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
@@ -92,11 +96,22 @@ fun MovieDetailScreen(
 		}
 	}
 
-	LaunchedEffect(detail.showRatingToast) {
-		if (detail.showRatingToast) {
-			Toast.makeText(context, "Thanks for rating!", Toast.LENGTH_SHORT).show()
+	LaunchedEffect(detail.showRatingToast, detail.ratingToastMessage) {
+		if (detail.showRatingToast && detail.ratingToastMessage != null) {
+			val message = when (detail.ratingToastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
 		}
+	}
+
+	val currentRating = detail.movieDetail?.personalRating?.takeIf { it > -1f }
+		?: detail.lastRatedValue ?: 0f
+	var sliderPosition by remember(detail.movieDetail?.personalRating, detail.lastRatedValue) {
+		mutableFloatStateOf(currentRating)
 	}
 
 	if (detail.movieDetail != null) {
@@ -168,31 +183,53 @@ fun MovieDetailScreen(
 							modifier = Modifier
 								.padding(horizontal = 8.dp, vertical = 16.dp)
 								.testTag("Rate this movie title"),
-							title = "Rate this movie"
+							title = stringResource(id = R.string.rate_movie_title)
 						)
-						if (detail.isRated) {
-							Text(
-								modifier = Modifier
-									.padding(16.dp)
-									.testTag("Rating Text"),
-								text = "Your rating: %.1f".format(detail.movieDetail.personalRating)
+						Column(
+							modifier = Modifier
+								.padding(horizontal = 16.dp)
+						) {
+							Slider(
+								value = sliderPosition,
+								onValueChange = { sliderPosition = it },
+								valueRange = 0f..10f,
+								steps = 9,
+								modifier = Modifier.testTag("Rating Slider"),
+								enabled = !detail.isRatingInProgress
 							)
-						} else {
-							var sliderPosition by remember { mutableFloatStateOf(0f) }
-							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-								Slider(
-									value = sliderPosition,
-									onValueChange = { sliderPosition = it },
-									valueRange = 0f..10f,
-									steps = 9,
-									modifier = Modifier.testTag("Rating Slider")
-								)
-								Text(text = "Your rating: %.1f".format(sliderPosition))
+							Text(
+								text = stringResource(id = R.string.your_rating_value, sliderPosition),
+								modifier = Modifier.testTag("Rating Text")
+							)
+							Row(
+								modifier = Modifier.padding(top = 8.dp)
+							) {
 								Button(
-									onClick = { viewModel.rateMovie(sliderPosition) },
+									onClick = {
+										if (detail.isRated) {
+											viewModel.changeRating(sliderPosition)
+										} else {
+											viewModel.rateMovie(sliderPosition)
+										}
+									},
+									enabled = !detail.isRatingInProgress,
 									modifier = Modifier.testTag("Rate Button")
 								) {
-									Text("Rate")
+									Text(
+										text = stringResource(
+											id = if (detail.isRated) R.string.update_rating else R.string.rate
+										)
+									)
+								}
+								if (detail.isRated) {
+									Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+									OutlinedButton(
+										onClick = { viewModel.deleteRating() },
+										enabled = !detail.isRatingInProgress,
+										modifier = Modifier.testTag("Delete Rating Button")
+									) {
+										Text(text = stringResource(id = R.string.delete_rating))
+									}
 								}
 							}
 						}
