@@ -1,10 +1,14 @@
 package com.zsoltbertalan.loccounter
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class LocResults(
-	val totalKotlin: Int,
-	val totalJava: Int,
-	val modules: Map<String, Pair<Int, Int>>
+	val modules: Map<String, List<CodeLines>>
+)
+
+enum class Extensions(val extension: String) {
+	Kotlin("kt"),
+}
+
+data class CodeLines(
+	val extension: String,
+	val lines: Int
 )

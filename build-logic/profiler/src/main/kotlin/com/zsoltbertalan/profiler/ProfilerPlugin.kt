@@ -43,10 +43,6 @@ class ProfilerPlugin : Plugin<Project> {
 		val rootDir = project.rootDir
 		val scenarioFile = rootDir.resolve("scenarios.txt")
 
-		println("outputDir: ${outputDir.absolutePath}")
-		println("outputFile: $outputFile")
-		println("scenarioFile: ${scenarioFile.absolutePath}")
-
 		project.tasks.register("profileAndUpload", Exec::class.java) {
 			group = "profiling"
 			description = "Runs gradle-profiler and uploads the results to New Relic"

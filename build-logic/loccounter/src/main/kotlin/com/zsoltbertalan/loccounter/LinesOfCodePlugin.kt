@@ -37,29 +37,7 @@ class LinesOfCodePlugin : Plugin<Project> {
 
 				val metrics = mutableListOf<Metric>()
 
-				metrics.add(Metric(name = "loc.total.kotlin", value = locResults.totalKotlin, timestamp = timestamp))
-				metrics.add(Metric(name = "loc.total.java", value = locResults.totalJava, timestamp = timestamp))
-
-				locResults.modules.forEach { (name, lines) ->
-					val sanitizedName = name.replace(":", ".").replace("-", "_")
-					val attributes = MetricAttributes(module = sanitizedName)
-					metrics.add(
-						Metric(
-							"loc.module.kotlin",
-							value = lines.first,
-							timestamp = timestamp,
-							attributes = attributes
-						)
-					)
-					metrics.add(
-						Metric(
-							"loc.module.java",
-							value = lines.second,
-							timestamp = timestamp,
-							attributes = attributes
-						)
-					)
-				}
+				calculateMetrics(locResults, metrics, timestamp)
 
 				val payload = listOf(
 					NewRelicPayload(
@@ -86,17 +64,41 @@ class LinesOfCodePlugin : Plugin<Project> {
 				args("-H", "Content-Type: application/json")
 				args("-d", jsonPayload)
 
+			}
+
+			doLast {
+				val stdout = ((this as Exec).standardOutput as? ByteArrayOutputStream)
 				println("New Relic API response: ${stdout.toString().trim()}")
 			}
 		}
 
 	}
 
+	private fun calculateMetrics(
+		locResults: LocResults,
+		metrics: MutableList<Metric>,
+		timestamp: Long
+	) {
+		locResults.modules.forEach { (name, lines) ->
+			val sanitizedName = name.replace(":", ".").replace("-", "_")
+			lines.forEach { codeLine ->
+				metrics.add(
+					Metric(
+						"lines.of.code",
+						value = codeLine.lines,
+						timestamp = timestamp,
+						attributes = MetricAttributes(module = sanitizedName.plus(".${codeLine.extension}"))
+					)
+				)
+			}
+		}
+	}
+
 	/**
 	 * Calculates lines of code for Kotlin and Java in all subprojects.
 	 */
 	private fun calculateLinesOfCode(subprojectInfos: List<Pair<String, File>>): LocResults {
-		fun countLinesInProject(projectDir: File, ext: String): Int {
+		fun countLinesInProject(projectDir: File, extensions: Set<String>): Map<String, Int> {
 			val srcDirs = listOf(
 				"src/main/java",
 				"src/main/kotlin",
@@ -108,48 +110,54 @@ class LinesOfCodePlugin : Plugin<Project> {
 				"src/screenshotTest/kotlin",
 				"src/testFixtures/kotlin"
 			)
-			return srcDirs.sumOf { dir ->
+			val counts = mutableMapOf<String, Int>().withDefault { 0 }
+			srcDirs.forEach { dir ->
 				val folder = File(projectDir, dir)
-				if (!folder.exists()) return@sumOf 0
+				if (!folder.exists()) return@forEach
 				folder.walkTopDown()
-					.filter { it.isFile && it.extension == ext }
-					.sumOf { file -> file.readLines().size }
+					.filter { it.isFile && it.extension in extensions }
+					.forEach { file ->
+						val ext = file.extension
+						counts[ext] = counts.getValue(ext) + file.readLines().size
+					}
+			}
+			return counts
+		}
+
+		// Calculate for all modules
+		val results = mutableMapOf<String, List<CodeLines>>()
+
+		subprojectInfos.forEach { (name, dir) ->
+			val lineCounts = countLinesInProject(dir, Extensions.entries.map { it.extension }.toSet())
+			results[name] = lineCounts.map { (ext, lines) -> CodeLines(ext, lines) }
+		}
+
+		// Calculate for totals
+		results["total"] = Extensions.entries.map { extEnum ->
+			val ext = extEnum.extension
+			val totalLines = results.values.sumOf { codeLinesList ->
+				codeLinesList.filter { it.extension == ext }.sumOf { it.lines }
+			}
+			CodeLines(ext, totalLines)
+		}
+
+		// Printout
+		results.forEach { (module, codeLineList) ->
+			println("Module: $module")
+			codeLineList.forEach { codeLines ->
+				println("  ${codeLines.extension}: ${codeLines.lines} lines")
 			}
 		}
 
-		val results = mutableMapOf<String, Pair<Int, Int>>()
-		var totalKotlin = 0
-		var totalJava = 0
-
-		subprojectInfos.forEach { (name, dir) ->
-			val kotlinLines = countLinesInProject(dir, "kt")
-			val javaLines = countLinesInProject(dir, "java")
-			results[name] = kotlinLines to javaLines
-			totalKotlin += kotlinLines
-			totalJava += javaLines
-		}
-
-		println("Lines of code per module:")
-		results.forEach { (name, lines) ->
-			println("  $name: Kotlin=${lines.first}, Java=${lines.second}")
-		}
-		println("Total lines of code: Kotlin=$totalKotlin, Java=$totalJava")
-
-		return LocResults(totalKotlin, totalJava, results)
+		return LocResults(results)
 	}
 
 	private fun getSubProjectInfos(project: Project): List<Pair<String, File>> {
 		val subprojectInfos = project.subprojects
 			.filter { sub -> sub.subprojects.isEmpty() }
 			.map { sub ->
-				val name = StringBuilder()
-				name.append(sub.name)
-				var parent = sub.parent
-				while (parent != null && parent != project.rootProject) {
-					name.insert(0, "${parent.name}:")
-					parent = parent.parent
-				}
-				name.toString() to sub.projectDir
+				val moduleName = if (sub.path.startsWith(":")) sub.path.substring(1) else sub.path
+				moduleName to sub.projectDir
 			}
 		return subprojectInfos
 	}
