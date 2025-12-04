@@ -22,7 +22,7 @@ ksp = "2.3.3"
 
 #other
 
-androidx-activity = "1.12.0"
+androidx-activity = "1.12.1"
 #androidx-appcompat = "1.7.1"
 androidx-composeBom = "2025.11.01"
 androidx-composeMaterial3 = "1.4.0-alpha17" #For alpha releases only
