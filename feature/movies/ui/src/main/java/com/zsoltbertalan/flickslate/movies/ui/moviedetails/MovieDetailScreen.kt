@@ -20,7 +20,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +42,7 @@ import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
+import com.zsoltbertalan.flickslate.movies.ui.R
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
@@ -51,7 +51,6 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
-import com.zsoltbertalan.flickslate.movies.ui.R
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
