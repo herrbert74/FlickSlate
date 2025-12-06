@@ -5,6 +5,8 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
+import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCase
+import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
@@ -27,6 +29,8 @@ class MovieDetailViewModelTest {
 
 	private val movieDetailsUseCase: MovieDetailsUseCase = mockk()
 	private val rateMovieUseCase: RateMovieUseCase = mockk()
+	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase = mockk()
+	private val deleteMovieRatingUseCase: DeleteMovieRatingUseCase = mockk()
 	private val getSessionIdUseCase: GetSessionIdUseCase = mockk()
 	private val savedStateHandle: SavedStateHandle = mockk(relaxed = true)
 
@@ -51,7 +55,14 @@ class MovieDetailViewModelTest {
 		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie")
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.movieDetail shouldBe movieDetail
@@ -62,7 +73,14 @@ class MovieDetailViewModelTest {
 	fun `when movie details fetch fails, state reflects error`() = runTest {
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Err(Failure.UnknownHostFailure)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.failure shouldBe Failure.UnknownHostFailure
@@ -75,7 +93,14 @@ class MovieDetailViewModelTest {
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 		coEvery { getSessionIdUseCase.execute() } returns Err(Failure.UnknownHostFailure)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.isLoggedIn shouldBe false
@@ -87,12 +112,20 @@ class MovieDetailViewModelTest {
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 		coEvery { rateMovieUseCase.execute(1, 8.0f) } returns Ok(Unit)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 		viewModel.rateMovie(8.0f)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.isRated shouldBe true
+		viewModel.movieStateData.value.lastRatedValue shouldBe 8.0f
 	}
 
 	@Test
@@ -100,7 +133,14 @@ class MovieDetailViewModelTest {
 		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 7.0f)
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.isRated shouldBe true
@@ -112,12 +152,110 @@ class MovieDetailViewModelTest {
 		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
 		coEvery { rateMovieUseCase.execute(1, 8.0f) } returns Err(Failure.UnknownHostFailure)
 
-		viewModel = MovieDetailViewModel(savedStateHandle, movieDetailsUseCase, rateMovieUseCase, getSessionIdUseCase)
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 		viewModel.rateMovie(8.0f)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.failure shouldBe Failure.UnknownHostFailure
 		viewModel.movieStateData.value.isRated shouldBe false
+	}
+
+	@Test
+	fun `when rating is changed successfully, state updates`() = runTest {
+		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 6.0f)
+		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
+		coEvery { changeMovieRatingUseCase.execute(1, 9.0f) } returns Ok(Unit)
+
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+		viewModel.changeRating(9.0f)
+		advanceUntilIdle()
+
+		viewModel.movieStateData.value.movieDetail?.personalRating shouldBe 9.0f
+		viewModel.movieStateData.value.ratingToastMessage shouldBe RatingToastMessage.Updated
+	}
+
+	@Test
+	fun `when rating delete succeeds, state resets`() = runTest {
+		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 7.0f)
+		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
+		coEvery { deleteMovieRatingUseCase.execute(1) } returns Ok(Unit)
+
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+		viewModel.deleteRating()
+		advanceUntilIdle()
+
+		viewModel.movieStateData.value.isRated shouldBe false
+		viewModel.movieStateData.value.movieDetail?.personalRating shouldBe -1f
+		viewModel.movieStateData.value.ratingToastMessage shouldBe RatingToastMessage.Deleted
+	}
+
+	@Test
+	fun `when change rating fails, state reflects error`() = runTest {
+		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 6.0f)
+		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
+		coEvery { changeMovieRatingUseCase.execute(1, 9.0f) } returns Err(Failure.UnknownHostFailure)
+
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+		viewModel.changeRating(9.0f)
+		advanceUntilIdle()
+
+		viewModel.movieStateData.value.failure shouldBe Failure.UnknownHostFailure
+		viewModel.movieStateData.value.isRatingInProgress shouldBe false
+		viewModel.movieStateData.value.ratingToastMessage shouldBe null
+	}
+
+	@Test
+	fun `when delete rating fails, state reflects error`() = runTest {
+		val movieDetail = MovieDetailWithImages(id = 1, title = "Test Movie", personalRating = 7.0f)
+		coEvery { movieDetailsUseCase.getMovieDetails(1) } returns Ok(movieDetail)
+		coEvery { deleteMovieRatingUseCase.execute(1) } returns Err(Failure.UnknownHostFailure)
+
+		viewModel = MovieDetailViewModel(
+			savedStateHandle,
+			movieDetailsUseCase,
+			rateMovieUseCase,
+			changeMovieRatingUseCase,
+			deleteMovieRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+		viewModel.deleteRating()
+		advanceUntilIdle()
+
+		viewModel.movieStateData.value.failure shouldBe Failure.UnknownHostFailure
+		viewModel.movieStateData.value.isRatingInProgress shouldBe false
+		viewModel.movieStateData.value.ratingToastMessage shouldBe null
 	}
 }

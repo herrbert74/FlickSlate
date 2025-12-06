@@ -25,4 +25,8 @@ dependencies {
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 
+	testImplementation(libs.jUnit)
+	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.mockk.core)
+	testImplementation(libs.mockk.dsl)
 }
