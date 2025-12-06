@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -176,15 +178,32 @@ fun TvDetailScreen(
 							title = stringResource(id = R.string.rate_show_title)
 						)
 						if (detail.isRated) {
-							Text(
-								modifier = Modifier
-									.padding(16.dp)
-									.testTag("Rating Text"),
-								text = stringResource(
-									id = R.string.your_rating_value,
-									(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f)
+							var sliderPosition by remember { mutableFloatStateOf(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f) }
+							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+								Slider(
+									value = sliderPosition,
+									onValueChange = { sliderPosition = it },
+									valueRange = 0f..10f,
+									steps = 9,
+									modifier = Modifier.testTag("Rating Slider"),
 								)
-							)
+								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition), modifier = Modifier.testTag("Rating Text"))
+								Row(modifier = Modifier.padding(top = 8.dp)) {
+									Button(
+										onClick = { viewModel.changeTvRating(sliderPosition) },
+										modifier = Modifier.testTag("Rate Button")
+									) {
+										Text(stringResource(id = R.string.change_rating))
+									}
+									Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+									OutlinedButton(
+										onClick = { viewModel.deleteTvRating() },
+										modifier = Modifier.testTag("Delete Rating Button")
+									) {
+										Text(stringResource(id = R.string.delete_rating))
+									}
+								}
+							}
 						} else {
 							var sliderPosition by remember { mutableFloatStateOf(0f) }
 							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -195,12 +214,14 @@ fun TvDetailScreen(
 									steps = 9,
 									modifier = Modifier.testTag("Rating Slider"),
 								)
-								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition))
-								Button(
-									onClick = { viewModel.rateTvShow(sliderPosition) },
-									modifier = Modifier.testTag("Rate Button")
-								) {
-									Text(stringResource(id = R.string.rate))
+								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition), modifier = Modifier.testTag("Rating Text"))
+								Row(modifier = Modifier.padding(top = 8.dp)) {
+									Button(
+										onClick = { viewModel.rateTvShow(sliderPosition) },
+										modifier = Modifier.testTag("Rate Button")
+									) {
+										Text(stringResource(id = R.string.rate))
+									}
 								}
 							}
 						}
