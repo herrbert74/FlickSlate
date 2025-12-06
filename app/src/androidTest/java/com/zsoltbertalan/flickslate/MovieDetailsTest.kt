@@ -126,6 +126,7 @@ class MovieDetailsTest {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
 			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithText("Your rating: 7.0").assertIsDisplayed()
+			waitUntilAtLeastOneExistsCopy(hasTestTag("Delete Rating Button"), 5000L)
 			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
 			onNodeWithText("Update Rating", ignoreCase = true).assertIsDisplayed()
 		}
