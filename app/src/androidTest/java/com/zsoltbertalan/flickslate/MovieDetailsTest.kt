@@ -91,9 +91,12 @@ class MovieDetailsTest {
 	fun rateMovie_whenLoggedIn_showsRatingSlider() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
+
 		navigateToMovieDetails()
+
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
+
 			onNodeWithTag("Rate Button").assertIsDisplayed()
 			onNodeWithTag("Delete Rating Button").assertIsNotDisplayed()
 			onNodeWithText("Update Rating").assertIsNotDisplayed()
@@ -104,11 +107,14 @@ class MovieDetailsTest {
 	fun rateMovie_whenLoggedInAndRated_showsRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
+
 		navigateToMovieDetails()
+
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
 			onNodeWithTag("Rate Button").performClick()
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasText("Image gallery"))
+
 			waitUntilAtLeastOneExistsCopy(hasTestTag("Rating Text"), 5000L)
 			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
@@ -120,13 +126,17 @@ class MovieDetailsTest {
 	fun rateMovie_whenMovieAlreadyRated_showsRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
 			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithText("Your rating: 7.0").assertIsDisplayed()
+
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasText("Image gallery"))
+
 			waitUntilAtLeastOneExistsCopy(hasTestTag("Delete Rating Button"), 5000L)
 			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
 			onNodeWithText("Update Rating", ignoreCase = true).assertIsDisplayed()
@@ -136,6 +146,7 @@ class MovieDetailsTest {
 	@Test
 	fun rateMovie_whenLoggedOut_ratingSectionIsNotVisible() {
 		fakeAccountRepository.isLoggedIn = false
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
@@ -147,6 +158,7 @@ class MovieDetailsTest {
 	fun changeMovieRating_whenAlreadyRated_updatesRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
@@ -162,6 +174,7 @@ class MovieDetailsTest {
 	fun deleteMovieRating_whenAlreadyRated_removesRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {

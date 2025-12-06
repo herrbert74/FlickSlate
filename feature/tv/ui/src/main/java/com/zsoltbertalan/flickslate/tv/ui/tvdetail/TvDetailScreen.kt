@@ -178,7 +178,12 @@ fun TvDetailScreen(
 							title = stringResource(id = R.string.rate_show_title)
 						)
 						if (detail.isRated) {
-							var sliderPosition by remember { mutableFloatStateOf(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f) }
+							var sliderPosition by remember {
+								mutableFloatStateOf(
+									detail.tvDetail.personalRating.takeIf { it > -1f }
+										?: detail.lastRatedValue ?: 0f
+								)
+							}
 							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
 								Slider(
 									value = sliderPosition,
@@ -187,7 +192,10 @@ fun TvDetailScreen(
 									steps = 9,
 									modifier = Modifier.testTag("Rating Slider"),
 								)
-								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition), modifier = Modifier.testTag("Rating Text"))
+								Text(
+									text = stringResource(id = R.string.your_rating_value, sliderPosition),
+									modifier = Modifier.testTag("Rating Text")
+								)
 								Row(modifier = Modifier.padding(top = 8.dp)) {
 									Button(
 										onClick = { viewModel.changeTvRating(sliderPosition) },
@@ -214,7 +222,10 @@ fun TvDetailScreen(
 									steps = 9,
 									modifier = Modifier.testTag("Rating Slider"),
 								)
-								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition), modifier = Modifier.testTag("Rating Text"))
+								Text(
+									text = stringResource(id = R.string.your_rating_value, sliderPosition),
+									modifier = Modifier.testTag("Rating Text")
+								)
 								Row(modifier = Modifier.padding(top = 8.dp)) {
 									Button(
 										onClick = { viewModel.rateTvShow(sliderPosition) },

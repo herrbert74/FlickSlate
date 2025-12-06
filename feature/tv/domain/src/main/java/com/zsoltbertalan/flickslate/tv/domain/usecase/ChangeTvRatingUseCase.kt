@@ -2,8 +2,8 @@ package com.zsoltbertalan.flickslate.tv.domain.usecase
 
 import com.github.michaelbull.result.andThen
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
-import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import javax.inject.Inject
 
 class ChangeTvRatingUseCase @Inject constructor(
@@ -18,4 +18,3 @@ class ChangeTvRatingUseCase @Inject constructor(
 			}
 	}
 }
-
