@@ -16,9 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -47,6 +44,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
@@ -109,7 +107,7 @@ fun MovieDetailScreen(
 
 	val currentRating = detail.movieDetail?.personalRating?.takeIf { it > -1f }
 		?: detail.lastRatedValue ?: 0f
-	var sliderPosition by remember(detail.movieDetail?.personalRating, detail.lastRatedValue) {
+	val sliderPosition by remember(detail.movieDetail?.personalRating, detail.lastRatedValue) {
 		mutableFloatStateOf(currentRating)
 	}
 
@@ -178,60 +176,20 @@ fun MovieDetailScreen(
 					Spacer(modifier = Modifier.height(16.dp))
 
 					if (detail.isLoggedIn) {
-						TitleText(
-							modifier = Modifier
-								.padding(horizontal = 8.dp, vertical = 16.dp)
-								.testTag("Rate this movie title"),
-							title = stringResource(id = R.string.rate_movie_title)
+						RatingSection(
+							title = stringResource(id = R.string.rate_movie_title),
+							titleTestTag = "Rate this movie title",
+							initialRating = sliderPosition,
+							isRated = detail.isRated,
+							isRatingInProgress = detail.isRatingInProgress,
+							ratingLabelProvider = { context.getString(R.string.your_rating_value, it) },
+							rateLabel = stringResource(id = R.string.rate),
+							changeLabel = stringResource(id = R.string.update_rating),
+							deleteLabel = stringResource(id = R.string.delete_rating),
+							onRate = viewModel::rateMovie,
+							onChange = viewModel::changeRating,
+							onDelete = viewModel::deleteRating,
 						)
-						Column(
-							modifier = Modifier
-								.padding(horizontal = 16.dp)
-						) {
-							Slider(
-								value = sliderPosition,
-								onValueChange = { sliderPosition = it },
-								valueRange = 0f..10f,
-								steps = 9,
-								modifier = Modifier.testTag("Rating Slider"),
-								enabled = !detail.isRatingInProgress
-							)
-							Text(
-								text = stringResource(id = R.string.your_rating_value, sliderPosition),
-								modifier = Modifier.testTag("Rating Text")
-							)
-							Row(
-								modifier = Modifier.padding(top = 8.dp)
-							) {
-								Button(
-									onClick = {
-										if (detail.isRated) {
-											viewModel.changeRating(sliderPosition)
-										} else {
-											viewModel.rateMovie(sliderPosition)
-										}
-									},
-									enabled = !detail.isRatingInProgress,
-									modifier = Modifier.testTag("Rate Button")
-								) {
-									Text(
-										text = stringResource(
-											id = if (detail.isRated) R.string.update_rating else R.string.rate
-										)
-									)
-								}
-								if (detail.isRated) {
-									Spacer(modifier = Modifier.padding(horizontal = 8.dp))
-									OutlinedButton(
-										onClick = { viewModel.deleteRating() },
-										enabled = !detail.isRatingInProgress,
-										modifier = Modifier.testTag("Delete Rating Button")
-									) {
-										Text(text = stringResource(id = R.string.delete_rating))
-									}
-								}
-							}
-						}
 					}
 
 					Spacer(modifier = Modifier.height(16.dp))

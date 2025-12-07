@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.shared.ui.compose.component
+package com.zsoltbertalan.flickslate.shared.ui.compose.component.rating
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
