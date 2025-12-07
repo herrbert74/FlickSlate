@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.ui.seasondetail
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,14 +20,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -41,6 +39,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.tv.ui.R
@@ -82,7 +81,10 @@ fun TvSeasonDetailScreen(
 			TvSeasonDetailContent(
 				uiState = uiState,
 				onEpisodeClick = { episodeId -> viewModel.toggleEpisodeExpanded(episodeId) },
-				onRateEpisode = { episodeNumber, rating -> viewModel.rateEpisode(episodeNumber, rating) }
+				onRateEpisode = { episodeNumber, rating -> viewModel.rateEpisode(episodeNumber, rating) },
+				onChangeEpisode = { episodeNumber, rating -> viewModel.changeEpisodeRating(episodeNumber, rating) },
+				onDeleteEpisode = { episodeNumber -> viewModel.deleteEpisodeRating(episodeNumber) },
+				context,
 			)
 		}
 	}
@@ -92,7 +94,10 @@ fun TvSeasonDetailScreen(
 private fun TvSeasonDetailContent(
 	uiState: TvSeasonDetailUiState,
 	onEpisodeClick: (Int) -> Unit,
-	onRateEpisode: (Int, Float) -> Unit
+	onRateEpisode: (Int, Float) -> Unit,
+	onChangeEpisode: (Int, Float) -> Unit,
+	onDeleteEpisode: (Int) -> Unit,
+	context: Context,
 ) {
 	LazyColumn(
 		modifier = Modifier
@@ -160,7 +165,10 @@ private fun TvSeasonDetailContent(
 				isExpanded = item.id == uiState.expandedEpisodeId,
 				onEpisodeClick = { onEpisodeClick(item.id) },
 				isLoggedIn = uiState.isLoggedIn,
-				onRateEpisode = onRateEpisode
+				onRateEpisode = onRateEpisode,
+				onChangeEpisode = onChangeEpisode,
+				onDeleteEpisode = onDeleteEpisode,
+				context = context,
 			)
 			HorizontalDivider(color = Colors.onBackground)
 		}
@@ -173,7 +181,10 @@ private fun EpisodeItem(
 	isExpanded: Boolean,
 	onEpisodeClick: () -> Unit,
 	isLoggedIn: Boolean,
-	onRateEpisode: (Int, Float) -> Unit
+	onRateEpisode: (Int, Float) -> Unit,
+	onChangeEpisode: (Int, Float) -> Unit,
+	onDeleteEpisode: (Int) -> Unit,
+	context: Context
 ) {
 	Column(
 		modifier = Modifier
@@ -211,31 +222,21 @@ private fun EpisodeItem(
 			Spacer(modifier = Modifier.height(Dimens.marginNormal))
 			val showRateLabel = episode.personalRating > -1f || isExpanded
 			if (showRateLabel) {
-				Text(
-					text = stringResource(id = R.string.rate_episode_title),
-					style = MaterialTheme.typography.titleSmall
-				)
-			}
-			if (episode.personalRating > -1f) {
-				Text(
-					text = stringResource(id = R.string.your_rating_value, episode.personalRating),
-					style = MaterialTheme.typography.bodyMedium,
+				RatingSection(
+					title = stringResource(id = R.string.rate_episode_title),
+					titleTestTag = "Rate Episode ${episode.episodeNumber}",
+					initialRating = episode.personalRating.takeIf { it > -1f } ?: 0f,
+					isRated = episode.personalRating > -1f,
+					isRatingInProgress = false,
+					ratingLabelProvider = { context.getString(R.string.your_rating_value, it) },
+					rateLabel = stringResource(id = R.string.rate),
+					changeLabel = stringResource(id = R.string.change_rating),
+					deleteLabel = stringResource(id = R.string.delete_rating),
+					onRate = { rating -> onRateEpisode(episode.episodeNumber, rating) },
+					onChange = { rating -> onChangeEpisode(episode.episodeNumber, rating) },
+					onDelete = { onDeleteEpisode(episode.episodeNumber) },
 					modifier = Modifier.padding(top = Dimens.marginNormal)
 				)
-			} else if (isExpanded) {
-				val sliderPosition = remember(episode.id) { mutableFloatStateOf(0f) }
-				Column(modifier = Modifier.padding(top = Dimens.marginNormal)) {
-					Slider(
-						value = sliderPosition.floatValue,
-						onValueChange = { sliderPosition.floatValue = it },
-						valueRange = 0f..10f,
-						steps = 9,
-					)
-					Text(text = stringResource(id = R.string.your_rating_value, sliderPosition.floatValue))
-					Button(onClick = { onRateEpisode(episode.episodeNumber, sliderPosition.floatValue) }) {
-						Text(text = stringResource(id = R.string.rate))
-					}
-				}
 			}
 		}
 	}

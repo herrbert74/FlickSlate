@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
+import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
@@ -28,6 +30,8 @@ const val BG_COLOR_DIM_ARG = "bgColorDim"
 class TvSeasonDetailViewModel @Inject constructor(
 	private val getSeasonDetailUseCase: GetSeasonDetailUseCase,
 	private val rateEpisodeUseCase: RateTvShowEpisodeUseCase,
+	private val changeEpisodeRatingUseCase: ChangeTvShowEpisodeRatingUseCase,
+	private val deleteEpisodeRatingUseCase: DeleteTvShowEpisodeRatingUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase,
 	savedStateHandle: SavedStateHandle,
@@ -110,6 +114,38 @@ class TvSeasonDetailViewModel @Inject constructor(
 						isRatingInProgress = false,
 						isRated = true,
 						showRatingToast = true
+					)
+				}
+				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
+			}
+		}
+	}
+
+	fun changeEpisodeRating(episodeNumber: Int, rating: Float) {
+		viewModelScope.launch {
+			_uiState.update { it.copy(isRatingInProgress = true, failure = null) }
+			val rateResult = changeEpisodeRatingUseCase.execute(seriesId, seasonNumber, episodeNumber, rating)
+			when {
+				rateResult.isOk -> _uiState.update {
+					it.copy(
+						isRatingInProgress = false,
+						showRatingToast = true,
+					)
+				}
+				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
+			}
+		}
+	}
+
+	fun deleteEpisodeRating(episodeNumber: Int) {
+		viewModelScope.launch {
+			_uiState.update { it.copy(isRatingInProgress = true, failure = null) }
+			val rateResult = deleteEpisodeRatingUseCase.execute(seriesId, seasonNumber, episodeNumber)
+			when {
+				rateResult.isOk -> _uiState.update {
+					it.copy(
+						isRatingInProgress = false,
+						showRatingToast = true,
 					)
 				}
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
