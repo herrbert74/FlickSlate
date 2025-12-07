@@ -66,8 +66,8 @@ class MovieDetailsTest {
 	fun showMovies() {
 		with(composeTestRule) {
 			onRoot(useUnmergedTree = true).printToLog("showMovies")
-			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 
+			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 			onNodeWithText("name1", useUnmergedTree = true).assertExists()
 		}
 	}
@@ -88,7 +88,7 @@ class MovieDetailsTest {
 	}
 
 	@Test
-	fun rateMovie_whenLoggedIn_showsRatingSlider() {
+	fun rateMovie_whenLoggedIn_showsOnlyRateButton() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
 
@@ -163,8 +163,11 @@ class MovieDetailsTest {
 
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
 			onNodeWithTag("Rating Text").assertIsDisplayed()
+
 			onNodeWithTag("Rating Slider").performSemanticsAction(SemanticsActions.SetProgress) { it(9.0f) }
+
 			onNodeWithTag("Rate Button").performClick()
 			onNodeWithText("Your rating: 9.0").assertIsDisplayed()
 		}
