@@ -166,6 +166,7 @@ object TvMother {
 			airDate = "20",
 			voteAverage = 6.7f,
 			voteCount = 3321,
+			personalRating = 6f
 		)
 
 }
