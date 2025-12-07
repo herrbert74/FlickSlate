@@ -1,6 +1,14 @@
 <resources>
 
-    <string name="popular_movies">Popular Movies</string>
-    <string name="now_playing_movies">Now Playing Movies</string>
-    <string name="upcoming_movies">Upcoming Movies</string>
+	<string name="popular_movies">Popular Movies</string>
+	<string name="now_playing_movies">Now Playing Movies</string>
+	<string name="upcoming_movies">Upcoming Movies</string>
+	<string name="rate_movie_title">Rate this movie</string>
+	<string name="your_rating_value">Your rating: %.1f</string>
+	<string name="rate">Rate</string>
+	<string name="update_rating">Update rating</string>
+	<string name="delete_rating">Delete rating</string>
+	<string name="rating_thanks">Thanks for rating!</string>
+	<string name="rating_updated">Rating updated!</string>
+	<string name="rating_removed">Rating removed</string>
 </resources>

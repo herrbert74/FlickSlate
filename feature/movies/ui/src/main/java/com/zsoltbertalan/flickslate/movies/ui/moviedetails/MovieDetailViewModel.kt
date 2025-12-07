@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
+import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCase
+import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
@@ -21,6 +23,8 @@ class MovieDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
 	private val movieDetailsUseCase: MovieDetailsUseCase,
 	private val rateMovieUseCase: RateMovieUseCase,
+	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase,
+	private val deleteMovieRatingUseCase: DeleteMovieRatingUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase
 ) : ViewModel() {
 
@@ -37,13 +41,27 @@ class MovieDetailViewModel @Inject constructor(
 	private fun checkLoginStatus() {
 		viewModelScope.launch {
 			val sessionIdResult = getSessionIdUseCase.execute()
-			_movieStateData.update { it.copy(isLoggedIn = sessionIdResult.isOk) }
+			_movieStateData.update { state ->
+				val detail = state.movieDetail
+				state.copy(
+					isLoggedIn = sessionIdResult.isOk,
+					isRated = detail?.personalRating?.takeIf { it > -1f } != null,
+					lastRatedValue = detail?.personalRating?.takeIf { it > -1f }
+				)
+			}
 		}
 	}
 
 	internal fun rateMovie(rating: Float) {
 		viewModelScope.launch {
-			_movieStateData.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
+			_movieStateData.update {
+				it.copy(
+					isRatingInProgress = true,
+					failure = null,
+					showRatingToast = false,
+					lastRatedValue = rating
+				)
+			}
 			val rateMovieResult = rateMovieUseCase.execute(movieId, rating)
 			when {
 				rateMovieResult.isOk ->
@@ -52,12 +70,76 @@ class MovieDetailViewModel @Inject constructor(
 							isRatingInProgress = false,
 							isRated = true,
 							movieDetail = it.movieDetail?.copy(personalRating = rating),
-							showRatingToast = true
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Success
 						)
 					}
 
 				else ->
-					_movieStateData.update { it.copy(isRatingInProgress = false, failure = rateMovieResult.error) }
+					_movieStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							failure = rateMovieResult.error
+						)
+					}
+			}
+		}
+	}
+
+	internal fun changeRating(rating: Float) {
+		viewModelScope.launch {
+			_movieStateData.update {
+				it.copy(
+					isRatingInProgress = true,
+					failure = null,
+					showRatingToast = false,
+					lastRatedValue = rating
+				)
+			}
+			val changeResult = changeMovieRatingUseCase.execute(movieId, rating)
+			when {
+				changeResult.isOk -> _movieStateData.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = true,
+						movieDetail = it.movieDetail?.copy(personalRating = rating),
+						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Updated
+					)
+				}
+
+				else -> _movieStateData.update {
+					it.copy(isRatingInProgress = false, failure = changeResult.error)
+				}
+			}
+		}
+	}
+
+	internal fun deleteRating() {
+		viewModelScope.launch {
+			_movieStateData.update {
+				it.copy(
+					isRatingInProgress = true,
+					failure = null,
+					showRatingToast = false
+				)
+			}
+			val deleteResult = deleteMovieRatingUseCase.execute(movieId)
+			when {
+				deleteResult.isOk -> _movieStateData.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = false,
+						movieDetail = it.movieDetail?.copy(personalRating = -1f),
+						lastRatedValue = null,
+						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Deleted
+					)
+				}
+
+				else -> _movieStateData.update {
+					it.copy(isRatingInProgress = false, failure = deleteResult.error)
+				}
 			}
 		}
 	}
@@ -71,6 +153,7 @@ class MovieDetailViewModel @Inject constructor(
 					it.copy(
 						movieDetail = movieDetail,
 						isRated = movieDetail.personalRating > -1f,
+						lastRatedValue = movieDetail.personalRating.takeIf { it > -1f },
 						isFavorite = movieDetail.favorite,
 						isWatchlist = movieDetail.watchlist,
 						failure = null
@@ -89,8 +172,14 @@ class MovieDetailViewModel @Inject constructor(
 	}
 
 	internal fun toastShown() {
-		_movieStateData.update { it.copy(showRatingToast = false) }
+		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
 	}
+}
+
+internal enum class RatingToastMessage {
+	Success,
+	Updated,
+	Deleted
 }
 
 @Immutable
@@ -103,4 +192,6 @@ internal data class MovieDetailState(
 	val isFavorite: Boolean = false,
 	val isWatchlist: Boolean = false,
 	val showRatingToast: Boolean = false,
+	val ratingToastMessage: RatingToastMessage? = null,
+	val lastRatedValue: Float? = null,
 )

@@ -1,7 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -10,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.FilledButton
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
@@ -18,7 +18,6 @@ import com.zsoltbertalan.flickslate.tv.domain.model.Season
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SeasonsRow(
 	seasons: ImmutableList<Season>,
@@ -28,14 +27,16 @@ internal fun SeasonsRow(
 	LazyRow(
 		modifier
 			.fillMaxWidth(1f)
-			.wrapContentHeight(align = Alignment.Top),
+			.wrapContentHeight(align = Alignment.Top)
+			.testTag("Seasons Row"),
 		horizontalArrangement = Arrangement.Start,
 	) {
 		items(seasons.size) { index ->
 			seasons[index].name?.let {
 				FilledButton(
 					modifier = Modifier
-						.padding(end = Dimens.marginSmall),
+						.padding(end = Dimens.marginSmall)
+						.testTag("Season Chip ${seasons[index].seasonNumber}"),
 					onClick = { onClick(index) },
 					content = {
 						Text(

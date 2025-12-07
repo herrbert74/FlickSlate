@@ -7,6 +7,8 @@ import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
+import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
@@ -34,6 +36,8 @@ class TvSeasonDetailViewModelTest {
 
 	private val getSeasonDetailUseCase = mockk<GetSeasonDetailUseCase>()
 	private val rateEpisodeUseCase = mockk<RateTvShowEpisodeUseCase>()
+	private val changeEpisodeRatingUseCase = mockk<ChangeTvShowEpisodeRatingUseCase>()
+	private val deleteEpisodeRatingUseCase = mockk<DeleteTvShowEpisodeRatingUseCase>()
 	private val getSessionIdUseCase = mockk<GetSessionIdUseCase>()
 	private val getEpisodeDetailUseCase = mockk<GetEpisodeDetailUseCase>()
 	private val savedStateHandle = mockk<SavedStateHandle>(relaxed = true)
@@ -67,7 +71,8 @@ class TvSeasonDetailViewModelTest {
 		coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 		coEvery { rateEpisodeUseCase.execute(any(), any(), any(), any()) } returns Ok(Unit)
-		coEvery { getEpisodeDetailUseCase.execute(any(), any(), any()) } returns Ok(mockSeasonDetail.episodes.first())
+		coEvery { changeEpisodeRatingUseCase.execute(any(), any(), any(), any()) } returns Ok(Unit)
+		coEvery { deleteEpisodeRatingUseCase.execute(any(), any(), any()) } returns Ok(Unit)
 	}
 
 	@After
@@ -79,6 +84,8 @@ class TvSeasonDetailViewModelTest {
 		viewModel = TvSeasonDetailViewModel(
 			getSeasonDetailUseCase,
 			rateEpisodeUseCase,
+			changeEpisodeRatingUseCase,
+			deleteEpisodeRatingUseCase,
 			getSessionIdUseCase,
 			getEpisodeDetailUseCase,
 			savedStateHandle
@@ -168,6 +175,8 @@ class TvSeasonDetailViewModelTest {
 				TvSeasonDetailViewModel(
 					getSeasonDetailUseCase,
 					rateEpisodeUseCase,
+					changeEpisodeRatingUseCase,
+					deleteEpisodeRatingUseCase,
 					getSessionIdUseCase,
 					getEpisodeDetailUseCase,
 					savedStateHandle
@@ -180,6 +189,8 @@ class TvSeasonDetailViewModelTest {
 				TvSeasonDetailViewModel(
 					getSeasonDetailUseCase,
 					rateEpisodeUseCase,
+					changeEpisodeRatingUseCase,
+					deleteEpisodeRatingUseCase,
 					getSessionIdUseCase,
 					getEpisodeDetailUseCase,
 					savedStateHandle
@@ -274,6 +285,54 @@ class TvSeasonDetailViewModelTest {
 
 		viewModel.rateEpisode(mockSeasonDetail.episodes.first().episodeNumber, 5f)
 		advanceUntilIdle()
+		viewModel.uiState.value.failure shouldBe Failure.ServerError("boom")
+	}
+
+	@Test
+	fun `changeEpisodeRating success updates toast`() = runTest {
+		initializeViewModel()
+
+		viewModel.changeEpisodeRating(mockSeasonDetail.episodes.first().episodeNumber, 8.5f)
+		advanceUntilIdle()
+
+		with(viewModel.uiState.value) {
+			isRatingInProgress shouldBe false
+			showRatingToast shouldBe true
+		}
+	}
+
+	@Test
+	fun `changeEpisodeRating failure sets failure`() = runTest {
+		coEvery { changeEpisodeRatingUseCase.execute(any(), any(), any(), any()) } returns Err(Failure.ServerError("boom"))
+		initializeViewModel()
+
+		viewModel.changeEpisodeRating(mockSeasonDetail.episodes.first().episodeNumber, 8.5f)
+		advanceUntilIdle()
+
+		viewModel.uiState.value.failure shouldBe Failure.ServerError("boom")
+	}
+
+	@Test
+	fun `deleteEpisodeRating success updates toast`() = runTest {
+		initializeViewModel()
+
+		viewModel.deleteEpisodeRating(mockSeasonDetail.episodes.first().episodeNumber)
+		advanceUntilIdle()
+
+		with(viewModel.uiState.value) {
+			isRatingInProgress shouldBe false
+			showRatingToast shouldBe true
+		}
+	}
+
+	@Test
+	fun `deleteEpisodeRating failure sets failure`() = runTest {
+		coEvery { deleteEpisodeRatingUseCase.execute(any(), any(), any()) } returns Err(Failure.ServerError("boom"))
+		initializeViewModel()
+
+		viewModel.deleteEpisodeRating(mockSeasonDetail.episodes.first().episodeNumber)
+		advanceUntilIdle()
+
 		viewModel.uiState.value.failure shouldBe Failure.ServerError("boom")
 	}
 

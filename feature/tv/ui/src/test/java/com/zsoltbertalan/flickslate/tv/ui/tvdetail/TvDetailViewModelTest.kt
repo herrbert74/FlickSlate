@@ -6,6 +6,8 @@ import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
+import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import io.kotest.assertions.throwables.shouldThrowExactly
@@ -29,6 +31,8 @@ class TvDetailViewModelTest {
 
 	private val tvDetailsUseCase = mockk<TvDetailsUseCase>()
 	private val rateTvShowUseCase = mockk<RateTvShowUseCase>()
+	private val changeTvRatingUseCase = mockk<ChangeTvRatingUseCase>()
+	private val deleteTvRatingUseCase = mockk<DeleteTvRatingUseCase>()
 	private val getSessionIdUseCase = mockk<GetSessionIdUseCase>()
 	private val savedStateHandle = mockk<SavedStateHandle>(relaxed = true)
 
@@ -57,7 +61,14 @@ class TvDetailViewModelTest {
 		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 
-		viewModel = TvDetailViewModel(savedStateHandle, tvDetailsUseCase, rateTvShowUseCase, getSessionIdUseCase)
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
 
 		advanceUntilIdle()
 
@@ -76,7 +87,14 @@ class TvDetailViewModelTest {
 		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Err(mockFailure)
 		coEvery { getSessionIdUseCase.execute() } returns Err(Failure.UserNotLoggedIn)
 
-		viewModel = TvDetailViewModel(savedStateHandle, tvDetailsUseCase, rateTvShowUseCase, getSessionIdUseCase)
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
 
 		advanceUntilIdle()
 
@@ -90,12 +108,39 @@ class TvDetailViewModelTest {
 	}
 
 	@Test
-	fun `when seriesId is not available in SavedStateHandle then viewModel init throws IllegalStateException`() = runTest {
-		every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
+	fun `when seriesId is not available in SavedStateHandle then viewModel init throws IllegalStateException`() =
+		runTest {
+			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
 
-		shouldThrowExactly<IllegalStateException> {
-			TvDetailViewModel(savedStateHandle, tvDetailsUseCase, rateTvShowUseCase, getSessionIdUseCase)
+			shouldThrowExactly<IllegalStateException> {
+				TvDetailViewModel(
+					savedStateHandle,
+					tvDetailsUseCase,
+					rateTvShowUseCase,
+					changeTvRatingUseCase,
+					deleteTvRatingUseCase,
+					getSessionIdUseCase
+				)
+			}
 		}
+
+	@Test
+	fun `when viewModel initialized and tv is already rated, state reflects it`() = runTest {
+		val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId, personalRating = 8.0f)
+		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+
+		viewModel.tvStateData.value.isRated shouldBe true
 	}
 
 	@Test
@@ -105,7 +150,14 @@ class TvDetailViewModelTest {
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 		coEvery { rateTvShowUseCase.execute(testSeriesId, any()) } returns Ok(Unit)
 
-		viewModel = TvDetailViewModel(savedStateHandle, tvDetailsUseCase, rateTvShowUseCase, getSessionIdUseCase)
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.rateTvShow(8.0f)
@@ -123,13 +175,117 @@ class TvDetailViewModelTest {
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
 		coEvery { rateTvShowUseCase.execute(testSeriesId, any()) } returns Err(Failure.ServerError("boom"))
 
-		viewModel = TvDetailViewModel(savedStateHandle, tvDetailsUseCase, rateTvShowUseCase, getSessionIdUseCase)
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
 		advanceUntilIdle()
 
 		viewModel.rateTvShow(5f)
 		advanceUntilIdle()
 
 		viewModel.tvStateData.value.failure shouldBe Failure.ServerError("boom")
+		viewModel.tvStateData.value.isRatingInProgress shouldBe false
+	}
+
+	@Test
+	fun `change rating success updates state`() = runTest {
+		val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId, personalRating = 7.0f)
+		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { changeTvRatingUseCase.execute(testSeriesId, 9.0f) } returns Ok(Unit)
+
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+
+		viewModel.changeTvRating(9.0f)
+		advanceUntilIdle()
+
+		viewModel.tvStateData.value.tvDetail?.personalRating shouldBe 9.0f
+		viewModel.tvStateData.value.showRatingToast shouldBe true
+	}
+
+	@Test
+	fun `change rating failure sets failure`() = runTest {
+		val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId, personalRating = 7.0f)
+		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { changeTvRatingUseCase.execute(testSeriesId, 9.0f) } returns Err(Failure.UnknownHostFailure)
+
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+
+		viewModel.changeTvRating(9.0f)
+		advanceUntilIdle()
+
+		viewModel.tvStateData.value.failure shouldBe Failure.UnknownHostFailure
+		viewModel.tvStateData.value.isRatingInProgress shouldBe false
+	}
+
+	@Test
+	fun `delete rating success clears state`() = runTest {
+		val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId, personalRating = 6.0f)
+		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { deleteTvRatingUseCase.execute(testSeriesId) } returns Ok(Unit)
+
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+
+		viewModel.deleteTvRating()
+		advanceUntilIdle()
+
+		viewModel.tvStateData.value.isRated shouldBe false
+		viewModel.tvStateData.value.tvDetail?.personalRating shouldBe -1f
+	}
+
+	@Test
+	fun `delete rating failure sets failure`() = runTest {
+		val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId, personalRating = 6.0f)
+		coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+		coEvery { deleteTvRatingUseCase.execute(testSeriesId) } returns Err(Failure.UnknownHostFailure)
+
+		viewModel = TvDetailViewModel(
+			savedStateHandle,
+			tvDetailsUseCase,
+			rateTvShowUseCase,
+			changeTvRatingUseCase,
+			deleteTvRatingUseCase,
+			getSessionIdUseCase
+		)
+		advanceUntilIdle()
+
+		viewModel.deleteTvRating()
+		advanceUntilIdle()
+
+		viewModel.tvStateData.value.failure shouldBe Failure.UnknownHostFailure
+		viewModel.tvStateData.value.isRatingInProgress shouldBe false
 	}
 
 }

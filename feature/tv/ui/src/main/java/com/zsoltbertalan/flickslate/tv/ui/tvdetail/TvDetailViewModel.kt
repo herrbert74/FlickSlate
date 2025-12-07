@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
+import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +26,8 @@ class TvDetailViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
 	private val tvDetailsUseCase: TvDetailsUseCase,
 	private val rateTvShowUseCase: RateTvShowUseCase,
+	private val changeTvRatingUseCase: ChangeTvRatingUseCase,
+	private val deleteTvRatingUseCase: DeleteTvRatingUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) : ViewModel() {
 
@@ -95,6 +99,44 @@ class TvDetailViewModel @Inject constructor(
 
 	internal fun toastShown() {
 		_tvStateData.update { it.copy(showRatingToast = false) }
+	}
+
+	internal fun changeTvRating(rating: Float) {
+		viewModelScope.launch {
+			_tvStateData.update { it.copy(isRatingInProgress = true, failure = null) }
+			val result = changeTvRatingUseCase.execute(seriesId, rating)
+			when {
+				result.isOk -> _tvStateData.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = true,
+						showRatingToast = true,
+						lastRatedValue = rating,
+						tvDetail = it.tvDetail?.copy(personalRating = rating),
+					)
+				}
+				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = result.error) }
+			}
+		}
+	}
+
+	internal fun deleteTvRating() {
+		viewModelScope.launch {
+			_tvStateData.update { it.copy(isRatingInProgress = true, failure = null) }
+			val result = deleteTvRatingUseCase.execute(seriesId)
+			when {
+				result.isOk -> _tvStateData.update {
+					it.copy(
+						isRatingInProgress = false,
+						isRated = false,
+						showRatingToast = true,
+						lastRatedValue = null,
+						tvDetail = it.tvDetail?.copy(personalRating = -1f),
+					)
+				}
+				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = result.error) }
+			}
+		}
 	}
 }
 

@@ -1,7 +1,6 @@
 package com.zsoltbertalan.flickslate.shared.ui.compose.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,7 +17,6 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun GenreChips(genres: ImmutableList<Genre>, modifier: Modifier = Modifier) {
 	FlowRow(

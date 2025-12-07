@@ -21,6 +21,7 @@ import javax.inject.Singleton
 class FakeTvRepository @Inject constructor() : TvRepository {
 
 	var tvDetail: TvDetailWithImages = TvMother.createTvDetailWithImages()
+	var tvEpisodeDetail: TvEpisodeDetail = TvMother.createTvEpisodeDetail()
 
 	override fun getTopRatedTv(page: Int): Flow<Outcome<PagingReply<TvShow>>> =
 		flowOf(Ok(PagingReply(TvMother.createTvList(), true, PageData())))
@@ -42,6 +43,6 @@ class FakeTvRepository @Inject constructor() : TvRepository {
 		seasonNumber: Int,
 		episodeNumber: Int,
 		sessionId: String?
-	): Outcome<TvEpisodeDetail> = Ok(TvMother.createTvEpisodeDetail())
+	): Outcome<TvEpisodeDetail> = Ok(tvEpisodeDetail)
 
 }

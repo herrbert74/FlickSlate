@@ -1,7 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +20,6 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import kotlinx.collections.immutable.toImmutableList
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SubtitleRow(tvDetail: TvDetailWithImages, modifier: Modifier = Modifier) {
 	LazyRow(

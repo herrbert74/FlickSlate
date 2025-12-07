@@ -1,7 +1,9 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,6 +13,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
@@ -55,6 +58,7 @@ class TvDetailsTest {
 
 	private fun navigateToTvDetails() {
 		composeTestRule.onNodeWithText("Tv").performClick()
+
 		composeTestRule.waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 		composeTestRule.onNodeWithText("Detectorists", ignoreCase = true).performClick()
 		composeTestRule.waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)
@@ -64,9 +68,10 @@ class TvDetailsTest {
 	fun showTvTab() {
 		with(composeTestRule) {
 			onRoot(useUnmergedTree = true).printToLog("showTv")
-			onNodeWithText("Tv").performClick()
-			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 
+			onNodeWithText("Tv").performClick()
+
+			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 			onNodeWithText("Detectorists", useUnmergedTree = true).assertExists()
 			onNodeWithText("Movies", useUnmergedTree = true).assertExists()
 		}
@@ -89,7 +94,7 @@ class TvDetailsTest {
 	}
 
 	@Test
-	fun rateTvShow_whenLoggedIn_showsRatingSlider() {
+	fun rateTvShow_whenLoggedIn_showsOnlyRateButton() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages()
 
@@ -97,8 +102,29 @@ class TvDetailsTest {
 
 		with(composeTestRule) {
 			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Rate Button"))
-			onNodeWithTag("Rating Slider").assertIsDisplayed()
+
 			onNodeWithTag("Rate Button").assertIsDisplayed()
+			onNodeWithTag("Delete Rating Button").assertIsNotDisplayed()
+			onNodeWithText("Change rating", ignoreCase = true).assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun rateTvShow_whenLoggedInAndRated_showsRating() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages()
+
+		navigateToTvDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Rate Button"))
+			onNodeWithTag("Rate Button").performClick()
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasText("Image gallery"))
+
+			waitUntilAtLeastOneExistsCopy(hasTestTag("Rating Text"), 5000L)
+			onNodeWithTag("Rating Text").assertIsDisplayed()
+			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
+			onNodeWithText("Change rating", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 
@@ -111,9 +137,16 @@ class TvDetailsTest {
 
 		with(composeTestRule) {
 			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
 			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithText("Your rating: 8.0").assertIsDisplayed()
-			onNodeWithTag("Rating Slider").assertDoesNotExist()
+
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasText("Image gallery"))
+
+			waitUntilAtLeastOneExistsCopy(hasTestTag("Delete Rating Button"), 5000L)
+
+			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
+			onNodeWithText("Change rating", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 
@@ -124,6 +157,39 @@ class TvDetailsTest {
 
 		with(composeTestRule) {
 			onNodeWithTag("Rate this show title").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun changeTvShowRating_whenAlreadyRated_updatesRating() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages(personalRating = 7f)
+
+		navigateToTvDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
+			onNodeWithTag("Rating Text").assertIsDisplayed()
+
+			onNodeWithTag("Rating Slider").performSemanticsAction(SemanticsActions.SetProgress) { it(9.0f) }
+
+			onNodeWithTag("Rate Button").performClick()
+			onNodeWithText("Your rating: 9.0").assertIsDisplayed()
+		}
+	}
+
+	@Test
+	fun deleteTvShowRating_whenAlreadyRated_removesRating() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages(personalRating = 7f)
+
+		navigateToTvDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Delete Rating Button"))
+			onNodeWithTag("Delete Rating Button").performClick()
+			onNodeWithText("Your rating: 7.0").assertDoesNotExist()
 		}
 	}
 

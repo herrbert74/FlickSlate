@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +42,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
@@ -70,6 +69,10 @@ fun TvDetailScreen(
 	val context = LocalContext.current
 	var color1 by remember { mutableStateOf(bg) }
 	var color2 by remember { mutableStateOf(bgDim) }
+	val currentRating = detail.tvDetail?.personalRating?.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f
+	val sliderPosition by remember(detail.tvDetail?.personalRating, detail.lastRatedValue) {
+		mutableFloatStateOf(currentRating)
+	}
 
 	val imageUrl = rememberSaveable(detail.tvDetail?.backdropPath) {
 		mutableStateOf(detail.tvDetail?.backdropPath)
@@ -169,41 +172,20 @@ fun TvDetailScreen(
 
 					// Rating section
 					if (detail.isLoggedIn) {
-						TitleText(
-							modifier = Modifier
-								.padding(horizontal = 8.dp, vertical = 16.dp)
-								.testTag("Rate this show title"),
-							title = stringResource(id = R.string.rate_show_title)
+						RatingSection(
+							title = stringResource(id = R.string.rate_show_title),
+							titleTestTag = "Rate this show title",
+							initialRating = sliderPosition,
+							isRated = detail.isRated,
+							isRatingInProgress = detail.isRatingInProgress,
+							ratingLabelProvider = { context.getString(R.string.your_rating_value, it) },
+							rateLabel = stringResource(id = R.string.rate),
+							changeLabel = stringResource(id = R.string.change_rating),
+							deleteLabel = stringResource(id = R.string.delete_rating),
+							onRate = viewModel::rateTvShow,
+							onChange = viewModel::changeTvRating,
+							onDelete = viewModel::deleteTvRating,
 						)
-						if (detail.isRated) {
-							Text(
-								modifier = Modifier
-									.padding(16.dp)
-									.testTag("Rating Text"),
-								text = stringResource(
-									id = R.string.your_rating_value,
-									(detail.tvDetail.personalRating.takeIf { it > -1f } ?: detail.lastRatedValue ?: 0f)
-								)
-							)
-						} else {
-							var sliderPosition by remember { mutableFloatStateOf(0f) }
-							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-								Slider(
-									value = sliderPosition,
-									onValueChange = { sliderPosition = it },
-									valueRange = 0f..10f,
-									steps = 9,
-									modifier = Modifier.testTag("Rating Slider"),
-								)
-								Text(text = stringResource(id = R.string.your_rating_value, sliderPosition))
-								Button(
-									onClick = { viewModel.rateTvShow(sliderPosition) },
-									modifier = Modifier.testTag("Rate Button")
-								) {
-									Text(stringResource(id = R.string.rate))
-								}
-							}
-						}
 					}
 
 					Spacer(modifier = Modifier.height(16.dp))

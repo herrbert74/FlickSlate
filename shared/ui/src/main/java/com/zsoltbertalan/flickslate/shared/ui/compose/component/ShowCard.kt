@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingText
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FixedColors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme

@@ -1,7 +1,9 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,6 +13,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
@@ -63,8 +66,8 @@ class MovieDetailsTest {
 	fun showMovies() {
 		with(composeTestRule) {
 			onRoot(useUnmergedTree = true).printToLog("showMovies")
-			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 
+			waitUntilAtLeastOneExistsCopy(hasTestTag("MovieColumn"), 1000L)
 			onNodeWithText("name1", useUnmergedTree = true).assertExists()
 		}
 	}
@@ -85,14 +88,18 @@ class MovieDetailsTest {
 	}
 
 	@Test
-	fun rateMovie_whenLoggedIn_showsRatingSlider() {
+	fun rateMovie_whenLoggedIn_showsOnlyRateButton() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
+
 		navigateToMovieDetails()
+
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
-			onNodeWithTag("Rating Slider").assertIsDisplayed()
+
 			onNodeWithTag("Rate Button").assertIsDisplayed()
+			onNodeWithTag("Delete Rating Button").assertIsNotDisplayed()
+			onNodeWithText("Update Rating").assertIsNotDisplayed()
 		}
 	}
 
@@ -100,15 +107,18 @@ class MovieDetailsTest {
 	fun rateMovie_whenLoggedInAndRated_showsRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail()
+
 		navigateToMovieDetails()
+
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rate Button"))
-			onNodeWithTag("Rating Slider").assertIsDisplayed()
 			onNodeWithTag("Rate Button").performClick()
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasText("Image gallery"))
+
 			waitUntilAtLeastOneExistsCopy(hasTestTag("Rating Text"), 5000L)
 			onNodeWithTag("Rating Text").assertIsDisplayed()
-			onNodeWithTag("Rating Slider").assertDoesNotExist()
+			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
+			onNodeWithText("Update Rating", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 
@@ -116,23 +126,65 @@ class MovieDetailsTest {
 	fun rateMovie_whenMovieAlreadyRated_showsRating() {
 		fakeAccountRepository.isLoggedIn = true
 		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
 			onNodeWithTag("Rating Text").assertIsDisplayed()
 			onNodeWithText("Your rating: 7.0").assertIsDisplayed()
-			onNodeWithTag("Rating Slider").assertDoesNotExist()
+
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasText("Image gallery"))
+
+			waitUntilAtLeastOneExistsCopy(hasTestTag("Delete Rating Button"), 5000L)
+			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
+			onNodeWithText("Update Rating", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 
 	@Test
 	fun rateMovie_whenLoggedOut_ratingSectionIsNotVisible() {
 		fakeAccountRepository.isLoggedIn = false
+
 		navigateToMovieDetails()
 
 		with(composeTestRule) {
 			onNodeWithTag("Rate this movie title").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun changeMovieRating_whenAlreadyRated_updatesRating() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
+		navigateToMovieDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Rating Text"))
+
+			onNodeWithTag("Rating Text").assertIsDisplayed()
+
+			onNodeWithTag("Rating Slider").performSemanticsAction(SemanticsActions.SetProgress) { it(9.0f) }
+
+			onNodeWithTag("Rate Button").performClick()
+			onNodeWithText("Your rating: 9.0").assertIsDisplayed()
+		}
+	}
+
+	@Test
+	fun deleteMovieRating_whenAlreadyRated_removesRating() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(personalRating = 7.0f)
+
+		navigateToMovieDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Delete Rating Button"))
+			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
+			onNodeWithTag("Delete Rating Button").performClick()
+			onNodeWithText("Your rating: 7.0").assertDoesNotExist()
 		}
 	}
 

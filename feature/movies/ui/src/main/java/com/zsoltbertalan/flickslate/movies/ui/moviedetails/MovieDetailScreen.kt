@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -35,15 +33,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
+import com.zsoltbertalan.flickslate.movies.ui.R
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
@@ -92,11 +93,22 @@ fun MovieDetailScreen(
 		}
 	}
 
-	LaunchedEffect(detail.showRatingToast) {
-		if (detail.showRatingToast) {
-			Toast.makeText(context, "Thanks for rating!", Toast.LENGTH_SHORT).show()
+	LaunchedEffect(detail.showRatingToast, detail.ratingToastMessage) {
+		if (detail.showRatingToast && detail.ratingToastMessage != null) {
+			val message = when (detail.ratingToastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
 		}
+	}
+
+	val currentRating = detail.movieDetail?.personalRating?.takeIf { it > -1f }
+		?: detail.lastRatedValue ?: 0f
+	val sliderPosition by remember(detail.movieDetail?.personalRating, detail.lastRatedValue) {
+		mutableFloatStateOf(currentRating)
 	}
 
 	if (detail.movieDetail != null) {
@@ -164,38 +176,20 @@ fun MovieDetailScreen(
 					Spacer(modifier = Modifier.height(16.dp))
 
 					if (detail.isLoggedIn) {
-						TitleText(
-							modifier = Modifier
-								.padding(horizontal = 8.dp, vertical = 16.dp)
-								.testTag("Rate this movie title"),
-							title = "Rate this movie"
+						RatingSection(
+							title = stringResource(id = R.string.rate_movie_title),
+							titleTestTag = "Rate this movie title",
+							initialRating = sliderPosition,
+							isRated = detail.isRated,
+							isRatingInProgress = detail.isRatingInProgress,
+							ratingLabelProvider = { context.getString(R.string.your_rating_value, it) },
+							rateLabel = stringResource(id = R.string.rate),
+							changeLabel = stringResource(id = R.string.update_rating),
+							deleteLabel = stringResource(id = R.string.delete_rating),
+							onRate = viewModel::rateMovie,
+							onChange = viewModel::changeRating,
+							onDelete = viewModel::deleteRating,
 						)
-						if (detail.isRated) {
-							Text(
-								modifier = Modifier
-									.padding(16.dp)
-									.testTag("Rating Text"),
-								text = "Your rating: %.1f".format(detail.movieDetail.personalRating)
-							)
-						} else {
-							var sliderPosition by remember { mutableFloatStateOf(0f) }
-							Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-								Slider(
-									value = sliderPosition,
-									onValueChange = { sliderPosition = it },
-									valueRange = 0f..10f,
-									steps = 9,
-									modifier = Modifier.testTag("Rating Slider")
-								)
-								Text(text = "Your rating: %.1f".format(sliderPosition))
-								Button(
-									onClick = { viewModel.rateMovie(sliderPosition) },
-									modifier = Modifier.testTag("Rate Button")
-								) {
-									Text("Rate")
-								}
-							}
-						}
 					}
 
 					Spacer(modifier = Modifier.height(16.dp))
