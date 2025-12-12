@@ -10,7 +10,7 @@ targetSdkVersion = "36"
 
 #platform
 
-androidGradlePlugin = "8.13.1"
+androidGradlePlugin = "8.13.2"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
 coroutines = "1.10.2"
 jdk = "21"
