@@ -27,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.zsoltbertalan.flickslate.account.ui.favorites.FavoritesScreen
+import com.zsoltbertalan.flickslate.account.ui.favorites.FavoritesViewModel
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsScreen
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsViewModel
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
@@ -45,7 +47,8 @@ fun LoggedInComponent(
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
-	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>()
+	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>(),
+	favoritesViewModel: FavoritesViewModel? = hiltViewModel<FavoritesViewModel>(),
 ) {
 	Column(
 		modifier = modifier
@@ -87,7 +90,7 @@ fun LoggedInComponent(
 					)
 				}
 			}
-			if (ratingsViewModel != null) {
+			if (ratingsViewModel != null && favoritesViewModel != null) {
 				when (selectedTabIndex) {
 					0 -> RatingsScreen(
 						ratingsViewModel.ratedMoviesPaginationState,
@@ -97,9 +100,12 @@ fun LoggedInComponent(
 						navigateToTvShowDetails,
 						navigateToTvEpisodeDetails,
 					)
-					1 -> Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
-						Text("Favorites Screen - Coming Soon!")
-					}
+					1 -> FavoritesScreen(
+						favoriteMovies = favoritesViewModel.favoriteMoviesPaginationState,
+						favoriteTvShows = favoritesViewModel.favoriteTvShowsPaginationState,
+						navigateToMovieDetails = navigateToMovieDetails,
+						navigateToTvShowDetails = navigateToTvShowDetails,
+					)
 				}
 			}
 		}
@@ -145,7 +151,8 @@ private fun PreviewAutoSizeTextWithMaxLinesSetToOne() {
 			navigateToMovieDetails = {},
 			navigateToTvShowDetails = {},
 			navigateToTvEpisodeDetails = { _, _, _ -> },
-			ratingsViewModel = null
+			ratingsViewModel = null,
+			favoritesViewModel = null
 		)
 	}
 }

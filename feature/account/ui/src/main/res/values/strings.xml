@@ -5,4 +5,8 @@
     <string name="no_rated_movies">You have no rated movies</string>
     <string name="no_rated_tv_shows">You have no rated TV shows</string>
     <string name="no_rated_tv_episodes">You have no rated TV episodes</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="favorite_tv_shows">Favorite TV Shows</string>
+    <string name="no_favorite_movies">You have no favorite movies</string>
+    <string name="no_favorite_tv_shows">You have no favorite TV shows</string>
 </resources>

@@ -34,7 +34,7 @@ fun PosterImage(
 			.build()
 	)
 
-	Box(modifier = modifier) {
+	Box(modifier = modifier.fillMaxSize()) {
 		when (painter.state) {
 			is AsyncImagePainter.State.Success -> Image(
 				painter = painter,

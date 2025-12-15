@@ -1,7 +1,8 @@
 package com.zsoltbertalan.flickslate.account.data.network.model
 
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
-import com.zsoltbertalan.flickslate.shared.domain.model.Movie
+import com.zsoltbertalan.flickslate.shared.data.network.model.MovieDto
+import com.zsoltbertalan.flickslate.shared.data.network.model.toMovie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.serialization.Serializable
@@ -13,11 +14,11 @@ internal data class FavoriteMovieReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,
-	val results: List<Movie>? = null,
+	val results: List<MovieDto>? = null,
 )
 
-internal fun List<Movie>.toFavoriteMovieList(): List<FavoriteMovie> =
-	this.map { FavoriteMovie(it) }
+internal fun List<MovieDto>.toFavoriteMovieList(): List<FavoriteMovie> =
+	this.map { FavoriteMovie(it.toMovie()) }
 
 internal fun Response<FavoriteMovieReplyDto>.toFavoriteMoviesReply(): PagingReply<FavoriteMovie> {
 	val body = this.body()!!
