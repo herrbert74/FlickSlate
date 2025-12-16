@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.account.data.network
 import com.github.michaelbull.result.Err
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestTokenReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDto
-import com.zsoltbertalan.flickslate.movies.data.network.model.CreateRequestTokenReplyDtoMother
-import com.zsoltbertalan.flickslate.movies.data.network.model.CreateSessionReplyDtoMother
+import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestTokenReplyDtoMother
+import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDtoMother
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import io.kotest.matchers.equals.shouldBeEqual

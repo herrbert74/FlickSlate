@@ -1,6 +1,4 @@
-package com.zsoltbertalan.flickslate.movies.data.network.model
-
-import com.zsoltbertalan.flickslate.account.data.network.model.AccountDetailsReplyDto
+package com.zsoltbertalan.flickslate.account.data.network.model
 
 internal object AccountReplyDtoMother {
 

@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
-import com.zsoltbertalan.flickslate.movies.data.network.model.AccountReplyDtoMother
+import com.zsoltbertalan.flickslate.account.data.network.model.AccountReplyDtoMother
 import com.zsoltbertalan.flickslate.shared.data.network.failureCall
 import com.zsoltbertalan.flickslate.shared.data.network.successCall
 import io.kotest.matchers.shouldBe
