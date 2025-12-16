@@ -20,6 +20,7 @@ dependencies {
 	api(libs.kotlinx.collectionsImmutableJvm)
 
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.coroutinesCore)
 	testFixturesImplementation(project(":shared:domain"))
 

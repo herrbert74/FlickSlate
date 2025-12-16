@@ -9,6 +9,7 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCa
 import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
+import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -31,6 +32,7 @@ class MovieDetailViewModelTest {
 	private val rateMovieUseCase: RateMovieUseCase = mockk()
 	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase = mockk()
 	private val deleteMovieRatingUseCase: DeleteMovieRatingUseCase = mockk()
+	private val setMovieFavoriteUseCase: SetMovieFavoriteUseCase = mockk()
 	private val getSessionIdUseCase: GetSessionIdUseCase = mockk()
 	private val savedStateHandle: SavedStateHandle = mockk(relaxed = true)
 
@@ -61,6 +63,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -79,6 +82,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -99,6 +103,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -118,6 +123,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -139,6 +145,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -158,6 +165,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -180,6 +188,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -202,6 +211,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -225,6 +235,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -248,6 +259,7 @@ class MovieDetailViewModelTest {
 			rateMovieUseCase,
 			changeMovieRatingUseCase,
 			deleteMovieRatingUseCase,
+			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
