@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.github.michaelbull.result.Err
-import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDto
-import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieDtoMother
+import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDtoMother
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowDtoMother
+import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowReplyDtoMother
 import com.zsoltbertalan.flickslate.account.data.network.model.toFavoriteMovieList
 import com.zsoltbertalan.flickslate.account.data.network.model.toFavoriteTvShowList

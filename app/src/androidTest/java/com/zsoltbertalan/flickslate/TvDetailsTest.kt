@@ -18,7 +18,9 @@ import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
+import com.zsoltbertalan.flickslate.tv.data.repository.AutoBindTvFavoritesAccessorActivityRetainedModule
 import com.zsoltbertalan.flickslate.tv.data.repository.AutoBindTvRatingsAccessorActivityRetainedModule
+import com.zsoltbertalan.flickslate.tv.domain.api.TvFavoritesRepository
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import dagger.hilt.android.testing.BindValue
@@ -32,7 +34,10 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 @HiltAndroidTest
-@UninstallModules(AutoBindTvRatingsAccessorActivityRetainedModule::class)
+@UninstallModules(
+	AutoBindTvRatingsAccessorActivityRetainedModule::class,
+	AutoBindTvFavoritesAccessorActivityRetainedModule::class,
+)
 @RunWith(AndroidJUnit4::class)
 class TvDetailsTest {
 
@@ -44,6 +49,9 @@ class TvDetailsTest {
 
 	@BindValue
 	val fakeTvRatingsRepository: TvRatingsRepository = FakeTvRatingsRepository()
+
+	@BindValue
+	val fakeTvFavoritesRepository: TvFavoritesRepository = FakeTvFavoritesRepository()
 
 	@Inject
 	lateinit var fakeAccountRepository: FakeAccountRepository
@@ -190,6 +198,38 @@ class TvDetailsTest {
 			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Delete Rating Button"))
 			onNodeWithTag("Delete Rating Button").performClick()
 			onNodeWithText("Your rating: 7.0").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun favoriteTvShow_whenLoggedOut_favoritesButtonIsNotVisible() {
+		fakeAccountRepository.isLoggedIn = false
+		navigateToTvDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Favorite Button").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun favoriteTvShow_whenLoggedInAndNotFavorited_canFavoriteAndUnfavorite() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages(favorite = false)
+
+		navigateToTvDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Favorite Button"))
+			onNodeWithTag("Favorite Button").assertIsDisplayed()
+			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
+
+			onNodeWithTag("Favorite Button").performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Remove from favorites"), 5000L)
+			onNodeWithText("Remove from favorites", ignoreCase = true).assertIsDisplayed()
+
+			onNodeWithTag("Favorite Button").performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Add to favorites"), 5000L)
+			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 

@@ -1,7 +1,5 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
-import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDto
-import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDtoMother
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteTvShowReplyDtoMother
 import com.zsoltbertalan.flickslate.shared.data.network.failureResponseCall
