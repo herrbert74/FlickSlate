@@ -55,6 +55,7 @@ class TvDetailsUseCase @Inject constructor(
 				tagline = tvDetail.tagline,
 				tvDetail.years,
 				personalRating = tvDetail.personalRating,
+				favorite = tvDetail.favorite,
 			)
 		}
 	}

@@ -17,4 +17,10 @@ internal class TvServiceModule {
 		return retroFit.create(TvService::class.java)
 	}
 
+	@Provides
+	@ActivityRetainedScoped
+	fun provideSetTvFavoriteService(retroFit: Retrofit): SetTvFavoriteService {
+		return retroFit.create(SetTvFavoriteService::class.java)
+	}
+
 }

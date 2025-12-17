@@ -27,6 +27,7 @@ dependencies {
 	api(libs.inject)
 
 	implementation(libs.kotlinResult.result)
+	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.coroutinesCore)
 
 	testImplementation(libs.jUnit)
