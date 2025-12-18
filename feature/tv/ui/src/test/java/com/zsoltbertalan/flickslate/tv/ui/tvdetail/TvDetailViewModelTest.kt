@@ -9,6 +9,7 @@ import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.SetTvFavoriteUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
@@ -33,6 +34,7 @@ class TvDetailViewModelTest {
 	private val rateTvShowUseCase = mockk<RateTvShowUseCase>()
 	private val changeTvRatingUseCase = mockk<ChangeTvRatingUseCase>()
 	private val deleteTvRatingUseCase = mockk<DeleteTvRatingUseCase>()
+	private val setTvFavoriteUseCase = mockk<SetTvFavoriteUseCase>()
 	private val getSessionIdUseCase = mockk<GetSessionIdUseCase>()
 	private val savedStateHandle = mockk<SavedStateHandle>(relaxed = true)
 
@@ -67,6 +69,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 
@@ -93,6 +96,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 
@@ -119,6 +123,7 @@ class TvDetailViewModelTest {
 					rateTvShowUseCase,
 					changeTvRatingUseCase,
 					deleteTvRatingUseCase,
+					setTvFavoriteUseCase,
 					getSessionIdUseCase
 				)
 			}
@@ -136,6 +141,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -156,6 +162,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -181,6 +188,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -205,6 +213,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -229,6 +238,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -253,6 +263,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()
@@ -277,6 +288,7 @@ class TvDetailViewModelTest {
 			rateTvShowUseCase,
 			changeTvRatingUseCase,
 			deleteTvRatingUseCase,
+			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
 		advanceUntilIdle()

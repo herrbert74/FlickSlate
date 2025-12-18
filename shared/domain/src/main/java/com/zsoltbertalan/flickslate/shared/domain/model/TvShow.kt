@@ -1,5 +1,8 @@
 package com.zsoltbertalan.flickslate.shared.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class TvShow(
 	val id: Int = 0,
 	val name: String = "",

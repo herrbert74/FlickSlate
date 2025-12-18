@@ -17,4 +17,10 @@ internal class MoviesServiceModule {
 		return retroFit.create(MoviesService::class.java)
 	}
 
+	@Provides
+	@ActivityRetainedScoped
+	internal fun provideMoviesAccountService(retroFit: Retrofit): SetMovieFavoriteService {
+		return retroFit.create(SetMovieFavoriteService::class.java)
+	}
+
 }

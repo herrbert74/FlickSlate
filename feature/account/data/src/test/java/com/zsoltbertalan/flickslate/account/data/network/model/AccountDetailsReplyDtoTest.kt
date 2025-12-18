@@ -1,6 +1,5 @@
 package com.zsoltbertalan.flickslate.account.data.network.model
 
-import com.zsoltbertalan.flickslate.movies.data.network.model.AccountReplyDtoMother
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 

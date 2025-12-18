@@ -13,9 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.HeartBroken
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -186,6 +192,33 @@ fun TvDetailScreen(
 							onChange = viewModel::changeTvRating,
 							onDelete = viewModel::deleteTvRating,
 						)
+
+						Spacer(modifier = Modifier.height(16.dp))
+
+						val favoriteLabel = if (detail.isFavorite) {
+							stringResource(id = R.string.remove_from_favorites)
+						} else {
+							stringResource(id = R.string.add_to_favorites)
+						}
+
+						val favoriteIcon = if (detail.isFavorite) {
+							Icons.Outlined.HeartBroken
+						} else {
+							Icons.Filled.Favorite
+						}
+
+						Button(
+							modifier = Modifier
+								.fillMaxWidth()
+								.padding(horizontal = 16.dp)
+								.testTag("Favorite Button"),
+							enabled = !detail.isFavoriteInProgress,
+							onClick = viewModel::toggleFavorite,
+						) {
+							Icon(imageVector = favoriteIcon, contentDescription = null)
+							Spacer(modifier = Modifier.width(8.dp))
+							Text(text = favoriteLabel)
+						}
 					}
 
 					Spacer(modifier = Modifier.height(16.dp))

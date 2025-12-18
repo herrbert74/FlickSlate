@@ -58,6 +58,7 @@ object TvMother {
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
 		tagline: String = "Tagline",
 		personalRating: Float = -1f,
+		favorite: Boolean = false,
 	): TvDetail = TvDetail(
 		id = id,
 		title = title,
@@ -82,6 +83,7 @@ object TvMother {
 		).toImmutableList(),
 		tagline = tagline,
 		personalRating = personalRating,
+		favorite = favorite,
 	)
 
 	fun createTvImages(): ImagesReply = ImagesReply(
@@ -112,6 +114,7 @@ object TvMother {
 		backdropPath: String = "/5cstdAjVuXJ66SFQZXpekSqXq6i.jpg",
 		tagline: String = "Tagline",
 		personalRating: Float = -1f,
+		favorite: Boolean = false,
 	): TvDetailWithImages = TvDetailWithImages(
 		id = id,
 		title = title,
@@ -136,6 +139,7 @@ object TvMother {
 		).toImmutableList(),
 		tagline = tagline,
 		personalRating = personalRating,
+		favorite = favorite,
 		tvImages = createTvImages()
 	)
 

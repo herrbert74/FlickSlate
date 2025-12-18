@@ -38,6 +38,7 @@ internal data class TvDetailsDto(
 @Serializable
 internal data class AccountStatesDto(
 	val rated: JsonElement? = null,
+	val favorite: Boolean = false,
 )
 
 @Serializable
@@ -67,5 +68,6 @@ internal fun TvDetailsDto.toTvDetail(): TvDetail {
 		tagline = this.tagline,
 		years = "${this.first_air_date?.substring(0, YEAR_CHARS)} - ${this.last_air_date?.substring(0, YEAR_CHARS)}",
 		personalRating = ratedValue ?: -1f,
+		favorite = this.account_states?.favorite ?: false,
 	)
 }

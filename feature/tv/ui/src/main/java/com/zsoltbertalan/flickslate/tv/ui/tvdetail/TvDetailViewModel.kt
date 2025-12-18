@@ -9,6 +9,7 @@ import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
+import com.zsoltbertalan.flickslate.tv.domain.usecase.SetTvFavoriteUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +29,7 @@ class TvDetailViewModel @Inject constructor(
 	private val rateTvShowUseCase: RateTvShowUseCase,
 	private val changeTvRatingUseCase: ChangeTvRatingUseCase,
 	private val deleteTvRatingUseCase: DeleteTvRatingUseCase,
+	private val setTvFavoriteUseCase: SetTvFavoriteUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) : ViewModel() {
 
@@ -81,6 +83,7 @@ class TvDetailViewModel @Inject constructor(
 					it.copy(
 						tvDetail = detail,
 						isRated = detail.personalRating > -1f,
+						isFavorite = detail.favorite,
 						lastRatedValue = null,
 						failure = null
 					)
@@ -138,6 +141,36 @@ class TvDetailViewModel @Inject constructor(
 			}
 		}
 	}
+
+	internal fun toggleFavorite() {
+		val isFavorite = _tvStateData.value.isFavorite
+		val newFavoriteValue = !isFavorite
+		viewModelScope.launch {
+			_tvStateData.update {
+				it.copy(
+					isFavoriteInProgress = true,
+					failure = null
+				)
+			}
+			val result = setTvFavoriteUseCase.execute(seriesId, newFavoriteValue)
+			when {
+				result.isOk -> _tvStateData.update {
+					it.copy(
+						isFavoriteInProgress = false,
+						isFavorite = newFavoriteValue,
+						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue)
+					)
+				}
+
+				else -> _tvStateData.update {
+					it.copy(
+						isFavoriteInProgress = false,
+						failure = result.error
+					)
+				}
+			}
+		}
+	}
 }
 
 data class TvDetailState(
@@ -149,6 +182,8 @@ data class TvDetailState(
 	val isRatingInProgress: Boolean = false,
 	val isRated: Boolean = false,
 	val isLoggedIn: Boolean = false,
+	val isFavorite: Boolean = false,
+	val isFavoriteInProgress: Boolean = false,
 	val showRatingToast: Boolean = false,
 	val lastRatedValue: Float? = null,
 )

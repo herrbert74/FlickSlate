@@ -10,6 +10,7 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCa
 import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
+import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,7 @@ class MovieDetailViewModel @Inject constructor(
 	private val rateMovieUseCase: RateMovieUseCase,
 	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase,
 	private val deleteMovieRatingUseCase: DeleteMovieRatingUseCase,
+	private val setMovieFavoriteUseCase: SetMovieFavoriteUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase
 ) : ViewModel() {
 
@@ -144,6 +146,36 @@ class MovieDetailViewModel @Inject constructor(
 		}
 	}
 
+	internal fun toggleFavorite() {
+		val isFavorite = _movieStateData.value.isFavorite
+		val newFavoriteValue = !isFavorite
+		viewModelScope.launch {
+			_movieStateData.update {
+				it.copy(
+					isFavoriteInProgress = true,
+					failure = null
+				)
+			}
+			val result = setMovieFavoriteUseCase.execute(movieId, newFavoriteValue)
+			when {
+				result.isOk -> _movieStateData.update {
+					it.copy(
+						isFavoriteInProgress = false,
+						isFavorite = newFavoriteValue,
+						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue)
+					)
+				}
+
+				else -> _movieStateData.update {
+					it.copy(
+						isFavoriteInProgress = false,
+						failure = result.error
+					)
+				}
+			}
+		}
+	}
+
 	private fun getMovieDetail() {
 		viewModelScope.launch {
 			val movieDetailsResult = movieDetailsUseCase.getMovieDetails(movieId)
@@ -190,6 +222,7 @@ internal data class MovieDetailState(
 	val isLoggedIn: Boolean = false,
 	val failure: Failure? = null,
 	val isFavorite: Boolean = false,
+	val isFavoriteInProgress: Boolean = false,
 	val isWatchlist: Boolean = false,
 	val showRatingToast: Boolean = false,
 	val ratingToastMessage: RatingToastMessage? = null,

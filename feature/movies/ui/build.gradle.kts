@@ -33,6 +33,7 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview) // transitive
 	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.androidx.lifecycleRuntimeCompose)
+	implementation(libs.androidx.composeMaterialIconsExtended)
 
 	testImplementation(testFixtures(project(":shared:domain")))
 

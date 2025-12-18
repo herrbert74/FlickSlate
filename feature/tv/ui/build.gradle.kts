@@ -29,6 +29,7 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.androidx.lifecycleRuntimeCompose)
+	implementation(libs.androidx.composeMaterialIconsExtended)
 
 	testImplementation(testFixtures(project(":feature:tv:domain")))
 

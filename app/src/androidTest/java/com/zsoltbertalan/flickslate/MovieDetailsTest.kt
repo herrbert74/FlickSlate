@@ -17,7 +17,9 @@ import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
+import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieFavoritesAccessorActivityRetainedModule
 import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieRatingsAccessorActivityRetainedModule
+import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
@@ -32,7 +34,10 @@ import org.junit.runner.RunWith
 import javax.inject.Inject
 
 @HiltAndroidTest
-@UninstallModules(AutoBindMovieRatingsAccessorActivityRetainedModule::class)
+@UninstallModules(
+	AutoBindMovieRatingsAccessorActivityRetainedModule::class,
+	AutoBindMovieFavoritesAccessorActivityRetainedModule::class,
+)
 @RunWith(AndroidJUnit4::class)
 class MovieDetailsTest {
 
@@ -44,6 +49,9 @@ class MovieDetailsTest {
 
 	@BindValue
 	val fakeRatingsRepository: MovieRatingsRepository = FakeMovieRatingsRepository()
+
+	@BindValue
+	val fakeMovieFavoritesRepository: MovieFavoritesRepository = FakeMovieFavoritesRepository()
 
 	@Inject
 	lateinit var fakeAccountRepository: FakeAccountRepository
@@ -185,6 +193,39 @@ class MovieDetailsTest {
 			onNodeWithTag("Delete Rating Button").assertIsDisplayed()
 			onNodeWithTag("Delete Rating Button").performClick()
 			onNodeWithText("Your rating: 7.0").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun favoriteMovie_whenLoggedOut_favoritesButtonIsNotVisible() {
+		fakeAccountRepository.isLoggedIn = false
+
+		navigateToMovieDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Favorite Button").assertDoesNotExist()
+		}
+	}
+
+	@Test
+	fun favoriteMovie_whenLoggedInAndNotFavorited_canFavoriteAndUnfavorite() {
+		fakeAccountRepository.isLoggedIn = true
+		fakeMoviesRepository.movieDetail = MovieDetailMother.createMovieDetail().copy(favorite = false)
+
+		navigateToMovieDetails()
+
+		with(composeTestRule) {
+			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Favorite Button"))
+			onNodeWithTag("Favorite Button").assertIsDisplayed()
+			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
+
+			onNodeWithTag("Favorite Button").performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Remove from favorites"), 5000L)
+			onNodeWithText("Remove from favorites", ignoreCase = true).assertIsDisplayed()
+
+			onNodeWithTag("Favorite Button").performClick()
+			waitUntilAtLeastOneExistsCopy(hasText("Add to favorites"), 5000L)
+			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
 		}
 	}
 

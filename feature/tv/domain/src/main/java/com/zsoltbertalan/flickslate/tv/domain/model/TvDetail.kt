@@ -17,4 +17,5 @@ data class TvDetail(
 	val tagline: String? = null,
 	val years: String = "",
 	val personalRating: Float = -1f,
+	val favorite: Boolean = false,
 )
