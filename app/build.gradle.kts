@@ -99,8 +99,10 @@ dependencies {
 	implementation(project(":feature:tv:domain"))
 	implementation(project(":feature:tv:ui"))
 	implementation(project(":shared:domain"))
-	implementation(project(":shared:data"))
-	implementation(project(":shared:ui"))
+
+	implementation(libs.androidx.navigation3Ui)
+	implementation(libs.androidx.navigation3Runtime)
+	implementation(libs.androidx.lifecycleViewmodelNavigation3)
 
 	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
@@ -126,9 +128,6 @@ dependencies {
 	implementation(libs.androidx.lifecycleViewmodel)
 	implementation(libs.androidx.lifecycleViewmodelCompose)
 	implementation(libs.androidx.lifecycleViewmodelSavedstate)
-	implementation(libs.androidx.navigationCommon) // transitive
-	implementation(libs.androidx.navigationCompose)
-	implementation(libs.androidx.navigationRuntime)
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.dagger.core)
 	implementation(libs.dagger.hiltCore)

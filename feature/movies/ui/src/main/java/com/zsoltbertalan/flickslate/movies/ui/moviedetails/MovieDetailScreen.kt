@@ -61,11 +61,16 @@ val Context.isDarkMode
 
 @Composable
 fun MovieDetailScreen(
+	movieId: Int,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
+	LaunchedEffect(movieId) {
+		viewModel.load(movieId)
+	}
+
 	val detail = viewModel.movieStateData.collectAsStateWithLifecycle().value
 
 	val bg = Colors.surface

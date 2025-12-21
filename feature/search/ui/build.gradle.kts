@@ -32,6 +32,7 @@ dependencies {
 	implementation(libs.androidx.composeAnimation)
 	implementation(libs.androidx.composeMaterialIconsCore) // transitive
 	implementation(libs.androidx.composeAnimationCore)
+	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
 
 	kspTest(libs.autobind.compiler)

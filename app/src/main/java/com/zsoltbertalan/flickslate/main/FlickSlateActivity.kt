@@ -6,18 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
+import com.zsoltbertalan.flickslate.main.navigation.Navigator
+import com.zsoltbertalan.flickslate.main.navigation.rememberNavigationState
 import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.kotlin.async.MainDispatcher
 import com.zsoltbertalan.flickslate.shared.ui.R
@@ -27,7 +24,6 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 @AndroidEntryPoint
 class FlickSlateActivity : ComponentActivity() {
@@ -48,16 +44,20 @@ class FlickSlateActivity : ComponentActivity() {
 				val (title, setTitle) = remember { mutableStateOf(getString(R.string.app_name)) }
 				val (showBack, setShowBack) = remember { mutableStateOf(false) }
 				val (backgroundColor, setBackgroundColor) = remember { mutableStateOf(bg) }
-				val navController = rememberNavController()
+				val navigationState = rememberNavigationState(
+					startRoute = Destination.Movies,
+					topLevelRoutes = setOf(Destination.Movies, Destination.Tv, Destination.Search, Destination.Account)
+				)
+				val navigator = remember { Navigator(navigationState) }
 				val (isBottomBarVisible, setBottomBarVisible) = rememberSaveable { (mutableStateOf(true)) }
-				val navBackStackEntry by navController.currentBackStackEntryAsState()
-				val currentDestination = navBackStackEntry?.destination.getDestination()
+				val currentStack = navigationState.backStacks[navigationState.topLevelRoute]
+				val currentRoute = currentStack?.lastOrNull() ?: navigationState.topLevelRoute
 
-				when (currentDestination) {
-					Destination.MovieDetails::class,
-					Destination.TvDetails::class,
-					Destination.SeasonDetails::class,
-					Destination.GenreMovies::class -> SetLowLevelScaffoldParams(
+				when (currentRoute) {
+					is Destination.MovieDetails,
+					is Destination.TvDetails,
+					is Destination.SeasonDetails,
+					is Destination.GenreMovies -> SetLowLevelScaffoldParams(
 						setShowBack,
 						isBottomBarVisible,
 						setBottomBarVisible
@@ -78,19 +78,21 @@ class FlickSlateActivity : ComponentActivity() {
 							title = title,
 							showBack = showBack,
 							backgroundColor = backgroundColor,
-							popBackStack = { navController.popBackStack() }
+							popBackStack = { navigator.goBack(); true }
 						)
 					},
 					bottomBar = {
 						if (isBottomBarVisible) {
 							FlickSlateBottomNavigationBar(
-								navController = navController,
+								navigationState = navigationState,
+								navigator = navigator,
 							)
 						}
 					}
 				) { paddingValues ->
 					NavHostContainer(
-						navController = navController,
+						navigationState = navigationState,
+						navigator = navigator,
 						paddingValues = paddingValues,
 						setTitle = setTitle,
 						setBackgroundColor = setBackgroundColor,
@@ -124,16 +126,3 @@ class FlickSlateActivity : ComponentActivity() {
 
 }
 
-private fun NavDestination?.getDestination(): KClass<out Destination> =
-	when (true) {
-		this?.hasRoute<Destination.Movies>() -> Destination.Movies::class
-		(this == null) -> Destination.Movies::class
-		this?.hasRoute<Destination.Tv>() -> Destination.Tv::class
-		this?.hasRoute<Destination.GenreMovies>() -> Destination.GenreMovies::class
-		this?.hasRoute<Destination.MovieDetails>() -> Destination.MovieDetails::class
-		this?.hasRoute<Destination.TvDetails>() -> Destination.TvDetails::class
-		this?.hasRoute<Destination.SeasonDetails>() -> Destination.SeasonDetails::class
-		this?.hasRoute<Destination.Search>() -> Destination.Search::class
-		this?.hasRoute<Destination.Account>() -> Destination.Account::class
-		else -> error("Unknown destination: $this")
-	}

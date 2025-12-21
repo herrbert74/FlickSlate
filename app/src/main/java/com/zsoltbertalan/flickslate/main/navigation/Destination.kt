@@ -1,8 +1,9 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed interface Destination {
+sealed interface Destination : NavKey {
 
 	@Serializable
 	data object Movies : Destination

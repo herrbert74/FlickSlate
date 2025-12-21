@@ -60,12 +60,19 @@ val Context.isDarkMode
 
 @Composable
 fun TvDetailScreen(
+	seriesId: Int,
+	seasonNumber: Int? = null,
+	episodeNumber: Int? = null,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
 	navigateToSeasonDetails: (Int, Int, Color, Color, Int?) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: TvDetailViewModel = hiltViewModel(),
 ) {
+	LaunchedEffect(seriesId, seasonNumber, episodeNumber) {
+		viewModel.load(seriesId, seasonNumber, episodeNumber)
+	}
+
 	val detail = viewModel.tvStateData.collectAsStateWithLifecycle().value
 
 	val redirectedToSeasonDetail = rememberSaveable { mutableStateOf(false) }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
@@ -22,13 +23,19 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.util.navigate
 
 @Composable
 fun GenreDetailScreen(
+	genreId: Int,
+	genreName: String,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
 	genreMoviesPaginatedState: PaginationState<Int, Movie>,
-	genreName: String,
 	modifier: Modifier = Modifier,
+	viewModel: GenreDetailViewModel = hiltViewModel(),
 	popTo: (Int) -> Unit,
 ) {
+	LaunchedEffect(genreId, genreName) {
+		viewModel.load(genreId, genreName)
+	}
+
 	setTitle(genreName)
 
 	val bg = Colors.surface

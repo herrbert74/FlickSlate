@@ -13,12 +13,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenreDetailViewModel @Inject constructor(
-	savedStateHandle: SavedStateHandle,
+	private val savedStateHandle: SavedStateHandle,
 	private val genreRepository: GenreRepository,
 ) : ViewModel() {
 
-	private val genreId: Int = checkNotNull(savedStateHandle["genreId"])
-	val genreName: String = checkNotNull(savedStateHandle["genreName"])
+	private val genreId: Int
+		get() = savedStateHandle["genreId"] ?: -1
+	val genreName: String
+		get() = savedStateHandle["genreName"] ?: ""
 
 	val genreMoviesPaginationState = PaginationState<Int, Movie>(
 		initialPageKey = 1,
@@ -27,7 +29,15 @@ class GenreDetailViewModel @Inject constructor(
 		}
 	)
 
+	fun load(id: Int, name: String) {
+		if (genreId == id && genreName == name) return
+		savedStateHandle["genreId"] = id
+		savedStateHandle["genreName"] = name
+		genreMoviesPaginationState.refresh()
+	}
+
 	private fun loadGenreMoviesPage(pageKey: Int) {
+		if (genreId == -1) return
 		viewModelScope.launch {
 			genreRepository.getGenreDetail(genreId = genreId, page = pageKey).collect {
 				when {
