@@ -27,7 +27,6 @@ fun GenreDetailScreen(
 	genreName: String,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
-	genreMoviesPaginatedState: PaginationState<Int, Movie>,
 	modifier: Modifier = Modifier,
 	viewModel: GenreDetailViewModel = hiltViewModel(),
 	popTo: (Int) -> Unit,
@@ -39,6 +38,8 @@ fun GenreDetailScreen(
 	setTitle(genreName)
 
 	val bg = Colors.surface
+
+	val genreMoviesPaginatedState: PaginationState<Int, Movie> = viewModel.genreMoviesPaginationState
 
 	// To prevent LambdaParameterInRestartableEffect
 	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)

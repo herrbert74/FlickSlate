@@ -22,6 +22,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.FlickSlateTopApp
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
@@ -46,7 +47,12 @@ class FlickSlateActivity : ComponentActivity() {
 				val (backgroundColor, setBackgroundColor) = remember { mutableStateOf(bg) }
 				val navigationState = rememberNavigationState(
 					startRoute = Destination.Movies,
-					topLevelRoutes = setOf(Destination.Movies, Destination.Tv, Destination.Search, Destination.Account)
+					topLevelRoutes = persistentSetOf(
+						Destination.Movies,
+						Destination.Tv,
+						Destination.Search,
+						Destination.Account
+					)
 				)
 				val navigator = remember { Navigator(navigationState) }
 				val (isBottomBarVisible, setBottomBarVisible) = rememberSaveable { (mutableStateOf(true)) }
@@ -78,7 +84,10 @@ class FlickSlateActivity : ComponentActivity() {
 							title = title,
 							showBack = showBack,
 							backgroundColor = backgroundColor,
-							popBackStack = { navigator.goBack(); true }
+							popBackStack = {
+								navigator.goBack()
+								true
+							}
 						)
 					},
 					bottomBar = {
@@ -125,4 +134,3 @@ class FlickSlateActivity : ComponentActivity() {
 	}
 
 }
-

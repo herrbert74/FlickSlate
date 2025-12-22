@@ -24,6 +24,7 @@ import com.zsoltbertalan.flickslate.main.navigation.rememberNavigationState
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
@@ -124,7 +125,12 @@ internal fun FlickSlateBottomNavigationBarPreview() {
 	FlickSlateTheme {
 		val navigationState = rememberNavigationState(
 			startRoute = Destination.Movies,
-			topLevelRoutes = setOf(Destination.Movies, Destination.Tv, Destination.Search, Destination.Account)
+			topLevelRoutes = persistentSetOf(
+				Destination.Movies,
+				Destination.Tv,
+				Destination.Search,
+				Destination.Account
+			)
 		)
 		val navigator = remember { Navigator(navigationState) }
 		FlickSlateBottomNavigationBar(

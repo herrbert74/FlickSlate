@@ -21,7 +21,6 @@ import com.zsoltbertalan.flickslate.movies.ui.main.MoviesScreen
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesViewModel
 import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailScreen
-import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailViewModel
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
@@ -29,7 +28,6 @@ import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailScreen
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @Composable
 fun NavHostContainer(
@@ -127,7 +125,6 @@ fun NavHostContainer(
 				setTitle = setTitle,
 				setBackgroundColor = setBackgroundColor,
 				navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
-					Timber.d("zsoltbertalan* NavHostContainer: $tvShowId, $seasonNumber")
 					navigator.navigate(
 						Destination.SeasonDetails(
 							tvShowId,
@@ -150,14 +147,11 @@ fun NavHostContainer(
 		}
 
 		entry<Destination.GenreMovies> { key ->
-			val genreViewModel = hiltViewModel<GenreDetailViewModel>()
-			val list = genreViewModel.genreMoviesPaginationState
 			GenreDetailScreen(
 				genreId = key.genreId,
 				genreName = key.genreName,
 				setTitle = setTitle,
 				setBackgroundColor = setBackgroundColor,
-				genreMoviesPaginatedState = list,
 			) { id ->
 				navigator.navigate(Destination.MovieDetails(id))
 			}
@@ -171,4 +165,3 @@ fun NavHostContainer(
 	)
 
 }
-
