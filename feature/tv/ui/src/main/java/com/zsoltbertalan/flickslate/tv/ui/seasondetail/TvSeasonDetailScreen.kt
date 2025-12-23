@@ -47,9 +47,17 @@ import com.zsoltbertalan.flickslate.tv.ui.R
 
 @Composable
 fun TvSeasonDetailScreen(
+	seriesId: Int,
+	seasonNumber: Int,
+	bgColor: Int,
+	bgColorDim: Int,
 	modifier: Modifier = Modifier,
 	viewModel: TvSeasonDetailViewModel = hiltViewModel(),
 ) {
+	LaunchedEffect(seriesId, seasonNumber, bgColor, bgColorDim) {
+		viewModel.load(seriesId, seasonNumber, bgColor, bgColorDim)
+	}
+
 	val uiState by viewModel.uiState.collectAsState()
 	val context = LocalContext.current
 

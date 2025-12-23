@@ -1,9 +1,5 @@
 package com.zsoltbertalan.flickslate.main.navigation
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -13,19 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
 import com.zsoltbertalan.flickslate.account.ui.main.AccountScreen
 import com.zsoltbertalan.flickslate.account.ui.main.AccountViewModel
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesScreen
 import com.zsoltbertalan.flickslate.movies.ui.main.MoviesViewModel
 import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailScreen
-import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailViewModel
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
@@ -33,11 +28,11 @@ import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
 import com.zsoltbertalan.flickslate.tv.ui.tvdetail.TvDetailScreen
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @Composable
 fun NavHostContainer(
-	navController: NavHostController,
+	navigationState: NavigationState,
+	navigator: Navigator,
 	paddingValues: PaddingValues,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
@@ -47,176 +42,126 @@ fun NavHostContainer(
 	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
 	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
 ) {
-	NavHost(
-		navController = navController,
-		startDestination = Destination.Movies,
-		modifier = modifier.padding(paddingValues),
-		builder = {
-			composable<Destination.Movies> {
-				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
-				val popularMovies = viewModel.popularMoviesPaginationState
-				val nowPlaying = viewModel.nowPlayingMoviesPaginationState
-				val upcoming = viewModel.upcomingMoviesPaginationState
-				MoviesScreen(
-					popularMoviesPaginatedState = popularMovies,
-					nowPlayingMoviesPaginatedState = nowPlaying,
-					upcomingMoviesPaginatedState = upcoming,
-				) { id ->
-					navController.navigate(Destination.MovieDetails(id)) {
-						popUpTo(Destination.Movies)
-					}
-				}
-			}
-			composable<Destination.Tv> {
-				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
-				val topRatedTv = tvViewModel.tvPaginationState
-				TvScreen(paginatedState = topRatedTv) { id ->
-					navController.navigate(Destination.TvDetails(id)) {
-						popUpTo(Destination.Tv)
-					}
-				}
-			}
-			composable<Destination.Search> {
-				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
-				val coroutineScope = rememberCoroutineScope()
-				val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
-				SearchScreen(
-					searchState = searchState,
-					searchEvent = {
-						coroutineScope.launch {
-							searchViewModel.emitEvent(it)
-						}
-					},
-					navigateToGenreDetails = { id, name ->
-						navController.navigate(Destination.GenreMovies(id, name)) {
-							popUpTo(Destination.Search)
-						}
-					},
-					navigateToMovieDetails = { id ->
-						navController.navigate(Destination.MovieDetails(id)) {
-							popUpTo(Destination.Search)
-						}
-					},
-					closeScreen = {
-						navController.popBackStack()
-					}
-				)
-			}
-			composable<Destination.Account> {
-				setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
-				val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
-				AccountScreen(
-					account = account,
-					login = { username, password -> accountViewModel.login(username, password) },
-					logout = { accountViewModel.logout() },
-					navigateToMovieDetails = { id ->
-						navController.navigate(Destination.MovieDetails(id)) {
-							popUpTo(Destination.Account)
-						}
-					},
-					navigateToTvShowDetails = { id ->
-						navController.navigate(Destination.TvDetails(id)) {
-							popUpTo(Destination.Account)
-						}
-					},
-					navigateToTvSeasonDetails = { tvShowId, seasonNumber, episodeNumber ->
-						navController.navigate(
-							Destination.TvDetails(
-								tvShowId,
-								seasonNumber,
-								episodeNumber
-							)
-						) {
-							popUpTo(Destination.Account)
-						}
-					},
-				)
-			}
-			composable<Destination.MovieDetails>(
-				enterTransition = {
-					slideIntoContainer(
-						AnimatedContentTransitionScope.SlideDirection.Down,
-						animationSpec = tweenSpec()
-					)
-				},
-				popExitTransition = {
-					slideOutOfContainer(
-						AnimatedContentTransitionScope.SlideDirection.Up,
-						animationSpec = tweenSpec()
-					)
-				}
-			) {
-				MovieDetailScreen(setTitle = setTitle, setBackgroundColor = setBackgroundColor)
-			}
-
-			composable<Destination.TvDetails>(
-				enterTransition = {
-					slideIntoContainer(
-						AnimatedContentTransitionScope.SlideDirection.Down,
-						animationSpec = tweenSpec()
-					)
-				},
-				popExitTransition = {
-					slideOutOfContainer(
-						AnimatedContentTransitionScope.SlideDirection.Up,
-						animationSpec = tweenSpec()
-					)
-				}
-			) {
-				TvDetailScreen(
-					setTitle = setTitle,
-					setBackgroundColor = setBackgroundColor,
-					navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
-						Timber.d("zsoltbertalan* NavHostContainer: $tvShowId, $seasonNumber")
-						navController.navigate(
-							Destination.SeasonDetails(
-								tvShowId,
-								seasonNumber,
-								bgColor.toArgb(),
-								bgColorDim.toArgb()
-							)
-						) {
-							popUpTo(Destination.TvDetails(tvShowId))
-						}
-					}
-				)
-			}
-
-			composable<Destination.SeasonDetails>(
-				enterTransition = {
-					slideIntoContainer(
-						AnimatedContentTransitionScope.SlideDirection.Down,
-						animationSpec = tweenSpec()
-					)
-				},
-				popExitTransition = {
-					slideOutOfContainer(
-						AnimatedContentTransitionScope.SlideDirection.Up,
-						animationSpec = tweenSpec()
-					)
-				}
-			) {
-				TvSeasonDetailScreen()
-			}
-
-			composable<Destination.GenreMovies> {
-				val genreViewModel = hiltViewModel<GenreDetailViewModel>()
-				val list = genreViewModel.genreMoviesPaginationState
-				GenreDetailScreen(
-					setTitle = setTitle,
-					setBackgroundColor = setBackgroundColor,
-					genreMoviesPaginatedState = list,
-					genreName = genreViewModel.genreName,
-				) { id ->
-					navController.navigate(Destination.MovieDetails(id))
-				}
+	val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
+		entry<Destination.Movies> {
+			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
+			val popularMovies = viewModel.popularMoviesPaginationState
+			val nowPlaying = viewModel.nowPlayingMoviesPaginationState
+			val upcoming = viewModel.upcomingMoviesPaginationState
+			MoviesScreen(
+				popularMoviesPaginatedState = popularMovies,
+				nowPlayingMoviesPaginatedState = nowPlaying,
+				upcomingMoviesPaginatedState = upcoming,
+			) { id ->
+				navigator.navigate(Destination.MovieDetails(id))
 			}
 		}
+		entry<Destination.Tv> {
+			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
+			val topRatedTv = tvViewModel.tvPaginationState
+			TvScreen(paginatedState = topRatedTv) { id ->
+				navigator.navigate(Destination.TvDetails(id))
+			}
+		}
+		entry<Destination.Search> {
+			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
+			val coroutineScope = rememberCoroutineScope()
+			val searchState by searchViewModel.searchStateData.collectAsStateWithLifecycle()
+			SearchScreen(
+				searchState = searchState,
+				searchEvent = {
+					coroutineScope.launch {
+						searchViewModel.emitEvent(it)
+					}
+				},
+				navigateToGenreDetails = { id, name ->
+					navigator.navigate(Destination.GenreMovies(id, name))
+				},
+				navigateToMovieDetails = { id ->
+					navigator.navigate(Destination.MovieDetails(id))
+				},
+				closeScreen = {
+					navigator.goBack()
+				}
+			)
+		}
+		entry<Destination.Account> {
+			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
+			val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
+			AccountScreen(
+				account = account,
+				login = { username, password -> accountViewModel.login(username, password) },
+				logout = { accountViewModel.logout() },
+				navigateToMovieDetails = { id ->
+					navigator.navigate(Destination.MovieDetails(id))
+				},
+				navigateToTvShowDetails = { id ->
+					navigator.navigate(Destination.TvDetails(id))
+				},
+				navigateToTvSeasonDetails = { tvShowId, seasonNumber, episodeNumber ->
+					navigator.navigate(
+						Destination.TvDetails(
+							tvShowId,
+							seasonNumber,
+							episodeNumber
+						)
+					)
+				},
+			)
+		}
+		entry<Destination.MovieDetails> { key ->
+			MovieDetailScreen(
+				movieId = key.movieId,
+				setTitle = setTitle,
+				setBackgroundColor = setBackgroundColor
+			)
+		}
+
+		entry<Destination.TvDetails> { key ->
+			TvDetailScreen(
+				seriesId = key.seriesId,
+				seasonNumber = key.seasonNumber,
+				episodeNumber = key.episodeNumber,
+				setTitle = setTitle,
+				setBackgroundColor = setBackgroundColor,
+				navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
+					navigator.navigate(
+						Destination.SeasonDetails(
+							tvShowId,
+							seasonNumber,
+							bgColor.toArgb(),
+							bgColorDim.toArgb()
+						)
+					)
+				}
+			)
+		}
+
+		entry<Destination.SeasonDetails> { key ->
+			TvSeasonDetailScreen(
+				seriesId = key.seriesId,
+				seasonNumber = key.seasonNumber,
+				bgColor = key.bgColor,
+				bgColorDim = key.bgColorDim,
+			)
+		}
+
+		entry<Destination.GenreMovies> { key ->
+			GenreDetailScreen(
+				genreId = key.genreId,
+				genreName = key.genreName,
+				setTitle = setTitle,
+				setBackgroundColor = setBackgroundColor,
+			) { id ->
+				navigator.navigate(Destination.MovieDetails(id))
+			}
+		}
+	}
+
+	NavDisplay(
+		entries = navigationState.toEntries(entryProvider),
+		onBack = { navigator.goBack() },
+		modifier = modifier.padding(paddingValues),
 	)
 
 }
-
-private fun tweenSpec(): TweenSpec<IntOffset> = tween(
-	durationMillis = 500,
-	easing = FastOutSlowInEasing
-)

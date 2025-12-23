@@ -10,39 +10,39 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.zsoltbertalan.flickslate.R
 import com.zsoltbertalan.flickslate.main.navigation.Destination
+import com.zsoltbertalan.flickslate.main.navigation.NavigationState
+import com.zsoltbertalan.flickslate.main.navigation.Navigator
+import com.zsoltbertalan.flickslate.main.navigation.rememberNavigationState
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun FlickSlateBottomNavigationBar(
-	navController: NavHostController,
+	navigationState: NavigationState,
+	navigator: Navigator,
 	modifier: Modifier = Modifier,
 	itemList: ImmutableList<Destination> =
 		listOf(Destination.Movies, Destination.Tv, Destination.Search, Destination.Account).toImmutableList(),
 ) {
-	val navBackStackEntry by navController.currentBackStackEntryAsState()
-	val currentRoute = navBackStackEntry?.destination?.route ?: Destination.Movies.javaClass.canonicalName
+	val currentRoute = navigationState.topLevelRoute
 
 	FlickSlateNavigationBar(
 		modifier = modifier,
 	) {
 		itemList.forEach { screen ->
 			FlickSlateNavigationBarItem(
-				selected = currentRoute == screen.javaClass.canonicalName,
+				selected = currentRoute == screen,
 				iconResId = screen.toIconResourceId(),
 				label = {
 					Text(
@@ -51,13 +51,7 @@ fun FlickSlateBottomNavigationBar(
 					)
 				},
 				onClick = {
-					navController.navigate(screen) {
-						popUpTo(navController.graph.findStartDestination().id) {
-							saveState = true
-						}
-						launchSingleTop = true
-						restoreState = true
-					}
+					navigator.navigate(screen)
 				},
 			)
 		}
@@ -129,8 +123,19 @@ fun RowScope.FlickSlateNavigationBarItem(
 @Composable
 internal fun FlickSlateBottomNavigationBarPreview() {
 	FlickSlateTheme {
+		val navigationState = rememberNavigationState(
+			startRoute = Destination.Movies,
+			topLevelRoutes = persistentSetOf(
+				Destination.Movies,
+				Destination.Tv,
+				Destination.Search,
+				Destination.Account
+			)
+		)
+		val navigator = remember { Navigator(navigationState) }
 		FlickSlateBottomNavigationBar(
-			navController = rememberNavController(),
+			navigationState = navigationState,
+			navigator = navigator,
 		)
 	}
 }

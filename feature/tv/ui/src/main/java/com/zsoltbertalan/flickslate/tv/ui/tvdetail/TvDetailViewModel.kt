@@ -24,7 +24,7 @@ const val EPISODE_NUMBER_ARG = "episodeNumber"
 
 @HiltViewModel
 class TvDetailViewModel @Inject constructor(
-	savedStateHandle: SavedStateHandle,
+	private val savedStateHandle: SavedStateHandle,
 	private val tvDetailsUseCase: TvDetailsUseCase,
 	private val rateTvShowUseCase: RateTvShowUseCase,
 	private val changeTvRatingUseCase: ChangeTvRatingUseCase,
@@ -33,16 +33,25 @@ class TvDetailViewModel @Inject constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) : ViewModel() {
 
-	private val seriesId: Int = checkNotNull(savedStateHandle[SERIES_ID_ARG])
-	private val seasonNumber: Int? = savedStateHandle[SEASON_NUMBER_ARG]
-	private val episodeNumber: Int? = savedStateHandle[EPISODE_NUMBER_ARG]
+	private val seriesId: Int
+		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])
+	private val seasonNumber: Int?
+		get() = savedStateHandle[SEASON_NUMBER_ARG]
+	private val episodeNumber: Int?
+		get() = savedStateHandle[EPISODE_NUMBER_ARG]
 
 	private val _tvStateData = MutableStateFlow(
 		TvDetailState(seasonNumber = seasonNumber, episodeNumber = episodeNumber)
 	)
 	val tvStateData = _tvStateData.asStateFlow()
 
-	init {
+	fun load(id: Int, season: Int? = null, episode: Int? = null) {
+		val isSameArgs = savedStateHandle.get<Int>(SERIES_ID_ARG) == id && seasonNumber == season && episodeNumber == episode
+		if (isSameArgs && _tvStateData.value.tvDetail != null) return
+		savedStateHandle[SERIES_ID_ARG] = id
+		if (season != null) savedStateHandle[SEASON_NUMBER_ARG] = season
+		if (episode != null) savedStateHandle[EPISODE_NUMBER_ARG] = episode
+		_tvStateData.update { it.copy(seasonNumber = season, episodeNumber = episode) }
 		getTvDetail()
 		checkLoginStatus()
 	}

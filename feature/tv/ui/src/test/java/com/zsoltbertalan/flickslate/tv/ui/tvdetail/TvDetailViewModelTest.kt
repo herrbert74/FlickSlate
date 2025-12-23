@@ -11,7 +11,6 @@ import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.SetTvFavoriteUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
-import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.every
@@ -73,6 +72,7 @@ class TvDetailViewModelTest {
 			getSessionIdUseCase
 		)
 
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.tvStateData.value shouldBe TvDetailState(
@@ -100,6 +100,7 @@ class TvDetailViewModelTest {
 			getSessionIdUseCase
 		)
 
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.tvStateData.value shouldBe TvDetailState(
@@ -110,24 +111,6 @@ class TvDetailViewModelTest {
 			isLoggedIn = false
 		)
 	}
-
-	@Test
-	fun `when seriesId is not available in SavedStateHandle then viewModel init throws IllegalStateException`() =
-		runTest {
-			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
-
-			shouldThrowExactly<IllegalStateException> {
-				TvDetailViewModel(
-					savedStateHandle,
-					tvDetailsUseCase,
-					rateTvShowUseCase,
-					changeTvRatingUseCase,
-					deleteTvRatingUseCase,
-					setTvFavoriteUseCase,
-					getSessionIdUseCase
-				)
-			}
-		}
 
 	@Test
 	fun `when viewModel initialized and tv is already rated, state reflects it`() = runTest {
@@ -144,6 +127,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.tvStateData.value.isRated shouldBe true
@@ -165,6 +149,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.rateTvShow(8.0f)
@@ -191,6 +176,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.rateTvShow(5f)
@@ -216,6 +202,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.changeTvRating(9.0f)
@@ -241,6 +228,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.changeTvRating(9.0f)
@@ -266,6 +254,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.deleteTvRating()
@@ -291,6 +280,7 @@ class TvDetailViewModelTest {
 			setTvFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(testSeriesId)
 		advanceUntilIdle()
 
 		viewModel.deleteTvRating()
@@ -299,5 +289,29 @@ class TvDetailViewModelTest {
 		viewModel.tvStateData.value.failure shouldBe Failure.UnknownHostFailure
 		viewModel.tvStateData.value.isRatingInProgress shouldBe false
 	}
+
+	@Test
+	fun `when seriesId is not available in SavedStateHandle but load is called then it succeeds`() =
+		runTest {
+			val realSavedStateHandle = SavedStateHandle()
+			val mockTvDetail = TvMother.createTvDetailWithImages(id = testSeriesId)
+			coEvery { tvDetailsUseCase.getTvDetails(testSeriesId) } returns Ok(mockTvDetail)
+			coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+
+			viewModel = TvDetailViewModel(
+				realSavedStateHandle,
+				tvDetailsUseCase,
+				rateTvShowUseCase,
+				changeTvRatingUseCase,
+				deleteTvRatingUseCase,
+				setTvFavoriteUseCase,
+				getSessionIdUseCase
+			)
+
+			viewModel.load(testSeriesId)
+			advanceUntilIdle()
+
+			viewModel.tvStateData.value.tvDetail shouldBe mockTvDetail
+		}
 
 }

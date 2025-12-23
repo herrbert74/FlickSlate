@@ -34,19 +34,31 @@ class TvSeasonDetailViewModel @Inject constructor(
 	private val deleteEpisodeRatingUseCase: DeleteTvShowEpisodeRatingUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase,
-	savedStateHandle: SavedStateHandle,
+	private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-	private val seriesId: Int = checkNotNull(savedStateHandle[SERIES_ID_ARG])
-	private val seasonNumber: Int = checkNotNull(savedStateHandle[SEASON_NUMBER_ARG])
-	private val bgColor: Int = checkNotNull(savedStateHandle[BG_COLOR_ARG])
-	private val bgColorDim: Int = checkNotNull(savedStateHandle[BG_COLOR_DIM_ARG])
-	private val seasonTitle: String? = savedStateHandle[SEASON_TITLE_ARG]
+	private val seriesId: Int
+		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])
+	private val seasonNumber: Int
+		get() = checkNotNull(savedStateHandle[SEASON_NUMBER_ARG])
+	private val bgColor: Int
+		get() = savedStateHandle[BG_COLOR_ARG] ?: 0
+	private val bgColorDim: Int
+		get() = savedStateHandle[BG_COLOR_DIM_ARG] ?: 0
+	private val seasonTitle: String?
+		get() = savedStateHandle[SEASON_TITLE_ARG]
 
 	private val _uiState = MutableStateFlow(TvSeasonDetailUiState(title = seasonTitle ?: "Season Details"))
 	val uiState: StateFlow<TvSeasonDetailUiState> = _uiState.asStateFlow()
 
-	init {
+	fun load(id: Int, season: Int, color: Int, colorDim: Int) {
+		val isSameArgs =
+			savedStateHandle.get<Int>(SERIES_ID_ARG) == id && savedStateHandle.get<Int>(SEASON_NUMBER_ARG) == season
+		if (isSameArgs && _uiState.value.seasonDetail != null) return
+		savedStateHandle[SERIES_ID_ARG] = id
+		savedStateHandle[SEASON_NUMBER_ARG] = season
+		savedStateHandle[BG_COLOR_ARG] = color
+		savedStateHandle[BG_COLOR_DIM_ARG] = colorDim
 		fetchSeasonDetails()
 		checkLoginStatus()
 	}
@@ -97,7 +109,11 @@ class TvSeasonDetailViewModel @Inject constructor(
 						val updatedEpisodes = state.seasonDetail?.episodes?.map {
 							if (it.id == episodeId) it.copy(personalRating = updated.personalRating) else it
 						}
-						state.copy(seasonDetail = state.seasonDetail?.copy(episodes = updatedEpisodes ?: state.seasonDetail.episodes))
+						state.copy(
+							seasonDetail = state.seasonDetail?.copy(
+								episodes = updatedEpisodes ?: state.seasonDetail.episodes
+							)
+						)
 					}
 				}
 			}
@@ -116,6 +132,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}
@@ -132,6 +149,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true,
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}
@@ -148,6 +166,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true,
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}

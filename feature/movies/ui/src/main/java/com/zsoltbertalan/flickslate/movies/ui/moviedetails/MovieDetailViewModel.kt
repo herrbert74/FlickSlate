@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-	savedStateHandle: SavedStateHandle,
+	private val savedStateHandle: SavedStateHandle,
 	private val movieDetailsUseCase: MovieDetailsUseCase,
 	private val rateMovieUseCase: RateMovieUseCase,
 	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase,
@@ -33,9 +33,12 @@ class MovieDetailViewModel @Inject constructor(
 	private val _movieStateData = MutableStateFlow(MovieDetailState())
 	internal val movieStateData = _movieStateData.asStateFlow()
 
-	private val movieId: Int = checkNotNull(savedStateHandle["movieId"])
+	private val movieId: Int
+		get() = checkNotNull(savedStateHandle["movieId"])
 
-	init {
+	fun load(id: Int) {
+		if (savedStateHandle.get<Int>("movieId") == id && _movieStateData.value.movieDetail != null) return
+		savedStateHandle["movieId"] = id
 		getMovieDetail()
 		checkLoginStatus()
 	}
@@ -180,9 +183,9 @@ class MovieDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			val movieDetailsResult = movieDetailsUseCase.getMovieDetails(movieId)
 			when {
-				movieDetailsResult.isOk -> _movieStateData.update {
+				movieDetailsResult.isOk -> _movieStateData.update { movieDetailState ->
 					val movieDetail = movieDetailsResult.value
-					it.copy(
+					movieDetailState.copy(
 						movieDetail = movieDetail,
 						isRated = movieDetail.personalRating > -1f,
 						lastRatedValue = movieDetail.personalRating.takeIf { it > -1f },
