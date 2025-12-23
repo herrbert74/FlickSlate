@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,9 +19,9 @@ class GenreDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 	private val genreId: Int
-		get() = savedStateHandle["genreId"] ?: -1
+		get() = checkNotNull(savedStateHandle["genreId"])
 	val genreName: String
-		get() = savedStateHandle["genreName"] ?: ""
+		get() = checkNotNull(savedStateHandle["genreName"])
 
 	val genreMoviesPaginationState = PaginationState<Int, Movie>(
 		initialPageKey = 1,
@@ -30,14 +31,16 @@ class GenreDetailViewModel @Inject constructor(
 	)
 
 	fun load(id: Int, name: String) {
-		if (genreId == id && genreName == name) return
+		val isSameArgs = savedStateHandle.get<Int>("genreId") == id && savedStateHandle.get<String>("genreName") == name
+		val isLoaded = genreMoviesPaginationState.internalState.value !is PaginationInternalState.Initial
+		if (isSameArgs && isLoaded) return
 		savedStateHandle["genreId"] = id
 		savedStateHandle["genreName"] = name
 		genreMoviesPaginationState.refresh()
 	}
 
 	private fun loadGenreMoviesPage(pageKey: Int) {
-		if (genreId == -1) return
+		if (savedStateHandle.get<Int>("genreId") == null) return
 		viewModelScope.launch {
 			genreRepository.getGenreDetail(genreId = genreId, page = pageKey).collect {
 				when {

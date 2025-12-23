@@ -66,6 +66,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.movieDetail shouldBe movieDetail
@@ -85,6 +86,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.failure shouldBe Failure.UnknownHostFailure
@@ -106,6 +108,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.isLoggedIn shouldBe false
@@ -126,6 +129,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.rateMovie(8.0f)
 		advanceUntilIdle()
@@ -148,6 +152,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 
 		viewModel.movieStateData.value.isRated shouldBe true
@@ -168,6 +173,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.rateMovie(8.0f)
 		advanceUntilIdle()
@@ -191,6 +197,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.changeRating(9.0f)
 		advanceUntilIdle()
@@ -214,6 +221,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.deleteRating()
 		advanceUntilIdle()
@@ -238,6 +246,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.changeRating(9.0f)
 		advanceUntilIdle()
@@ -262,6 +271,7 @@ class MovieDetailViewModelTest {
 			setMovieFavoriteUseCase,
 			getSessionIdUseCase
 		)
+		viewModel.load(1)
 		advanceUntilIdle()
 		viewModel.deleteRating()
 		advanceUntilIdle()

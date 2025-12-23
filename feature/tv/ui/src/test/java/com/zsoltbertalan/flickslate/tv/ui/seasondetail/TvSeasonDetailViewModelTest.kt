@@ -12,7 +12,6 @@ import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingU
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
-import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.every
@@ -90,6 +89,7 @@ class TvSeasonDetailViewModelTest {
 			getEpisodeDetailUseCase,
 			savedStateHandle
 		)
+		viewModel.load(testSeriesId, testSeasonNumber, testBgColor, testBgColorDim)
 		advanceUntilIdle()
 	}
 
@@ -166,37 +166,6 @@ class TvSeasonDetailViewModelTest {
 		}
 		job.cancel()
 	}
-
-	@Test
-	fun `when required args are missing from SavedStateHandle then viewModel init throws IllegalStateException`() =
-		runTest {
-			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns null
-			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(
-					getSeasonDetailUseCase,
-					rateEpisodeUseCase,
-					changeEpisodeRatingUseCase,
-					deleteEpisodeRatingUseCase,
-					getSessionIdUseCase,
-					getEpisodeDetailUseCase,
-					savedStateHandle
-				)
-			}
-
-			every { savedStateHandle.get<Int>(SERIES_ID_ARG) } returns testSeriesId
-			every { savedStateHandle.get<Int>(SEASON_NUMBER_ARG) } returns null
-			shouldThrowExactly<IllegalStateException> {
-				TvSeasonDetailViewModel(
-					getSeasonDetailUseCase,
-					rateEpisodeUseCase,
-					changeEpisodeRatingUseCase,
-					deleteEpisodeRatingUseCase,
-					getSessionIdUseCase,
-					getEpisodeDetailUseCase,
-					savedStateHandle
-				)
-			}
-		}
 
 	@Test
 	fun `initially expandedEpisodeId is null`() = runTest {
@@ -303,7 +272,14 @@ class TvSeasonDetailViewModelTest {
 
 	@Test
 	fun `changeEpisodeRating failure sets failure`() = runTest {
-		coEvery { changeEpisodeRatingUseCase.execute(any(), any(), any(), any()) } returns Err(Failure.ServerError("boom"))
+		coEvery {
+			changeEpisodeRatingUseCase.execute(
+				any(),
+				any(),
+				any(),
+				any()
+			)
+		} returns Err(Failure.ServerError("boom"))
 		initializeViewModel()
 
 		viewModel.changeEpisodeRating(mockSeasonDetail.episodes.first().episodeNumber, 8.5f)
@@ -357,5 +333,28 @@ class TvSeasonDetailViewModelTest {
 		viewModel.toastShown()
 		viewModel.uiState.value.showRatingToast shouldBe false
 	}
+
+	@Test
+	fun `when required args are missing from SavedStateHandle but load is called then it succeeds`() =
+		runTest {
+			val realSavedStateHandle = SavedStateHandle()
+			coEvery { getSeasonDetailUseCase.execute(testSeriesId, testSeasonNumber) } returns Ok(mockSeasonDetail)
+			coEvery { getSessionIdUseCase.execute() } returns Ok("session")
+
+			viewModel = TvSeasonDetailViewModel(
+				getSeasonDetailUseCase,
+				rateEpisodeUseCase,
+				changeEpisodeRatingUseCase,
+				deleteEpisodeRatingUseCase,
+				getSessionIdUseCase,
+				getEpisodeDetailUseCase,
+				realSavedStateHandle
+			)
+
+			viewModel.load(testSeriesId, testSeasonNumber, testBgColor, testBgColorDim)
+			advanceUntilIdle()
+
+			viewModel.uiState.value.seasonDetail shouldBe mockSeasonDetail
+		}
 
 }

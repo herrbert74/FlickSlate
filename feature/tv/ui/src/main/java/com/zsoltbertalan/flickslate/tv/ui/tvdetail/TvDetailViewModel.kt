@@ -34,7 +34,7 @@ class TvDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 	private val seriesId: Int
-		get() = savedStateHandle[SERIES_ID_ARG] ?: -1
+		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])
 	private val seasonNumber: Int?
 		get() = savedStateHandle[SEASON_NUMBER_ARG]
 	private val episodeNumber: Int?
@@ -45,15 +45,9 @@ class TvDetailViewModel @Inject constructor(
 	)
 	val tvStateData = _tvStateData.asStateFlow()
 
-	init {
-		if (seriesId != -1) {
-			getTvDetail()
-			checkLoginStatus()
-		}
-	}
-
 	fun load(id: Int, season: Int? = null, episode: Int? = null) {
-		if (seriesId == id && seasonNumber == season && episodeNumber == episode) return
+		val isSameArgs = savedStateHandle.get<Int>(SERIES_ID_ARG) == id && seasonNumber == season && episodeNumber == episode
+		if (isSameArgs && _tvStateData.value.tvDetail != null) return
 		savedStateHandle[SERIES_ID_ARG] = id
 		if (season != null) savedStateHandle[SEASON_NUMBER_ARG] = season
 		if (episode != null) savedStateHandle[EPISODE_NUMBER_ARG] = episode

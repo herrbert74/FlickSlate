@@ -34,17 +34,10 @@ class MovieDetailViewModel @Inject constructor(
 	internal val movieStateData = _movieStateData.asStateFlow()
 
 	private val movieId: Int
-		get() = savedStateHandle["movieId"] ?: -1
-
-	init {
-		if (movieId != -1) {
-			getMovieDetail()
-			checkLoginStatus()
-		}
-	}
+		get() = checkNotNull(savedStateHandle["movieId"])
 
 	fun load(id: Int) {
-		if (movieId == id) return
+		if (savedStateHandle.get<Int>("movieId") == id && _movieStateData.value.movieDetail != null) return
 		savedStateHandle["movieId"] = id
 		getMovieDetail()
 		checkLoginStatus()

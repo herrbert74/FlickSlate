@@ -38,9 +38,9 @@ class TvSeasonDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
 	private val seriesId: Int
-		get() = savedStateHandle[SERIES_ID_ARG] ?: -1
+		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])
 	private val seasonNumber: Int
-		get() = savedStateHandle[SEASON_NUMBER_ARG] ?: -1
+		get() = checkNotNull(savedStateHandle[SEASON_NUMBER_ARG])
 	private val bgColor: Int
 		get() = savedStateHandle[BG_COLOR_ARG] ?: 0
 	private val bgColorDim: Int
@@ -51,15 +51,10 @@ class TvSeasonDetailViewModel @Inject constructor(
 	private val _uiState = MutableStateFlow(TvSeasonDetailUiState(title = seasonTitle ?: "Season Details"))
 	val uiState: StateFlow<TvSeasonDetailUiState> = _uiState.asStateFlow()
 
-	init {
-		if (seriesId != -1 && seasonNumber != -1) {
-			fetchSeasonDetails()
-			checkLoginStatus()
-		}
-	}
-
 	fun load(id: Int, season: Int, color: Int, colorDim: Int) {
-		if (seriesId == id && seasonNumber == season) return
+		val isSameArgs =
+			savedStateHandle.get<Int>(SERIES_ID_ARG) == id && savedStateHandle.get<Int>(SEASON_NUMBER_ARG) == season
+		if (isSameArgs && _uiState.value.seasonDetail != null) return
 		savedStateHandle[SERIES_ID_ARG] = id
 		savedStateHandle[SEASON_NUMBER_ARG] = season
 		savedStateHandle[BG_COLOR_ARG] = color
@@ -114,7 +109,11 @@ class TvSeasonDetailViewModel @Inject constructor(
 						val updatedEpisodes = state.seasonDetail?.episodes?.map {
 							if (it.id == episodeId) it.copy(personalRating = updated.personalRating) else it
 						}
-						state.copy(seasonDetail = state.seasonDetail?.copy(episodes = updatedEpisodes ?: state.seasonDetail.episodes))
+						state.copy(
+							seasonDetail = state.seasonDetail?.copy(
+								episodes = updatedEpisodes ?: state.seasonDetail.episodes
+							)
+						)
 					}
 				}
 			}
@@ -133,6 +132,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}
@@ -149,6 +149,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true,
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}
@@ -165,6 +166,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 						showRatingToast = true,
 					)
 				}
+
 				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
 			}
 		}
