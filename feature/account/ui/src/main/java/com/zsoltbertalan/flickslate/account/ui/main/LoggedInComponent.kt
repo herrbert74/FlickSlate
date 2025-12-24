@@ -97,6 +97,7 @@ fun LoggedInComponent(
 						navigateToMovieDetails,
 						navigateToTvShowDetails,
 						navigateToTvEpisodeDetails,
+						onRefresh = ratingsViewModel::refresh,
 					)
 					1 -> FavoritesScreen(
 						favoriteMovies = favoritesViewModel.favoriteMoviesPaginationState,

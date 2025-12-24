@@ -3,6 +3,7 @@ package com.zsoltbertalan.flickslate.main.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -23,6 +24,8 @@ import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
+import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
 import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
@@ -42,6 +45,8 @@ fun NavHostContainer(
 	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
 	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
 ) {
+	val resultStore = rememberResultStore()
+
 	val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
 		entry<Destination.Movies> {
 			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
@@ -158,10 +163,12 @@ fun NavHostContainer(
 		}
 	}
 
-	NavDisplay(
-		entries = navigationState.toEntries(entryProvider),
-		onBack = { navigator.goBack() },
-		modifier = modifier.padding(paddingValues),
-	)
+	CompositionLocalProvider(LocalResultStore provides resultStore) {
+		NavDisplay(
+			entries = navigationState.toEntries(entryProvider),
+			onBack = { navigator.goBack() },
+			modifier = modifier.padding(paddingValues),
+		)
+	}
 
 }

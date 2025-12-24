@@ -55,6 +55,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
@@ -67,6 +68,8 @@ fun MovieDetailScreen(
 	modifier: Modifier = Modifier,
 	viewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
+	val resultStore = LocalResultStore.current
+
 	LaunchedEffect(movieId) {
 		viewModel.load(movieId)
 	}
@@ -113,6 +116,7 @@ fun MovieDetailScreen(
 			}
 			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
+			resultStore.setResult("RatingChanged", true)
 		}
 	}
 

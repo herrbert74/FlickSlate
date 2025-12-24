@@ -126,3 +126,11 @@ Use the correct pattern only in the domain model classes.
 
 Do not add any comments in Kotlin files, unless you are explicitly asked.
 If you think it's absolutely necessary, ask for permission.
+
+## Rule: Formatting and Detekt
+
+Reformat code after changes as per the project rules in .idea/codeStyles/Project.xml.
+Also format the code according to Detekt rules in config/detekt.
+Run detekt with ./gradlew detektAll.
+Do not use suppress violations. Try to fix them, or if it cannot be done, 
+ask for confirmation if a suppression can be added or a rule can be changed.

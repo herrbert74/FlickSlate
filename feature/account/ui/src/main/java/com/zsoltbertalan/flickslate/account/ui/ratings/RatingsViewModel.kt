@@ -86,4 +86,10 @@ class RatingsViewModel @Inject constructor(
 		}
 	}
 
+	fun refresh() {
+		ratedMoviesPaginationState.refresh()
+		ratedTvShowsPaginationState.refresh()
+		ratedTvEpisodesPaginationState.refresh()
+	}
+
 }
