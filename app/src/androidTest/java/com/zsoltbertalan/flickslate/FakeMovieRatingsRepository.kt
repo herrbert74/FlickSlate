@@ -15,11 +15,13 @@ class FakeMovieRatingsRepository @Inject constructor() : MovieRatingsRepository 
 
 	override suspend fun rateMovie(movieId: Int, rating: Float, sessionId: String): Outcome<Unit> {
 		movieDetail = movieDetail.copy(personalRating = rating)
+		AccountListTestState.setMovieRating(movieId, rating)
 		return Ok(Unit)
 	}
 
 	override suspend fun deleteMovieRating(movieId: Int, sessionId: String): Outcome<Unit> {
 		movieDetail = movieDetail.copy(personalRating = -1f)
+		AccountListTestState.setMovieRating(movieId, -1f)
 		return Ok(Unit)
 	}
 

@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -9,6 +10,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.account.ui.favorites.FavoritesScreen
 import com.zsoltbertalan.flickslate.account.ui.favorites.FavoritesViewModel
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
+import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -29,19 +32,24 @@ class FavoritesScreenTest {
 	@Before
 	fun setUp() {
 		hiltAndroidRule.inject()
+		AccountListTestState.resetToDefaults()
 	}
 
 	@Test
 	fun favoritesScreen_whenLoaded_showsFavoriteContent() {
 		with(composeTestRule) {
 			setContent {
+				val resultStore = rememberResultStore()
 				val viewModel = hiltViewModel<FavoritesViewModel>()
-				FavoritesScreen(
-					favoriteMovies = viewModel.favoriteMoviesPaginationState,
-					favoriteTvShows = viewModel.favoriteTvShowsPaginationState,
-					navigateToMovieDetails = { },
-					navigateToTvShowDetails = { },
-				)
+				CompositionLocalProvider(LocalResultStore provides resultStore) {
+					FavoritesScreen(
+						favoriteMovies = viewModel.favoriteMoviesPaginationState,
+						favoriteTvShows = viewModel.favoriteTvShowsPaginationState,
+						navigateToMovieDetails = { },
+						navigateToTvShowDetails = { },
+						onRefresh = viewModel::refresh,
+					)
+				}
 			}
 
 			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
