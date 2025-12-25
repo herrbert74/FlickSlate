@@ -14,5 +14,8 @@ class FakeMovieFavoritesRepository @Inject constructor() : MovieFavoritesReposit
 		sessionId: String,
 		movieId: Int,
 		favorite: Boolean
-	): Outcome<Unit> = Ok(Unit)
+	): Outcome<Unit> {
+		AccountListTestState.setMovieFavorite(movieId, favorite)
+		return Ok(Unit)
+	}
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingUseCase
@@ -129,7 +130,8 @@ class TvSeasonDetailViewModel @Inject constructor(
 					it.copy(
 						isRatingInProgress = false,
 						isRated = true,
-						showRatingToast = true
+						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Success,
 					)
 				}
 
@@ -147,6 +149,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 					it.copy(
 						isRatingInProgress = false,
 						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Updated,
 					)
 				}
 
@@ -164,6 +167,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 					it.copy(
 						isRatingInProgress = false,
 						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Deleted,
 					)
 				}
 
@@ -173,7 +177,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 	}
 
 	fun toastShown() {
-		_uiState.update { it.copy(showRatingToast = false) }
+		_uiState.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
 	}
 }
 
@@ -191,4 +195,5 @@ data class TvSeasonDetailUiState(
 	val isRated: Boolean = false,
 	val isLoggedIn: Boolean = false,
 	val showRatingToast: Boolean = false,
+	val ratingToastMessage: RatingToastMessage? = null,
 )

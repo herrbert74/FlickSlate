@@ -5,6 +5,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
@@ -236,6 +237,7 @@ class TvSeasonDetailViewModelTest {
 		viewModel.uiState.value.isRatingInProgress shouldBe false
 		viewModel.uiState.value.isRated shouldBe true
 		viewModel.uiState.value.showRatingToast shouldBe true
+		viewModel.uiState.value.ratingToastMessage shouldBe RatingToastMessage.Success
 	}
 
 	@Test
@@ -267,6 +269,7 @@ class TvSeasonDetailViewModelTest {
 		with(viewModel.uiState.value) {
 			isRatingInProgress shouldBe false
 			showRatingToast shouldBe true
+			ratingToastMessage shouldBe RatingToastMessage.Updated
 		}
 	}
 
@@ -298,6 +301,7 @@ class TvSeasonDetailViewModelTest {
 		with(viewModel.uiState.value) {
 			isRatingInProgress shouldBe false
 			showRatingToast shouldBe true
+			ratingToastMessage shouldBe RatingToastMessage.Deleted
 		}
 	}
 

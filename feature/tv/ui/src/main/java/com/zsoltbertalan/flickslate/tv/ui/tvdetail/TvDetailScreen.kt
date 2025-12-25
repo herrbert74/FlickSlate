@@ -49,10 +49,12 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.tv.ui.R
 
 val Context.isDarkMode
@@ -69,6 +71,8 @@ fun TvDetailScreen(
 	episodeNumber: Int? = null,
 	viewModel: TvDetailViewModel = hiltViewModel(),
 ) {
+	val resultStore = LocalResultStore.current
+
 	LaunchedEffect(seriesId, seasonNumber, episodeNumber) {
 		viewModel.load(seriesId, seasonNumber, episodeNumber)
 	}
@@ -95,47 +99,38 @@ fun TvDetailScreen(
 	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
 	val setLatestNavigateToSeasonDetails by rememberUpdatedState(navigateToSeasonDetails)
 
-	LaunchedEffect(imageUrl) {
-		imageUrl.value?.let {
-			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
-			if (bitmap != null) {
-				val vibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap,
-					isDarkMode = context.isDarkMode
-				)["vibrant"] ?: bg.toString()
-				color1 = Color(vibrantColor.toColorInt())
-				setLatestBackgroundColor(color1)
-				val darkVibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap,
-					isDarkMode = context.isDarkMode
-				)["muted"] ?: bgDim.toString()
-				color2 = Color(darkVibrantColor.toColorInt())
-			}
-			val seasonToNavigateTo = viewModel.tvStateData.value.seasonNumber
-			val episodeToNavigateTo = viewModel.tvStateData.value.episodeNumber
-			if (seasonToNavigateTo != null && episodeToNavigateTo != null && !redirectedToSeasonDetail.value) {
+	ImageColorExtractor(
+		imageUrl = imageUrl.value,
+		context = context,
+		bg = bg,
+		bgDim = bgDim,
+		onExtractColors = { c1, c2 ->
+			color1 = c1
+			color2 = c2
+			setLatestBackgroundColor(c1)
+			if (seasonNumber != null && !redirectedToSeasonDetail.value) {
 				redirectedToSeasonDetail.value = true
-				setLatestNavigateToSeasonDetails(
-					detail.tvDetail!!.id!!,
-					seasonToNavigateTo,
-					color1,
-					color2,
-					episodeToNavigateTo
-				)
+				setLatestNavigateToSeasonDetails(seriesId, seasonNumber, c1, c2, episodeNumber)
 			}
-
 		}
-	}
+	)
 
-	LaunchedEffect(detail.showRatingToast) {
-		if (detail.showRatingToast) {
-			Toast.makeText(context, context.getString(R.string.rating_thanks), Toast.LENGTH_SHORT).show()
-			viewModel.toastShown()
-		}
-	}
+	RatingToastHandler(
+		showRatingToast = detail.showRatingToast,
+		ratingToastMessage = detail.ratingToastMessage,
+		context = context,
+		onShowToast = viewModel::toastShown,
+		onResult = { key, value -> resultStore.setResult(key, value) }
+	)
+
+	FavoriteToastHandler(
+		showFavoriteToast = detail.showFavoriteToast,
+		onShowToast = viewModel::toastShown,
+		onResult = { key, value -> resultStore.setResult(key, value) }
+	)
 
 	if (detail.tvDetail != null) {
-		setTitle(detail.tvDetail.title.toString())
+		setTitle(detail.tvDetail.title ?: "")
 		LazyColumn(
 			modifier
 				.fillMaxSize()
@@ -276,6 +271,77 @@ fun TvDetailScreen(
 					Spacer(modifier = Modifier.height(200.dp))
 				}
 			}
+		}
+	}
+}
+
+@Composable
+private fun ImageColorExtractor(
+	imageUrl: String?,
+	context: Context,
+	bg: Color,
+	bgDim: Color,
+	onExtractColors: (Color, Color) -> Unit
+) {
+	val currentOnExtractColors by rememberUpdatedState(onExtractColors)
+	LaunchedEffect(imageUrl) {
+		imageUrl?.let {
+			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
+			if (bitmap != null) {
+				val vibrantColor = extractColorsFromBitmap(
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
+				)["vibrant"] ?: bg.toString()
+				val color1 = Color(vibrantColor.toColorInt())
+
+				val darkVibrantColor = extractColorsFromBitmap(
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
+				)["muted"] ?: bgDim.toString()
+				val color2 = Color(darkVibrantColor.toColorInt())
+
+				currentOnExtractColors(color1, color2)
+			}
+		}
+	}
+}
+
+@Composable
+private fun RatingToastHandler(
+	showRatingToast: Boolean,
+	ratingToastMessage: RatingToastMessage?,
+	context: Context,
+	onShowToast: () -> Unit,
+	onResult: (String, Boolean) -> Unit
+) {
+	val currentOnShowToast by rememberUpdatedState(onShowToast)
+	val currentOnResult by rememberUpdatedState(onResult)
+	LaunchedEffect(showRatingToast, ratingToastMessage) {
+		if (showRatingToast && ratingToastMessage != null) {
+			val message = when (ratingToastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
+			currentOnShowToast()
+			currentOnResult("RatingChanged", true)
+		}
+	}
+}
+
+@Composable
+private fun FavoriteToastHandler(
+	showFavoriteToast: Boolean,
+	onShowToast: () -> Unit,
+	onResult: (String, Boolean) -> Unit
+) {
+	val currentOnShowToast by rememberUpdatedState(onShowToast)
+	val currentOnResult by rememberUpdatedState(onResult)
+	LaunchedEffect(showFavoriteToast) {
+		if (showFavoriteToast) {
+			currentOnShowToast()
+			currentOnResult("FavoriteChanged", true)
 		}
 	}
 }

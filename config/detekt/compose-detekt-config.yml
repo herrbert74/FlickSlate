@@ -12,7 +12,7 @@ Compose:
   CompositionLocalAllowlist:
     active: true
     # -- You can optionally define a list of CompositionLocals that are allowed here
-    allowedCompositionLocals: LocalAppDimens,LocalAppColors,LocalAdditionalColors,LocalFixedColors
+    allowedCompositionLocals: LocalAppDimens,LocalAppColors,LocalAdditionalColors,LocalFixedColors,LocalResultStore
   CompositionLocalNaming:
     active: true
   ContentEmitterReturningValues:

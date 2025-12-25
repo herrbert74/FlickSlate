@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
@@ -73,6 +74,7 @@ class TvDetailViewModel @Inject constructor(
 						isRatingInProgress = false,
 						isRated = true,
 						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Success,
 						lastRatedValue = rating,
 						tvDetail = it.tvDetail?.copy(personalRating = rating),
 					)
@@ -110,7 +112,7 @@ class TvDetailViewModel @Inject constructor(
 	}
 
 	internal fun toastShown() {
-		_tvStateData.update { it.copy(showRatingToast = false) }
+		_tvStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
 	}
 
 	internal fun changeTvRating(rating: Float) {
@@ -123,6 +125,7 @@ class TvDetailViewModel @Inject constructor(
 						isRatingInProgress = false,
 						isRated = true,
 						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Updated,
 						lastRatedValue = rating,
 						tvDetail = it.tvDetail?.copy(personalRating = rating),
 					)
@@ -142,6 +145,7 @@ class TvDetailViewModel @Inject constructor(
 						isRatingInProgress = false,
 						isRated = false,
 						showRatingToast = true,
+						ratingToastMessage = RatingToastMessage.Deleted,
 						lastRatedValue = null,
 						tvDetail = it.tvDetail?.copy(personalRating = -1f),
 					)
@@ -167,7 +171,8 @@ class TvDetailViewModel @Inject constructor(
 					it.copy(
 						isFavoriteInProgress = false,
 						isFavorite = newFavoriteValue,
-						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue)
+						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue),
+						showFavoriteToast = true
 					)
 				}
 
@@ -194,5 +199,7 @@ data class TvDetailState(
 	val isFavorite: Boolean = false,
 	val isFavoriteInProgress: Boolean = false,
 	val showRatingToast: Boolean = false,
+	val ratingToastMessage: RatingToastMessage? = null,
+	val showFavoriteToast: Boolean = false,
 	val lastRatedValue: Float? = null,
 )

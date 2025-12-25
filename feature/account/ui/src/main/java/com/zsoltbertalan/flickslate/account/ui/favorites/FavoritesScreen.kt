@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -24,6 +27,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.Paginated
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.rememberPaginationState
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 
 @Composable
 fun FavoritesScreen(
@@ -31,8 +35,19 @@ fun FavoritesScreen(
 	favoriteTvShows: PaginationState<Int, FavoriteTvShow>,
 	navigateToMovieDetails: (Int) -> Unit,
 	navigateToTvShowDetails: (Int) -> Unit,
+	onRefresh: () -> Unit,
 	modifier: Modifier = Modifier,
 ) {
+	val resultStore = LocalResultStore.current
+	val currentOnRefresh by rememberUpdatedState(onRefresh)
+
+	LaunchedEffect(Unit) {
+		val result: Boolean? = resultStore.getResult("FavoriteChanged")
+		if (result == true) {
+			currentOnRefresh()
+		}
+	}
+
 	LazyColumn(
 		modifier = modifier
 			.fillMaxSize()
@@ -109,6 +124,7 @@ internal fun FavoritesScreenEmptyPreview() {
 		},
 		navigateToMovieDetails = {},
 		navigateToTvShowDetails = {},
+		onRefresh = {},
 	)
 }
 
@@ -142,5 +158,6 @@ internal fun FavoritesScreenWithContentPreview() {
 		},
 		navigateToMovieDetails = {},
 		navigateToTvShowDetails = {},
+		onRefresh = {},
 	)
 }

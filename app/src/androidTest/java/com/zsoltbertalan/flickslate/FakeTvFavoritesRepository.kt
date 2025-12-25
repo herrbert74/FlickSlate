@@ -14,5 +14,8 @@ class FakeTvFavoritesRepository @Inject constructor() : TvFavoritesRepository {
 		sessionId: String,
 		tvId: Int,
 		favorite: Boolean
-	): Outcome<Unit> = Ok(Unit)
+	): Outcome<Unit> {
+		AccountListTestState.setTvShowFavorite(tvId, favorite)
+		return Ok(Unit)
+	}
 }

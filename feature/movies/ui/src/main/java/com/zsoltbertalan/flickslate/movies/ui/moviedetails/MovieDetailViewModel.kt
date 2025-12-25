@@ -12,6 +12,7 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -165,7 +166,8 @@ class MovieDetailViewModel @Inject constructor(
 					it.copy(
 						isFavoriteInProgress = false,
 						isFavorite = newFavoriteValue,
-						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue)
+						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue),
+						showFavoriteToast = true
 					)
 				}
 
@@ -202,19 +204,12 @@ class MovieDetailViewModel @Inject constructor(
 					)
 				}
 			}
-
 		}
 	}
 
 	internal fun toastShown() {
-		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
+		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null, showFavoriteToast = false) }
 	}
-}
-
-internal enum class RatingToastMessage {
-	Success,
-	Updated,
-	Deleted
 }
 
 @Immutable
@@ -229,5 +224,6 @@ internal data class MovieDetailState(
 	val isWatchlist: Boolean = false,
 	val showRatingToast: Boolean = false,
 	val ratingToastMessage: RatingToastMessage? = null,
+	val showFavoriteToast: Boolean = false,
 	val lastRatedValue: Float? = null,
 )

@@ -41,8 +41,10 @@ import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.tv.ui.R
 
 @Composable
@@ -54,6 +56,8 @@ fun TvSeasonDetailScreen(
 	modifier: Modifier = Modifier,
 	viewModel: TvSeasonDetailViewModel = hiltViewModel(),
 ) {
+	val resultStore = LocalResultStore.current
+
 	LaunchedEffect(seriesId, seasonNumber, bgColor, bgColorDim) {
 		viewModel.load(seriesId, seasonNumber, bgColor, bgColorDim)
 	}
@@ -61,10 +65,17 @@ fun TvSeasonDetailScreen(
 	val uiState by viewModel.uiState.collectAsState()
 	val context = LocalContext.current
 
-	LaunchedEffect(uiState.showRatingToast) {
-		if (uiState.showRatingToast) {
-			android.widget.Toast.makeText(context, "Thanks for rating!", android.widget.Toast.LENGTH_SHORT).show()
+	LaunchedEffect(uiState.showRatingToast, uiState.ratingToastMessage) {
+		val toastMessage = uiState.ratingToastMessage
+		if (uiState.showRatingToast && toastMessage != null) {
+			val message = when (toastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			android.widget.Toast.makeText(context, context.getString(message), android.widget.Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
+			resultStore.setResult("RatingChanged", true)
 		}
 	}
 

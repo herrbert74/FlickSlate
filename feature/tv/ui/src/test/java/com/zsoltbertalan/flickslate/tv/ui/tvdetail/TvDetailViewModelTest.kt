@@ -5,6 +5,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
@@ -157,6 +158,7 @@ class TvDetailViewModelTest {
 
 		viewModel.tvStateData.value.isRated shouldBe true
 		viewModel.tvStateData.value.showRatingToast shouldBe true
+		viewModel.tvStateData.value.ratingToastMessage shouldBe RatingToastMessage.Success
 		viewModel.tvStateData.value.tvDetail?.personalRating shouldBe 8.0f
 	}
 
@@ -210,6 +212,7 @@ class TvDetailViewModelTest {
 
 		viewModel.tvStateData.value.tvDetail?.personalRating shouldBe 9.0f
 		viewModel.tvStateData.value.showRatingToast shouldBe true
+		viewModel.tvStateData.value.ratingToastMessage shouldBe RatingToastMessage.Updated
 	}
 
 	@Test
@@ -262,6 +265,7 @@ class TvDetailViewModelTest {
 
 		viewModel.tvStateData.value.isRated shouldBe false
 		viewModel.tvStateData.value.tvDetail?.personalRating shouldBe -1f
+		viewModel.tvStateData.value.ratingToastMessage shouldBe RatingToastMessage.Deleted
 	}
 
 	@Test

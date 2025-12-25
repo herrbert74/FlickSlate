@@ -114,4 +114,28 @@ class RatingsViewModelTest {
 		tvEpisodesState.items shouldBe tvEpisodes
 	}
 
+	@Test
+	fun `when refresh is called, states are reset to Initial`() = runTest {
+		viewModel = RatingsViewModel(getRatedMoviesUseCase, getRatedTvShowsUseCase, getRatedTvShowEpisodesUseCase)
+
+		// Load initial data
+		viewModel.ratedMoviesPaginationState.onRequestPage(viewModel.ratedMoviesPaginationState, 1)
+		advanceUntilIdle()
+
+		// Verify loaded
+		viewModel.ratedMoviesPaginationState.internalState.value
+			.shouldBeInstanceOf<PaginationInternalState.Loaded<Int, RatedMovie>>()
+
+		// Call refresh
+		viewModel.refresh()
+
+		// Verify reset to Initial
+		viewModel.ratedMoviesPaginationState.internalState.value
+			.shouldBeInstanceOf<PaginationInternalState.Initial<Int, RatedMovie>>()
+		viewModel.ratedTvShowsPaginationState.internalState.value
+			.shouldBeInstanceOf<PaginationInternalState.Initial<Int, RatedTvShow>>()
+		viewModel.ratedTvEpisodesPaginationState.internalState.value
+			.shouldBeInstanceOf<PaginationInternalState.Initial<Int, RatedTvEpisode>>()
+	}
+
 }

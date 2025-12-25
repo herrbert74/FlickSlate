@@ -23,7 +23,18 @@ class FakeRatingsRepository @Inject constructor() : RatingsRepository {
 	): Outcome<PagingReply<RatedMovie>> =
 		Ok(
 			PagingReply(
-				RatedMovieMother.createRatedMovieList(),
+				AccountListTestState.ratedMovieRatings
+					.entries
+					.sortedBy { it.key }
+					.map { (movieId, rating) ->
+						RatedMovie(
+							movie = when (movieId) {
+								0 -> RatedMovieMother.createRatedMovieList().first().movie
+								else -> RatedMovieMother.createRatedMovieList().first().movie.copy(id = movieId, title = "Movie $movieId")
+							},
+							rating = rating
+						)
+					},
 				isLastPage = true,
 				PageData()
 			)
@@ -35,7 +46,18 @@ class FakeRatingsRepository @Inject constructor() : RatingsRepository {
 		page: Int
 	): Outcome<PagingReply<RatedTvShow>> = Ok(
 		PagingReply(
-			RatedTvMother.createRatedTvList(),
+			AccountListTestState.ratedTvShowRatings
+				.entries
+				.sortedBy { it.key }
+				.map { (tvShowId, rating) ->
+					RatedTvMother.createRatedTvList().first().copy(
+						tvShow = RatedTvMother.createRatedTvList().first().tvShow.copy(
+							id = tvShowId,
+							name = if (tvShowId == 0) "Detectorists" else "Tv $tvShowId",
+						),
+						rating = rating,
+					)
+				},
 			isLastPage = true,
 			PageData()
 		)
@@ -44,7 +66,7 @@ class FakeRatingsRepository @Inject constructor() : RatingsRepository {
 	override suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String, page: Int):
 		Outcome<PagingReply<RatedTvEpisode>> = Ok(
 		PagingReply(
-			RatedTvMother.createRatedEpisodeList(),
+			if (AccountListTestState.includeRatedTvEpisode) RatedTvMother.createRatedEpisodeList() else emptyList(),
 			isLastPage = true,
 			PageData()
 		)

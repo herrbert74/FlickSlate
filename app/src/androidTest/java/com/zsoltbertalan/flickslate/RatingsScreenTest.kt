@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -11,6 +12,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsScreen
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsViewModel
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
+import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -31,21 +34,26 @@ class RatingsScreenTest {
 	@Before
 	fun setUp() {
 		hiltAndroidRule.inject()
+		AccountListTestState.resetToDefaults()
 	}
 
 	@Test
 	fun ratingsScreen_whenLoaded_showsRatedContent() {
 		with(composeTestRule) {
 			setContent {
+				val resultStore = rememberResultStore()
 				val viewModel = hiltViewModel<RatingsViewModel>()
-				RatingsScreen(
-					ratedMovies = viewModel.ratedMoviesPaginationState,
-					ratedTvShows = viewModel.ratedTvShowsPaginationState,
-					ratedTvEpisodes = viewModel.ratedTvEpisodesPaginationState,
-					navigateToMovieDetails = { },
-					navigateToTvShowDetails = { },
-					navigateToTvEpisodeDetails = { _, _, _ -> },
-				)
+				CompositionLocalProvider(LocalResultStore provides resultStore) {
+					RatingsScreen(
+						ratedMovies = viewModel.ratedMoviesPaginationState,
+						ratedTvShows = viewModel.ratedTvShowsPaginationState,
+						ratedTvEpisodes = viewModel.ratedTvEpisodesPaginationState,
+						navigateToMovieDetails = { },
+						navigateToTvShowDetails = { },
+						navigateToTvEpisodeDetails = { _, _, _ -> },
+						onRefresh = viewModel::refresh,
+					)
+				}
 			}
 
 			waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)

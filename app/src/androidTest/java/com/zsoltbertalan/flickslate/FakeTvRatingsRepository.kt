@@ -13,11 +13,13 @@ class FakeTvRatingsRepository @Inject constructor() : TvRatingsRepository {
 
 	override suspend fun rateTvShow(tvShowId: Int, rating: Float, sessionId: String): Outcome<Unit> {
 		latestRating = rating
+		AccountListTestState.setTvShowRating(tvShowId, rating)
 		return Ok(Unit)
 	}
 
 	override suspend fun deleteTvShowRating(tvShowId: Int, sessionId: String): Outcome<Unit> {
 		latestRating = -1f
+		AccountListTestState.setTvShowRating(tvShowId, -1f)
 		return Ok(Unit)
 	}
 

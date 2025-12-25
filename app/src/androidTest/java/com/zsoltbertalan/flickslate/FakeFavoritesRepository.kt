@@ -22,14 +22,18 @@ class FakeFavoritesRepository @Inject constructor() : FavoritesRepository {
 	): Outcome<PagingReply<FavoriteMovie>> =
 		Ok(
 			PagingReply(
-				pagingList = listOf(
-					FavoriteMovie(
-						movie = Movie(
-							id = 1,
-							title = "Brazil",
+				pagingList = if (AccountListTestState.favoriteMovieIds.contains(1)) {
+					listOf(
+						FavoriteMovie(
+							movie = Movie(
+								id = 1,
+								title = "Brazil",
+							)
 						)
 					)
-				),
+				} else {
+					emptyList()
+				},
 				isLastPage = true,
 				pageData = PageData(page = page, totalPages = 1, totalResults = 1),
 			)
@@ -42,14 +46,18 @@ class FakeFavoritesRepository @Inject constructor() : FavoritesRepository {
 	): Outcome<PagingReply<FavoriteTvShow>> =
 		Ok(
 			PagingReply(
-				pagingList = listOf(
-					FavoriteTvShow(
-						tvShow = TvShow(
-							id = 2,
-							name = "Detectorists",
+				pagingList = if (AccountListTestState.favoriteTvShowIds.contains(2)) {
+					listOf(
+						FavoriteTvShow(
+							tvShow = TvShow(
+								id = 2,
+								name = "Detectorists",
+							)
 						)
 					)
-				),
+				} else {
+					emptyList()
+				},
 				isLastPage = true,
 				pageData = PageData(page = page, totalPages = 1, totalResults = 1),
 			)
