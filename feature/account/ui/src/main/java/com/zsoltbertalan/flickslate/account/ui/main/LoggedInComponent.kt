@@ -104,6 +104,7 @@ fun LoggedInComponent(
 						favoriteTvShows = favoritesViewModel.favoriteTvShowsPaginationState,
 						navigateToMovieDetails = navigateToMovieDetails,
 						navigateToTvShowDetails = navigateToTvShowDetails,
+						onRefresh = favoritesViewModel::refresh,
 					)
 				}
 			}

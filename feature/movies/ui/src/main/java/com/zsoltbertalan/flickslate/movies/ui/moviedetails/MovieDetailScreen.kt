@@ -121,6 +121,13 @@ fun MovieDetailScreen(
 		}
 	}
 
+	LaunchedEffect(detail.showFavoriteToast) {
+		if (detail.showFavoriteToast) {
+			viewModel.toastShown()
+			resultStore.setResult("FavoriteChanged", true)
+		}
+	}
+
 	val currentRating = detail.movieDetail?.personalRating?.takeIf { it > -1f }
 		?: detail.lastRatedValue ?: 0f
 	val sliderPosition by remember(detail.movieDetail?.personalRating, detail.lastRatedValue) {

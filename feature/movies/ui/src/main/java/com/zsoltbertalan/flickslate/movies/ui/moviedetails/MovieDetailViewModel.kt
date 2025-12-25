@@ -166,7 +166,8 @@ class MovieDetailViewModel @Inject constructor(
 					it.copy(
 						isFavoriteInProgress = false,
 						isFavorite = newFavoriteValue,
-						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue)
+						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue),
+						showFavoriteToast = true
 					)
 				}
 
@@ -207,7 +208,7 @@ class MovieDetailViewModel @Inject constructor(
 	}
 
 	internal fun toastShown() {
-		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
+		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null, showFavoriteToast = false) }
 	}
 }
 
@@ -223,5 +224,6 @@ internal data class MovieDetailState(
 	val isWatchlist: Boolean = false,
 	val showRatingToast: Boolean = false,
 	val ratingToastMessage: RatingToastMessage? = null,
+	val showFavoriteToast: Boolean = false,
 	val lastRatedValue: Float? = null,
 )

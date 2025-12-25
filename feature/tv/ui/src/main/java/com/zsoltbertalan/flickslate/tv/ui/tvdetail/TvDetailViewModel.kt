@@ -171,7 +171,8 @@ class TvDetailViewModel @Inject constructor(
 					it.copy(
 						isFavoriteInProgress = false,
 						isFavorite = newFavoriteValue,
-						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue)
+						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue),
+						showFavoriteToast = true
 					)
 				}
 
@@ -199,5 +200,6 @@ data class TvDetailState(
 	val isFavoriteInProgress: Boolean = false,
 	val showRatingToast: Boolean = false,
 	val ratingToastMessage: RatingToastMessage? = null,
+	val showFavoriteToast: Boolean = false,
 	val lastRatedValue: Float? = null,
 )

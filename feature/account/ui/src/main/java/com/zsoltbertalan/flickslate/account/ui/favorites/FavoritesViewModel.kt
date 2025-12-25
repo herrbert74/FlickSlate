@@ -60,4 +60,9 @@ class FavoritesViewModel @Inject constructor(
 			}
 		}
 	}
+
+	fun refresh() {
+		favoriteMoviesPaginationState.refresh()
+		favoriteTvShowsPaginationState.refresh()
+	}
 }

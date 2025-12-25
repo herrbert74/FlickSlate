@@ -99,42 +99,35 @@ fun TvDetailScreen(
 	val setLatestBackgroundColor by rememberUpdatedState(setBackgroundColor)
 	val setLatestNavigateToSeasonDetails by rememberUpdatedState(navigateToSeasonDetails)
 
-	LaunchedEffect(imageUrl) {
-		imageUrl.value?.let {
-			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
-			if (bitmap != null) {
-				val vibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap,
-					isDarkMode = context.isDarkMode
-				)["vibrant"] ?: bg.toString()
-				color1 = Color(vibrantColor.toColorInt())
-				setLatestBackgroundColor(color1)
-				val darkVibrantColor = extractColorsFromBitmap(
-					bitmap = bitmap,
-					isDarkMode = context.isDarkMode
-				)["muted"] ?: bgDim.toString()
-				color2 = Color(darkVibrantColor.toColorInt())
-				if (seasonNumber != null && !redirectedToSeasonDetail.value) {
-					redirectedToSeasonDetail.value = true
-					setLatestNavigateToSeasonDetails(seriesId, seasonNumber, color1, color2, episodeNumber)
-				}
+	ImageColorExtractor(
+		imageUrl = imageUrl.value,
+		context = context,
+		bg = bg,
+		bgDim = bgDim,
+		onExtractColors = { c1, c2 ->
+			color1 = c1
+			color2 = c2
+			setLatestBackgroundColor(c1)
+			if (seasonNumber != null && !redirectedToSeasonDetail.value) {
+				redirectedToSeasonDetail.value = true
+				setLatestNavigateToSeasonDetails(seriesId, seasonNumber, c1, c2, episodeNumber)
 			}
 		}
-	}
+	)
 
-	LaunchedEffect(detail.showRatingToast, detail.ratingToastMessage) {
-		val toastMessage = detail.ratingToastMessage
-		if (detail.showRatingToast && toastMessage != null) {
-			val message = when (toastMessage) {
-				RatingToastMessage.Success -> R.string.rating_thanks
-				RatingToastMessage.Updated -> R.string.rating_updated
-				RatingToastMessage.Deleted -> R.string.rating_removed
-			}
-			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
-			viewModel.toastShown()
-			resultStore.setResult("RatingChanged", true)
-		}
-	}
+	RatingToastHandler(
+		showRatingToast = detail.showRatingToast,
+		ratingToastMessage = detail.ratingToastMessage,
+		context = context,
+		onShowToast = viewModel::toastShown,
+		onResult = { key, value -> resultStore.setResult(key, value) }
+	)
+
+	FavoriteToastHandler(
+		showFavoriteToast = detail.showFavoriteToast,
+		onShowToast = viewModel::toastShown,
+		onResult = { key, value -> resultStore.setResult(key, value) }
+	)
 
 	if (detail.tvDetail != null) {
 		setTitle(detail.tvDetail.title ?: "")
@@ -278,6 +271,77 @@ fun TvDetailScreen(
 					Spacer(modifier = Modifier.height(200.dp))
 				}
 			}
+		}
+	}
+}
+
+@Composable
+private fun ImageColorExtractor(
+	imageUrl: String?,
+	context: Context,
+	bg: Color,
+	bgDim: Color,
+	onExtractColors: (Color, Color) -> Unit
+) {
+	val currentOnExtractColors by rememberUpdatedState(onExtractColors)
+	LaunchedEffect(imageUrl) {
+		imageUrl?.let {
+			val bitmap = convertImageUrlToBitmap(imageUrl = BASE_IMAGE_PATH + it, context = context)
+			if (bitmap != null) {
+				val vibrantColor = extractColorsFromBitmap(
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
+				)["vibrant"] ?: bg.toString()
+				val color1 = Color(vibrantColor.toColorInt())
+
+				val darkVibrantColor = extractColorsFromBitmap(
+					bitmap = bitmap,
+					isDarkMode = context.isDarkMode
+				)["muted"] ?: bgDim.toString()
+				val color2 = Color(darkVibrantColor.toColorInt())
+
+				currentOnExtractColors(color1, color2)
+			}
+		}
+	}
+}
+
+@Composable
+private fun RatingToastHandler(
+	showRatingToast: Boolean,
+	ratingToastMessage: RatingToastMessage?,
+	context: Context,
+	onShowToast: () -> Unit,
+	onResult: (String, Boolean) -> Unit
+) {
+	val currentOnShowToast by rememberUpdatedState(onShowToast)
+	val currentOnResult by rememberUpdatedState(onResult)
+	LaunchedEffect(showRatingToast, ratingToastMessage) {
+		if (showRatingToast && ratingToastMessage != null) {
+			val message = when (ratingToastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
+			currentOnShowToast()
+			currentOnResult("RatingChanged", true)
+		}
+	}
+}
+
+@Composable
+private fun FavoriteToastHandler(
+	showFavoriteToast: Boolean,
+	onShowToast: () -> Unit,
+	onResult: (String, Boolean) -> Unit
+) {
+	val currentOnShowToast by rememberUpdatedState(onShowToast)
+	val currentOnResult by rememberUpdatedState(onResult)
+	LaunchedEffect(showFavoriteToast) {
+		if (showFavoriteToast) {
+			currentOnShowToast()
+			currentOnResult("FavoriteChanged", true)
 		}
 	}
 }
