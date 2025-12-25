@@ -13,6 +13,8 @@
 	<string name="rate">Rate</string>
 	<string name="rate_show_title">Rate this show</string>
 	<string name="rating_thanks">Thanks for rating!</string>
+	<string name="rating_updated">Rating updated!</string>
+	<string name="rating_removed">Rating removed</string>
 	<string name="change_rating">Change rating</string>
 	<string name="delete_rating">Delete rating</string>
 

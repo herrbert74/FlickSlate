@@ -12,6 +12,7 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -202,19 +203,12 @@ class MovieDetailViewModel @Inject constructor(
 					)
 				}
 			}
-
 		}
 	}
 
 	internal fun toastShown() {
 		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null) }
 	}
-}
-
-internal enum class RatingToastMessage {
-	Success,
-	Updated,
-	Deleted
 }
 
 @Immutable

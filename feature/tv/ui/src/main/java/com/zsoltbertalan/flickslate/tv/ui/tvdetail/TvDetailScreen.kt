@@ -49,10 +49,12 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.component.GenreChips
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.HEADER_IMAGE_ASPECT_RATIO
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.TitleText
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingSection
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitmap
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.tv.ui.R
 
 val Context.isDarkMode
@@ -69,6 +71,8 @@ fun TvDetailScreen(
 	episodeNumber: Int? = null,
 	viewModel: TvDetailViewModel = hiltViewModel(),
 ) {
+	val resultStore = LocalResultStore.current
+
 	LaunchedEffect(seriesId, seasonNumber, episodeNumber) {
 		viewModel.load(seriesId, seasonNumber, episodeNumber)
 	}
@@ -110,32 +114,30 @@ fun TvDetailScreen(
 					isDarkMode = context.isDarkMode
 				)["muted"] ?: bgDim.toString()
 				color2 = Color(darkVibrantColor.toColorInt())
+				if (seasonNumber != null && !redirectedToSeasonDetail.value) {
+					redirectedToSeasonDetail.value = true
+					setLatestNavigateToSeasonDetails(seriesId, seasonNumber, color1, color2, episodeNumber)
+				}
 			}
-			val seasonToNavigateTo = viewModel.tvStateData.value.seasonNumber
-			val episodeToNavigateTo = viewModel.tvStateData.value.episodeNumber
-			if (seasonToNavigateTo != null && episodeToNavigateTo != null && !redirectedToSeasonDetail.value) {
-				redirectedToSeasonDetail.value = true
-				setLatestNavigateToSeasonDetails(
-					detail.tvDetail!!.id!!,
-					seasonToNavigateTo,
-					color1,
-					color2,
-					episodeToNavigateTo
-				)
-			}
-
 		}
 	}
 
-	LaunchedEffect(detail.showRatingToast) {
-		if (detail.showRatingToast) {
-			Toast.makeText(context, context.getString(R.string.rating_thanks), Toast.LENGTH_SHORT).show()
+	LaunchedEffect(detail.showRatingToast, detail.ratingToastMessage) {
+		val toastMessage = detail.ratingToastMessage
+		if (detail.showRatingToast && toastMessage != null) {
+			val message = when (toastMessage) {
+				RatingToastMessage.Success -> R.string.rating_thanks
+				RatingToastMessage.Updated -> R.string.rating_updated
+				RatingToastMessage.Deleted -> R.string.rating_removed
+			}
+			Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
 			viewModel.toastShown()
+			resultStore.setResult("RatingChanged", true)
 		}
 	}
 
 	if (detail.tvDetail != null) {
-		setTitle(detail.tvDetail.title.toString())
+		setTitle(detail.tvDetail.title ?: "")
 		LazyColumn(
 			modifier
 				.fillMaxSize()
