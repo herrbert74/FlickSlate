@@ -19,7 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,7 +75,7 @@ fun LoggedInComponent(
 
 		Spacer(modifier = Modifier.height(Dimens.marginLarge))
 
-		var selectedTabIndex by remember { mutableIntStateOf(0) }
+		var selectedTabIndex by rememberSaveable(account.id) { mutableIntStateOf(0) }
 		val tabs = listOf("Ratings", "Favorites")
 
 		Column(modifier = Modifier.fillMaxWidth()) {
