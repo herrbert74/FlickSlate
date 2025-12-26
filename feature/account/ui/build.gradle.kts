@@ -17,6 +17,7 @@ android {
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
+	testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
@@ -44,12 +45,23 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
 
+	// Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
+	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
+
 	testImplementation(project(":feature:tv:domain"))
 	testImplementation(testFixtures(project(":feature:account:domain")))
 	testImplementation(testFixtures(project(":feature:tv:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl) // transitive
+
+	testImplementation(libs.androidx.activity)
+	testImplementation(libs.androidx.composeUiTest) // transitive
+	testImplementation(libs.androidx.composeUiTestJunit4)
+	testImplementation(libs.androidx.testExtJUnit)
+	testImplementation(libs.androidx.testCore) // transitive
+	testImplementation(libs.jUnit)
+	testRuntimeOnly(libs.robolectric)
 
 }
 
