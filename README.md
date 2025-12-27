@@ -44,7 +44,7 @@ Let's take a look in each major part of the application:
 * **shared** - **Shared** domain, UI and data modules specific to this app, as described in [this article](https://herrbert74.github.io/posts/architectural-evolution-of-an-app/)
 * **base** - Kotlin and Android base classes, reusable in any apps. Also described in the in [above article](https://herrbert74.github.io/posts/architectural-evolution-of-an-app/)
 
-In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 15-25 features). This app is much smaller than that, so this is for demonstration purposes and to facilitate future growth.
+In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 15-25 features). This app is smaller than that, so this is for demonstration purposes and to facilitate future growth.
 
 ## 👀 Others
 
@@ -59,6 +59,19 @@ In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 
       * **Genres**
       * **GenreMovies** (also paging)
     * safeCall only (no caching, no header)
+      * **GetFavoriteMovies** (also paging)
+      * **GetFavoriteTvShows** (also paging)
+      * **GetRatedMovies** (also paging)
+      * **GetRatedTvShows** (also paging)
+      * **GetRatedTvEpisodes** (also paging)
+      * **Rate Movie**
+      * **Delete Movie Rating**
+      * **Rate Tv Show**
+      * **Delete Tv Show Rating**
+      * **Favorite Movie**
+      * **Unfavorite Movie**
+      * **Favorite Tv Show**
+      * **Unfavorite Tv Show**
       * **Search Movies**
       * **Movie Details**
       * **TV Details**
@@ -68,6 +81,7 @@ In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 
       * **None**, but I could use this to fetch data that is not changing, like the genres (which changes sometimes, so I could invalidate it from time to time)
     * safeCall + fetchRemoteFirst
       * **None**, but I could use this to fetch frequently changing data, where the cache is a fallback.
+    * No 
     
 * Many calls are doing paging and caching at the same time. It uses custom paging, so **do not** use this in production **yet**.
 
@@ -83,8 +97,8 @@ In my view this reflects the optimal structure of a **medium** app (25-50 KLOC, 
 
 ## 	🚧 Under construction
 
-* New features (TBD)
-* Improved test coverage
+* Adopt Metro for dependency injection
+* Add coverage through Kover
 
 ## 📃 License
 
