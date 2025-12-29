@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieDtoMother
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.FavoriteMovieReplyDtoMother
@@ -44,9 +46,15 @@ class FavoritesRemoteDataSourceTest {
 		val result = favoritesRemoteDataSource.getFavoriteMovies(accountId = 1, sessionId = "session", page = 1)
 
 		val movies = listOf(FavoriteMovieDtoMother.createFavoriteMovieDto())
-		result.value.pagingList shouldBeEqual movies.toFavoriteMovieList()
-		result.value.isLastPage shouldBe false
-		result.value.pageData shouldBe PageData(page = 1, totalPages = 2, totalResults = 1)
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual movies.toFavoriteMovieList()
+				it.isLastPage shouldBe false
+				it.pageData shouldBe PageData(page = 1, totalPages = 2, totalResults = 1)
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
@@ -67,9 +75,15 @@ class FavoritesRemoteDataSourceTest {
 		val result = favoritesRemoteDataSource.getFavoriteTvShows(accountId = 1, sessionId = "session", page = 1)
 
 		val tvShows = listOf(FavoriteTvShowDtoMother.createFavoriteTvShowDto())
-		result.value.pagingList shouldBeEqual tvShows.toFavoriteTvShowList()
-		result.value.isLastPage shouldBe false
-		result.value.pageData shouldBe PageData(page = 1, totalPages = 2, totalResults = 1)
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual tvShows.toFavoriteTvShowList()
+				it.isLastPage shouldBe false
+				it.pageData shouldBe PageData(page = 1, totalPages = 2, totalResults = 1)
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.account.data.repository
 
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import com.github.michaelbull.result.toResultOr
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
@@ -22,12 +23,10 @@ internal class AccountAccessor @Inject constructor(
 
 	override suspend fun login(username: String, password: String): Outcome<Account> {
 		return accountRemoteDataSource.createSessionId(username, password)
-			.andThen {
-				accountLocalDataSource.saveAccessToken(it)
-				val account = accountRemoteDataSource.getAccountDetails(it)
-				accountLocalDataSource.saveAccount(account.value)
-				account
-			}
+			.andThen { sessionId ->
+				accountLocalDataSource.saveAccessToken(sessionId)
+				accountRemoteDataSource.getAccountDetails(sessionId)
+			}.onSuccess { account -> accountLocalDataSource.saveAccount(account) }
 	}
 
 	override suspend fun logout() {

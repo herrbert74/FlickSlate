@@ -29,6 +29,7 @@ tasks.register<Detekt>("detektAll") {
 	)
 	exclude("**/resources/**")
 	exclude("**/build/**")
+	exclude("**/bin/**")
 }
 
 dependencies {

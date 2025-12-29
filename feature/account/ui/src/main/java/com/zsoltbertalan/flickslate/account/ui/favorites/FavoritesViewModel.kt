@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.account.ui.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetFavoriteMoviesUseCase
@@ -27,14 +29,14 @@ class FavoritesViewModel @Inject constructor(
 	private fun loadFavoriteMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
 			val reply = getFavoriteMoviesUseCase.execute(pageKey)
-			when {
-				reply.isOk -> favoriteMoviesPaginationState.appendPage(
-					reply.value.pagingList,
-					if (reply.value.isLastPage) -1 else pageKey + 1,
-					isLastPage = reply.value.isLastPage
+			reply.onSuccess { pagingReply ->
+				favoriteMoviesPaginationState.appendPage(
+					items = pagingReply.pagingList,
+					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+					isLastPage = pagingReply.isLastPage
 				)
-
-				else -> favoriteMoviesPaginationState.setError(Exception(reply.error.message))
+			}.onFailure { failure ->
+				favoriteMoviesPaginationState.setError(Exception(failure.message))
 			}
 		}
 	}
@@ -49,14 +51,14 @@ class FavoritesViewModel @Inject constructor(
 	private fun loadFavoriteTvShowsPage(pageKey: Int) {
 		viewModelScope.launch {
 			val reply = getFavoriteTvShowsUseCase.execute(pageKey)
-			when {
-				reply.isOk -> favoriteTvShowsPaginationState.appendPage(
-					reply.value.pagingList,
-					if (reply.value.isLastPage) -1 else pageKey + 1,
-					isLastPage = reply.value.isLastPage
+			reply.onSuccess { pagingReply ->
+				favoriteTvShowsPaginationState.appendPage(
+					items = pagingReply.pagingList,
+					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+					isLastPage = pagingReply.isLastPage
 				)
-
-				else -> favoriteTvShowsPaginationState.setError(Exception(reply.error.message))
+			}.onFailure { failure ->
+				favoriteTvShowsPaginationState.setError(Exception(failure.message))
 			}
 		}
 	}
