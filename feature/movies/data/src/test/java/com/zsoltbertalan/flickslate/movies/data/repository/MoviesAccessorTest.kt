@@ -1,6 +1,7 @@
 package com.zsoltbertalan.flickslate.movies.data.repository
 
 import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
