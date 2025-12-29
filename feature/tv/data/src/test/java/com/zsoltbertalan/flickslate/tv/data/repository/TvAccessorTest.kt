@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.tv.data.repository
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
@@ -42,7 +44,13 @@ class TvAccessorTest {
 	fun `when getTopRatedTv called successfully then returns correct result`() = runTest {
 		val topRatedTvFlow = tvAccessor.getTopRatedTv(1)
 		val pagingData = TvMother.createTvList()
-		topRatedTvFlow.first().value.pagingList shouldBeEqual pagingData
+		topRatedTvFlow.first()
+			.onSuccess {
+				it.pagingList shouldBeEqual pagingData
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
@@ -57,9 +65,15 @@ class TvAccessorTest {
 		val topRatedTvFlow = tvAccessor.getTopRatedTv(1)
 
 		val result = topRatedTvFlow.first()
-		result.value.pagingList shouldBeEqual localTvShows
-		result.value.isLastPage shouldBeEqual true
-		result.value.pageData.page shouldBeEqual 1
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual localTvShows
+				it.isLastPage shouldBeEqual true
+				it.pageData.page shouldBeEqual 1
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

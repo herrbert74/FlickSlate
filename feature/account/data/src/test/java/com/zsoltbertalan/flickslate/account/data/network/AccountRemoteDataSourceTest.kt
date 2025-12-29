@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
 import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestTokenReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestTokenReplyDtoMother
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDto
@@ -38,7 +40,13 @@ class AccountRemoteDataSourceTest {
 	@Test
 	fun `when createSessionId called and service returns result then returns correct result`() = runTest {
 		val result = accountRemoteDataSource.createSessionId("", "")
-		result.value shouldBeEqual "session123abc"
+		result
+			.onSuccess {
+				it shouldBeEqual "session123abc"
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

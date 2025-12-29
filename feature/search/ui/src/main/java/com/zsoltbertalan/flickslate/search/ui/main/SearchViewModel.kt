@@ -2,6 +2,7 @@ package com.zsoltbertalan.flickslate.search.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,12 +48,10 @@ class SearchViewModel @Inject constructor(
 
 					if (event.query.isNotEmpty()) {
 						val response = searchRepository.getSearchResult(event.query)
-						when {
-							response.isOk -> _searchStateData.update {
-								it.copy(searchResult = response.value.pagingList)
+						response.onSuccess { pagingReply ->
+							_searchStateData.update {
+								it.copy(searchResult = pagingReply.pagingList)
 							}
-
-							else -> Unit // handle failure
 						}
 					} else {
 						_searchStateData.update {
@@ -77,14 +76,12 @@ class SearchViewModel @Inject constructor(
 	private fun setupSearchScreen() {
 		viewModelScope.launch {
 			genreRepository.getGenresList().collect { response ->
-				when {
-					response.isOk -> _searchStateData.update {
+				response.onSuccess { genresReply ->
+					_searchStateData.update {
 						it.copy(
-							genreResult = response.value.genres.orEmpty().toImmutableList(),
+							genreResult = genresReply.genres.orEmpty().toImmutableList(),
 						)
 					}
-
-					else -> Unit // handle failure
 				}
 			}
 		}

@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
@@ -21,15 +23,17 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 
 	private fun loadPopularMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
-			moviesRepository.getPopularMovies(page = pageKey).collect {
-				when {
-					it.isOk -> popularMoviesPaginationState.appendPage(
-						items = it.value.pagingList,
-						nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
-						isLastPage = it.value.isLastPage
+			moviesRepository.getPopularMovies(page = pageKey).collect { outcome ->
+				outcome.onSuccess { pagingReply ->
+					popularMoviesPaginationState.appendPage(
+						items = pagingReply.pagingList,
+						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+						isLastPage = pagingReply.isLastPage
 					)
+				}
 
-					else -> popularMoviesPaginationState.setError(Exception(it.error.message))
+				outcome.onFailure { failure ->
+					popularMoviesPaginationState.setError(Exception(failure.message))
 
 				}
 			}
@@ -46,15 +50,14 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 	private fun loadUpcomingMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
 			moviesRepository.getUpcomingMovies(page = pageKey).collect {
-				when {
-					it.isOk -> upcomingMoviesPaginationState.appendPage(
-							items = it.value.pagingList,
-							nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
-							isLastPage = it.value.isLastPage
-						)
-
-					else -> upcomingMoviesPaginationState.setError(Exception(it.error.message))
-
+				it.onSuccess { pagingReply ->
+					upcomingMoviesPaginationState.appendPage(
+						items = pagingReply.pagingList,
+						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+						isLastPage = pagingReply.isLastPage
+					)
+				}.onFailure { failure ->
+					upcomingMoviesPaginationState.setError(Exception(failure.message))
 				}
 			}
 		}
@@ -70,15 +73,14 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 	private fun loadNowPlayingMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
 			moviesRepository.getNowPlayingMovies(page = pageKey).collect {
-				when {
-					it.isOk -> nowPlayingMoviesPaginationState.appendPage(
-						items = it.value.pagingList,
-						nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
-						isLastPage = it.value.isLastPage
+				it.onSuccess { pagingReply ->
+					nowPlayingMoviesPaginationState.appendPage(
+						items = pagingReply.pagingList,
+						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+						isLastPage = pagingReply.isLastPage
 					)
-
-					else -> nowPlayingMoviesPaginationState.setError(Exception(it.error.message))
-
+				}.onFailure { failure ->
+					nowPlayingMoviesPaginationState.setError(Exception(failure.message))
 				}
 			}
 		}

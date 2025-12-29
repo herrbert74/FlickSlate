@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.tv.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
@@ -22,15 +24,14 @@ class TvViewModel @Inject constructor(private val tvRepository: TvRepository) : 
 	private fun loadTvPage(pageKey: Int) {
 		viewModelScope.launch {
 			tvRepository.getTopRatedTv(page = pageKey).collect {
-				when {
-					it.isOk -> tvPaginationState.appendPage(
-						items = it.value.pagingList,
-						nextPageKey = if (it.value.isLastPage) -1 else pageKey + 1,
-						isLastPage = it.value.isLastPage
+				it.onSuccess { pagingReply ->
+					tvPaginationState.appendPage(
+						items = pagingReply.pagingList,
+						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+						isLastPage = pagingReply.isLastPage
 					)
-
-					else -> tvPaginationState.setError(Exception(it.error.message))
-
+				}.onFailure { failure ->
+					tvPaginationState.setError(Exception(failure.message))
 				}
 			}
 		}

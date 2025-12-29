@@ -3,6 +3,8 @@ package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
@@ -68,45 +70,48 @@ class TvDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_tvStateData.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
 			val rateResult = rateTvShowUseCase.execute(seriesId, rating)
-			when {
-				rateResult.isOk -> _tvStateData.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = true,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Success,
-						lastRatedValue = rating,
-						tvDetail = it.tvDetail?.copy(personalRating = rating),
-					)
+			rateResult
+				.onSuccess {
+					_tvStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = true,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Success,
+							lastRatedValue = rating,
+							tvDetail = it.tvDetail?.copy(personalRating = rating),
+						)
+					}
 				}
-
-				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
-			}
+				.onFailure { failure ->
+					_tvStateData.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 
 	private fun getTvDetail() {
 		viewModelScope.launch {
 			val tvDetailsResult = tvDetailsUseCase.getTvDetails(seriesId)
-			when {
-				tvDetailsResult.isOk -> _tvStateData.update {
-					val detail = tvDetailsResult.value
-					it.copy(
-						tvDetail = detail,
-						isRated = detail.personalRating > -1f,
-						isFavorite = detail.favorite,
-						lastRatedValue = null,
-						failure = null
-					)
+			tvDetailsResult
+				.onSuccess { detail ->
+					_tvStateData.update {
+						it.copy(
+							tvDetail = detail,
+							isRated = detail.personalRating > -1f,
+							isFavorite = detail.favorite,
+							lastRatedValue = null,
+							failure = null
+						)
+					}
 				}
-
-				else -> _tvStateData.update {
-					it.copy(
-						tvDetail = null,
-						failure = tvDetailsResult.error
-					)
+				.onFailure { failure ->
+					_tvStateData.update {
+						it.copy(
+							tvDetail = null,
+							failure = failure
+						)
+					}
 				}
-			}
 
 		}
 	}
@@ -119,19 +124,22 @@ class TvDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_tvStateData.update { it.copy(isRatingInProgress = true, failure = null) }
 			val result = changeTvRatingUseCase.execute(seriesId, rating)
-			when {
-				result.isOk -> _tvStateData.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = true,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Updated,
-						lastRatedValue = rating,
-						tvDetail = it.tvDetail?.copy(personalRating = rating),
-					)
+			result
+				.onSuccess {
+					_tvStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = true,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Updated,
+							lastRatedValue = rating,
+							tvDetail = it.tvDetail?.copy(personalRating = rating),
+						)
+					}
 				}
-				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = result.error) }
-			}
+				.onFailure { failure ->
+					_tvStateData.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 
@@ -139,19 +147,22 @@ class TvDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_tvStateData.update { it.copy(isRatingInProgress = true, failure = null) }
 			val result = deleteTvRatingUseCase.execute(seriesId)
-			when {
-				result.isOk -> _tvStateData.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = false,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Deleted,
-						lastRatedValue = null,
-						tvDetail = it.tvDetail?.copy(personalRating = -1f),
-					)
+			result
+				.onSuccess {
+					_tvStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = false,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Deleted,
+							lastRatedValue = null,
+							tvDetail = it.tvDetail?.copy(personalRating = -1f),
+						)
+					}
 				}
-				else -> _tvStateData.update { it.copy(isRatingInProgress = false, failure = result.error) }
-			}
+				.onFailure { failure ->
+					_tvStateData.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 
@@ -166,23 +177,20 @@ class TvDetailViewModel @Inject constructor(
 				)
 			}
 			val result = setTvFavoriteUseCase.execute(seriesId, newFavoriteValue)
-			when {
-				result.isOk -> _tvStateData.update {
-					it.copy(
-						isFavoriteInProgress = false,
-						isFavorite = newFavoriteValue,
-						tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue),
-						showFavoriteToast = true
-					)
+			result
+				.onSuccess {
+					_tvStateData.update {
+						it.copy(
+							isFavoriteInProgress = false,
+							isFavorite = newFavoriteValue,
+							tvDetail = it.tvDetail?.copy(favorite = newFavoriteValue),
+							showFavoriteToast = true
+						)
+					}
 				}
-
-				else -> _tvStateData.update {
-					it.copy(
-						isFavoriteInProgress = false,
-						failure = result.error
-					)
+				.onFailure { failure ->
+					_tvStateData.update { it.copy(isFavoriteInProgress = false, failure = failure) }
 				}
-			}
 		}
 	}
 }

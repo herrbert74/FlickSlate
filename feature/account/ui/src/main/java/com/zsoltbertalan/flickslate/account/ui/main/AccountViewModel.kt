@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.account.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,12 +27,13 @@ class AccountViewModel @Inject constructor(private val accountRepository: Accoun
 
 	fun login(username: String, password: String) {
 		viewModelScope.launch {
-			val loginResult = accountRepository.login(username, password)
-			if (loginResult.isOk) {
-				_loggedInEvent.emit(loginResult.value)
-			} else {
-				_loggedInEvent.emit(null)
-			}
+			accountRepository.login(username, password)
+				.onSuccess { account ->
+					_loggedInEvent.emit(account)
+				}
+				.onFailure {
+					_loggedInEvent.emit(null)
+				}
 		}
 	}
 

@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.account.data.repository
 
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import io.kotest.matchers.equals.shouldBeEqual
@@ -43,7 +45,13 @@ class AccountAccessorTest {
 	fun `when login called then returns correct account`() = runTest {
 		val accountOutcome = accountAccessor.login("john.doe", "password123")
 		val account = AccountMother.createAccount()
-		accountOutcome.value shouldBeEqual account
+		accountOutcome
+			.onSuccess {
+				it shouldBeEqual account
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

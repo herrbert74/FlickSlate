@@ -4,6 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
@@ -75,22 +77,24 @@ class TvSeasonDetailViewModel @Inject constructor(
 		_uiState.update { it.copy(isLoading = true, failure = null, bgColor = bgColor, bgColorDim = bgColorDim) }
 		viewModelScope.launch {
 			val result = getSeasonDetailUseCase.execute(seriesId, seasonNumber)
-			when {
-				result.isOk -> _uiState.update {
-					it.copy(
-						isLoading = false,
-						seasonDetail = result.value,
-						failure = null,
-					)
+			result
+				.onSuccess { seasonDetail ->
+					_uiState.update {
+						it.copy(
+							isLoading = false,
+							seasonDetail = seasonDetail,
+							failure = null,
+						)
+					}
 				}
-
-				else -> _uiState.update {
-					it.copy(
-						isLoading = false,
-						failure = result.error
-					)
+				.onFailure { failure ->
+					_uiState.update {
+						it.copy(
+							isLoading = false,
+							failure = failure
+						)
+					}
 				}
-			}
 		}
 	}
 
@@ -104,8 +108,7 @@ class TvSeasonDetailViewModel @Inject constructor(
 		if (episode != null && _uiState.value.expandedEpisodeId == episodeId) {
 			viewModelScope.launch {
 				val result = getEpisodeDetailUseCase.execute(seriesId, seasonNumber, episode.episodeNumber)
-				if (result.isOk) {
-					val updated = result.value
+				result.onSuccess { updated ->
 					_uiState.update { state ->
 						val updatedEpisodes = state.seasonDetail?.episodes?.map {
 							if (it.id == episodeId) it.copy(personalRating = updated.personalRating) else it
@@ -125,18 +128,20 @@ class TvSeasonDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_uiState.update { it.copy(isRatingInProgress = true, isRated = false, failure = null) }
 			val rateResult = rateEpisodeUseCase.execute(seriesId, seasonNumber, episodeNumber, rating)
-			when {
-				rateResult.isOk -> _uiState.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = true,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Success,
-					)
+			rateResult
+				.onSuccess {
+					_uiState.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = true,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Success,
+						)
+					}
 				}
-
-				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
-			}
+				.onFailure { failure ->
+					_uiState.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 
@@ -144,17 +149,19 @@ class TvSeasonDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_uiState.update { it.copy(isRatingInProgress = true, failure = null) }
 			val rateResult = changeEpisodeRatingUseCase.execute(seriesId, seasonNumber, episodeNumber, rating)
-			when {
-				rateResult.isOk -> _uiState.update {
-					it.copy(
-						isRatingInProgress = false,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Updated,
-					)
+			rateResult
+				.onSuccess {
+					_uiState.update {
+						it.copy(
+							isRatingInProgress = false,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Updated,
+						)
+					}
 				}
-
-				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
-			}
+				.onFailure { failure ->
+					_uiState.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 
@@ -162,17 +169,19 @@ class TvSeasonDetailViewModel @Inject constructor(
 		viewModelScope.launch {
 			_uiState.update { it.copy(isRatingInProgress = true, failure = null) }
 			val rateResult = deleteEpisodeRatingUseCase.execute(seriesId, seasonNumber, episodeNumber)
-			when {
-				rateResult.isOk -> _uiState.update {
-					it.copy(
-						isRatingInProgress = false,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Deleted,
-					)
+			rateResult
+				.onSuccess {
+					_uiState.update {
+						it.copy(
+							isRatingInProgress = false,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Deleted,
+						)
+					}
 				}
-
-				else -> _uiState.update { it.copy(isRatingInProgress = false, failure = rateResult.error) }
-			}
+				.onFailure { failure ->
+					_uiState.update { it.copy(isRatingInProgress = false, failure = failure) }
+				}
 		}
 	}
 

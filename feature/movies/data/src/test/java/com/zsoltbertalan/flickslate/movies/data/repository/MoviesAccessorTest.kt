@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.movies.data.repository
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.movies.data.api.NowPlayingMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.PopularMoviesDataSource
 import com.zsoltbertalan.flickslate.movies.data.api.UpcomingMoviesDataSource
@@ -9,7 +11,6 @@ import com.zsoltbertalan.flickslate.movies.data.network.MoviesService
 import com.zsoltbertalan.flickslate.movies.data.network.model.AccountStatesDto
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDtoMother
 import com.zsoltbertalan.flickslate.movies.data.network.model.RatedDto
-import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
@@ -87,21 +88,39 @@ class MoviesAccessorTest {
 	fun `when getPopularMovies called then returns correct result`() = runTest {
 		val popularMoviesFlow = moviesAccessor.getPopularMovies(1)
 		val pagingData = MovieMother.createPopularMovieList()
-		popularMoviesFlow.first().value.pagingList shouldBeEqual pagingData
+		popularMoviesFlow.first()
+			.onSuccess {
+				it.pagingList shouldBeEqual pagingData
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
 	fun `when getUpcomingMovies called then returns correct result`() = runTest {
 		val upcomingMoviesFlow = moviesAccessor.getUpcomingMovies(1)
 		val pagingData = MovieMother.createUpcomingMovieList()
-		upcomingMoviesFlow.first().value.pagingList shouldBeEqual pagingData
+		upcomingMoviesFlow.first()
+			.onSuccess {
+				it.pagingList shouldBeEqual pagingData
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
 	fun `when getNowPlayingMovies called then returns correct result`() = runTest {
 		val nowPlayingMoviesFlow = moviesAccessor.getNowPlayingMovies(1)
 		val pagingData = MovieMother.createNowPlayingMovieList()
-		nowPlayingMoviesFlow.first().value.pagingList shouldBeEqual pagingData
+		nowPlayingMoviesFlow.first()
+			.onSuccess {
+				it.pagingList shouldBeEqual pagingData
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
@@ -117,9 +136,15 @@ class MoviesAccessorTest {
 		val popularMoviesFlow = moviesAccessor.getPopularMovies(1)
 
 		val result = popularMoviesFlow.first()
-		result.value.pagingList shouldBeEqual localPopularMovies
-		result.value.isLastPage shouldBeEqual true
-		result.value.pageData.page shouldBeEqual 1
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual localPopularMovies
+				it.isLastPage shouldBeEqual true
+				it.pageData.page shouldBeEqual 1
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
@@ -147,14 +172,17 @@ class MoviesAccessorTest {
 		} returns movieDetailsDto
 
 		val result = moviesAccessor.getMovieDetails(movieId, sessionId)
-
-		result.isOk shouldBe true
-		val movieDetail = (result as Ok<MovieDetail>).value
-		movieDetail.id shouldBe movieId
-		movieDetail.title shouldBe "Test Movie"
-		movieDetail.personalRating shouldBe 8.0f
-		movieDetail.favorite shouldBe true
-		movieDetail.watchlist shouldBe true
+		result
+			.onSuccess {
+				it.id shouldBe movieId
+				it.title shouldBe "Test Movie"
+				it.personalRating shouldBe 8.0f
+				it.favorite shouldBe true
+				it.watchlist shouldBe true
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test
@@ -175,10 +203,13 @@ class MoviesAccessorTest {
 		} catch (_: Exception) {
 			Err<Failure>(Failure.UnknownHostFailure)
 		}
-
-		result.isOk shouldBe false
-		val error = (result as Err<Failure>).error
-		error.shouldBeInstanceOf<Failure.UnknownHostFailure>()
+		result
+			.onSuccess {
+				throw AssertionError("Expected Err but was Ok($it)")
+			}
+			.onFailure {
+				it.shouldBeInstanceOf<Failure.UnknownHostFailure>()
+			}
 	}
 
 }

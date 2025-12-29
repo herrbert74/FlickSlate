@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.tv.data.network
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.shared.data.network.model.AccountStatesDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
 import com.zsoltbertalan.flickslate.shared.data.network.model.RatedDto
@@ -47,9 +49,15 @@ class TvRemoteDataSourceTest {
 	@Test
 	fun `when getTopRatedTv called and service returns result then returns correct result`() = runTest {
 		val result = tvDataSource.getTopRatedTv("", 1)
-		result.value.pagingList shouldBeEqual TvMother.createTvList()
-		result.value.isLastPage shouldBe false
-		result.value.pageData shouldBe PageData(totalPages = TOTAL_PAGES, totalResults = TOTAL_RESULTS)
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual TvMother.createTvList()
+				it.isLastPage shouldBe false
+				it.pageData shouldBe PageData(totalPages = TOTAL_PAGES, totalResults = TOTAL_RESULTS)
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

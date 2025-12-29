@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.account.ui.ratings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
@@ -30,14 +32,14 @@ class RatingsViewModel @Inject constructor(
 	private fun loadRatedMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
 			val reply = getRatedMoviesUseCase.execute(pageKey)
-			when {
-				reply.isOk -> ratedMoviesPaginationState.appendPage(
-					reply.value.pagingList,
-					if (reply.value.isLastPage) -1 else pageKey + 1,
-					isLastPage = reply.value.isLastPage
+			reply.onSuccess { pagingReply ->
+				ratedMoviesPaginationState.appendPage(
+					items = pagingReply.pagingList,
+					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+					isLastPage = pagingReply.isLastPage
 				)
-
-				else -> ratedMoviesPaginationState.setError(Exception(reply.error.message))
+			}.onFailure { failure ->
+				ratedMoviesPaginationState.setError(Exception(failure.message))
 			}
 		}
 	}
@@ -52,14 +54,14 @@ class RatingsViewModel @Inject constructor(
 	private fun loadRatedTvShowsPage(pageKey: Int) {
 		viewModelScope.launch {
 			val reply = getRatedTvShowsUseCase.execute(pageKey)
-			when {
-				reply.isOk -> ratedTvShowsPaginationState.appendPage(
-					reply.value.pagingList,
-					if (reply.value.isLastPage) -1 else pageKey + 1,
-					isLastPage = reply.value.isLastPage
+			reply.onSuccess { pagingReply ->
+				ratedTvShowsPaginationState.appendPage(
+					items = pagingReply.pagingList,
+					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+					isLastPage = pagingReply.isLastPage
 				)
-
-				else -> ratedTvShowsPaginationState.setError(Exception(reply.error.message))
+			}.onFailure { failure ->
+				ratedTvShowsPaginationState.setError(Exception(failure.message))
 			}
 		}
 	}
@@ -74,14 +76,14 @@ class RatingsViewModel @Inject constructor(
 	private fun loadRatedTvEpisodesPage(pageKey: Int) {
 		viewModelScope.launch {
 			val reply = getRatedTvShowEpisodesUseCase.execute(pageKey)
-			when {
-				reply.isOk -> ratedTvEpisodesPaginationState.appendPage(
-					reply.value.pagingList,
-					if (reply.value.isLastPage) -1 else pageKey + 1,
-					isLastPage = reply.value.isLastPage
+			reply.onSuccess { pagingReply ->
+				ratedTvEpisodesPaginationState.appendPage(
+					items = pagingReply.pagingList,
+					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
+					isLastPage = pagingReply.isLastPage
 				)
-
-				else -> ratedTvEpisodesPaginationState.setError(Exception(reply.error.message))
+			}.onFailure { failure ->
+				ratedTvEpisodesPaginationState.setError(Exception(failure.message))
 			}
 		}
 	}

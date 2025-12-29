@@ -3,6 +3,8 @@ package com.zsoltbertalan.flickslate.search.ui.main
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
@@ -43,18 +45,15 @@ class GenreDetailViewModel @Inject constructor(
 		if (savedStateHandle.get<Int>("genreId") == null) return
 		viewModelScope.launch {
 			genreRepository.getGenreDetail(genreId = genreId, page = pageKey).collect {
-				when {
-					it.isOk -> genreMoviesPaginationState.appendPage(
-						items = it.value.pagingReply.pagingList,
-						nextPageKey = if (it.value.pagingReply.isLastPage) -1 else pageKey + 1,
-						isLastPage = it.value.pagingReply.isLastPage
+				it.onSuccess { reply ->
+					genreMoviesPaginationState.appendPage(
+						items = reply.pagingReply.pagingList,
+						nextPageKey = if (reply.pagingReply.isLastPage) -1 else pageKey + 1,
+						isLastPage = reply.pagingReply.isLastPage
 					)
-
-					else -> {
-						val e = it.error as? Failure.ServerError
-						genreMoviesPaginationState.setError(Exception(e?.message))
-					}
-
+				}.onFailure { failure ->
+					val e = failure as? Failure.ServerError
+					genreMoviesPaginationState.setError(Exception(e?.message))
 				}
 			}
 		}

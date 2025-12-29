@@ -4,6 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCase
@@ -69,8 +71,8 @@ class MovieDetailViewModel @Inject constructor(
 				)
 			}
 			val rateMovieResult = rateMovieUseCase.execute(movieId, rating)
-			when {
-				rateMovieResult.isOk ->
+			rateMovieResult
+				.onSuccess {
 					_movieStateData.update {
 						it.copy(
 							isRatingInProgress = false,
@@ -80,15 +82,15 @@ class MovieDetailViewModel @Inject constructor(
 							ratingToastMessage = RatingToastMessage.Success
 						)
 					}
-
-				else ->
+				}
+				.onFailure { failure ->
 					_movieStateData.update {
 						it.copy(
 							isRatingInProgress = false,
-							failure = rateMovieResult.error
+							failure = failure
 						)
 					}
-			}
+				}
 		}
 	}
 
@@ -103,21 +105,21 @@ class MovieDetailViewModel @Inject constructor(
 				)
 			}
 			val changeResult = changeMovieRatingUseCase.execute(movieId, rating)
-			when {
-				changeResult.isOk -> _movieStateData.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = true,
-						movieDetail = it.movieDetail?.copy(personalRating = rating),
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Updated
-					)
+			changeResult
+				.onSuccess {
+					_movieStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = true,
+							movieDetail = it.movieDetail?.copy(personalRating = rating),
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Updated
+						)
+					}
 				}
-
-				else -> _movieStateData.update {
-					it.copy(isRatingInProgress = false, failure = changeResult.error)
+				.onFailure { failure ->
+					_movieStateData.update { it.copy(isRatingInProgress = false, failure = failure) }
 				}
-			}
 		}
 	}
 
@@ -131,22 +133,22 @@ class MovieDetailViewModel @Inject constructor(
 				)
 			}
 			val deleteResult = deleteMovieRatingUseCase.execute(movieId)
-			when {
-				deleteResult.isOk -> _movieStateData.update {
-					it.copy(
-						isRatingInProgress = false,
-						isRated = false,
-						movieDetail = it.movieDetail?.copy(personalRating = -1f),
-						lastRatedValue = null,
-						showRatingToast = true,
-						ratingToastMessage = RatingToastMessage.Deleted
-					)
+			deleteResult
+				.onSuccess {
+					_movieStateData.update {
+						it.copy(
+							isRatingInProgress = false,
+							isRated = false,
+							movieDetail = it.movieDetail?.copy(personalRating = -1f),
+							lastRatedValue = null,
+							showRatingToast = true,
+							ratingToastMessage = RatingToastMessage.Deleted
+						)
+					}
 				}
-
-				else -> _movieStateData.update {
-					it.copy(isRatingInProgress = false, failure = deleteResult.error)
+				.onFailure { failure ->
+					_movieStateData.update { it.copy(isRatingInProgress = false, failure = failure) }
 				}
-			}
 		}
 	}
 
@@ -161,49 +163,47 @@ class MovieDetailViewModel @Inject constructor(
 				)
 			}
 			val result = setMovieFavoriteUseCase.execute(movieId, newFavoriteValue)
-			when {
-				result.isOk -> _movieStateData.update {
-					it.copy(
-						isFavoriteInProgress = false,
-						isFavorite = newFavoriteValue,
-						movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue),
-						showFavoriteToast = true
-					)
+			result
+				.onSuccess {
+					_movieStateData.update {
+						it.copy(
+							isFavoriteInProgress = false,
+							isFavorite = newFavoriteValue,
+							movieDetail = it.movieDetail?.copy(favorite = newFavoriteValue),
+							showFavoriteToast = true
+						)
+					}
 				}
-
-				else -> _movieStateData.update {
-					it.copy(
-						isFavoriteInProgress = false,
-						failure = result.error
-					)
+				.onFailure { failure ->
+					_movieStateData.update { it.copy(isFavoriteInProgress = false, failure = failure) }
 				}
-			}
 		}
 	}
 
 	private fun getMovieDetail() {
 		viewModelScope.launch {
 			val movieDetailsResult = movieDetailsUseCase.getMovieDetails(movieId)
-			when {
-				movieDetailsResult.isOk -> _movieStateData.update { movieDetailState ->
-					val movieDetail = movieDetailsResult.value
-					movieDetailState.copy(
-						movieDetail = movieDetail,
-						isRated = movieDetail.personalRating > -1f,
-						lastRatedValue = movieDetail.personalRating.takeIf { it > -1f },
-						isFavorite = movieDetail.favorite,
-						isWatchlist = movieDetail.watchlist,
-						failure = null
-					)
+			movieDetailsResult
+				.onSuccess { movieDetail ->
+					_movieStateData.update { movieDetailState ->
+						movieDetailState.copy(
+							movieDetail = movieDetail,
+							isRated = movieDetail.personalRating > -1f,
+							lastRatedValue = movieDetail.personalRating.takeIf { it > -1f },
+							isFavorite = movieDetail.favorite,
+							isWatchlist = movieDetail.watchlist,
+							failure = null
+						)
+					}
 				}
-
-				else -> _movieStateData.update {
-					it.copy(
-						movieDetail = null,
-						failure = movieDetailsResult.error
-					)
+				.onFailure { failure ->
+					_movieStateData.update {
+						it.copy(
+							movieDetail = null,
+							failure = failure
+						)
+					}
 				}
-			}
 		}
 	}
 

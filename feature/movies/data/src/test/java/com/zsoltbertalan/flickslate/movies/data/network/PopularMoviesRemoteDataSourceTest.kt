@@ -1,6 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
 import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.movies.data.network.model.MovieDtoMother
 import com.zsoltbertalan.flickslate.movies.data.network.model.TOTAL_PAGES
 import com.zsoltbertalan.flickslate.movies.data.network.model.TOTAL_RESULTS
@@ -36,9 +38,15 @@ class PopularMoviesRemoteDataSourceTest {
 	@Test
 	fun `when getPopularMovies called and service returns result then returns correct result`() = runTest {
 		val result = popularMoviesRemoteDataSource.getPopularMovies("", 1)
-		result.value.pagingList shouldBeEqual MovieMother.createPopularMovieList()
-		result.value.isLastPage shouldBe false
-		result.value.pageData shouldBe PageData(totalPages = TOTAL_PAGES, totalResults = TOTAL_RESULTS)
+		result
+			.onSuccess {
+				it.pagingList shouldBeEqual MovieMother.createPopularMovieList()
+				it.isLastPage shouldBe false
+				it.pageData shouldBe PageData(totalPages = TOTAL_PAGES, totalResults = TOTAL_RESULTS)
+			}
+			.onFailure {
+				throw AssertionError("Expected Ok but was Err($it)")
+			}
 	}
 
 	@Test

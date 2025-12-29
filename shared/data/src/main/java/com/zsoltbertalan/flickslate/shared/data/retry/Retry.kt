@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.shared.data.retry
 
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.asErr
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.github.michaelbull.retry.attempt.Attempt
 import com.github.michaelbull.retry.attempt.firstAttempt
 import com.github.michaelbull.retry.instruction.ContinueRetrying
@@ -26,21 +26,18 @@ suspend inline fun <V, E> retry(policy: RetryPolicy<E>, block: () -> Result<V, E
 
 	while (true) {
 		val result = block()
-
-		if (result.isOk) {
+		result.onSuccess {
 			return result
-		} else {
+		}.onFailure { error ->
 			if (attempt == null) {
 				attempt = firstAttempt()
 			}
 
-			val failedAttempt = attempt.failedWith(result.error)
+			val failedAttempt = attempt.failedWith(error)
 
 			when (val instruction = policy(failedAttempt)) {
-				StopRetrying -> return result.asErr()
-
+				StopRetrying -> return result
 				ContinueRetrying -> attempt.retryImmediately()
-
 				else -> {
 					val (delayMillis) = instruction
 					delay(delayMillis)

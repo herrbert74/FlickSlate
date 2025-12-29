@@ -1,8 +1,10 @@
 *.iml
 .gradle
+bin
 .kotlin
 /local.properties
 .idea/*
+.vscode/*
 !.idea/codeStyles
 !.idea/dictionaries
 !.idea/.gitignore
