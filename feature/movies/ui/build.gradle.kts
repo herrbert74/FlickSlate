@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+	api(project(":feature:account:domain"))
 	api(project(":feature:movies:domain"))
 
 	api(libs.androidx.lifecycleCommon)
@@ -38,7 +39,6 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
-	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl) // transitive
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)

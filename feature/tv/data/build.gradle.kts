@@ -26,6 +26,7 @@ dependencies {
 	implementation(libs.kotlinx.serializationJson)
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.okhttp3.mockWebServer)
+	testImplementation(libs.okio)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testRuntimeOnly(libs.robolectric)
 	testImplementation(testFixtures(project(":feature:tv:domain")))

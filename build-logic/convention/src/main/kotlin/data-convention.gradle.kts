@@ -10,7 +10,12 @@ ksp {
 dependencies {
 	implementation(project(":base:kotlin"))
 	implementation(project(":shared:domain"))
-	implementation(project(":shared:data"))
+
+	if (project.parent?.name == "movies") {
+		api(project(":shared:data"))
+	} else {
+		implementation(project(":shared:data"))
+	}
 
 	api(libs.dagger.hiltCore)
 	implementation(libs.dagger.hiltAndroid)

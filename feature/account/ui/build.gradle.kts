@@ -39,7 +39,6 @@ dependencies {
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.lifecycleViewmodelCompose)
-	implementation(libs.kotlinResult.coroutines)
 
 	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
@@ -55,11 +54,10 @@ dependencies {
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl) // transitive
 
-	testImplementation(libs.androidx.activity)
 	testImplementation(libs.androidx.composeUiTest) // transitive
 	testImplementation(libs.androidx.composeUiTestJunit4)
 	testImplementation(libs.androidx.testExtJUnit)
-	testImplementation(libs.androidx.testCore) // transitive
+	testRuntimeOnly(libs.androidx.testCore) // transitive
 	testImplementation(libs.jUnit)
 	testRuntimeOnly(libs.robolectric)
 

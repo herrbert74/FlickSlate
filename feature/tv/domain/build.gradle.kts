@@ -35,7 +35,6 @@ dependencies {
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotlinx.coroutinesTest)
-	testImplementation(libs.kotlinx.serializationJson)
 
 	testFixturesApi(project(":shared:domain"))
 

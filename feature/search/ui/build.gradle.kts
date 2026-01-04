@@ -30,7 +30,6 @@ dependencies {
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
 	implementation(libs.androidx.composeAnimation)
-	implementation(libs.androidx.composeMaterialIconsCore) // transitive
 	implementation(libs.androidx.composeAnimationCore)
 	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
@@ -47,7 +46,6 @@ dependencies {
 	testImplementation(libs.androidx.composeUiTest) // transitive
 	testImplementation(libs.androidx.composeUiTestJunit4)
 	testImplementation(libs.androidx.fragmentKtx) // transitive
-	testImplementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	testImplementation(libs.androidx.lifecycleCommon) // transitive
 	testImplementation(libs.androidx.lifecycleRuntimeCompose) // transitive
 	testImplementation(libs.androidx.lifecycleViewmodelCompose) // transitive

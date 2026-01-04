@@ -17,12 +17,7 @@ dependencies {
 	}
 
 	api(project(":shared:domain"))
-
-	if (project.parent?.name == "account") {
-		implementation(project(":shared:ui"))
-	} else {
-		api(project(":shared:ui"))
-	}
+	api(project(":shared:ui"))
 
 	implementation(platform(libs.androidx.compose.bom))
 
@@ -43,14 +38,15 @@ dependencies {
 		implementation(libs.androidx.composeRuntimeAnnotation)
 	}
 
-	excludeFrom(listOf("account")) {
-		implementation(libs.androidx.composeRuntimeSaveable)
-	}
+	implementation(libs.androidx.composeRuntimeSaveable)
 
 	excludeFrom(listOf("search")) {
 		implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	}
 
+	if (project.parent?.name != "account") {
+		implementation(libs.androidx.composeMaterialIconsCore)
+	}
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeUiGraphics)
 	implementation(libs.androidx.composeUiText)
@@ -60,9 +56,9 @@ dependencies {
 	implementation(libs.dagger.hiltCore)
 	implementation(libs.kotlinResult.result)
 
-	if (project.parent?.name == "search" || project.parent?.name == "account") {
+	if (project.parent?.name == "search") {
 		api(libs.kotlinx.collectionsImmutableJvm)
-	} else {
+	} else if (project.parent?.name != "account") {
 		implementation(libs.kotlinx.collectionsImmutableJvm)
 	}
 
@@ -71,6 +67,10 @@ dependencies {
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
+
+	if (project.parent?.name != "search") {
+		testImplementation(libs.kotest.assertionsShared)
+	}
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

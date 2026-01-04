@@ -29,8 +29,10 @@ dependencies {
 	implementation(libs.kotlinx.serializationJson)
 
 	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotest.assertionsShared)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.okhttp3.mockWebServer)
+	testImplementation(libs.okio)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(testFixtures(project(":feature:movies:data")))
 	testImplementation(testFixtures(project(":shared:data")))

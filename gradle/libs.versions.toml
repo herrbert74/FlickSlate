@@ -32,6 +32,7 @@ androidx-navigation3 = "1.0.0"
 androidx-hilt = "1.3.0"
 androidx-paletteKtx = "1.0.0"
 androidx-room = "2.8.4"
+androidx-savedState = "1.4.0"
 androidx-testCore = "1.7.0"
 androidx-testExtJUnit = "1.3.0"
 androidx-testRules = "1.6.1"
@@ -72,6 +73,7 @@ mockk = "1.14.7"
 #multiplatform-settings = "1.3.0"
 #mviKotlin = "4.3.0"
 okhttp = "5.3.2"
+okio = "3.16.4"
 #parcelize-darwin = "0.2.4"
 retrofit = "3.0.0"
 robolectric = "4.16"
@@ -166,7 +168,8 @@ androidx-roomCompiler = { module = "androidx.room:room-compiler", version.ref = 
 androidx-roomRuntime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
 #androidx-roomTesting = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
 
-#androidx-savedState  = "androidx.savedstate:savedstate:1.2.1"
+androidx-savedState = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedState" }
+androidx-savedStateCompose = { module = "androidx.savedstate:savedstate-compose", version.ref = "androidx-savedState" }
 ##androidx-splash = "androidx.core:core-splashscreen:1.0.1"
 #androidx-startup = "androidx.startup:startup-runtime:1.2.0"
 androidx-sqlite = "androidx.sqlite:sqlite:2.6.2"
@@ -196,7 +199,7 @@ autobind-android-testing = { module = "se.ansman.dagger.auto:android-testing", v
 autobind-compiler = { module = "se.ansman.dagger.auto:compiler", version.ref = "autoBind" }
 
 #baBeStudios-baseKotlin = { module ="io.bitbucket.babestudios:base-kotlin", version.ref = "babestudios-base"}
-baBeStudios-baseData = { module ="io.bitbucket.babestudios:base-data", version.ref = "babestudios-base"}
+baBeStudios-baseData = { module = "io.bitbucket.babestudios:base-data", version.ref = "babestudios-base" }
 #baBeStudios-baseAndroid = { module ="io.bitbucket.babestudios:base-android", version.ref = "babestudios-base"}
 #baBeStudios-baseCompose = { module ="io.bitbucket.babestudios:base-compose", version.ref = "babestudios-base"}
 
@@ -298,7 +301,7 @@ kotlinRetry = { module = "com.michael-bull.kotlin-retry:kotlin-retry", version.r
 #kotlinx-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-kotlinx-collectionsImmutableJvm = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm", version.ref ="kotlinx-collections" }
+kotlinx-collectionsImmutableJvm = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm", version.ref = "kotlinx-collections" }
 #kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serializationCore = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
@@ -343,6 +346,8 @@ mockk-dsl = { module = "io.mockk:mockk-dsl", version.ref = "mockk" }
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp3-mockWebServer = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "okhttp" }
 okhttp3-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 
 #parcelize-darwin-runtime = { module = "com.arkivanov.parcelize.darwin:runtime", version.ref = "parcelize-darwin" }
 
