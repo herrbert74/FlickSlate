@@ -242,4 +242,3 @@ fun uploadToNewRelic(apiKey: String, jsonPayload: String) {
 
 // Run main
 main()
-
