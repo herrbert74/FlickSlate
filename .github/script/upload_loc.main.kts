@@ -189,7 +189,7 @@ fun getSubProjectInfos(projectRoot: File): List<Pair<String, File>> {
 			} ?: false
 
 			if (!hasSubprojects) {
-				val moduleName = if (prefix.isEmpty()) dir.name else "$prefix/${dir.name}"
+				val moduleName = if (prefix.isEmpty()) dir.name else "$prefix:${dir.name}"
 				subprojects.add(moduleName to dir)
 			}
 		}
@@ -197,7 +197,7 @@ fun getSubProjectInfos(projectRoot: File): List<Pair<String, File>> {
 		// Recursively scan subdirectories
 		dir.listFiles()?.forEach { subDir ->
 			if (subDir.isDirectory && !subDir.name.startsWith(".") && subDir.name != "build") {
-				val newPrefix = if (prefix.isEmpty()) dir.name else "$prefix/${dir.name}"
+				val newPrefix = if (prefix.isEmpty()) dir.name else "$prefix:${dir.name}"
 				scanDirectory(subDir, newPrefix)
 			}
 		}
