@@ -8,8 +8,7 @@
     <application>
         <activity
             android:name=".HiltComponentActivity"
-            android:exported="false"
-            tools:replace="android:exported" />
+            android:exported="false" />
     </application>
 
 </manifest>

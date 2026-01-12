@@ -35,6 +35,8 @@ dependencies {
 	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
 
+	ksp(libs.kotlin.metadataJvm)
+
 	kspTest(libs.autobind.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.compiler)
