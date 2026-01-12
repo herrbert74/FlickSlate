@@ -146,6 +146,7 @@ dependencies {
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
 	ksp(libs.dagger.hiltCompiler)
+	ksp(libs.kotlin.metadataJvm)
 
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
