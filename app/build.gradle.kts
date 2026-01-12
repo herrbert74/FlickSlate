@@ -146,6 +146,8 @@ dependencies {
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
 	ksp(libs.dagger.hiltCompiler)
+
+	// Might be removed later when this is fixed: https://github.com/google/dagger/issues/5001
 	ksp(libs.kotlin.metadataJvm)
 
 	testImplementation(libs.mockk.core)
