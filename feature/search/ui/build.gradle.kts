@@ -34,6 +34,9 @@ dependencies {
 	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
 	implementation(libs.dagger.hiltAndroid)
 
+	// Might be removed later when this is fixed: https://github.com/google/dagger/issues/5001
+	ksp(libs.kotlin.metadataJvm)
+
 	kspTest(libs.autobind.compiler)
 	kspTest(libs.androidx.hiltCompiler)
 	kspTest(libs.dagger.compiler)
