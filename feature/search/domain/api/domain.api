@@ -4,12 +4,12 @@ public abstract interface class com/zsoltbertalan/flickslate/search/domain/api/G
 }
 
 public abstract interface class com/zsoltbertalan/flickslate/search/domain/api/SearchRepository {
-	public abstract fun getSearchResult (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun getSearchResult$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getSearchResult-ta8aW1Q (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun getSearchResult-ta8aW1Q$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/search/domain/api/SearchRepository$DefaultImpls {
-	public static synthetic fun getSearchResult$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getSearchResult-ta8aW1Q$default (Lcom/zsoltbertalan/flickslate/search/domain/api/SearchRepository;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/zsoltbertalan/flickslate/search/domain/api/model/GenreMoviesPagingReply {

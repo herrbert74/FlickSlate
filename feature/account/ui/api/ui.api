@@ -1,5 +1,66 @@
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/ComposableSingletons$FavoritesScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/ui/favorites/ComposableSingletons$FavoritesScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1423169128$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1480725296$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoriteShowCardKt {
+	public static final fun FavoriteShowCard (Ljava/lang/String;Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun getIMAGE_HEIGHT ()F
+	public static final fun getIMAGE_WIDTH ()F
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesScreenKt {
+	public static final fun FavoritesScreen (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteMoviesUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteTvShowsUseCase;)V
+	public final fun getFavoriteMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getFavoriteTvShowsPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun refresh ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteMoviesUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteTvShowsUseCase;)Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
 public final class com/zsoltbertalan/flickslate/account/ui/main/AccountScreenKt {
-	public static final fun AccountScreen (Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun AccountScreen (Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/zsoltbertalan/flickslate/account/ui/main/AccountViewModel : androidx/lifecycle/ViewModel {
@@ -50,7 +111,7 @@ public final class com/zsoltbertalan/flickslate/account/ui/main/ComposableSingle
 	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/ui/main/ComposableSingletons$LoggedInComponentKt;
 	public fun <init> ()V
 	public final fun getLambda$-1309111951$ui_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-804811624$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$283394816$ui_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/zsoltbertalan/flickslate/account/ui/main/ComposableSingletons$LoginComponentKt {
@@ -60,11 +121,98 @@ public final class com/zsoltbertalan/flickslate/account/ui/main/ComposableSingle
 }
 
 public final class com/zsoltbertalan/flickslate/account/ui/main/LoggedInComponentKt {
-	public static final fun LoggedInComponent (Landroidx/compose/material3/ColorScheme;Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LoggedInComponent (Landroidx/compose/material3/ColorScheme;Lcom/zsoltbertalan/flickslate/shared/domain/model/Account;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel;Lcom/zsoltbertalan/flickslate/account/ui/favorites/FavoritesViewModel;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/zsoltbertalan/flickslate/account/ui/main/LoginComponentKt {
 	public static final fun LoginComponent (Landroidx/compose/material3/ColorScheme;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$EmptyRatedListCardKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$EmptyRatedListCardKt;
+	public fun <init> ()V
+	public final fun getLambda$-1361786405$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$RatedShowCardKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$RatedShowCardKt;
+	public fun <init> ()V
+	public final fun getLambda$1121981265$ui_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$RatingsScreenKt {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/account/ui/ratings/ComposableSingletons$RatingsScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-1879354773$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-2035596951$ui_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$941836849$ui_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/EmptyRatedListCardKt {
+	public static final fun EmptyRatedListCard (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatedShowCardKt {
+	public static final fun RatedShowCard (Ljava/lang/String;Ljava/lang/String;FLandroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun getIMAGE_HEIGHT ()F
+	public static final fun getIMAGE_WIDTH ()F
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsScreenKt {
+	public static final fun RatingsScreen (Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel : androidx/lifecycle/ViewModel {
+	public static final field $stable I
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedMoviesUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowsUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowEpisodesUseCase;)V
+	public final fun getRatedMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getRatedTvEpisodesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun getRatedTvShowsPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
+	public final fun refresh ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedMoviesUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowsUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowEpisodesUseCase;)Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules {
+}
+
+public abstract class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules$BindsModule {
+	public abstract fun binds (Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel;)Landroidx/lifecycle/ViewModel;
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules$KeyModule {
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules_BindsModule_Binds_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules_KeyModule_ProvideFactory : dagger/internal/Factory {
+	public fun <init> ()V
+	public static fun create ()Lcom/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules_KeyModule_ProvideFactory;
+	public fun get ()Ljava/lang/Boolean;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provide ()Z
+}
+
+public final class com/zsoltbertalan/flickslate/account/ui/ratings/RatingsViewModel_HiltModules_KeyModule_Provide_LazyMapKey {
+	public static field lazyClassKeyName Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_favorites_FavoritesViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_favorites_FavoritesViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_main_AccountViewModel_HiltModules_BindsModule {
@@ -72,6 +220,14 @@ public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_main_
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_main_AccountViewModel_HiltModules_KeyModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_ratings_RatingsViewModel_HiltModules_BindsModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_ui_ratings_RatingsViewModel_HiltModules_KeyModule {
 	public fun <init> ()V
 }
 

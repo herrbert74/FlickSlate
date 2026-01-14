@@ -1,8 +1,8 @@
 public final class com/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$GenreDetailScreenKt {
 	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$GenreDetailScreenKt;
 	public fun <init> ()V
-	public final fun getLambda$-1397541397$ui_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$811583084$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-2019817112$ui_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1092917449$ui_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/zsoltbertalan/flickslate/search/ui/main/ComposableSingletons$SearchScreenKt {
@@ -12,7 +12,7 @@ public final class com/zsoltbertalan/flickslate/search/ui/main/ComposableSinglet
 }
 
 public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailScreenKt {
-	public static final fun GenreDetailScreen (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+	public static final fun GenreDetailScreen (ILjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel : androidx/lifecycle/ViewModel {
@@ -20,6 +20,7 @@ public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewMo
 	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/search/domain/api/GenreRepository;)V
 	public final fun getGenreMoviesPaginationState ()Lcom/zsoltbertalan/flickslate/shared/ui/compose/component/paging/PaginationState;
 	public final fun getGenreName ()Ljava/lang/String;
+	public final fun load (ILjava/lang/String;)V
 }
 
 public final class com/zsoltbertalan/flickslate/search/ui/main/GenreDetailViewModel_Factory : dagger/internal/Factory {

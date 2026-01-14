@@ -60,3 +60,10 @@ public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$Unk
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UserNotLoggedIn : com/zsoltbertalan/flickslate/shared/kotlin/result/Failure {
+	public static final field INSTANCE Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure$UserNotLoggedIn;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

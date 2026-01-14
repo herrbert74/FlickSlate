@@ -61,37 +61,21 @@ public final class com/zsoltbertalan/flickslate/movies/ui/main/MoviesViewModel_H
 }
 
 public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailScreenKt {
-	public static final fun MovieDetailScreen (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;Landroidx/compose/runtime/Composer;II)V
+	public static final fun MovieDetailScreen (ILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;Landroidx/compose/runtime/Composer;II)V
 	public static final fun isDarkMode (Landroid/content/Context;)Z
-}
-
-public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)V
-	public synthetic fun <init> (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
-	public final fun component2 ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
-	public final fun copy (Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailState;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFailure ()Lcom/zsoltbertalan/flickslate/shared/kotlin/result/Failure;
-	public final fun getMovieDetail ()Lcom/zsoltbertalan/flickslate/movies/domain/model/MovieDetailWithImages;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel : androidx/lifecycle/ViewModel {
 	public static final field $stable I
-	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;)V
-	public final fun getMovieStateData ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/RateMovieUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/ChangeMovieRatingUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/DeleteMovieRatingUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/SetMovieFavoriteUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun load (I)V
 }
 
 public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_Factory : dagger/internal/Factory {
-	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_Factory;
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;
 	public synthetic fun get ()Ljava/lang/Object;
-	public static fun newInstance (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;
+	public static fun newInstance (Landroidx/lifecycle/SavedStateHandle;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/MovieDetailsUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/RateMovieUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/ChangeMovieRatingUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/DeleteMovieRatingUseCase;Lcom/zsoltbertalan/flickslate/movies/domain/usecase/SetMovieFavoriteUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)Lcom/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel;
 }
 
 public final class com/zsoltbertalan/flickslate/movies/ui/moviedetails/MovieDetailViewModel_HiltModules {
