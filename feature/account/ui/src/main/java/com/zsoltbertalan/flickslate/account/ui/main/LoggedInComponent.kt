@@ -21,11 +21,13 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -49,6 +51,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTypography
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.titleMediumBold
+import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 
 @Composable
 fun LoggedInComponent(
@@ -62,13 +65,33 @@ fun LoggedInComponent(
 	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>(),
 	favoritesViewModel: FavoritesViewModel? = hiltViewModel<FavoritesViewModel>(),
 ) {
+	val resultStore = LocalResultStore.current
+
+	LaunchedEffect(Unit) {
+		val result: Boolean? = resultStore.getResult("RatingChanged")
+		if (result == true) {
+			ratingsViewModel?.ratedMoviesPaginationState?.refresh()
+			ratingsViewModel?.ratedTvShowsPaginationState?.refresh()
+			ratingsViewModel?.ratedTvEpisodesPaginationState?.refresh()
+		}
+	}
+
+	LaunchedEffect(Unit) {
+		val result: Boolean? = resultStore.getResult("FavoriteChanged")
+		if (result == true) {
+			favoritesViewModel?.favoriteMoviesPaginationState?.refresh()
+			favoritesViewModel?.favoriteTvShowsPaginationState?.refresh()
+		}
+	}
+
 	var selectedTabIndex by rememberSaveable(account.id) { mutableIntStateOf(0) }
 	val tabs = listOf("Ratings", "Favorites")
 
 	LazyColumn(
 		modifier = modifier
 			.fillMaxSize()
-			.background(colorScheme.surface),
+			.background(colorScheme.surface)
+			.testTag(if (selectedTabIndex == 0) "RatingsColumn" else "FavoritesColumn"),
 	) {
 		item {
 			// Header (scrolls away)
@@ -153,6 +176,7 @@ private fun LazyListScope.ratingsTabContent(
 			)
 		} else {
 			PaginatedLazyRow(
+				modifier = Modifier.testTag("RatedMoviesList"),
 				contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.marginLarge),
 				horizontalArrangement = Arrangement.spacedBy(Dimens.marginLarge),
 				paginationState = ratedMovies
@@ -187,6 +211,7 @@ private fun LazyListScope.ratingsTabContent(
 			)
 		} else {
 			PaginatedLazyRow(
+				modifier = Modifier.testTag("RatedTvShowsList"),
 				contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.marginLarge),
 				horizontalArrangement = Arrangement.spacedBy(Dimens.marginLarge),
 				paginationState = ratedTvShows,
@@ -220,6 +245,7 @@ private fun LazyListScope.ratingsTabContent(
 			)
 		} else {
 			PaginatedLazyRow(
+				modifier = Modifier.testTag("RatedTvEpisodesList"),
 				contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.marginLarge),
 				horizontalArrangement = Arrangement.spacedBy(Dimens.marginLarge),
 				paginationState = ratedEpisodes,
@@ -260,6 +286,7 @@ private fun LazyListScope.favoritesTabContent(
 			)
 		} else {
 			PaginatedLazyRow(
+				modifier = Modifier.testTag("FavoriteMoviesList"),
 				contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.marginLarge),
 				horizontalArrangement = Arrangement.spacedBy(Dimens.marginLarge),
 				paginationState = favoriteMovies
@@ -292,6 +319,7 @@ private fun LazyListScope.favoritesTabContent(
 			)
 		} else {
 			PaginatedLazyRow(
+				modifier = Modifier.testTag("FavoriteTvShowsList"),
 				contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.marginLarge),
 				horizontalArrangement = Arrangement.spacedBy(Dimens.marginLarge),
 				paginationState = favoriteTvShows,

@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.compose.ui.graphics.toArgb
 import androidx.palette.graphics.Palette
-import coil.ImageLoader
+import coil.imageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateDarkColorScheme
@@ -15,7 +15,7 @@ suspend fun convertImageUrlToBitmap(
 	imageUrl: String,
 	context: Context
 ): Bitmap? {
-	val loader = ImageLoader(context = context)
+	val loader = context.imageLoader
 	val request = ImageRequest.Builder(context = context)
 		.data(imageUrl)
 		.allowHardware(false)
