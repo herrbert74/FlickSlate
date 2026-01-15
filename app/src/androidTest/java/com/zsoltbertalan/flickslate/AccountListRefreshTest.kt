@@ -84,22 +84,21 @@ class AccountListRefreshTest {
 				id = 1,
 				title = "Brazil",
 			)
-			.copy(favorite = false)
+			.copy(favorite = true)
 
 		with(composeTestRule) {
 			onNodeWithText("Account").performClick()
 			onNodeWithText("Favorites").performClick()
 
 			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
+			onNodeWithTag("FavoritesColumn").performScrollToNode(hasTestTag("FavoriteMoviesList"))
 			onNodeWithText("Brazil", useUnmergedTree = true).assertIsDisplayed()
 
 			onNodeWithText("Brazil", useUnmergedTree = true).performClick()
 			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
 
 			onNodeWithTag("Movie Detail Column").performScrollToNode(hasTestTag("Favorite Button"))
-			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
 
-			onNodeWithTag("Favorite Button").performClick()
 			waitUntilAtLeastOneExistsCopy(hasText("Remove from favorites"), 5000L)
 			onNodeWithText("Remove from favorites", ignoreCase = true).assertIsDisplayed()
 
@@ -112,7 +111,7 @@ class AccountListRefreshTest {
 
 			onNodeWithText("Favorites").performClick()
 
-			waitUntilAtLeastOneExistsCopy(hasText("You have no favorite movies"), 5000L)
+			onNodeWithTag("FavoritesColumn").performScrollToNode(hasText("You have no favorite movies"))
 			onNodeWithText("You have no favorite movies", useUnmergedTree = true).assertIsDisplayed()
 			onNodeWithText("Brazil", useUnmergedTree = true).assertDoesNotExist()
 		}
@@ -131,6 +130,7 @@ class AccountListRefreshTest {
 			onNodeWithText("Account").performClick()
 
 			waitUntilAtLeastOneExistsCopy(hasText("Brazil"), 5000L)
+			onNodeWithTag("RatingsColumn").performScrollToNode(hasTestTag("RatedMoviesList"))
 			onNodeWithText("Brazil", useUnmergedTree = true).assertIsDisplayed()
 
 			onNodeWithText("Brazil", useUnmergedTree = true).performClick()
@@ -145,6 +145,7 @@ class AccountListRefreshTest {
 			}
 
 			waitUntilAtLeastOneExistsCopy(hasText("You have no rated movies"), 5000L)
+			onNodeWithTag("RatingsColumn").performScrollToNode(hasText("You have no rated movies"))
 			onNodeWithText("You have no rated movies", useUnmergedTree = true).assertIsDisplayed()
 			onNodeWithText("Brazil", useUnmergedTree = true).assertDoesNotExist()
 		}
@@ -152,34 +153,30 @@ class AccountListRefreshTest {
 
 	@Test
 	fun favorites_whenUnfavoritedInTvDetails_onBackListUpdates() {
-		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages(id = 2).copy(favorite = false)
+		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages(id = 2).copy(favorite = true)
 
 		with(composeTestRule) {
 			onNodeWithText("Account").performClick()
 			onNodeWithText("Favorites").performClick()
 
-			onNodeWithTag("FavoritesColumn").performScrollToNode(hasText("Favorite TV Shows"))
+			onNodeWithTag("FavoritesColumn").performScrollToNode(hasTestTag("FavoriteTvShowsList"))
 			val detectoristsCardMatcher = hasClickAction().and(hasAnyDescendant(hasText("Detectorists")))
 			waitUntilAtLeastOneExistsCopy(detectoristsCardMatcher, 5000L)
-			onAllNodes(detectoristsCardMatcher, useUnmergedTree = true).get(0).performClick()
+			onAllNodes(detectoristsCardMatcher, useUnmergedTree = true)[0].performClick()
 			waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)
 
 			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Favorite Button"))
-			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
-
-			onNodeWithTag("Favorite Button").performClick()
-			waitUntilAtLeastOneExistsCopy(hasText("Remove from favorites"), 5000L)
 			onNodeWithText("Remove from favorites", ignoreCase = true).assertIsDisplayed()
 
 			onNodeWithTag("Favorite Button").performClick()
 			waitUntilAtLeastOneExistsCopy(hasText("Add to favorites"), 5000L)
+			onNodeWithText("Add to favorites", ignoreCase = true).assertIsDisplayed()
 
 			activityRule.scenario.onActivity { activity ->
 				activity.onBackPressedDispatcher.onBackPressed()
 			}
 
 			onNodeWithText("Favorites").performClick()
-			waitUntilAtLeastOneExistsCopy(hasText("You have no favorite TV shows"), 5000L)
 			onNodeWithTag("FavoritesColumn").performScrollToNode(hasText("You have no favorite TV shows"))
 			onNodeWithText("You have no favorite TV shows", useUnmergedTree = true).assertIsDisplayed()
 			onNodeWithText("Detectorists", useUnmergedTree = true).assertDoesNotExist()
@@ -193,10 +190,10 @@ class AccountListRefreshTest {
 		with(composeTestRule) {
 			onNodeWithText("Account").performClick()
 
-			onNodeWithTag("RatingsColumn").performScrollToNode(hasText("Rated TV Shows"))
+			onNodeWithTag("RatingsColumn").performScrollToNode(hasTestTag("RatedTvShowsList"))
 			val detectoristsCardMatcher = hasClickAction().and(hasAnyDescendant(hasText("Detectorists")))
 			waitUntilAtLeastOneExistsCopy(detectoristsCardMatcher, 5000L)
-			onAllNodes(detectoristsCardMatcher, useUnmergedTree = true).get(0).performClick()
+			onAllNodes(detectoristsCardMatcher, useUnmergedTree = true)[0].performClick()
 			waitUntilAtLeastOneExistsCopy(hasText("Detectorists"), 5000L)
 
 			onNodeWithTag("Tv Detail Column").performScrollToNode(hasTestTag("Delete Rating Button"))
@@ -209,7 +206,6 @@ class AccountListRefreshTest {
 
 			onNodeWithText("Ratings").performClick()
 
-			waitUntilAtLeastOneExistsCopy(hasText("You have no rated TV shows"), 5000L)
 			onNodeWithTag("RatingsColumn").performScrollToNode(hasText("You have no rated TV shows"))
 			onNodeWithText("You have no rated TV shows", useUnmergedTree = true).assertIsDisplayed()
 			onNodeWithText("Detectorists", useUnmergedTree = true).assertDoesNotExist()

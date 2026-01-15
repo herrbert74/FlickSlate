@@ -29,7 +29,8 @@ class FakeTvRepository @Inject constructor() : TvRepository {
 	override suspend fun getTvDetails(seriesId: Int, sessionId: String?): Outcome<TvDetail> =
 		Ok(
 			TvMother.createTvDetail(
-				personalRating = tvDetail.personalRating
+				personalRating = tvDetail.personalRating,
+				favorite = tvDetail.favorite,
 			)
 		)
 

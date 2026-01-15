@@ -25,6 +25,40 @@ public final class com/zsoltbertalan/flickslate/account/data/network/AccountServ
 public abstract class com/zsoltbertalan/flickslate/account/data/network/AutoBindAccountRemoteDataSourceActivityRetainedModule {
 }
 
+public abstract class com/zsoltbertalan/flickslate/account/data/network/AutoBindFavoritesRemoteDataSourceActivityRetainedModule {
+}
+
+public abstract class com/zsoltbertalan/flickslate/account/data/network/AutoBindRatingsRemoteDataSourceActivityRetainedModule {
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/network/FavoritesRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesService;)Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/network/FavoritesServiceModule_ProvideFavoritesServiceFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesServiceModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesServiceModule_ProvideFavoritesServiceFactory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesService;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideFavoritesService (Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/account/data/network/FavoritesService;
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/network/RatingsRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/network/RatingsRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/network/RatingsRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/network/RatingsService;)Lcom/zsoltbertalan/flickslate/account/data/network/RatingsRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/network/RatingsServiceModule_ProvideRatingsServiceFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/account/data/network/RatingsServiceModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/network/RatingsServiceModule_ProvideRatingsServiceFactory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/network/RatingsService;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideRatingsService (Lcom/zsoltbertalan/flickslate/account/data/network/RatingsServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/account/data/network/RatingsService;
+}
+
 public final class com/zsoltbertalan/flickslate/account/data/repository/AccountAccessor_Factory : dagger/internal/Factory {
 	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/repository/AccountAccessor_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/repository/AccountAccessor;
@@ -32,7 +66,42 @@ public final class com/zsoltbertalan/flickslate/account/data/repository/AccountA
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Remote;Lcom/zsoltbertalan/flickslate/account/data/api/AccountDataSource$Local;)Lcom/zsoltbertalan/flickslate/account/data/repository/AccountAccessor;
 }
 
-public abstract class com/zsoltbertalan/flickslate/account/data/repository/AutoBindAccountAccessorActivityRetainedModule {
+public abstract interface class com/zsoltbertalan/flickslate/account/data/repository/AccountRepositoryModule {
+	public abstract fun bindAccountRepository (Lcom/zsoltbertalan/flickslate/account/domain/api/AccountRepository;)Lcom/zsoltbertalan/flickslate/account/domain/api/AccountRepository;
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/repository/FavoritesAccessor_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/repository/FavoritesAccessor_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/repository/FavoritesAccessor;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/api/FavoritesDataSource$Remote;)Lcom/zsoltbertalan/flickslate/account/data/repository/FavoritesAccessor;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/account/data/repository/FavoritesRepositoryModule {
+	public abstract fun bindFavoritesRepository (Lcom/zsoltbertalan/flickslate/account/domain/api/FavoritesRepository;)Lcom/zsoltbertalan/flickslate/account/domain/api/FavoritesRepository;
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/repository/HiltWrapper_InternalAccountRepositoryModule {
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/repository/HiltWrapper_InternalFavoritesRepositoryModule {
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/repository/HiltWrapper_InternalRatingsRepositoryModule {
+	public fun <init> ()V
+}
+
+public final class com/zsoltbertalan/flickslate/account/data/repository/RatingsAccessor_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/account/data/repository/RatingsAccessor_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/account/data/repository/RatingsAccessor;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/account/data/api/RatingsDataSource$Remote;)Lcom/zsoltbertalan/flickslate/account/data/repository/RatingsAccessor;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/account/data/repository/RatingsRepositoryModule {
+	public abstract fun bindRatingsRepository (Lcom/zsoltbertalan/flickslate/account/domain/api/RatingsRepository;)Lcom/zsoltbertalan/flickslate/account/domain/api/RatingsRepository;
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_local_AutoBindAccountLocalDataSourceActivityRetainedModule {
@@ -47,7 +116,43 @@ public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_net
 	public fun <init> ()V
 }
 
-public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_AutoBindAccountAccessorActivityRetainedModule {
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_network_AutoBindFavoritesRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_network_AutoBindRatingsRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_network_FavoritesServiceModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_network_RatingsServiceModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_AccountRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_FavoritesRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_HiltWrapper_InternalAccountRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_HiltWrapper_InternalFavoritesRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_HiltWrapper_InternalRatingsRepositoryModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_account_data_repository_RatingsRepositoryModule {
 	public fun <init> ()V
 }
 

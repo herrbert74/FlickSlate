@@ -15,7 +15,27 @@ public final class com/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource_Fact
 	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/db/TvDatabase;Lkotlinx/coroutines/CoroutineDispatcher;)Lcom/zsoltbertalan/flickslate/tv/data/db/TvRoomDataSource;
 }
 
-public abstract class com/zsoltbertalan/flickslate/tv/data/network/AutoBindTvRemoteDataSourceViewModelModule {
+public abstract class com/zsoltbertalan/flickslate/tv/data/network/AutoBindTvFavoritesRemoteDataSourceActivityRetainedModule {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/data/network/AutoBindTvRatingsRemoteDataSourceActivityRetainedModule {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/data/network/AutoBindTvRemoteDataSourceActivityRetainedModule {
+}
+
+public final class com/zsoltbertalan/flickslate/tv/data/network/TvFavoritesRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvFavoritesRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/network/TvFavoritesRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/network/SetTvFavoriteService;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvFavoritesRemoteDataSource;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/data/network/TvRatingsRemoteDataSource_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvRatingsRemoteDataSource_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/network/TvRatingsRemoteDataSource;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvRatingsRemoteDataSource;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSource_Factory : dagger/internal/Factory {
@@ -28,9 +48,18 @@ public final class com/zsoltbertalan/flickslate/tv/data/network/TvRemoteDataSour
 public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceKt {
 	public static final field URL_TV_DETAILS Ljava/lang/String;
 	public static final field URL_TV_EPISODE_DETAILS Ljava/lang/String;
+	public static final field URL_TV_EPISODE_RATE Ljava/lang/String;
 	public static final field URL_TV_IMAGES Ljava/lang/String;
+	public static final field URL_TV_RATE Ljava/lang/String;
 	public static final field URL_TV_SEASON_DETAILS Ljava/lang/String;
 	public static final field URL_TV_TOP_RATED Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceModule_ProvideSetTvFavoriteServiceFactory : dagger/internal/Factory {
+	public static fun create (Lcom/zsoltbertalan/flickslate/tv/data/network/TvServiceModule;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvServiceModule_ProvideSetTvFavoriteServiceFactory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/network/SetTvFavoriteService;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun provideSetTvFavoriteService (Lcom/zsoltbertalan/flickslate/tv/data/network/TvServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/tv/data/network/SetTvFavoriteService;
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceModule_ProvideTvServiceFactory : dagger/internal/Factory {
@@ -40,15 +69,35 @@ public final class com/zsoltbertalan/flickslate/tv/data/network/TvServiceModule_
 	public static fun provideTvService (Lcom/zsoltbertalan/flickslate/tv/data/network/TvServiceModule;Lretrofit2/Retrofit;)Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;
 }
 
+public abstract class com/zsoltbertalan/flickslate/tv/data/repository/AutoBindTvFavoritesAccessorActivityRetainedModule {
+}
+
+public abstract class com/zsoltbertalan/flickslate/tv/data/repository/AutoBindTvRatingsAccessorActivityRetainedModule {
+}
+
 public final class com/zsoltbertalan/flickslate/tv/data/repository/HiltWrapper_InternalTvRepositoryModule {
 	public fun <init> ()V
 }
 
 public final class com/zsoltbertalan/flickslate/tv/data/repository/TvAccessor_Factory : dagger/internal/Factory {
-	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor_Factory;
+	public static fun create (Ldagger/internal/Provider;Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor_Factory;
 	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;
 	public synthetic fun get ()Ljava/lang/Object;
-	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/network/TvService;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Local;Lcom/zsoltbertalan/flickslate/tv/data/api/TvDataSource$Remote;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvAccessor;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/data/repository/TvFavoritesAccessor_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvFavoritesAccessor_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/repository/TvFavoritesAccessor;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/api/TvFavoritesDataSource$Remote;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvFavoritesAccessor;
+}
+
+public final class com/zsoltbertalan/flickslate/tv/data/repository/TvRatingsAccessor_Factory : dagger/internal/Factory {
+	public static fun create (Ldagger/internal/Provider;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvRatingsAccessor_Factory;
+	public fun get ()Lcom/zsoltbertalan/flickslate/tv/data/repository/TvRatingsAccessor;
+	public synthetic fun get ()Ljava/lang/Object;
+	public static fun newInstance (Lcom/zsoltbertalan/flickslate/tv/data/api/TvRatingsDataSource$Remote;)Lcom/zsoltbertalan/flickslate/tv/data/repository/TvRatingsAccessor;
 }
 
 public abstract interface class com/zsoltbertalan/flickslate/tv/data/repository/TvRepositoryModule {
@@ -63,11 +112,27 @@ public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_db_AutoB
 	public fun <init> ()V
 }
 
-public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_AutoBindTvRemoteDataSourceViewModelModule {
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_AutoBindTvFavoritesRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_AutoBindTvRatingsRemoteDataSourceActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_AutoBindTvRemoteDataSourceActivityRetainedModule {
 	public fun <init> ()V
 }
 
 public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_network_TvServiceModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_repository_AutoBindTvFavoritesAccessorActivityRetainedModule {
+	public fun <init> ()V
+}
+
+public class hilt_aggregated_deps/_com_zsoltbertalan_flickslate_tv_data_repository_AutoBindTvRatingsAccessorActivityRetainedModule {
 	public fun <init> ()V
 }
 

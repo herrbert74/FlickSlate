@@ -1,17 +1,114 @@
 public abstract interface class com/zsoltbertalan/flickslate/account/domain/api/AccountRepository {
+	public abstract fun getAccessToken-Zyo9ksc (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAccount (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun login (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun login-ta8aW1Q (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun logout (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class com/zsoltbertalan/flickslate/account/domain/model/RequestToken {
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcom/zsoltbertalan/flickslate/account/domain/model/RequestToken;
-	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/RequestToken;Ljava/lang/String;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/RequestToken;
+public abstract interface class com/zsoltbertalan/flickslate/account/domain/api/FavoritesRepository {
+	public abstract fun getFavoriteMovies-MJidatI (ILjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getFavoriteTvShows-MJidatI (ILjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class com/zsoltbertalan/flickslate/account/domain/api/RatingsRepository {
+	public abstract fun getRatedMovies-MJidatI (ILjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getRatedTvShowEpisodes-MJidatI (ILjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getRatedTvShows-MJidatI (ILjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/model/FavoriteMovie {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public final fun copy (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;)Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteMovie;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteMovie;Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteMovie;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getToken ()Ljava/lang/String;
+	public final fun getMovie ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/model/FavoriteTvShow {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;
+	public final fun copy (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;)Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteTvShow;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteTvShow;Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;ILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/FavoriteTvShow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTvShow ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/model/RatedMovie {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;F)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public final fun component2 ()F
+	public final fun copy (Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;F)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedMovie;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/RatedMovie;Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;FILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedMovie;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMovie ()Lcom/zsoltbertalan/flickslate/shared/domain/model/Movie;
+	public final fun getRating ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/model/RatedTvEpisode {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvEpisodeDetail;F)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvEpisodeDetail;
+	public final fun component2 ()F
+	public final fun copy (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvEpisodeDetail;F)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvEpisode;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvEpisode;Lcom/zsoltbertalan/flickslate/shared/domain/model/TvEpisodeDetail;FILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvEpisode;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRating ()F
+	public final fun getTvEpisodeDetail ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvEpisodeDetail;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/model/RatedTvShow {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;F)V
+	public final fun component1 ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;
+	public final fun component2 ()F
+	public final fun copy (Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;F)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvShow;
+	public static synthetic fun copy$default (Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvShow;Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;FILjava/lang/Object;)Lcom/zsoltbertalan/flickslate/account/domain/model/RatedTvShow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRating ()F
+	public final fun getTvShow ()Lcom/zsoltbertalan/flickslate/shared/domain/model/TvShow;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/AccountRepository;)V
+	public final fun execute-Zyo9ksc (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteMoviesUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/FavoritesRepository;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun execute-T3BZVFY (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetFavoriteTvShowsUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/FavoritesRepository;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun execute-T3BZVFY (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetRatedMoviesUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/RatingsRepository;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun execute-T3BZVFY (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowEpisodesUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/RatingsRepository;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun execute-T3BZVFY (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetRatedTvShowsUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/RatingsRepository;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetAccountIdUseCase;Lcom/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase;)V
+	public final fun execute-T3BZVFY (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/zsoltbertalan/flickslate/account/domain/usecase/GetSessionIdUseCase {
+	public fun <init> (Lcom/zsoltbertalan/flickslate/account/domain/api/AccountRepository;)V
+	public final fun execute-Zyo9ksc (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
