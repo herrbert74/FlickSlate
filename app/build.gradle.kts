@@ -2,7 +2,6 @@
 
 plugins {
 	alias(libs.plugins.androidApplication)
-	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.composeCompiler)
 	alias(libs.plugins.compose.screenshotTesting)
 	alias(libs.plugins.dependencyAnalysis)
@@ -35,7 +34,7 @@ android {
 		getByName("release") {
 			isDebuggable = false
 			isMinifyEnabled = true
-			proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 
 		getByName("debug") {

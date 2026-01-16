@@ -1,6 +1,5 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
