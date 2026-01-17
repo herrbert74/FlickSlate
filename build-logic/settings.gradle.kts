@@ -14,4 +14,3 @@ plugins {
 
 rootProject.name = "build-logic"
 include(":convention")
-include(":profiler")
