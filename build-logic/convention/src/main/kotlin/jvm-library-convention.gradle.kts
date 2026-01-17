@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
+
 plugins {
 	alias(libs.plugins.kotlin.jvm)
 }
@@ -5,7 +7,7 @@ plugins {
 kotlin {
 	jvmToolchain(libs.versions.jdk.get().toInt())
 
-	@OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+	@OptIn(ExperimentalAbiValidation::class)
 	abiValidation {
 		enabled = true
 	}
