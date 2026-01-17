@@ -1,9 +1,9 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.kotlin.android)
 }
 
-android {
+// android {
+extensions.configure<com.android.build.api.dsl.LibraryExtension>("android") {
 	buildFeatures {
 		compose = true
 	}
