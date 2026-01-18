@@ -5,7 +5,6 @@
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import java.io.File
-import java.io.ByteArrayOutputStream
 import kotlin.system.exitProcess
 
 val headerLineCount = 4
@@ -51,7 +50,6 @@ fun main() {
     val outputDir = File(projectRoot, "build/profile-out")
     val outputFile = File(outputDir, "benchmark.csv")
     val scenarioFile = File(projectRoot, "scenarios.txt")
-    val rootDir = projectRoot
 
     // Create output directory
     outputDir.mkdirs()
@@ -61,7 +59,7 @@ fun main() {
     val process = ProcessBuilder(
         profilerExecutable,
         "--benchmark",
-        "--project-dir", rootDir.absolutePath,
+        "--project-dir", projectRoot.absolutePath,
         "--scenario-file", scenarioFile.absolutePath,
         "--output-dir", outputDir.absolutePath,
         "--no-daemon"
@@ -115,7 +113,6 @@ fun main() {
     println(jsonPayload)
 
     // Upload to New Relic
-    val stdout = ByteArrayOutputStream()
     val uploadProcess = ProcessBuilder(
         "curl", "-vvv", "-L", "-X", "POST",
         "https://metric-api.eu.newrelic.com/metric/v1",
