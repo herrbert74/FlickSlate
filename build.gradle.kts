@@ -8,7 +8,6 @@ plugins {
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.binaryCompatibilityValidator)
 	id("detekt-convention")
-	id("profiler")
 }
 
 dependencyAnalysis {
