@@ -29,7 +29,12 @@ jobs:
         with:
           tools: gradle-profiler
 
-      - name: Run ProfilerPlugin
+      - name: Set up Kotlin
+        uses: fwilhe2/setup-kotlin@main
+        with:
+          version: '2.1.0'
+
+      - name: Run Profiler Script
         env:
-          newRelicLicenseKey: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
-        run: ./gradlew profileAndUpload "-PnewRelicApiKey=$newRelicLicenseKey"
+          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+        run: kotlin .github/script/profiler.main.kts
