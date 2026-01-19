@@ -67,3 +67,12 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 	compilerOptions.freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
 }
+
+/**
+ * https://github.com/gradle/gradle/issues/36320
+ * https://issuetracker.google.com/issues/476855835
+ * Workaround from: https://github.com/gradle/gradle/issues/33619
+ */
+tasks.withType<AbstractTestTask>().configureEach {
+	failOnNoDiscoveredTests = false
+}
