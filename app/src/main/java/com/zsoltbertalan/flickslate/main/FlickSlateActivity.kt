@@ -1,14 +1,20 @@
 package com.zsoltbertalan.flickslate.main
 
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.zsoltbertalan.flickslate.main.navigation.Destination
@@ -24,6 +30,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,6 +45,30 @@ class FlickSlateActivity : ComponentActivity() {
 	lateinit var ioContext: CoroutineDispatcher
 
 	override fun onCreate(savedInstanceState: Bundle?) {
+		val splashDecorator = splash {
+			exitAnimationDuration = 600
+			composeViewFadeDurationOffset = 200
+			content {
+				LaunchedEffect(isVisible.value) {
+					if (!isVisible.value) startExitAnimation()
+				}
+
+				FlickSlateTheme {
+					Box(
+						modifier = Modifier
+							.fillMaxSize()
+							.background(Colors.surface),
+						contentAlignment = Alignment.Center
+					) {
+						RotatingGlobe(
+							modifier = Modifier.fillMaxSize(0.7f),
+							rotationDurationMillis = 2000,
+						)
+					}
+				}
+			}
+		}
+
 		super.onCreate(savedInstanceState)
 		setContent {
 			FlickSlateTheme {
@@ -45,6 +76,26 @@ class FlickSlateActivity : ComponentActivity() {
 				val (title, setTitle) = remember { mutableStateOf(getString(R.string.app_name)) }
 				val (showBack, setShowBack) = remember { mutableStateOf(false) }
 				val (backgroundColor, setBackgroundColor) = remember { mutableStateOf(bg) }
+				val (moviesListsReady, setMoviesListsReady) = remember { mutableStateOf(false) }
+				val (globeStartTimeMillis, setGlobeStartTimeMillis) = remember { mutableStateOf<Long?>(null) }
+				val minGlobeSplashDurationMillis = 1000L
+				val (hasDismissedSplash, setHasDismissedSplash) = rememberSaveable { mutableStateOf(false) }
+
+				LaunchedEffect(Unit) {
+					withFrameNanos { }
+					splashDecorator.shouldKeepOnScreen = false
+					setGlobeStartTimeMillis(SystemClock.uptimeMillis())
+				}
+
+				LaunchedEffect(moviesListsReady, globeStartTimeMillis) {
+					val start = globeStartTimeMillis ?: return@LaunchedEffect
+					if (!moviesListsReady) return@LaunchedEffect
+					if (hasDismissedSplash) return@LaunchedEffect
+					val elapsed = SystemClock.uptimeMillis() - start
+					delay((minGlobeSplashDurationMillis - elapsed).coerceAtLeast(0L))
+					splashDecorator.dismiss()
+					setHasDismissedSplash(true)
+				}
 				val navigationState = rememberNavigationState(
 					startRoute = Destination.Movies,
 					topLevelRoutes = persistentSetOf(
@@ -77,35 +128,38 @@ class FlickSlateActivity : ComponentActivity() {
 					)
 
 				}
-				Scaffold(
-					modifier = Modifier.fillMaxSize(),
-					topBar = {
-						FlickSlateTopAppBar(
-							title = title,
-							showBack = showBack,
-							backgroundColor = backgroundColor,
-							popBackStack = {
-								navigator.goBack()
-								true
-							}
-						)
-					},
-					bottomBar = {
-						if (isBottomBarVisible) {
-							FlickSlateBottomNavigationBar(
-								navigationState = navigationState,
-								navigator = navigator,
+				Box(modifier = Modifier.fillMaxSize()) {
+					Scaffold(
+						modifier = Modifier.fillMaxSize(),
+						topBar = {
+							FlickSlateTopAppBar(
+								title = title,
+								showBack = showBack,
+								backgroundColor = backgroundColor,
+								popBackStack = {
+									navigator.goBack()
+									true
+								}
 							)
+						},
+						bottomBar = {
+							if (isBottomBarVisible) {
+								FlickSlateBottomNavigationBar(
+									navigationState = navigationState,
+									navigator = navigator,
+								)
+							}
 						}
+					) { paddingValues ->
+						NavHostContainer(
+							navigationState = navigationState,
+							navigator = navigator,
+							paddingValues = paddingValues,
+							setMoviesListsReady = setMoviesListsReady,
+							setTitle = setTitle,
+							setBackgroundColor = setBackgroundColor,
+						)
 					}
-				) { paddingValues ->
-					NavHostContainer(
-						navigationState = navigationState,
-						navigator = navigator,
-						paddingValues = paddingValues,
-						setTitle = setTitle,
-						setBackgroundColor = setBackgroundColor,
-					)
 				}
 			}
 		}

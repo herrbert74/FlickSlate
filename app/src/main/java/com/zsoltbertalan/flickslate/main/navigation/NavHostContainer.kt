@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +29,7 @@ import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
 import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
@@ -39,6 +43,7 @@ fun NavHostContainer(
 	paddingValues: PaddingValues,
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
+	setMoviesListsReady: (Boolean) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: MoviesViewModel = hiltViewModel<MoviesViewModel>(),
 	searchViewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
@@ -46,6 +51,19 @@ fun NavHostContainer(
 	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
 ) {
 	val resultStore = rememberResultStore()
+
+	val moviesListsReady by remember {
+		derivedStateOf {
+			val popularReady = viewModel.popularMoviesPaginationState.internalState.value.isFirstPageCompleted
+			val nowPlayingReady = viewModel.nowPlayingMoviesPaginationState.internalState.value.isFirstPageCompleted
+			val upcomingReady = viewModel.upcomingMoviesPaginationState.internalState.value.isFirstPageCompleted
+			popularReady && nowPlayingReady && upcomingReady
+		}
+	}
+
+	LaunchedEffect(moviesListsReady) {
+		if (moviesListsReady) setMoviesListsReady(true)
+	}
 
 	val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
 		entry<Destination.Movies> {
@@ -172,3 +190,11 @@ fun NavHostContainer(
 	}
 
 }
+
+private val <KEY, T> PaginationInternalState<KEY, T>.isFirstPageCompleted: Boolean
+	get() = when (this) {
+		is PaginationInternalState.Initial -> false
+		is PaginationInternalState.Loading -> items != null
+		is PaginationInternalState.Loaded -> true
+		is PaginationInternalState.Error -> true
+	}

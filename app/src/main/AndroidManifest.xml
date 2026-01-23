@@ -19,7 +19,7 @@
         <activity
             android:name=".main.FlickSlateActivity"
             android:exported="true"
-            android:theme="@style/Theme.FlickSlate">
+            android:theme="@style/Theme.FlickSlate.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
