@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +18,7 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
 import com.zsoltbertalan.flickslate.main.navigation.Navigator
@@ -33,6 +35,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
+private const val EXIT_ANIMATION_DURATION = 1200L
+
+private const val COMPOSE_VIEW_FADE_DURATION_OFFSET = 600L
+
+private const val MIN_GLOBE_SPLASH_DURATION_MILLIS = 1000L
+
 @AndroidEntryPoint
 class FlickSlateActivity : ComponentActivity() {
 
@@ -44,10 +52,12 @@ class FlickSlateActivity : ComponentActivity() {
 	@IoDispatcher
 	lateinit var ioContext: CoroutineDispatcher
 
+	var splashDecorator: SplashScreenDecorator? = null
+
 	override fun onCreate(savedInstanceState: Bundle?) {
-		val splashDecorator = splash {
-			exitAnimationDuration = 600
-			composeViewFadeDurationOffset = 200
+		splashDecorator = splash {
+			exitAnimationDuration = EXIT_ANIMATION_DURATION
+			composeViewFadeDurationOffset = COMPOSE_VIEW_FADE_DURATION_OFFSET
 			content {
 				LaunchedEffect(isVisible.value) {
 					if (!isVisible.value) startExitAnimation()
@@ -60,9 +70,9 @@ class FlickSlateActivity : ComponentActivity() {
 							.background(Colors.surface),
 						contentAlignment = Alignment.Center
 					) {
-						RotatingGlobe(
-							modifier = Modifier.fillMaxSize(0.7f),
-							rotationDurationMillis = 2000,
+						ClapperboardTransition(
+							isVisible = isVisible.value,
+							modifier = Modifier.size(288.dp)
 						)
 					}
 				}
@@ -72,28 +82,31 @@ class FlickSlateActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		setContent {
 			FlickSlateTheme {
-				val bg = Colors.surface
+				val bg = Colors.surfaceDim
 				val (title, setTitle) = remember { mutableStateOf(getString(R.string.app_name)) }
 				val (showBack, setShowBack) = remember { mutableStateOf(false) }
 				val (backgroundColor, setBackgroundColor) = remember { mutableStateOf(bg) }
 				val (moviesListsReady, setMoviesListsReady) = remember { mutableStateOf(false) }
-				val (globeStartTimeMillis, setGlobeStartTimeMillis) = remember { mutableStateOf<Long?>(null) }
-				val minGlobeSplashDurationMillis = 1000L
+				val (splashTransitionStartTimeMillis, setSplashTransitionStartTimeMillis) = remember {
+					mutableStateOf<Long?>(
+						null
+					)
+				}
 				val (hasDismissedSplash, setHasDismissedSplash) = rememberSaveable { mutableStateOf(false) }
 
 				LaunchedEffect(Unit) {
 					withFrameNanos { }
-					splashDecorator.shouldKeepOnScreen = false
-					setGlobeStartTimeMillis(SystemClock.uptimeMillis())
+					splashDecorator?.shouldKeepOnScreen = false
+					setSplashTransitionStartTimeMillis(SystemClock.uptimeMillis())
 				}
 
-				LaunchedEffect(moviesListsReady, globeStartTimeMillis) {
-					val start = globeStartTimeMillis ?: return@LaunchedEffect
+				LaunchedEffect(moviesListsReady, splashTransitionStartTimeMillis) {
+					val start = splashTransitionStartTimeMillis ?: return@LaunchedEffect
 					if (!moviesListsReady) return@LaunchedEffect
 					if (hasDismissedSplash) return@LaunchedEffect
 					val elapsed = SystemClock.uptimeMillis() - start
-					delay((minGlobeSplashDurationMillis - elapsed).coerceAtLeast(0L))
-					splashDecorator.dismiss()
+					delay((MIN_GLOBE_SPLASH_DURATION_MILLIS - elapsed).coerceAtLeast(0L))
+					splashDecorator?.dismiss()
 					setHasDismissedSplash(true)
 				}
 				val navigationState = rememberNavigationState(
@@ -185,6 +198,11 @@ class FlickSlateActivity : ComponentActivity() {
 		setShowBack(false)
 		setBackgroundColor(Colors.surface)
 		if (!isBottomBarVisible) setBottomBarVisible(true)
+	}
+
+	override fun onDestroy() {
+		splashDecorator = null
+		super.onDestroy()
 	}
 
 }

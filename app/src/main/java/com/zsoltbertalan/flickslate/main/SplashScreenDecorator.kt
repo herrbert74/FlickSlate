@@ -44,7 +44,7 @@ class SplashScreenDecorator private constructor(
     /** AndroidX requires this callback to control dismissal timing. */
     var shouldKeepOnScreen: Boolean = true
 
-    @Suppress("UNUSED")
+    @Suppress("UNUSED", "UnusedPrivateProperty")
     private val splashScreen: SplashScreen = activity.installSplashScreen().apply {
         setOnExitAnimationListener(::handleExitAnimation)
         setKeepOnScreenCondition { shouldKeepOnScreen }
@@ -191,5 +191,3 @@ class SplashScreenConfigBuilder {
 fun Activity.splash(
     builder: SplashScreenConfigBuilder.() -> Unit
 ): SplashScreenDecorator = SplashScreenDecorator.create(this, builder)
-
-

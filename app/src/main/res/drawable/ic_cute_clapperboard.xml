@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    
+    <group
+        android:name="scaling_wrapper"
+        android:pivotX="18"
+        android:pivotY="18"
+        android:scaleX="0.6"
+        android:scaleY="0.6">
+        
+        <!-- Clapper Top (Angled) -->
+        <group android:name="clapper_top" android:pivotX="9" android:pivotY="14" android:rotation="-10">
+            <path
+                android:name="clapper_rect"
+                android:fillColor="#263238"
+                android:pathData="M9,8 h18 v5 h-18 z"/>
+            <!-- Stripes -->
+            <path
+                android:name="clapper_stripes"
+                android:fillColor="#FFFFFF"
+                android:pathData="M11,8 L14,8 L11,13 L8,13 Z M17,8 L20,8 L17,13 L14,13 Z M23,8 L26,8 L23,13 L20,13 Z"/>
+        </group>
+
+        <!-- Body Group -->
+        <group android:name="body_group">
+            <path
+                android:name="body_rect"
+                android:fillColor="#37474F"
+                android:pathData="M9,14 h18 a2,2 0 0 1 2,2 v12 a2,2 0 0 1 -2,2 h-18 a2,2 0 0 1 -2,-2 v-12 a2,2 0 0 1 2,-2 z"/>
+
+            <!-- Eyes Group -->
+            <group android:name="eyes_group">
+                <path
+                    android:name="eyes_sclera"
+                    android:fillColor="@color/flickslate_surface_dim"
+                    android:pathData="M15,20 a2,2 0 1 0 0,4 a2,2 0 1 0 0,-4 M21,20 a2,2 0 1 0 0,4 a2,2 0 1 0 0,-4"/>
+                <path
+                    android:name="eyes_pupils"
+                    android:fillColor="#000000"
+                    android:pathData="M15,21 a0.8,0.8 0 1 0 0,1.6 a0.8,0.8 0 1 0 0,-1.6 M21,21 a0.8,0.8 0 1 0 0,1.6 a0.8,0.8 0 1 0 0,-1.6"/>
+            </group>
+
+            <!-- Cheeks -->
+            <path
+                android:name="cheeks"
+                android:fillColor="#EF5350"
+                android:fillAlpha="0.6"
+                android:pathData="M11,24 a1,1 0 1 0 0,2 a1,1 0 1 0 0,-2 M25,24 a1,1 0 1 0 0,2 a1,1 0 1 0 0,-2"/>
+
+            <!-- Mouth -->
+            <path
+                android:name="mouth"
+                android:pathData="M16,26 Q18,28 20,26"
+                android:strokeColor="#FFFFFF"
+                android:strokeWidth="1.5"
+                android:strokeLineCap="round"/>
+        </group>
+    </group>
+</vector>

@@ -9,6 +9,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -27,9 +28,9 @@ import com.zsoltbertalan.flickslate.movies.ui.moviedetails.MovieDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.GenreDetailScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchScreen
 import com.zsoltbertalan.flickslate.search.ui.main.SearchViewModel
+import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
-import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.tv.ui.main.TvScreen
 import com.zsoltbertalan.flickslate.tv.ui.main.TvViewModel
 import com.zsoltbertalan.flickslate.tv.ui.seasondetail.TvSeasonDetailScreen
@@ -61,8 +62,10 @@ fun NavHostContainer(
 		}
 	}
 
+	val currentSetMoviesListsReady by rememberUpdatedState(setMoviesListsReady)
+
 	LaunchedEffect(moviesListsReady) {
-		if (moviesListsReady) setMoviesListsReady(true)
+		if (moviesListsReady) currentSetMoviesListsReady(true)
 	}
 
 	val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
