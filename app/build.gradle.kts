@@ -130,6 +130,7 @@ dependencies {
 	implementation(libs.androidx.roomRuntime)
 	implementation(libs.androidx.savedState)
 	implementation(libs.androidx.savedStateCompose)
+	implementation(libs.androidx.splashscreen)
 	implementation(libs.dagger.core)
 	implementation(libs.dagger.hiltCore)
 	implementation(libs.dagger.hiltAndroid)

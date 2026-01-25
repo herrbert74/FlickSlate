@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.FlickSlate" parent="android:Theme.Material.Light.NoActionBar.TranslucentDecor" />
+
+    <style name="Theme.FlickSlate.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/flickslate_surface</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_animated</item>
+        <item name="postSplashScreenTheme">@style/Theme.FlickSlate</item>
+    </style>
 </resources>
