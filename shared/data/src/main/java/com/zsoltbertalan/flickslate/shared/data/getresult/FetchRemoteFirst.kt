@@ -5,10 +5,10 @@ import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.recoverIf
 import com.github.michaelbull.retry.policy.RetryPolicy
-import com.zsoltbertalan.flickslate.shared.data.retry.retry
-import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.shared.data.retry.retry
+import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

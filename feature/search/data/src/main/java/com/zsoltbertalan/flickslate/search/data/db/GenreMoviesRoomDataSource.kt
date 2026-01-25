@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.search.data.db
 
+import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toGenreMoviesPageEntity
@@ -10,7 +11,6 @@ import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

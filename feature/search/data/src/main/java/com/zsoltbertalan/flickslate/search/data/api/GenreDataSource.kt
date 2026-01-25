@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.search.data.api
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
 internal interface GenreDataSource {

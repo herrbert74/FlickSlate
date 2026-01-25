@@ -4,8 +4,8 @@ import com.zsoltbertalan.flickslate.account.data.api.FavoritesDataSource
 import com.zsoltbertalan.flickslate.account.domain.api.FavoritesRepository
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
-import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 

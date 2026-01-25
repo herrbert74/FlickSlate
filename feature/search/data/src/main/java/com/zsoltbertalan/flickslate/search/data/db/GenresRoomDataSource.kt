@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.search.data.db
 
+import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.search.data.api.GenreDataSource
 import com.zsoltbertalan.flickslate.search.data.db.model.EtagEntity
 import com.zsoltbertalan.flickslate.search.data.db.model.toEntity
@@ -7,7 +8,6 @@ import com.zsoltbertalan.flickslate.search.data.db.model.toGenre
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

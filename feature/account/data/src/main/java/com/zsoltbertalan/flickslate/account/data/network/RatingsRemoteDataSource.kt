@@ -10,9 +10,9 @@ import com.zsoltbertalan.flickslate.account.data.network.model.toRatedTvShowsRep
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import retrofit2.Response
 import se.ansman.dagger.auto.AutoBind

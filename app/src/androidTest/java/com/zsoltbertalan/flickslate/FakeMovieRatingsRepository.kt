@@ -1,10 +1,10 @@
 package com.zsoltbertalan.flickslate
 
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
-import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import javax.inject.Inject
 import javax.inject.Singleton
 

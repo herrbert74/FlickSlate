@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.tv.ui.main
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
