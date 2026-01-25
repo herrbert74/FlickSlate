@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
 import com.zsoltbertalan.flickslate.main.navigation.Navigator
@@ -35,11 +36,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
+private const val MINIMUM_LAUNCH_ANIMATION_DURATION = 1000L
 private const val EXIT_ANIMATION_DURATION = 1200L
-
 private const val COMPOSE_VIEW_FADE_DURATION_OFFSET = 600L
-
-private const val MIN_GLOBE_SPLASH_DURATION_MILLIS = 1000L
 
 @AndroidEntryPoint
 class FlickSlateActivity : ComponentActivity() {
@@ -55,25 +54,30 @@ class FlickSlateActivity : ComponentActivity() {
 	var splashDecorator: SplashScreenDecorator? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		splashDecorator = splash {
-			exitAnimationDuration = EXIT_ANIMATION_DURATION
-			composeViewFadeDurationOffset = COMPOSE_VIEW_FADE_DURATION_OFFSET
-			content {
-				LaunchedEffect(isVisible.value) {
-					if (!isVisible.value) startExitAnimation()
-				}
+		val isRunningTest = intent.extras?.getBoolean("isRunningTest") ?: false
+		if (isRunningTest) {
+			installSplashScreen()
+		} else {
+			splashDecorator = splash {
+				exitAnimationDuration = EXIT_ANIMATION_DURATION
+				composeViewFadeDurationOffset = COMPOSE_VIEW_FADE_DURATION_OFFSET
+				content {
+					LaunchedEffect(isVisible.value) {
+						if (!isVisible.value) startExitAnimation()
+					}
 
-				FlickSlateTheme {
-					Box(
-						modifier = Modifier
-							.fillMaxSize()
-							.background(Colors.surface),
-						contentAlignment = Alignment.Center
-					) {
-						ClapperboardTransition(
-							isVisible = isVisible.value,
-							modifier = Modifier.size(288.dp)
-						)
+					FlickSlateTheme {
+						Box(
+							modifier = Modifier
+								.fillMaxSize()
+								.background(Colors.surface),
+							contentAlignment = Alignment.Center
+						) {
+							ClapperboardTransition(
+								isVisible = isVisible.value,
+								modifier = Modifier.size(288.dp)
+							)
+						}
 					}
 				}
 			}
@@ -96,8 +100,10 @@ class FlickSlateActivity : ComponentActivity() {
 
 				LaunchedEffect(Unit) {
 					withFrameNanos { }
-					splashDecorator?.shouldKeepOnScreen = false
-					setSplashTransitionStartTimeMillis(SystemClock.uptimeMillis())
+					if (!isRunningTest) {
+						splashDecorator?.shouldKeepOnScreen = false
+						setSplashTransitionStartTimeMillis(SystemClock.uptimeMillis())
+					}
 				}
 
 				LaunchedEffect(moviesListsReady, splashTransitionStartTimeMillis) {
@@ -105,7 +111,7 @@ class FlickSlateActivity : ComponentActivity() {
 					if (!moviesListsReady) return@LaunchedEffect
 					if (hasDismissedSplash) return@LaunchedEffect
 					val elapsed = SystemClock.uptimeMillis() - start
-					delay((MIN_GLOBE_SPLASH_DURATION_MILLIS - elapsed).coerceAtLeast(0L))
+					delay((MINIMUM_LAUNCH_ANIMATION_DURATION - elapsed).coerceAtLeast(0L))
 					splashDecorator?.dismiss()
 					setHasDismissedSplash(true)
 				}

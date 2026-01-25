@@ -1,12 +1,13 @@
 package com.zsoltbertalan.flickslate
 
+import android.content.Intent
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -15,6 +16,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.printToLog
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
@@ -45,7 +48,21 @@ class TvDetailsTest {
 	val hiltAndroidRule = HiltAndroidRule(this)
 
 	@get:Rule(order = 1)
-	val composeTestRule = createAndroidComposeRule<FlickSlateActivity>()
+	val composeTestRule = AndroidComposeTestRule<ActivityScenarioRule<FlickSlateActivity>, FlickSlateActivity>(
+		activityRule = ActivityScenarioRule(
+			Intent(
+				ApplicationProvider.getApplicationContext(),
+				FlickSlateActivity::class.java
+			).apply {
+				putExtra("isRunningTest", true)
+			}
+		),
+		activityProvider = { rule ->
+			var activity: FlickSlateActivity? = null
+			rule.scenario.onActivity { activity = it }
+			activity!!
+		}
+	)
 
 	@BindValue
 	val fakeTvRatingsRepository: TvRatingsRepository = FakeTvRatingsRepository()

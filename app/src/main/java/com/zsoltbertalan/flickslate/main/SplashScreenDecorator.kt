@@ -93,6 +93,13 @@ class SplashScreenDecorator private constructor(
     ) {
         val baseDuration = config.exitAnimationDuration
 
+        if (baseDuration == 0L) {
+            parentViewGroup.removeView(systemSplashView)
+            parentViewGroup.removeView(composeView)
+            splashScreenViewProvider.remove()
+            return
+        }
+
         // Fade out the system splash screen
         ObjectAnimator.ofFloat(systemSplashView, View.ALPHA, 0f).apply {
             duration = baseDuration
