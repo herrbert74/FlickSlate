@@ -5,7 +5,7 @@
 
     <style name="Theme.FlickSlate.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/flickslate_surface</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_cute_clapperboard_animated</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_animated</item>
         <item name="postSplashScreenTheme">@style/Theme.FlickSlate</item>
     </style>
 </resources>
