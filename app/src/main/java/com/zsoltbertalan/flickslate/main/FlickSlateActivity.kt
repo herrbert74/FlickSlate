@@ -24,8 +24,8 @@ import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
 import com.zsoltbertalan.flickslate.main.navigation.Navigator
 import com.zsoltbertalan.flickslate.main.navigation.rememberNavigationState
-import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.kotlin.async.MainDispatcher
+import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
+import com.zsoltbertalan.flickslate.base.kotlin.async.MainDispatcher
 import com.zsoltbertalan.flickslate.shared.ui.R
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.FlickSlateTopAppBar
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors

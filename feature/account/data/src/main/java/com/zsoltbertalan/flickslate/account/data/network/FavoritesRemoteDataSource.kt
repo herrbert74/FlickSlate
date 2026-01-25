@@ -9,7 +9,7 @@ import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import retrofit2.Response
 import se.ansman.dagger.auto.AutoBind

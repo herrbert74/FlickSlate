@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.toPagingReply
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 

@@ -14,8 +14,8 @@ import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_N
 import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_ONCE
 import com.zsoltbertalan.flickslate.shared.data.getresult.STRATEGY.CACHE_FIRST_NETWORK_SECOND
 import com.zsoltbertalan.flickslate.shared.data.retry.retry
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

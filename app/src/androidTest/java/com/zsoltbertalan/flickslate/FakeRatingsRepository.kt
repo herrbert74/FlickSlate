@@ -9,7 +9,7 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedTvMother
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 

@@ -4,8 +4,8 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.domain.model.GenreMother
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
 import io.mockk.verify

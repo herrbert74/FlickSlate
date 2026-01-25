@@ -8,7 +8,7 @@ import com.zsoltbertalan.flickslate.account.data.network.model.CreateRequestToke
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDto
 import com.zsoltbertalan.flickslate.account.data.network.model.CreateSessionReplyDtoMother
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.mockk

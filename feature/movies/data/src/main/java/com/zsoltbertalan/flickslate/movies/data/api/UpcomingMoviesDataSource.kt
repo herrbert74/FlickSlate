@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.movies.data.api
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
 internal interface UpcomingMoviesDataSource {

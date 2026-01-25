@@ -9,8 +9,8 @@ import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject

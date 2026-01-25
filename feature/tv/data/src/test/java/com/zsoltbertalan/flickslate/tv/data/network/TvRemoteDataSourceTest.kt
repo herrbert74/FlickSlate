@@ -11,7 +11,7 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDt
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
 import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_PAGES
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_RESULTS
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto

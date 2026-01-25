@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.shared.kotlin.result
+package com.zsoltbertalan.flickslate.base.kotlin.result
 
 sealed class Failure(open var message: String) {
 

@@ -10,7 +10,7 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCa
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery

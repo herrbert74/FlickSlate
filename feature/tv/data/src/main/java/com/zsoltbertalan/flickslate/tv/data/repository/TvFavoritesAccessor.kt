@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.repository
 
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.data.api.TvFavoritesDataSource
 import com.zsoltbertalan.flickslate.tv.domain.api.TvFavoritesRepository
 import dagger.hilt.android.scopes.ActivityRetainedScoped

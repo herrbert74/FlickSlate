@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.account.data.api
 
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 
 internal interface AccountDataSource {
 

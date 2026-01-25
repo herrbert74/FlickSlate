@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.tv.domain.usecase
 import com.github.michaelbull.result.andThen
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import javax.inject.Inject
 

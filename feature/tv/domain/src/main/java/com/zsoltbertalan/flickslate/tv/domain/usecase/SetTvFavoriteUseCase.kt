@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.tv.domain.usecase
 import com.github.michaelbull.result.coroutines.coroutineBinding
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetAccountIdUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.api.TvFavoritesRepository
 import kotlinx.coroutines.async
 import javax.inject.Inject
