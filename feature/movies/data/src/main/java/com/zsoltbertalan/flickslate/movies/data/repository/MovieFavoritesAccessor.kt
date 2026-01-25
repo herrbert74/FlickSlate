@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.repository
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.data.api.MovieFavoritesDataSource
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject

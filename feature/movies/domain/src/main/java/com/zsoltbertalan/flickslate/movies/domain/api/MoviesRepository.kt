@@ -1,10 +1,10 @@
 package com.zsoltbertalan.flickslate.movies.domain.api
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {

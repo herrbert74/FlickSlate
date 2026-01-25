@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvRatingUseCase

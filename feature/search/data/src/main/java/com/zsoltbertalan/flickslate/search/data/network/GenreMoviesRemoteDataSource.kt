@@ -1,11 +1,11 @@
 package com.zsoltbertalan.flickslate.search.data.network
 
 import com.github.michaelbull.result.map
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toMoviesReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import se.ansman.dagger.auto.AutoBind

@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.tv.data.api
 
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 
 internal interface TvRatingsDataSource {
 

@@ -1,10 +1,10 @@
-package com.zsoltbertalan.flickslate.shared.android.async
+package com.zsoltbertalan.flickslate.base.android.async
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.zsoltbertalan.flickslate.shared.kotlin.async.DefaultDispatcher
-import com.zsoltbertalan.flickslate.shared.kotlin.async.IoDispatcher
-import com.zsoltbertalan.flickslate.shared.kotlin.async.MainDispatcher
+import com.zsoltbertalan.flickslate.base.kotlin.async.DefaultDispatcher
+import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
+import com.zsoltbertalan.flickslate.base.kotlin.async.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

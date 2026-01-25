@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.search.data.api
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.flow.Flow
 
 internal interface GenreMoviesDataSource {

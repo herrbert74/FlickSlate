@@ -1,4 +1,4 @@
-package com.zsoltbertalan.flickslate.shared.kotlin.async
+package com.zsoltbertalan.flickslate.base.kotlin.async
 
 import javax.inject.Qualifier
 

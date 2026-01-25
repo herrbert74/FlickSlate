@@ -4,6 +4,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.data.network.model.AccountStatesDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
 import com.zsoltbertalan.flickslate.shared.data.network.model.RatedDto
@@ -11,7 +12,6 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.TvEpisodeDetailsDt
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
 import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_PAGES
 import com.zsoltbertalan.flickslate.tv.data.network.model.TOTAL_RESULTS
 import com.zsoltbertalan.flickslate.tv.data.network.model.TopRatedTvReplyDto

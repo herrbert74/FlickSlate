@@ -4,13 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery

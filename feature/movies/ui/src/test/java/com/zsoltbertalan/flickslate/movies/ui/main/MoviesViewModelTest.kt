@@ -2,11 +2,11 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields

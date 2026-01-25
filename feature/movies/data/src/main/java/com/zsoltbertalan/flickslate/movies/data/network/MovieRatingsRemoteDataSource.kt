@@ -1,8 +1,8 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.data.api.MovieRatingsDataSource
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put

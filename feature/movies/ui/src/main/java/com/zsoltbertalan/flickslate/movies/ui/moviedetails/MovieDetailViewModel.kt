@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.movies.domain.usecase.ChangeMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

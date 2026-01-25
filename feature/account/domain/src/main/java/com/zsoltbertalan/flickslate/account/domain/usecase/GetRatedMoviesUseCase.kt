@@ -3,8 +3,8 @@ package com.zsoltbertalan.flickslate.account.domain.usecase
 import com.github.michaelbull.result.coroutines.coroutineBinding
 import com.zsoltbertalan.flickslate.account.domain.api.RatingsRepository
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
+import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Outcome
 import kotlinx.coroutines.async
 import javax.inject.Inject
 

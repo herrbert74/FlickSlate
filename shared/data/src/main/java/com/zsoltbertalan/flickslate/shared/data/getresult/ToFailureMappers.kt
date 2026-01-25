@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.shared.data.getresult
 
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.data.network.model.ErrorBody
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response

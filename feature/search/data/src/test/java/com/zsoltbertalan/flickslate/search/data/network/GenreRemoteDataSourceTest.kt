@@ -2,9 +2,9 @@ package com.zsoltbertalan.flickslate.search.data.network
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.shared.domain.model.GenreMother
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import com.zsoltbertalan.flickslate.shared.kotlin.result.Failure
 import io.kotest.matchers.equals.shouldBeEqual
 import io.mockk.coEvery
 import io.mockk.mockk
