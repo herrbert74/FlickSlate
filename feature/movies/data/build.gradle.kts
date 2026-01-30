@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
+	alias(libs.plugins.room)
 	id("android-library-convention")
 	id("dagger-convention")
 	id("data-convention")
@@ -20,6 +21,18 @@ android {
 
 	@Suppress("UnstableApiUsage")
 	testFixtures.enable = true
+
+	testOptions {
+		unitTests.isIncludeAndroidResources = true
+	}
+
+	sourceSets {
+		getByName("test").assets.srcDir("$projectDir/schemas")
+	}
+}
+
+room {
+	schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
@@ -36,7 +49,9 @@ dependencies {
 	testImplementation(testFixtures(project(":feature:movies:data")))
 	testImplementation(testFixtures(project(":shared:data")))
 	testImplementation(testFixtures(project(":shared:domain")))
-	testRuntimeOnly(libs.robolectric)
+	testImplementation(libs.androidx.roomTesting)
+	testImplementation(libs.androidx.testCore)
+	testImplementation(libs.robolectric)
 
 	testFixturesImplementation(project(":shared:data"))
 }

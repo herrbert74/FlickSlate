@@ -31,5 +31,7 @@ fun MovieDto.toMovie() = Movie(
 	this.overview,
 	this.vote_average,
 	this.poster_path,
-	this.backdrop_path
+	this.backdrop_path,
+	this.popularity?.toDouble(),
+	this.release_date
 )

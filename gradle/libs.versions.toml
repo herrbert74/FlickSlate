@@ -167,7 +167,7 @@ androidx-roomCommon = { module = "androidx.room:room-common", version.ref = "and
 androidx-roomCompiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 #androidx-roomKtx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-roomRuntime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
-#androidx-roomTesting = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
+androidx-roomTesting = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
 
 androidx-savedState = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedState" }
 androidx-savedStateCompose = { module = "androidx.savedstate:savedstate-compose", version.ref = "androidx-savedState" }
@@ -397,6 +397,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 #mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
 #parcelize-darwin = { id = "com.arkivanov.parcelize.darwin", version.ref = "parcelize-darwin" }
 #touchlab-skie = { id = "co.touchlab.skie", version.ref = "skie" }
+room = { id = "androidx.room", version.ref = "androidx-room" }
 
 # This is replaced by KGP, but KGP generates empty files for Android modules as of 2.2.10:
 # https://kotlinlang.org/docs/gradle-binary-compatibility-validation.html

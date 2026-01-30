@@ -10,4 +10,6 @@ data class Movie(
 	val voteAverage: Float? = null,
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
+	val popularity: Double? = null,
+	val releaseDate: String? = null,
 )
