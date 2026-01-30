@@ -37,7 +37,7 @@ internal class NowPlayingMoviesRoomDataSource @Inject constructor(
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toNowPlayingMoviesEntity(page) }
-				moviesDatabase.nowPlayingMoviesDao().insertNowPlayingMovies(m)
+				moviesDatabase.nowPlayingMoviesDao().upsertNowPlayingMoviesTransaction(m, page)
 			}
 		}
 	}

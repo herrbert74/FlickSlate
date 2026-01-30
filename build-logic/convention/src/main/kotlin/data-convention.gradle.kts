@@ -3,10 +3,6 @@ plugins {
 	alias(libs.plugins.ksp)
 }
 
-ksp {
-	arg("room.schemaLocation", "$projectDir/schemas")
-}
-
 dependencies {
 	implementation(project(":base:kotlin"))
 	implementation(project(":shared:domain"))

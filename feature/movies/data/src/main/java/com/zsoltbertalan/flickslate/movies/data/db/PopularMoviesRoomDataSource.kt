@@ -37,7 +37,7 @@ internal class PopularMoviesRoomDataSource @Inject constructor(
 		withContext(ioContext) {
 			runCatchingUnit {
 				val m = movies.map { it.toPopularMoviesEntity(page) }
-				moviesDatabase.popularMoviesDao().insertPopularMovies(m)
+				moviesDatabase.popularMoviesDao().upsertPopularMoviesTransaction(m, page)
 			}
 		}
 	}

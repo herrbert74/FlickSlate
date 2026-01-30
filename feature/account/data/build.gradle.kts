@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
+	alias(libs.plugins.room)
 	id("android-library-convention")
 	id("dagger-convention")
 	id("data-convention")
@@ -20,6 +21,10 @@ android {
 
 	@Suppress("UnstableApiUsage")
 	testFixtures.enable = true
+}
+
+room {
+	schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {

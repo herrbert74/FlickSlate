@@ -16,6 +16,8 @@ internal class DatabaseModule {
 	@Provides
 	@ActivityRetainedScoped
 	internal fun provideMoviesDatabase(@ApplicationContext context: Context) =
-		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase").build()
+		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase")
+			.addMigrations(MIGRATION_1_2)
+			.build()
 
 }
