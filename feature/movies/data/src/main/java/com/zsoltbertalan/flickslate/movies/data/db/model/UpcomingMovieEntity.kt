@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "upcomingMovies")
-internal class UpcomingMovieEntity(
+internal data class UpcomingMovieEntity(
 	@PrimaryKey
 	val id: Int = 0,
 
@@ -15,6 +15,8 @@ internal class UpcomingMovieEntity(
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
 	val page: Int = 0,
+	val popularity: Double? = null,
+	val releaseDate: String? = null,
 )
 
 internal fun Movie.toUpcomingMoviesEntity(page: Int): UpcomingMovieEntity = UpcomingMovieEntity(
@@ -25,6 +27,8 @@ internal fun Movie.toUpcomingMoviesEntity(page: Int): UpcomingMovieEntity = Upco
 	posterPath = this.posterPath,
 	backdropPath = this.backdropPath,
 	page = page,
+	popularity = this.popularity,
+	releaseDate = this.releaseDate,
 )
 
 internal fun UpcomingMovieEntity.toMovie(): Movie = Movie(
@@ -34,4 +38,6 @@ internal fun UpcomingMovieEntity.toMovie(): Movie = Movie(
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,
 	backdropPath = this.backdropPath,
+	popularity = this.popularity,
+	releaseDate = this.releaseDate,
 )

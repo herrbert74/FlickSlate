@@ -13,6 +13,8 @@ internal data class NowPlayingMovieEntity(
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
 	val page: Int = 0,
+	val popularity: Double? = null,
+	val releaseDate: String? = null,
 )
 
 internal fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = NowPlayingMovieEntity(
@@ -23,6 +25,8 @@ internal fun Movie.toNowPlayingMoviesEntity(page: Int): NowPlayingMovieEntity = 
 	posterPath = this.posterPath,
 	backdropPath = this.backdropPath,
 	page = page,
+	popularity = this.popularity,
+	releaseDate = this.releaseDate,
 )
 
 internal fun NowPlayingMovieEntity.toMovie(): Movie = Movie(
@@ -32,4 +36,6 @@ internal fun NowPlayingMovieEntity.toMovie(): Movie = Movie(
 	voteAverage = this.voteAverage,
 	posterPath = this.posterPath,
 	backdropPath = this.backdropPath,
+	popularity = this.popularity,
+	releaseDate = this.releaseDate,
 )

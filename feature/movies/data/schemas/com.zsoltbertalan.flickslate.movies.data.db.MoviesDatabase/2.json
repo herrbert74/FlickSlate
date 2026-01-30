@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "c3d3f67f7d9639d66249385ab31a0722",
+    "identityHash": "4f5d3292bc8ffd6a218cc6a264a6b2b9",
     "entities": [
       {
         "tableName": "popularMovies",
@@ -114,7 +114,7 @@
       },
       {
         "tableName": "nowPlayingMovies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `overview` TEXT, `voteAverage` REAL, `posterPath` TEXT, `backdropPath` TEXT, `page` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `overview` TEXT, `voteAverage` REAL, `posterPath` TEXT, `backdropPath` TEXT, `page` INTEGER NOT NULL, `popularity` REAL, `releaseDate` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -153,6 +153,16 @@
             "columnName": "page",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "popularity",
+            "columnName": "popularity",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -212,7 +222,7 @@
       },
       {
         "tableName": "upcomingMovies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `overview` TEXT, `voteAverage` REAL, `posterPath` TEXT, `backdropPath` TEXT, `page` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `overview` TEXT, `voteAverage` REAL, `posterPath` TEXT, `backdropPath` TEXT, `page` INTEGER NOT NULL, `popularity` REAL, `releaseDate` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -251,6 +261,16 @@
             "columnName": "page",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "popularity",
+            "columnName": "popularity",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -311,7 +331,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c3d3f67f7d9639d66249385ab31a0722')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f5d3292bc8ffd6a218cc6a264a6b2b9')"
     ]
   }
 }
