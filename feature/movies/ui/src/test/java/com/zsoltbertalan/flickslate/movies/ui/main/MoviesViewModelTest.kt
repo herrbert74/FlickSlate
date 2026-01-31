@@ -92,4 +92,30 @@ class MoviesViewModelTest {
 
 	}
 
+	@Test
+	fun `when user is logged in upcoming movies call uses user region`() = runTest {
+		moviesViewModel.upcomingMoviesPaginationState.onRequestPage(moviesViewModel.upcomingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getUpcomingMovies(1, "GB") }
+	}
+
+	@Test
+	fun `when user is logged in now playing movies call uses user region`() = runTest {
+		moviesViewModel.nowPlayingMoviesPaginationState.onRequestPage(moviesViewModel.nowPlayingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getNowPlayingMovies(1, "GB") }
+	}
+
+	@Test
+	fun `when user is not logged in upcoming movies call uses US region`() = runTest {
+		coEvery { accountRepository.getAccount() } returns null
+
+		moviesViewModel.upcomingMoviesPaginationState.onRequestPage(moviesViewModel.upcomingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getUpcomingMovies(1, "US") }
+	}
+
 }

@@ -33,7 +33,9 @@ class LoggedInComponentStateRestorationTest {
 					account = Account(
 						username = "john.doe",
 						displayName = "John Doe",
-						language = "en-US",						region = "US",						id = 12345,
+						language = "en-US",
+						region = "US",
+						id = 12345,
 						includeAdult = false,
 					),
 					logout = {},
@@ -66,7 +68,9 @@ class LoggedInComponentStateRestorationTest {
 					account = Account(
 						username = "john.doe",
 						displayName = "John Doe",
-						language = "en-US",						region = "US",						id = 12345,
+						language = "en-US",
+						region = "US",
+						id = 12345,
 						includeAdult = false,
 					),
 					logout = {},
