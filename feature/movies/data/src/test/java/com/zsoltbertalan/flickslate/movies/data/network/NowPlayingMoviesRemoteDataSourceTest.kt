@@ -29,7 +29,7 @@ class NowPlayingMoviesRemoteDataSourceTest {
 
 	@Before
 	fun setup() {
-		coEvery { moviesService.getNowPlayingMovies(any(), any(), any()) } returns Response.success(
+		coEvery { moviesService.getNowPlayingMovies(any(), any(), any(), any()) } returns Response.success(
 			MovieDtoMother.createNowPlayingMovieList()
 		)
 		nowPlayingMoviesRemoteDataSource = NowPlayingMoviesRemoteDataSource(moviesService)
@@ -51,7 +51,7 @@ class NowPlayingMoviesRemoteDataSourceTest {
 
 	@Test
 	fun `when getNowPlayingMovies called and service returns failure then returns correct result`() = runTest {
-		coEvery { moviesService.getNowPlayingMovies(any(), any(), any()) } returns failNetworkRequestResponse()()
+		coEvery { moviesService.getNowPlayingMovies(any(), any(), any(), any()) } returns failNetworkRequestResponse()()
 		nowPlayingMoviesRemoteDataSource.getNowPlayingMovies("", 1) shouldBeEqual
 			Err(
 				Failure.ServerError(

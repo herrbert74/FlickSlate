@@ -36,6 +36,7 @@ dependencies {
 	implementation(libs.androidx.composeMaterialIconsExtended)
 
 	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":feature:account:domain")))
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl) // transitive

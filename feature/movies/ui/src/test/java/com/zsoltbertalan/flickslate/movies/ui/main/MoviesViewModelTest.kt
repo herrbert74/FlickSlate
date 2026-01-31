@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
+import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
@@ -30,6 +32,7 @@ import org.junit.Test
 class MoviesViewModelTest {
 
 	private val moviesRepository = mockk<MoviesRepository>(relaxed = false)
+	private val accountRepository = mockk<AccountRepository>(relaxed = true)
 
 	private lateinit var moviesViewModel: MoviesViewModel
 
@@ -42,14 +45,15 @@ class MoviesViewModelTest {
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createPopularMovieList(), true, PageData())))
 		}
-		coEvery { moviesRepository.getUpcomingMovies(any()) } answers {
+		coEvery { moviesRepository.getUpcomingMovies(any(), any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())))
 		}
-		coEvery { moviesRepository.getNowPlayingMovies(any()) } answers {
+		coEvery { moviesRepository.getNowPlayingMovies(any(), any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())))
 		}
+		coEvery { accountRepository.getAccount() } returns AccountMother.createAccount()
 
-		moviesViewModel = MoviesViewModel(moviesRepository)
+		moviesViewModel = MoviesViewModel(moviesRepository, accountRepository)
 	}
 
 	@After

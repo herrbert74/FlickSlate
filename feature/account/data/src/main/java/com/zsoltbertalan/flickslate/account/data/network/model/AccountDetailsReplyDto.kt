@@ -16,5 +16,5 @@ internal data class AccountDetailsReplyDto(
 
 internal fun AccountDetailsReplyDto.toAccount(): Account {
 	val accountName = if (name.isNullOrEmpty()) username else name
-	return Account(accountName, username, "${iso_639_1}-${iso_3166_1}", id, include_adult)
+	return Account(accountName, username, "${iso_639_1}-${iso_3166_1}", iso_3166_1, id, include_adult)
 }

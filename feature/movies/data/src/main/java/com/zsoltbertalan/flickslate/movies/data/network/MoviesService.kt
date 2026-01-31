@@ -35,6 +35,7 @@ internal interface MoviesService {
 	suspend fun getNowPlayingMovies(
 		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Query("language") language: String? = "en",
+		@Query("region") region: String? = null,
 		@Query("page") page: Int?
 	): Response<NowPlayingMoviesReplyDto>
 
@@ -42,6 +43,7 @@ internal interface MoviesService {
 	suspend fun getUpcomingMovies(
 		@Header("If-None-Match") ifNoneMatch: String? = null,
 		@Query("language") language: String? = "en",
+		@Query("region") region: String? = null,
 		@Query("page") page: Int?
 	): Response<UpcomingMoviesReplyDto>
 

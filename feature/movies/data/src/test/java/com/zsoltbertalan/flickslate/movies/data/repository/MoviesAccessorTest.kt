@@ -47,10 +47,10 @@ class MoviesAccessorTest {
 			moviesService.getPopularMovies(any(), any(), any())
 		} returns Response.success(MovieDtoMother.createPopularMovieList())
 		coEvery {
-			moviesService.getNowPlayingMovies(any(), any(), any())
+			moviesService.getNowPlayingMovies(any(), any(), any(), any())
 		} returns Response.success(MovieDtoMother.createNowPlayingMovieList())
 		coEvery {
-			moviesService.getUpcomingMovies(any(), any(), any())
+			moviesService.getUpcomingMovies(any(), any(), any(), any())
 		} returns Response.success(MovieDtoMother.createUpcomingMovieList())
 		coEvery { popularMoviesDataSource.getEtag(any()) } returns null
 		coEvery { popularMoviesDataSource.insertPopularMovies(any(), any()) } returns Unit
@@ -64,13 +64,13 @@ class MoviesAccessorTest {
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMovies(any(), any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.insertNowPlayingMoviesPageData(any()) } returns Unit
 		coEvery { nowPlayingMoviesDataSource.getNowPlayingMovies(any()) } returns flowOf(null)
-		coEvery { upcomingMoviesRemoteDataSource.getUpcomingMovies(any(), any()) } returns Ok(
+		coEvery { upcomingMoviesRemoteDataSource.getUpcomingMovies(any(), any(), any()) } returns Ok(
 			PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
 		)
 		coEvery { popularMoviesRemoteDataSource.getPopularMovies(any(), any()) } returns Ok(
 			PagingReply(MovieMother.createPopularMovieList(), true, PageData())
 		)
-		coEvery { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(any(), any()) } returns Ok(
+		coEvery { nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(any(), any(), any()) } returns Ok(
 			PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())
 		)
 		moviesAccessor = MoviesAccessor(
@@ -99,7 +99,7 @@ class MoviesAccessorTest {
 
 	@Test
 	fun `when getUpcomingMovies called then returns correct result`() = runTest {
-		val upcomingMoviesFlow = moviesAccessor.getUpcomingMovies(1)
+		val upcomingMoviesFlow = moviesAccessor.getUpcomingMovies(1, null)
 		val pagingData = MovieMother.createUpcomingMovieList()
 		upcomingMoviesFlow.first()
 			.onSuccess {
@@ -112,7 +112,7 @@ class MoviesAccessorTest {
 
 	@Test
 	fun `when getNowPlayingMovies called then returns correct result`() = runTest {
-		val nowPlayingMoviesFlow = moviesAccessor.getNowPlayingMovies(1)
+		val nowPlayingMoviesFlow = moviesAccessor.getNowPlayingMovies(1, null)
 		val pagingData = MovieMother.createNowPlayingMovieList()
 		nowPlayingMoviesFlow.first()
 			.onSuccess {
