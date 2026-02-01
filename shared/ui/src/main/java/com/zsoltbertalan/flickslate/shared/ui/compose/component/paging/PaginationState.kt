@@ -14,6 +14,8 @@ class PaginationState<KEY, T>(
 	var internalState =
 		mutableStateOf<PaginationInternalState<KEY, T>>(PaginationInternalState.Initial(initialPageKey))
 
+	private val pages = LinkedHashMap<KEY, List<T>>()
+
 	val requestedPageKey: KEY?
 		get() = (internalState.value as? PaginationInternalState.IHasRequestedPageKey<KEY>)?.requestedPageKey
 
@@ -45,8 +47,9 @@ class PaginationState<KEY, T>(
 		)
 	}
 
-	fun appendPage(items: List<T>, nextPageKey: KEY, isLastPage: Boolean = false) {
-		val newItems = (internalState.value.items ?: listOf()) + items
+	fun appendPage(pageKey: KEY, items: List<T>, nextPageKey: KEY, isLastPage: Boolean = false) {
+		pages[pageKey] = items
+		val newItems = pages.values.flatten()
 		val internalStateSnapshot = internalState.value
 		val requestedPageKeyOfLoadingOrErrorState: KEY? =
 			(internalStateSnapshot as? PaginationInternalState.IHasRequestedPageKey<KEY>)?.requestedPageKey
@@ -76,6 +79,7 @@ class PaginationState<KEY, T>(
 	}
 
 	fun refresh(initialPageKey: KEY? = null) {
+		pages.clear()
 		internalState.value = PaginationInternalState.Initial(
 			initialPageKey ?: internalState.value.initialPageKey
 		)

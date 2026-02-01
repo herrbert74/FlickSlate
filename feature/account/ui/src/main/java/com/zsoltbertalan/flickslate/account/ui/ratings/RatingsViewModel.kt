@@ -34,6 +34,7 @@ class RatingsViewModel @Inject constructor(
 			val reply = getRatedMoviesUseCase.execute(pageKey)
 			reply.onSuccess { pagingReply ->
 				ratedMoviesPaginationState.appendPage(
+					pageKey = pageKey,
 					items = pagingReply.pagingList,
 					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 					isLastPage = pagingReply.isLastPage
@@ -56,6 +57,7 @@ class RatingsViewModel @Inject constructor(
 			val reply = getRatedTvShowsUseCase.execute(pageKey)
 			reply.onSuccess { pagingReply ->
 				ratedTvShowsPaginationState.appendPage(
+					pageKey = pageKey,
 					items = pagingReply.pagingList,
 					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 					isLastPage = pagingReply.isLastPage
@@ -78,6 +80,7 @@ class RatingsViewModel @Inject constructor(
 			val reply = getRatedTvShowEpisodesUseCase.execute(pageKey)
 			reply.onSuccess { pagingReply ->
 				ratedTvEpisodesPaginationState.appendPage(
+					pageKey = pageKey,
 					items = pagingReply.pagingList,
 					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 					isLastPage = pagingReply.isLastPage

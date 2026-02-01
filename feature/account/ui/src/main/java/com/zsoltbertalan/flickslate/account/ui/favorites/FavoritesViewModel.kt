@@ -31,6 +31,7 @@ class FavoritesViewModel @Inject constructor(
 			val reply = getFavoriteMoviesUseCase.execute(pageKey)
 			reply.onSuccess { pagingReply ->
 				favoriteMoviesPaginationState.appendPage(
+					pageKey = pageKey,
 					items = pagingReply.pagingList,
 					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 					isLastPage = pagingReply.isLastPage
@@ -53,6 +54,7 @@ class FavoritesViewModel @Inject constructor(
 			val reply = getFavoriteTvShowsUseCase.execute(pageKey)
 			reply.onSuccess { pagingReply ->
 				favoriteTvShowsPaginationState.appendPage(
+					pageKey = pageKey,
 					items = pagingReply.pagingList,
 					nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 					isLastPage = pagingReply.isLastPage

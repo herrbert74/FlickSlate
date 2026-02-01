@@ -51,6 +51,9 @@ dependencies {
 	implementation(libs.coil.compose.base)
 	implementation(libs.timber)
 
+	testImplementation(libs.jUnit)
+	testImplementation(libs.kotest.assertionsCore)
+
 	testFixturesImplementation(platform(libs.androidx.compose.bom))
 
 	testFixturesImplementation(libs.androidx.activity)
