@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
@@ -12,7 +13,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
+class MoviesViewModel @Inject constructor(
+	private val moviesRepository: MoviesRepository,
+	private val accountRepository: AccountRepository
+) : ViewModel() {
 
 	val popularMoviesPaginationState = PaginationState<Int, Movie>(
 		initialPageKey = 1,
@@ -49,13 +53,16 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 
 	private fun loadUpcomingMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
-			moviesRepository.getUpcomingMovies(page = pageKey).collect {
+			val account = accountRepository.getAccount()
+			val region = account?.region ?: "US"
+			moviesRepository.getUpcomingMovies(page = pageKey, region = region).collect {
 				it.onSuccess { pagingReply ->
 					upcomingMoviesPaginationState.appendPage(
 						items = pagingReply.pagingList,
 						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = pagingReply.isLastPage
 					)
+
 				}.onFailure { failure ->
 					upcomingMoviesPaginationState.setError(Exception(failure.message))
 				}
@@ -72,7 +79,9 @@ class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRe
 
 	private fun loadNowPlayingMoviesPage(pageKey: Int) {
 		viewModelScope.launch {
-			moviesRepository.getNowPlayingMovies(page = pageKey).collect {
+			val account = accountRepository.getAccount()
+			val region = account?.region ?: "US"
+			moviesRepository.getNowPlayingMovies(page = pageKey, region = region).collect {
 				it.onSuccess { pagingReply ->
 					nowPlayingMoviesPaginationState.appendPage(
 						items = pagingReply.pagingList,

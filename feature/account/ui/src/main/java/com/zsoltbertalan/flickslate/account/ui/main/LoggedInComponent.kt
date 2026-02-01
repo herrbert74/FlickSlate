@@ -110,6 +110,7 @@ fun LoggedInComponent(
 				AccountDetailRow(label = "Username:", value = account.username)
 				AccountDetailRow(label = "User ID:", value = account.id.toString())
 				AccountDetailRow(label = "Language:", value = account.language)
+				AccountDetailRow(label = "Region:", value = account.region)
 				AccountDetailRow(
 					label = "Include Adult Content:",
 					value = if (account.includeAdult) "Yes" else "No"
@@ -368,6 +369,7 @@ private fun PreviewAutoSizeTextWithMaxLinesSetToOne() {
 				username = "john.doe",
 				displayName = "John Doe",
 				language = "en-US",
+				region = "US",
 				id = 12345,
 				includeAdult = false,
 			),

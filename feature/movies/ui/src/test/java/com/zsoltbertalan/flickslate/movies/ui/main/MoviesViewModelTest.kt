@@ -2,6 +2,8 @@ package com.zsoltbertalan.flickslate.movies.ui.main
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
+import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
@@ -30,6 +32,7 @@ import org.junit.Test
 class MoviesViewModelTest {
 
 	private val moviesRepository = mockk<MoviesRepository>(relaxed = false)
+	private val accountRepository = mockk<AccountRepository>(relaxed = true)
 
 	private lateinit var moviesViewModel: MoviesViewModel
 
@@ -42,14 +45,15 @@ class MoviesViewModelTest {
 		coEvery { moviesRepository.getPopularMovies(any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createPopularMovieList(), true, PageData())))
 		}
-		coEvery { moviesRepository.getUpcomingMovies(any()) } answers {
+		coEvery { moviesRepository.getUpcomingMovies(any(), any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())))
 		}
-		coEvery { moviesRepository.getNowPlayingMovies(any()) } answers {
+		coEvery { moviesRepository.getNowPlayingMovies(any(), any()) } answers {
 			flowOf(Ok(PagingReply(MovieMother.createNowPlayingMovieList(), true, PageData())))
 		}
+		coEvery { accountRepository.getAccount() } returns AccountMother.createAccount()
 
-		moviesViewModel = MoviesViewModel(moviesRepository)
+		moviesViewModel = MoviesViewModel(moviesRepository, accountRepository)
 	}
 
 	@After
@@ -86,6 +90,32 @@ class MoviesViewModelTest {
 				PaginationInternalState.Error(1, 1, Exception("Unknown host"), null)
 		}
 
+	}
+
+	@Test
+	fun `when user is logged in upcoming movies call uses user region`() = runTest {
+		moviesViewModel.upcomingMoviesPaginationState.onRequestPage(moviesViewModel.upcomingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getUpcomingMovies(1, "GB") }
+	}
+
+	@Test
+	fun `when user is logged in now playing movies call uses user region`() = runTest {
+		moviesViewModel.nowPlayingMoviesPaginationState.onRequestPage(moviesViewModel.nowPlayingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getNowPlayingMovies(1, "GB") }
+	}
+
+	@Test
+	fun `when user is not logged in upcoming movies call uses US region`() = runTest {
+		coEvery { accountRepository.getAccount() } returns null
+
+		moviesViewModel.upcomingMoviesPaginationState.onRequestPage(moviesViewModel.upcomingMoviesPaginationState, 1)
+
+		advanceUntilIdle()
+		coVerify(exactly = 1) { moviesRepository.getUpcomingMovies(1, "US") }
 	}
 
 }

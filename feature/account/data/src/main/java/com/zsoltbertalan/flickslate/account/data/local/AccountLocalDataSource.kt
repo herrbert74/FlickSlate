@@ -36,6 +36,7 @@ internal class AccountLocalDataSource @Inject constructor(
 		sharedPreferences.edit { putString("account_name", account.username) }
 		sharedPreferences.edit { putString("account_id", account.id.toString()) }
 		sharedPreferences.edit { putString("account_language", account.language) }
+		sharedPreferences.edit { putString("account_region", account.region) }
 		sharedPreferences.edit { putBoolean("account_include_adult", account.includeAdult) }
 	}
 
@@ -44,9 +45,10 @@ internal class AccountLocalDataSource @Inject constructor(
 		val accountName = sharedPreferences.getString("account_name", null) ?: return null
 		val displayName = sharedPreferences.getString("account_display_name", null) ?: accountName
 		val language = sharedPreferences.getString("account_language", null) ?: "en-US"
+		val region = sharedPreferences.getString("account_region", null) ?: "US"
 		val id = sharedPreferences.getString("account_id", null)?.toIntOrNull() ?: 0
 		val includeAdult = sharedPreferences.getBoolean("account_include_adult", false)
-		return Account(displayName, accountName, language, id, includeAdult)
+		return Account(displayName, accountName, language, region, id, includeAdult)
 	}
 
 }

@@ -9,6 +9,7 @@ object AccountMother {
 		username = "john.doe",
 		id = 1234,
 		language = "en-GB",
+		region = "GB",
 		includeAdult = false
 	)
 

@@ -58,12 +58,12 @@ internal class MoviesAccessor @Inject constructor(
 		)
 	}
 
-	override fun getUpcomingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
+	override fun getUpcomingMovies(page: Int, region: String?): Flow<Outcome<PagingReply<Movie>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { upcomingMoviesDataSource.getUpcomingMovies(page) },
 			makeNetworkRequest = {
 				val etag = upcomingMoviesDataSource.getEtag(page)
-				upcomingMoviesRemoteDataSource.getUpcomingMovies(etag = etag, page = page)
+				upcomingMoviesRemoteDataSource.getUpcomingMovies(etag = etag, page = page, region = region)
 			},
 			saveResponseData = { pagingReply ->
 				val moviesReply = pagingReply.pagingList
@@ -76,12 +76,12 @@ internal class MoviesAccessor @Inject constructor(
 		)
 	}
 
-	override fun getNowPlayingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> {
+	override fun getNowPlayingMovies(page: Int, region: String?): Flow<Outcome<PagingReply<Movie>>> {
 		return fetchCacheThenRemote(
 			fetchFromLocal = { nowPlayingMoviesDataSource.getNowPlayingMovies(page) },
 			makeNetworkRequest = {
 				val etag = nowPlayingMoviesDataSource.getEtag(page)
-				nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(etag = etag, page = page)
+				nowPlayingMoviesRemoteDataSource.getNowPlayingMovies(etag = etag, page = page, region = region)
 			},
 			saveResponseData = { pagingReply ->
 				val moviesReply = pagingReply.pagingList

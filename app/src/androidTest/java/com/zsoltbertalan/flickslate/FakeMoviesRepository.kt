@@ -26,13 +26,13 @@ class FakeMoviesRepository @Inject constructor() : MoviesRepository {
 		)
 	)
 
-	override fun getNowPlayingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> = flowOf(
+	override fun getNowPlayingMovies(page: Int, region: String?): Flow<Outcome<PagingReply<Movie>>> = flowOf(
 		Ok(
 			PagingReply(MovieMother.createMovieList(), true, PageData())
 		)
 	)
 
-	override fun getUpcomingMovies(page: Int): Flow<Outcome<PagingReply<Movie>>> = flowOf(
+	override fun getUpcomingMovies(page: Int, region: String?): Flow<Outcome<PagingReply<Movie>>> = flowOf(
 		Ok(
 			PagingReply(MovieMother.createUpcomingMovieList(), true, PageData())
 		)
