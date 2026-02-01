@@ -216,7 +216,7 @@ internal fun ShowNowPlayingMoviesPreview() {
 		initialPageKey = 1,
 		onRequestPage = {
 			if (requestedPageKey == 1) {
-				appendPage(dummyMovies, 2)
+				appendPage(1, dummyMovies, 2)
 			}
 		}
 	).apply {

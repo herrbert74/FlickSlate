@@ -47,6 +47,7 @@ class GenreDetailViewModel @Inject constructor(
 			genreRepository.getGenreDetail(genreId = genreId, page = pageKey).collect {
 				it.onSuccess { reply ->
 					genreMoviesPaginationState.appendPage(
+						pageKey = pageKey,
 						items = reply.pagingReply.pagingList,
 						nextPageKey = if (reply.pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = reply.pagingReply.isLastPage

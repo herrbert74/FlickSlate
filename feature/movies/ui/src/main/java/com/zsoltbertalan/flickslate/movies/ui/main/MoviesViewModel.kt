@@ -30,6 +30,7 @@ class MoviesViewModel @Inject constructor(
 			moviesRepository.getPopularMovies(page = pageKey).collect { outcome ->
 				outcome.onSuccess { pagingReply ->
 					popularMoviesPaginationState.appendPage(
+						pageKey = pageKey,
 						items = pagingReply.pagingList,
 						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = pagingReply.isLastPage
@@ -58,6 +59,7 @@ class MoviesViewModel @Inject constructor(
 			moviesRepository.getUpcomingMovies(page = pageKey, region = region).collect {
 				it.onSuccess { pagingReply ->
 					upcomingMoviesPaginationState.appendPage(
+						pageKey = pageKey,
 						items = pagingReply.pagingList,
 						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = pagingReply.isLastPage
@@ -84,6 +86,7 @@ class MoviesViewModel @Inject constructor(
 			moviesRepository.getNowPlayingMovies(page = pageKey, region = region).collect {
 				it.onSuccess { pagingReply ->
 					nowPlayingMoviesPaginationState.appendPage(
+						pageKey = pageKey,
 						items = pagingReply.pagingList,
 						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = pagingReply.isLastPage

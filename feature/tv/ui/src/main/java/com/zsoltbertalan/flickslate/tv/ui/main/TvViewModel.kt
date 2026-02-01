@@ -26,6 +26,7 @@ class TvViewModel @Inject constructor(private val tvRepository: TvRepository) : 
 			tvRepository.getTopRatedTv(page = pageKey).collect {
 				it.onSuccess { pagingReply ->
 					tvPaginationState.appendPage(
+						pageKey = pageKey,
 						items = pagingReply.pagingList,
 						nextPageKey = if (pagingReply.isLastPage) -1 else pageKey + 1,
 						isLastPage = pagingReply.isLastPage
