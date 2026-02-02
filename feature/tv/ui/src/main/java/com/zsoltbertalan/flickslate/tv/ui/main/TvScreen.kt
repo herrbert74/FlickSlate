@@ -46,7 +46,7 @@ fun TvScreen(
 	) {
 		itemsIndexed(
 			paginatedState.allItems,
-		) { _, item ->
+		) { index, item ->
 			ShowCard(
 				modifier = Modifier.navigate(item.id, popTo),
 				title = item.name,
@@ -54,7 +54,8 @@ fun TvScreen(
 				overview = item.overview,
 				releaseDate = item.firstAirDate,
 				posterPath = item.posterPath,
-				cardType = MovieCardType.FULL
+				cardType = MovieCardType.FULL,
+				isFirst = index == 0,
 			)
 		}
 	}

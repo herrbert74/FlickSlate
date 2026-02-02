@@ -88,7 +88,7 @@ fun MoviesScreen(
 
 		itemsIndexed(
 			popularMoviesPaginatedState.allItems,
-		) { _, item ->
+		) { index, item ->
 			ShowCard(
 				modifier = Modifier.navigate(item.id, navigateToDetail),
 				title = item.title,
@@ -97,6 +97,7 @@ fun MoviesScreen(
 				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
 				cardType = MovieCardType.FULL,
+				isFirst = index == 0,
 			)
 		}
 	}
@@ -131,7 +132,7 @@ private fun ShowUpcomingMovies(
 	) {
 		itemsIndexed(
 			paginatedState.allItems,
-		) { _, item ->
+		) { index, item ->
 			ShowCard(
 				modifier = Modifier.navigate(item.id, navigateToDetail),
 				title = item.title,
@@ -139,7 +140,8 @@ private fun ShowUpcomingMovies(
 				overview = item.overview,
 				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
-				cardType = MovieCardType.HALF
+				cardType = MovieCardType.HALF,
+				isFirst = index == 0,
 			)
 		}
 	}
@@ -175,7 +177,7 @@ private fun ShowNowPlayingMovies(
 	) {
 		itemsIndexed(
 			paginatedState.allItems,
-		) { _, item ->
+		) { index, item ->
 			ShowCard(
 				modifier = Modifier.navigate(item.id, navigateToDetail),
 				title = item.title,
@@ -183,7 +185,8 @@ private fun ShowNowPlayingMovies(
 				overview = item.overview,
 				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
-				cardType = MovieCardType.HALF
+				cardType = MovieCardType.HALF,
+				isFirst = index == 0,
 			)
 		}
 	}
