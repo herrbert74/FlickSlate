@@ -149,6 +149,8 @@ data class FixedColorScheme(
 	val primaryFixedDim: Color,
 	val secondaryFixedDim: Color,
 	val tertiaryFixedDim: Color,
+	val inverseSurfaceFixed: Color,
+	val inverseOnSurfaceFixed: Color,
 )
 
 fun getFixedColors() = FixedColorScheme(
@@ -162,7 +164,9 @@ fun getFixedColors() = FixedColorScheme(
 	onQuinaryFixed = onQuinaryContainerLight,
 	primaryFixedDim = primaryDark,
 	secondaryFixedDim = secondaryDark,
-	tertiaryFixedDim = tertiaryDark
+	tertiaryFixedDim = tertiaryDark,
+	inverseSurfaceFixed = inverseSurfaceLight,
+	inverseOnSurfaceFixed = inverseOnSurfaceLight,
 )
 
 val LocalFixedColors = staticCompositionLocalOf { getFixedColors() }

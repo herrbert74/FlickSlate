@@ -94,8 +94,9 @@ fun MoviesScreen(
 				title = item.title,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
-				cardType = MovieCardType.FULL
+				cardType = MovieCardType.FULL,
 			)
 		}
 	}
@@ -136,6 +137,7 @@ private fun ShowUpcomingMovies(
 				title = item.title,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
 				cardType = MovieCardType.HALF
 			)
@@ -179,6 +181,7 @@ private fun ShowNowPlayingMovies(
 				title = item.title,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
 				cardType = MovieCardType.HALF
 			)

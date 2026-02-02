@@ -10,4 +10,5 @@ data class TvShow(
 	val voteAverage: Float? = null,
 	val posterPath: String? = null,
 	val backdropPath: String? = null,
+	val firstAirDate: String? = null,
 )

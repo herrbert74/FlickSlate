@@ -17,7 +17,7 @@ fun TitleText(title: String, modifier: Modifier = Modifier, isFirst: Boolean = f
 	Text(
 		modifier = modifier
 			.fillMaxWidth()
-			.padding(horizontal = 8.dp),
+			.padding(horizontal = 8.dp, vertical = 16.dp),
 		text = title,
 		maxLines = 2,
 		overflow = TextOverflow.Ellipsis,

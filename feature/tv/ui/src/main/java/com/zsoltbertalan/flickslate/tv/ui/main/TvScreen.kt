@@ -52,6 +52,7 @@ fun TvScreen(
 				title = item.name,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.firstAirDate,
 				posterPath = item.posterPath,
 				cardType = MovieCardType.FULL
 			)

@@ -78,6 +78,7 @@ fun GenreDetailScreen(
 				title = item.title,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
 				cardType = MovieCardType.FULL
 			)
