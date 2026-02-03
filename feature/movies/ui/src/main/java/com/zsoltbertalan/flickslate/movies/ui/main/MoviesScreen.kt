@@ -200,20 +200,24 @@ private const val VOTE_AVERAGE = 7.5f
 internal fun ShowNowPlayingMoviesPreview() {
 	val dummyMovies = listOf(
 		Movie(
-			1,
-			"Movie 1",
-			"Overview 1",
-			VOTE_AVERAGE,
-			"/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
-			"/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg"
+			id= 1,
+			title = "Brazil",
+			overview = "This is a good movie",
+			voteAverage = VOTE_AVERAGE,
+			posterPath = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
+			backdropPath = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
+			popularity = 12.45,
+			releaseDate = "1985-02-20"
 		),
 		Movie(
-			2,
-			"Movie 2",
-			"Overview 2",
-			VOTE_AVERAGE,
-			"/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
-			"/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg"
+			id = 2,
+			title = "Movie 2",
+			overview = "Overview 2",
+			voteAverage = VOTE_AVERAGE,
+			posterPath = "/2w09J0KUnVtJvqPYu8N63XjAyCR.jpg",
+			backdropPath = "/ziRWOYnl6e2JUaHYmFLR1kfcECM.jpg",
+			popularity = 12.45,
+			releaseDate = "1985-02-20"
 		),
 
 		)
