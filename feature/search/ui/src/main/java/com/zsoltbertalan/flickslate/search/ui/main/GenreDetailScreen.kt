@@ -72,14 +72,16 @@ fun GenreDetailScreen(
 	) {
 		itemsIndexed(
 			genreMoviesPaginatedState.allItems,
-		) { _, item ->
+		) { index, item ->
 			ShowCard(
 				modifier = Modifier.navigate(item.id, popTo),
 				title = item.title,
 				voteAverage = item.voteAverage,
 				overview = item.overview,
+				releaseDate = item.releaseDate,
 				posterPath = item.posterPath,
-				cardType = MovieCardType.FULL
+				cardType = MovieCardType.FULL,
+				isFirst = index == 0,
 			)
 		}
 	}

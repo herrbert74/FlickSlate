@@ -29,5 +29,6 @@ fun TvShowDto.toTv() = TvShow(
 	this.overview,
 	this.vote_average,
 	this.poster_path,
-	this.backdrop_path
+	this.backdrop_path,
+	this.first_air_date
 )

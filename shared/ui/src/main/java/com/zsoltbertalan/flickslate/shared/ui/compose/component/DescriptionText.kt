@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FixedColors
 
@@ -17,12 +16,11 @@ fun DescriptionText(description: String, modifier: Modifier = Modifier, isFirst:
 	Text(
 		modifier = modifier
 			.fillMaxWidth()
-			.padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 24.dp),
+			.padding(start = 8.dp, end = 8.dp, top = 0.dp, bottom = 8.dp),
 		text = description,
 		maxLines = 3,
 		style = MaterialTheme.typography.bodyLarge,
 		color = if (isFirst) FixedColors.onQuinaryFixed else Colors.onSurface,
 		overflow = TextOverflow.Ellipsis,
-		fontSize = 14.sp,
 	)
 }
