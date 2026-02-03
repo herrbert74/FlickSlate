@@ -200,7 +200,7 @@ private const val VOTE_AVERAGE = 7.5f
 internal fun ShowNowPlayingMoviesPreview() {
 	val dummyMovies = listOf(
 		Movie(
-			id= 1,
+			id = 1,
 			title = "Brazil",
 			overview = "This is a good movie",
 			voteAverage = VOTE_AVERAGE,
