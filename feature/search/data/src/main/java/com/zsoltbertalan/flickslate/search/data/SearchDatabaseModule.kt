@@ -1,21 +1,20 @@
 package com.zsoltbertalan.flickslate.search.data
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.zsoltbertalan.flickslate.search.data.db.SearchDatabase
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@ContributesTo(ActivityRetainedScope::class)
 internal class SearchDatabaseModule {
 
 	@Provides
-	@ViewModelScoped
-	fun provideSearchDatabase(@ApplicationContext context: Context) =
-		Room.databaseBuilder(context, SearchDatabase::class.java, "searchDatabase").build()
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideSearchDatabase(application: Application) =
+		Room.databaseBuilder(application, SearchDatabase::class.java, "searchDatabase").build()
 }

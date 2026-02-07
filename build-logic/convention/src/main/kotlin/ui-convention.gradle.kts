@@ -41,7 +41,7 @@ dependencies {
 	implementation(libs.androidx.composeRuntimeSaveable)
 
 	excludeFrom(listOf("search")) {
-		implementation(libs.androidx.hiltLifeCycleViewModelCompose)
+		implementation(libs.metrox.viewmodelCompose)
 	}
 
 	if (project.parent?.name != "account") {

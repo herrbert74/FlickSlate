@@ -1,22 +1,21 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@ContributesTo(ActivityRetainedScope::class)
 internal class DatabaseModule {
 
 	@Provides
-	@ActivityRetainedScoped
-	internal fun provideMoviesDatabase(@ApplicationContext context: Context) =
-		Room.databaseBuilder(context, MoviesDatabase::class.java, "moviesDatabase")
+	@SingleIn(ActivityRetainedScope::class)
+	internal fun provideMoviesDatabase(application: Application) =
+		Room.databaseBuilder(application, MoviesDatabase::class.java, "moviesDatabase")
 			.addMigrations(MIGRATION_1_2)
 			.build()
 

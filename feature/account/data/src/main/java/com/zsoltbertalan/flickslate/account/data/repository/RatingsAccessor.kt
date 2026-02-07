@@ -6,11 +6,14 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class RatingsAccessor @Inject constructor(
     private val ratingsRemoteDataSource: RatingsDataSource.Remote,
 ) : RatingsRepository {

@@ -3,12 +3,13 @@ package com.zsoltbertalan.flickslate.movies.data.repository
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.data.api.MovieFavoritesDataSource
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import se.ansman.dagger.auto.AutoBind
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import javax.inject.Inject
 
-@AutoBind
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class MovieFavoritesAccessor @Inject constructor(
 	private val movieFavoritesRemoteDataSource: MovieFavoritesDataSource.Remote,
 ) : MovieFavoritesRepository {

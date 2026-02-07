@@ -1,24 +1,24 @@
 package com.zsoltbertalan.flickslate.tv.data.network
 
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Retrofit
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@ContributesTo(ActivityRetainedScope::class)
 internal class TvServiceModule {
 
 	@Provides
-	@ActivityRetainedScoped
+	@SingleIn(ActivityRetainedScope::class)
 	fun provideTvService(retroFit: Retrofit): TvService {
 		return retroFit.create(TvService::class.java)
 	}
 
 	@Provides
-	@ActivityRetainedScoped
+	@SingleIn(ActivityRetainedScope::class)
 	fun provideSetTvFavoriteService(retroFit: Retrofit): SetTvFavoriteService {
 		return retroFit.create(SetTvFavoriteService::class.java)
 	}

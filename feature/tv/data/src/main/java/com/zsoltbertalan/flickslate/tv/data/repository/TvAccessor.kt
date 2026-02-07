@@ -11,11 +11,14 @@ import com.zsoltbertalan.flickslate.tv.data.api.TvDataSource
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@ViewModelScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class TvAccessor @Inject constructor(
 	private val tvDataSource: TvDataSource.Local,
 	private val tvRemoteDataSource: TvDataSource.Remote,

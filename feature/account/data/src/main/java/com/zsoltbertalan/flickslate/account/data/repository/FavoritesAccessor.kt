@@ -5,11 +5,14 @@ import com.zsoltbertalan.flickslate.account.domain.api.FavoritesRepository
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class FavoritesAccessor @Inject constructor(
 	private val favoritesRemoteDataSource: FavoritesDataSource.Remote,
 ) : FavoritesRepository {

@@ -7,14 +7,17 @@ import com.zsoltbertalan.flickslate.search.data.api.GenreMoviesDataSource
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.model.GenreMoviesPagingReply
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-@ViewModelScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class GenreAccessor @Inject constructor(
 	private val genreDataSource: GenreDataSource.Local,
 	private val genreRemoteDataSource: GenreDataSource.Remote,

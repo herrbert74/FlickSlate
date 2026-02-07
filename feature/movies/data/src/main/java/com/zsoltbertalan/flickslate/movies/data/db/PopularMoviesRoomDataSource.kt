@@ -7,21 +7,22 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPopularMoviesEntity
 import com.zsoltbertalan.flickslate.movies.data.db.model.toPopularMoviesPageEntity
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class PopularMoviesRoomDataSource @Inject constructor(
 	private val moviesDatabase: MoviesDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,

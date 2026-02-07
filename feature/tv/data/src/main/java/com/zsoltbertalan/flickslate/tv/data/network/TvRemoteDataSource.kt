@@ -6,6 +6,7 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
@@ -18,13 +19,13 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.toTvSeasonDetails
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class TvRemoteDataSource @Inject constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {

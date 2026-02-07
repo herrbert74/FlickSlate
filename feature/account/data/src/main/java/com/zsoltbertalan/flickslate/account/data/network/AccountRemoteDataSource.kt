@@ -6,18 +6,19 @@ import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
 import com.zsoltbertalan.flickslate.account.data.network.model.toAccount
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.SingleIn
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import se.ansman.dagger.auto.AutoBind
 import javax.inject.Inject
 
-@AutoBind
-@ActivityRetainedScoped
+@ContributesBinding(ActivityRetainedScope::class)
+@SingleIn(ActivityRetainedScope::class)
 internal class AccountRemoteDataSource @Inject constructor(
 	private val accountService: AccountService
 ) : AccountDataSource.Remote {

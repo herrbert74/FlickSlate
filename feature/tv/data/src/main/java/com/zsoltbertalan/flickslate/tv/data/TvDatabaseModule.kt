@@ -1,22 +1,21 @@
 package com.zsoltbertalan.flickslate.tv.data
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.tv.data.db.TvDatabase
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@ContributesTo(ActivityRetainedScope::class)
 internal class TvDatabaseModule {
 
 	@Provides
-	@ViewModelScoped
-	fun provideMoviesDatabase(@ApplicationContext context: Context) =
-		Room.databaseBuilder(context, TvDatabase::class.java, "tvDatabase").build()
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideMoviesDatabase(application: Application) =
+		Room.databaseBuilder(application, TvDatabase::class.java, "tvDatabase").build()
 
 }

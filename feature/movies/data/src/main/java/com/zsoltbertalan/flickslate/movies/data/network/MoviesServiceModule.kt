@@ -1,24 +1,24 @@
 package com.zsoltbertalan.flickslate.movies.data.network
 
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Retrofit
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@ContributesTo(ActivityRetainedScope::class)
 internal class MoviesServiceModule {
 
 	@Provides
-	@ActivityRetainedScoped
+	@SingleIn(ActivityRetainedScope::class)
 	internal fun provideMoviesService(retroFit: Retrofit): MoviesService {
 		return retroFit.create(MoviesService::class.java)
 	}
 
 	@Provides
-	@ActivityRetainedScoped
+	@SingleIn(ActivityRetainedScope::class)
 	internal fun provideMoviesAccountService(retroFit: Retrofit): SetMovieFavoriteService {
 		return retroFit.create(SetMovieFavoriteService::class.java)
 	}

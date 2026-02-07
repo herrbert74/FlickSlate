@@ -10,12 +10,15 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowEpisodesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetRatedTvShowsUseCase
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@ViewModelKey(RatingsViewModel::class)
+@ContributesIntoMap(AppScope::class)
 class RatingsViewModel @Inject constructor(
 	private val getRatedMoviesUseCase: GetRatedMoviesUseCase,
 	private val getRatedTvShowsUseCase: GetRatedTvShowsUseCase,

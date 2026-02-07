@@ -1,21 +1,20 @@
 package com.zsoltbertalan.flickslate.base.android.async
 
-import android.content.Context
+import android.app.Application
 import android.net.ConnectivityManager
 import com.zsoltbertalan.flickslate.base.kotlin.async.DefaultDispatcher
 import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.base.kotlin.async.MainDispatcher
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 class SingletonModule {
 
 	@DefaultDispatcher
@@ -31,11 +30,11 @@ class SingletonModule {
 	fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
 	@Provides
-	@Singleton
+	@SingleIn(AppScope::class)
 	internal fun provideConnectivityManager(
-		@ApplicationContext context: Context
+		application: Application
 	): ConnectivityManager {
-		return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+		return application.getSystemService(ConnectivityManager::class.java)
 	}
 
 }

@@ -1,10 +1,11 @@
 package com.zsoltbertalan.flickslate.shared.data.network
 
 import com.zsoltbertalan.flickslate.shared.data.BuildConfig
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.SingleIn
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -12,16 +13,15 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import javax.inject.Singleton
 
 const val BASE_URL: String = "https://api.themoviedb.org/3/"
 
 @Module
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 internal class NetworkModule {
 
 	@Provides
-	@Singleton
+	@SingleIn(AppScope::class)
 	fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
 		val logging = HttpLoggingInterceptor()
 		logging.level = HttpLoggingInterceptor.Level.BODY
@@ -41,7 +41,7 @@ internal class NetworkModule {
 	}
 
 	@Provides
-	@Singleton
+	@SingleIn(AppScope::class)
 	fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
 		val original = chain.request()
 		val originalHttpUrl = original.url
