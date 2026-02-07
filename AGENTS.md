@@ -7,7 +7,7 @@ This document provides a set of rules and guidelines for the AI agent to follow 
 - **Kotlin First**: The project is written in Kotlin. The agent must produce idiomatic Kotlin code.
 - **Modern Android Development**: Adhere to the latest Android development best practices, including Jetpack Compose, Coroutines, and a well-defined architecture.
 - **Dependency Awareness**: Be mindful of the existing project structure and dependencies.
-- Use **tabs** instead of spaces.
+- Use **tabs** instead of spaces for tabs.
 
 ---
 
@@ -134,3 +134,6 @@ Also format the code according to Detekt rules in config/detekt.
 Run detekt with ./gradlew detektAll.
 Do not use suppress violations. Try to fix them, or if it cannot be done, 
 ask for confirmation if a suppression can be added or a rule can be changed.
+Be careful when adding imports or moving classes between packages. Imports not only needed to be updated, 
+but also arranged in alphabetical order.
+The libraries in the version catalog are also ordered alphabetically by their ids.
