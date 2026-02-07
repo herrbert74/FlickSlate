@@ -1,12 +1,12 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.dagger.hiltAndroid)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.kotlin.serialization)
 	alias(libs.plugins.room)
 	id("android-library-convention")
 	id("dagger-convention")
 	id("data-convention")
+	id("metro-convention")
 }
 
 android {

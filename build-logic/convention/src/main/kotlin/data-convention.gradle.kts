@@ -39,7 +39,6 @@ dependencies {
 	implementation(libs.timber)
 
 	ksp(libs.androidx.roomCompiler)
-	ksp(libs.autobind.compiler)
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.mockk.core)

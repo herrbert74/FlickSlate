@@ -1,9 +1,9 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.serialization)
-	alias(libs.plugins.ksp)
 	id("dagger-convention")
 	id("android-library-convention")
+	id("metro-convention")
 }
 
 val tmdbApiKey: String by project

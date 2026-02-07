@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.ksp)
 	id("android-library-convention")
 	id("dagger-convention")
+	id("metro-convention")
 	id("ui-convention")
 }
 

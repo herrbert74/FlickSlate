@@ -8,7 +8,7 @@ plugins {
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
 	alias(libs.plugins.ksp)
-	alias(libs.plugins.dagger.hiltAndroid)
+	id("metro-convention")
 }
 
 val tmdbApiKey: String by project
@@ -75,6 +75,12 @@ android {
 
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
+	sourceSets {
+		getByName("androidTest") {
+			java.setSrcDirs(emptyList<File>())
+		}
+	}
+
 }
 
 kotlin {
@@ -121,7 +127,8 @@ dependencies {
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.fragmentKtx) // transitive
-	implementation(libs.androidx.hiltLifeCycleViewModelCompose)
+	implementation(libs.metrox.android)
+	implementation(libs.metrox.viewmodelCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)
@@ -147,19 +154,8 @@ dependencies {
 	// Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
-	ksp(libs.dagger.hiltCompiler)
-
-	// Might be removed later when this is fixed: https://github.com/google/dagger/issues/5001
-	ksp(libs.kotlin.metadataJvm)
-
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.kotlinx.coroutinesTest)
-
-	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.compiler)
-	kspTest(libs.dagger.hiltCompiler)
-
-	androidTestCompileOnly(libs.autobind.android.testing)
 
 	androidTestImplementation(testFixtures(project(":feature:account:domain")))
 	androidTestImplementation(testFixtures(project(":feature:movies:domain")))
@@ -179,10 +175,6 @@ dependencies {
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)
 	androidTestImplementation(libs.mockk.core)
-
-	kspAndroidTest(libs.dagger.hiltCompiler)
-	kspAndroidTest(libs.dagger.compiler)
-	kspAndroidTest(libs.autobind.compiler)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 	screenshotTestImplementation(libs.android.screenshotValidationApi)
