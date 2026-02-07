@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class TvRoomDataSource @Inject constructor(
+class TvRoomDataSource @Inject internal constructor(
 	private val tvDatabase: TvDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : TvDataSource.Local {

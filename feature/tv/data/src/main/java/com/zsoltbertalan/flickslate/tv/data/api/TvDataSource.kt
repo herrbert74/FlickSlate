@@ -10,7 +10,7 @@ import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import kotlinx.coroutines.flow.Flow
 
-internal interface TvDataSource {
+interface TvDataSource {
 
 	interface Local {
 

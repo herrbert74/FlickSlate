@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class MovieFavoritesAccessor @Inject constructor(
+class MovieFavoritesAccessor @Inject internal constructor(
 	private val movieFavoritesRemoteDataSource: MovieFavoritesDataSource.Remote,
 ) : MovieFavoritesRepository {
 

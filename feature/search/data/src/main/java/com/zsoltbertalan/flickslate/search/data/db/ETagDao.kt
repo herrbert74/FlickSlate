@@ -6,7 +6,7 @@ import androidx.room.Upsert
 import com.zsoltbertalan.flickslate.search.data.db.model.EtagEntity
 
 @Dao
-internal interface ETagDao {
+interface ETagDao {
 
 	@Query("SELECT * FROM etags")
 	fun getAll(): List<EtagEntity>

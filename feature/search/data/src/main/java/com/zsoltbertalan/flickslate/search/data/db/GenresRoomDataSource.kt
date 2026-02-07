@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class GenresRoomDataSource @Inject constructor(
+class GenresRoomDataSource @Inject internal constructor(
 	private val searchDatabase: SearchDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreDataSource.Local {

@@ -22,6 +22,7 @@ android {
 	sourceSets {
 		getByName("test") {
 			java.setSrcDirs(emptyList<File>())
+			kotlin.setSrcDirs(emptyList<File>())
 		}
 	}
 }

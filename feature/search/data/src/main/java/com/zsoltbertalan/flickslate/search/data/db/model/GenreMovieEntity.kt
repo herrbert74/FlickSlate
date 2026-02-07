@@ -4,7 +4,7 @@ import androidx.room.Entity
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "genreMovies", primaryKeys = ["id", "genreId"])
-internal data class GenreMovieEntity(
+data class GenreMovieEntity(
 	val id: Int = 0,
 	val genreId: Int = 0,
 	val title: String = "",

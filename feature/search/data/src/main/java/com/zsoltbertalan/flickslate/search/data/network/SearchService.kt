@@ -11,7 +11,7 @@ private const val URL_GENRE = "genre/movie/list"
 private const val URL_MOVIES_SEARCH = "search/movie"
 private const val URL_DISCOVER_MOVIE = "discover/movie"
 
-internal interface SearchService {
+interface SearchService {
 
 	@GET(URL_GENRE)
 	suspend fun getGenres(

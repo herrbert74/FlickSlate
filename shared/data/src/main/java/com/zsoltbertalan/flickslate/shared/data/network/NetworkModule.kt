@@ -18,7 +18,7 @@ const val BASE_URL: String = "https://api.themoviedb.org/3/"
 
 @Module
 @ContributesTo(AppScope::class)
-internal class NetworkModule {
+class NetworkModule {
 
 	@Provides
 	@SingleIn(AppScope::class)

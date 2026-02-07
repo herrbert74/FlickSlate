@@ -1,16 +1,16 @@
 package com.zsoltbertalan.flickslate.tv.data.repository
 
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
+import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.tv.data.api.TvRatingsDataSource
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.SingleIn
 import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class TvRatingsAccessor @Inject constructor(
+class TvRatingsAccessor @Inject internal constructor(
 	private val tvRatingsRemoteDataSource: TvRatingsDataSource.Remote,
 ) : TvRatingsRepository {
 

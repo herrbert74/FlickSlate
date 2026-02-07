@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 
-internal interface RatingsDataSource {
+interface RatingsDataSource {
 
 	interface Remote {
 

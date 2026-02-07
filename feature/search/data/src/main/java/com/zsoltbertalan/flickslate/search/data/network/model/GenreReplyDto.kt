@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 import retrofit2.Response
 
 @Serializable
-internal data class GenreReplyDto(
+data class GenreReplyDto(
 	val genres: List<GenreDto> = emptyList(),
 )
 

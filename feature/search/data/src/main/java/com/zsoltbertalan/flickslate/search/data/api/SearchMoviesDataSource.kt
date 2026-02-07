@@ -4,7 +4,7 @@ import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 
-internal interface SearchMoviesDataSource {
+interface SearchMoviesDataSource {
 
 	interface Remote {
 

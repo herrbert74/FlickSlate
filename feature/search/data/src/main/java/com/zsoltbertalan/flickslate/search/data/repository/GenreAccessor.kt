@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class GenreAccessor @Inject constructor(
+class GenreAccessor @Inject internal constructor(
 	private val genreDataSource: GenreDataSource.Local,
 	private val genreRemoteDataSource: GenreDataSource.Remote,
 	private val genreMoviesDataSource: GenreMoviesDataSource.Local,

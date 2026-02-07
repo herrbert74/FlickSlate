@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.zacsweers.metrox.viewmodel.metroViewModel
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
@@ -52,6 +51,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTypography
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.titleMediumBold
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 @Composable
 fun LoggedInComponent(

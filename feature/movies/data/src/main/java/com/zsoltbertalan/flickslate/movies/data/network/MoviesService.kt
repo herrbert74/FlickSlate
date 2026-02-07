@@ -22,7 +22,7 @@ private const val URL_MOVIE_DETAILS = "movie/{movie_id}"
 private const val URL_MOVIE_IMAGES = "movie/{movie_id}/images"
 private const val URL_MOVIE_RATE = "movie/{movie_id}/rating"
 
-internal interface MoviesService {
+interface MoviesService {
 
 	@GET(URL_MOVIES_POPULAR)
 	suspend fun getPopularMovies(

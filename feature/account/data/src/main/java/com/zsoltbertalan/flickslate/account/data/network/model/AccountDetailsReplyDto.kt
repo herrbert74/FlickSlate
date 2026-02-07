@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming")
 @Serializable
-internal data class AccountDetailsReplyDto(
+data class AccountDetailsReplyDto(
 	val name: String?,
 	val username: String,
 	val iso_639_1: String,

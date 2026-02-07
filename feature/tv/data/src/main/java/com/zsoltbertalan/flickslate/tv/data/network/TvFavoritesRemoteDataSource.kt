@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class TvFavoritesRemoteDataSource @Inject constructor(
+class TvFavoritesRemoteDataSource @Inject internal constructor(
 	private val setTvFavoriteService: SetTvFavoriteService,
 ) : TvFavoritesDataSource.Remote {
 

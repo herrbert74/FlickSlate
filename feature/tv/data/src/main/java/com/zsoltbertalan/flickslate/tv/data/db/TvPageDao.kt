@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.zsoltbertalan.flickslate.tv.data.db.model.TvPageEntity
 
 @Dao
-internal interface TvPageDao {
+interface TvPageDao {
 
 	@Query("SELECT * FROM tvpages WHERE page LIKE :page")
 	fun getPageData(page: Int): List<TvPageEntity>

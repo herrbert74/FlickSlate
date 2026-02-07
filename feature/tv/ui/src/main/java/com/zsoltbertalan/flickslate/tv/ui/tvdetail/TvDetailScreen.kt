@@ -41,7 +41,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
@@ -56,6 +55,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.util.convertImageUrlToBitm
 import com.zsoltbertalan.flickslate.shared.ui.compose.util.extractColorsFromBitmap
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.tv.ui.R
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 
 val Context.isDarkMode
 	get() = resources.configuration.uiMode and UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES

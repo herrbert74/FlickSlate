@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-internal data class RatedTvEpisodeDto(
+data class RatedTvEpisodeDto(
 	val id: Int? = null,
 	val show_id: Int? = null,
 	val air_date: String? = null,

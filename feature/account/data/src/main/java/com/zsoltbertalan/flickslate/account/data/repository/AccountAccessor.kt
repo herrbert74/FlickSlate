@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class AccountAccessor @Inject constructor(
+class AccountAccessor @Inject internal constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
 	private val accountLocalDataSource: AccountDataSource.Local
 ) : AccountRepository {

@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class AccountRemoteDataSource @Inject constructor(
+class AccountRemoteDataSource @Inject internal constructor(
 	private val accountService: AccountService
 ) : AccountDataSource.Remote {
 

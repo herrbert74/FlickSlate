@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class NowPlayingMoviesRoomDataSource @Inject constructor(
+class NowPlayingMoviesRoomDataSource @Inject internal constructor(
 	private val moviesDatabase: MoviesDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : NowPlayingMoviesDataSource.Local {

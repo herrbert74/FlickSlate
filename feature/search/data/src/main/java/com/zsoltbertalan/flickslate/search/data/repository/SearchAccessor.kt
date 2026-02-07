@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class SearchAccessor @Inject constructor(
+class SearchAccessor @Inject internal constructor(
 	private val searchMoviesRemoteDataSource: SearchMoviesRemoteDataSource
 ) : SearchRepository {
 

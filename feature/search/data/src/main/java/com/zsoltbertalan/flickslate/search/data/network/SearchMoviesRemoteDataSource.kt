@@ -12,7 +12,7 @@ import dev.zacsweers.metro.SingleIn
 import javax.inject.Inject
 
 @SingleIn(ActivityRetainedScope::class)
-internal class SearchMoviesRemoteDataSource @Inject constructor(
+class SearchMoviesRemoteDataSource @Inject constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {
 

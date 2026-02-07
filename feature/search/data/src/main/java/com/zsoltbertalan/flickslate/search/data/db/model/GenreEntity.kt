@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 
 @Entity(tableName = "genres")
-internal data class GenreEntity(
+data class GenreEntity(
 
 	@PrimaryKey
 	val id: Int,

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 
 @Entity(tableName = "TvPages")
-internal data class TvPageEntity(
+data class TvPageEntity(
 
 	@PrimaryKey
 	val page: Int,

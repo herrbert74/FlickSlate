@@ -8,7 +8,7 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface NowPlayingMoviesDao {
+interface NowPlayingMoviesDao {
 
 	@Query("SELECT * FROM nowPlayingMovies")
 	fun getAll(): List<NowPlayingMovieEntity>

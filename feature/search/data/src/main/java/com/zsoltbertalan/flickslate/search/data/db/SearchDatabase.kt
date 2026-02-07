@@ -16,7 +16,7 @@ import com.zsoltbertalan.flickslate.search.data.db.model.GenreMoviesPageEntity
 	],
 	version = 1
 )
-internal abstract class SearchDatabase : RoomDatabase() {
+abstract class SearchDatabase : RoomDatabase() {
 
 	abstract fun etagDao(): ETagDao
 	abstract fun genresDao(): GenresDao

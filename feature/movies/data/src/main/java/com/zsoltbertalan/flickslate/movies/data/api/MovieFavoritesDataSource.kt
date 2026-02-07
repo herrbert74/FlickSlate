@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.movies.data.api
 
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 
-internal interface MovieFavoritesDataSource {
+interface MovieFavoritesDataSource {
 
 	interface Remote {
 

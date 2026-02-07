@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class RatingsRemoteDataSource @Inject constructor(
+class RatingsRemoteDataSource @Inject internal constructor(
 	private val ratingsService: RatingsService,
 ) : RatingsDataSource.Remote {
 

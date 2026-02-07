@@ -27,7 +27,7 @@ private const val URL_GET_ACCOUNT_DETAILS = "account"
  * The login replaces not the third, but the second step in the process, and you still have to create the session,
  * because the second step is only validation, not the session creation.
  */
-internal interface AccountService {
+interface AccountService {
 
 	@GET(URL_CREATE_REQUEST_TOKEN)
 	suspend fun createRequestToken(): CreateRequestTokenReplyDto

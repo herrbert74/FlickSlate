@@ -11,11 +11,11 @@ import dev.zacsweers.metro.SingleIn
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class TvDatabaseModule {
+class TvDatabaseModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)
-	fun provideMoviesDatabase(application: Application) =
+	fun provideMoviesDatabase(application: Application): TvDatabase =
 		Room.databaseBuilder(application, TvDatabase::class.java, "tvDatabase").build()
 
 }

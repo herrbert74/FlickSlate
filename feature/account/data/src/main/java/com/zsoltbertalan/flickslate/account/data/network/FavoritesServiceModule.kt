@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class FavoritesServiceModule {
+class FavoritesServiceModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)

@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class MoviesAccessor @Inject constructor(
+class MoviesAccessor @Inject internal constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,
 	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote,

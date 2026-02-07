@@ -5,7 +5,7 @@ import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 
-internal interface FavoritesDataSource {
+interface FavoritesDataSource {
 
 	interface Remote {
 

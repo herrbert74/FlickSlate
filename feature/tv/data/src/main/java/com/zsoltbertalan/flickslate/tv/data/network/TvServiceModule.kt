@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class TvServiceModule {
+class TvServiceModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)

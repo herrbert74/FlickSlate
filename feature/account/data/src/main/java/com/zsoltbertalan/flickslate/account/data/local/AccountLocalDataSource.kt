@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)
-internal class AccountLocalDataSource @Inject constructor(
+class AccountLocalDataSource @Inject internal constructor(
 	val application: Application
 ) : AccountDataSource.Local {
 

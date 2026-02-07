@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class SearchServiceModule {
+class SearchServiceModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)

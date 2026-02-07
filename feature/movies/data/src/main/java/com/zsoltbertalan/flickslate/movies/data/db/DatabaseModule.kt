@@ -10,11 +10,11 @@ import dev.zacsweers.metro.SingleIn
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class DatabaseModule {
+class DatabaseModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)
-	internal fun provideMoviesDatabase(application: Application) =
+	internal fun provideMoviesDatabase(application: Application): MoviesDatabase =
 		Room.databaseBuilder(application, MoviesDatabase::class.java, "moviesDatabase")
 			.addMigrations(MIGRATION_1_2)
 			.build()

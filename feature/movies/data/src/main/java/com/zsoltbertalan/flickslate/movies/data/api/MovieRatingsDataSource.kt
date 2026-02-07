@@ -2,7 +2,7 @@ package com.zsoltbertalan.flickslate.movies.data.api
 
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 
-internal interface MovieRatingsDataSource {
+interface MovieRatingsDataSource {
 
 	interface Remote {
 

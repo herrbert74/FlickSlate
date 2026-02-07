@@ -11,10 +11,10 @@ import dev.zacsweers.metro.SingleIn
 
 @Module
 @ContributesTo(ActivityRetainedScope::class)
-internal class SearchDatabaseModule {
+class SearchDatabaseModule {
 
 	@Provides
 	@SingleIn(ActivityRetainedScope::class)
-	fun provideSearchDatabase(application: Application) =
+	fun provideSearchDatabase(application: Application): SearchDatabase =
 		Room.databaseBuilder(application, SearchDatabase::class.java, "searchDatabase").build()
 }
