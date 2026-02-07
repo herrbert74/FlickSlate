@@ -7,6 +7,7 @@ import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +18,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ViewModelKey(SearchViewModel::class)
 @ContributesIntoMap(AppScope::class)

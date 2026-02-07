@@ -8,9 +8,9 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toMoviesReply
 import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
-import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)

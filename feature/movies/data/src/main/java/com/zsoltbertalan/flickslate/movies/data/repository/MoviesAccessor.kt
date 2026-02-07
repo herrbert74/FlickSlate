@@ -17,9 +17,9 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)

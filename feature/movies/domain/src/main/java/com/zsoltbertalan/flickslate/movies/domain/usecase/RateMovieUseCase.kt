@@ -4,7 +4,7 @@ import com.github.michaelbull.result.andThen
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
-import javax.inject.Inject
+import dev.zacsweers.metro.Inject
 
 class RateMovieUseCase @Inject constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,

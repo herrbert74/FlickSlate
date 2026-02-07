@@ -20,9 +20,9 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
-import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)

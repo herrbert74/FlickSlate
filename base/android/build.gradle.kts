@@ -2,7 +2,6 @@ plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
-	id("dagger-convention")
 	id("metro-convention")
 }
 
@@ -23,7 +22,5 @@ dependencies {
 	implementation(platform(libs.androidx.compose.bom))
 
 	api(libs.kotlinx.coroutinesCore)
-	implementation(libs.dagger.hiltAndroid)
-	implementation(libs.dagger.hiltCore)
 
 }

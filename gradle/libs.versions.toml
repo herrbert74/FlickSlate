@@ -40,14 +40,12 @@ androidx-testRunner = "1.7.0"
 androidx-testEspresso = "3.7.0"
 androidx-splashscreen = "1.2.0"
 #androidx-work = "2.9.1"
-autoBind = "2.1.0"
 babestudios-base = "3.2.1"
 buildKonfig = "0.17.1"
 compose-screenshotTesting = "0.0.1-alpha13"
 #chucker = "4.0.0"
 coil = "2.7.0"
 #crashlyticsPlugin = "3.0.4"
-dagger = "2.59.1"
 #decompose = "3.3.0"
 dependencyAnalysis = "3.5.1"
 detekt = "1.23.8"
@@ -194,11 +192,6 @@ androidx-testRunner = { module = "androidx.test:runner", version.ref = "androidx
 #androidx-testRules = { module = "androidx.test:rules", version.ref = "androidx-testRules" }
 #androidx-testUiAutomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 
-autobind-core = { module = "se.ansman.dagger.auto:core", version.ref = "autoBind" } # For Kotlin modules
-#autobind-android = { module = "se.ansman.dagger.auto:android", version.ref = "autoBind" }
-autobind-android-api = { module = "se.ansman.dagger.auto:android-api", version.ref = "autoBind" }
-autobind-android-testing = { module = "se.ansman.dagger.auto:android-testing", version.ref = "autoBind" }
-autobind-compiler = { module = "se.ansman.dagger.auto:compiler", version.ref = "autoBind" }
 
 #baBeStudios-baseKotlin = { module ="io.bitbucket.babestudios:base-kotlin", version.ref = "babestudios-base"}
 baBeStudios-baseData = { module = "io.bitbucket.babestudios:base-data", version.ref = "babestudios-base" }
@@ -212,12 +205,6 @@ coil-base = { module = "io.coil-kt:coil-base", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-compose-base = { module = "io.coil-kt:coil-compose-base", version.ref = "coil" }
 
-dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
-dagger-hiltCore = { module = "com.google.dagger:hilt-core", version.ref = "dagger" }
-dagger-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
-dagger-hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
-dagger-hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 
 #decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 #decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
@@ -264,7 +251,6 @@ guava-jre = { module = "com.google.guava:guava", version.ref = "guava" }
 #https://github.com/android/android-test/issues/1352
 #hamcrest = "org.hamcrest:hamcrest-core:1.3"
 
-inject = "javax.inject:javax.inject:1"
 
 #jakarta-inject = {module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject"}
 
@@ -387,7 +373,6 @@ androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugi
 #buildKonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
 compose-screenshotTesting = { id = "com.android.compose.screenshot", version.ref = "compose-screenshotTesting" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
-dagger-hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" } #fine-grained plugin
 #dependencyAnalysisBuildHealth = { id = "com.autonomousapps.build-health", version.ref = "dependency-analysis" } #settings plugin
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

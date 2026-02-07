@@ -1,9 +1,7 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.ksp)
 	id("android-library-convention")
-	id("dagger-convention")
 	id("metro-convention")
 	id("ui-convention")
 }
@@ -40,7 +38,6 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.lifecycleViewmodelCompose)
 
-	implementation(libs.dagger.hiltAndroid)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.timber)
 

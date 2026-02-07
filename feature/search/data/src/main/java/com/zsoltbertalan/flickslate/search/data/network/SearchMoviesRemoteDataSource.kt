@@ -8,8 +8,8 @@ import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
-import javax.inject.Inject
 
 @SingleIn(ActivityRetainedScope::class)
 class SearchMoviesRemoteDataSource @Inject constructor(

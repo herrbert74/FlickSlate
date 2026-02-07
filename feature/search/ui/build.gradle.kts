@@ -1,9 +1,7 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.ksp)
 	id("android-library-convention")
-	id("dagger-convention")
 	id("metro-convention")
 	id("ui-convention")
 }
@@ -30,12 +28,9 @@ android {
 dependencies {
 	api(project(":feature:search:domain"))
 
-	api(libs.inject)
-
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
 	implementation(libs.androidx.composeAnimation)
 	implementation(libs.androidx.composeAnimationCore)
 	implementation(libs.metrox.viewmodelCompose)
-	implementation(libs.dagger.hiltAndroid)
 }

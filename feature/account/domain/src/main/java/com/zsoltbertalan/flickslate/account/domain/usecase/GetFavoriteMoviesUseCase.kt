@@ -5,8 +5,8 @@ import com.zsoltbertalan.flickslate.account.domain.api.FavoritesRepository
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
-import javax.inject.Inject
 
 class GetFavoriteMoviesUseCase @Inject constructor(
 	private val favoritesRepository: FavoritesRepository,

@@ -10,11 +10,11 @@ import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
 import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 @ContributesBinding(ActivityRetainedScope::class)
 @SingleIn(ActivityRetainedScope::class)

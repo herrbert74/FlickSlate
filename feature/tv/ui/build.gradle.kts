@@ -1,10 +1,8 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.ksp)
 	id("android-library-convention")
 	id("coil-convention")
-	id("dagger-convention")
 	id("metro-convention")
 	id("ui-convention")
 }

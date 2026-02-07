@@ -7,7 +7,6 @@ plugins {
 	alias(libs.plugins.dependencyAnalysis)
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
-	alias(libs.plugins.ksp)
 	id("metro-convention")
 }
 
@@ -138,10 +137,6 @@ dependencies {
 	implementation(libs.androidx.savedState)
 	implementation(libs.androidx.savedStateCompose)
 	implementation(libs.androidx.splashscreen)
-	implementation(libs.dagger.core)
-	implementation(libs.dagger.hiltCore)
-	implementation(libs.dagger.hiltAndroid)
-	implementation(libs.inject)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinx.collectionsImmutableJvm)
 	implementation(libs.kotlinx.coroutinesCore)
@@ -169,9 +164,6 @@ dependencies {
 	androidTestImplementation(libs.androidx.composeUiTestAndroid)
 	androidTestImplementation(libs.androidx.composeUiTestJunit4)
 	androidTestImplementation(libs.androidx.composeUiTestJunit4Android)
-	androidTestImplementation(libs.autobind.android.api)
-	androidTestImplementation(libs.autobind.core) // transitive
-	androidTestImplementation(libs.dagger.hiltAndroidTesting)
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)
 	androidTestImplementation(libs.mockk.core)

@@ -10,9 +10,9 @@ import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ViewModelKey(MoviesViewModel::class)
 @ContributesIntoMap(AppScope::class)

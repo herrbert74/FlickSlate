@@ -9,9 +9,9 @@ import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ViewModelKey(TvViewModel::class)
 @ContributesIntoMap(AppScope::class)

@@ -4,7 +4,6 @@ plugins {
 	alias(libs.plugins.kotlin.serialization)
 	alias(libs.plugins.room)
 	id("android-library-convention")
-	id("dagger-convention")
 	id("data-convention")
 	id("metro-convention")
 }
@@ -33,15 +32,11 @@ dependencies {
 
 	implementation(project(":shared:data"))
 
-	api(libs.dagger.hiltCore)
-	implementation(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
 
 	implementation(libs.androidx.coreKtx) // transitive
 	implementation(libs.kotlinx.serializationJson)
 	implementation(libs.androidx.roomRuntime)
-	implementation(libs.autobind.android.api)
-	implementation(libs.autobind.core) // transitive
 	implementation(libs.kotlinx.serializationCore)
 	implementation(libs.kotlinResult.result)
 	implementation(libs.okhttp3)

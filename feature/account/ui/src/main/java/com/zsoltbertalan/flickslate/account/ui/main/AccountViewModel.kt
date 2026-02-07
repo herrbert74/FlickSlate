@@ -8,11 +8,11 @@ import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
 import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
 import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ViewModelKey(AccountViewModel::class)
 @ContributesIntoMap(AppScope::class)

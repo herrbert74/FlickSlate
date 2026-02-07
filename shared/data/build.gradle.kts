@@ -1,7 +1,6 @@
 plugins {
 	alias(libs.plugins.androidLibrary)
 	alias(libs.plugins.kotlin.serialization)
-	id("dagger-convention")
 	id("android-library-convention")
 	id("metro-convention")
 }
@@ -48,7 +47,6 @@ dependencies {
 	implementation(libs.retrofit.converterKotlinxSerialization)
 	api(libs.retrofit)
 	implementation(libs.timber)
-	implementation(libs.dagger.hiltCore)
 
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.jUnit)

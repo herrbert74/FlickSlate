@@ -13,8 +13,6 @@ dependencies {
 		implementation(project(":shared:data"))
 	}
 
-	api(libs.dagger.hiltCore)
-	implementation(libs.dagger.hiltAndroid)
 	api(libs.retrofit)
 
 	excludeFrom("account") {
@@ -24,8 +22,6 @@ dependencies {
 	excludeFrom("account") {
 		implementation(libs.androidx.sqlite)
 	}
-	implementation(libs.autobind.android.api)
-	implementation(libs.autobind.core) // transitive
 	implementation(libs.kotlinResult.result)
 	excludeFrom("account") {
 		implementation(libs.kotlinRetry)

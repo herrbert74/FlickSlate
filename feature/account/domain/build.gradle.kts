@@ -15,7 +15,6 @@ android {
 dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
-	api(libs.inject)
 
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
