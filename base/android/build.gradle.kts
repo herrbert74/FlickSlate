@@ -18,6 +18,7 @@ android {
 }
 
 dependencies {
+	api(project(":shared:domain"))
 	implementation(project(":base:kotlin"))
 	implementation(platform(libs.androidx.compose.bom))
 

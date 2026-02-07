@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
@@ -46,10 +46,10 @@ fun NavHostContainer(
 	setBackgroundColor: (Color) -> Unit,
 	setMoviesListsReady: (Boolean) -> Unit,
 	modifier: Modifier = Modifier,
-	viewModel: MoviesViewModel = hiltViewModel<MoviesViewModel>(),
-	searchViewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
-	tvViewModel: TvViewModel = hiltViewModel<TvViewModel>(),
-	accountViewModel: AccountViewModel = hiltViewModel<AccountViewModel>(),
+	viewModel: MoviesViewModel = metroViewModel<MoviesViewModel>(),
+	searchViewModel: SearchViewModel = metroViewModel<SearchViewModel>(),
+	tvViewModel: TvViewModel = metroViewModel<TvViewModel>(),
+	accountViewModel: AccountViewModel = metroViewModel<AccountViewModel>(),
 ) {
 	val resultStore = rememberResultStore()
 

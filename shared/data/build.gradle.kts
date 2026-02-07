@@ -57,10 +57,6 @@ dependencies {
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotlinx.coroutinesTest)
 
-	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.compiler)
-	kspTest(libs.dagger.hiltCompiler)
-
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
 	testFixturesImplementation(libs.kotlinx.serializationJson)
 	testFixturesImplementation(libs.retrofit)

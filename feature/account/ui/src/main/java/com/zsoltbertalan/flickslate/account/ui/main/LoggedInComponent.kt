@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
@@ -62,8 +62,8 @@ fun LoggedInComponent(
 	navigateToTvShowDetails: (Int) -> Unit,
 	navigateToTvEpisodeDetails: (Int, Int, Int) -> Unit,
 	modifier: Modifier = Modifier,
-	ratingsViewModel: RatingsViewModel? = hiltViewModel<RatingsViewModel>(),
-	favoritesViewModel: FavoritesViewModel? = hiltViewModel<FavoritesViewModel>(),
+	ratingsViewModel: RatingsViewModel? = metroViewModel<RatingsViewModel>(),
+	favoritesViewModel: FavoritesViewModel? = metroViewModel<FavoritesViewModel>(),
 ) {
 	val resultStore = LocalResultStore.current
 

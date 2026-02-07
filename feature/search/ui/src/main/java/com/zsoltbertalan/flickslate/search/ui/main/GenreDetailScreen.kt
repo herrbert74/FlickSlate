@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieCardType
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.ShowCard
@@ -28,7 +28,7 @@ fun GenreDetailScreen(
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
 	modifier: Modifier = Modifier,
-	viewModel: GenreDetailViewModel = hiltViewModel(),
+	viewModel: GenreDetailViewModel = assistedMetroViewModel(),
 	popTo: (Int) -> Unit,
 ) {
 	LaunchedEffect(genreId, genreName) {

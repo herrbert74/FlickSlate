@@ -107,5 +107,4 @@ Compose:
     # allowedForwardingOfTypes: PotatoViewModel,(Apple|Banana)ViewModel,.*FancyViewModel
   ViewModelInjection:
     active: true
-    # -- You can optionally add your own ViewModel factories here
-    # viewModelFactories: hiltViewModel,potatoViewModel
+    viewModelFactories: metroViewModel,assistedMetroViewModel

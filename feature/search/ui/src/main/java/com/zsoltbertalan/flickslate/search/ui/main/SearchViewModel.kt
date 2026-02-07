@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +19,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@ViewModelKey(SearchViewModel::class)
+@ContributesIntoMap(AppScope::class)
 class SearchViewModel @Inject constructor(
 	private val genreRepository: GenreRepository,
 	private val searchRepository: SearchRepository

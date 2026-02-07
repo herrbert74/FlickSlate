@@ -4,14 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@ViewModelKey(TvViewModel::class)
+@ContributesIntoMap(AppScope::class)
 class TvViewModel @Inject constructor(private val tvRepository: TvRepository) : ViewModel() {
 
 	val tvPaginationState = PaginationState<Int, TvShow>(

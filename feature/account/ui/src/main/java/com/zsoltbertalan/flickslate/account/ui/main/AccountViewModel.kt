@@ -5,14 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@ViewModelKey(AccountViewModel::class)
+@ContributesIntoMap(AppScope::class)
 class AccountViewModel @Inject constructor(private val accountRepository: AccountRepository) : ViewModel() {
 
 	private val _loggedInEvent = MutableStateFlow<Account?>(null)

@@ -3,11 +3,15 @@ package com.zsoltbertalan.flickslate.tv.ui.seasondetail
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.CreationExtras.Key
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
+import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
@@ -15,13 +19,17 @@ import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingU
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 const val SERIES_ID_ARG = "seriesId"
 const val SEASON_NUMBER_ARG = "seasonNumber"
@@ -29,16 +37,26 @@ const val SEASON_TITLE_ARG = "seasonTitle"
 const val BG_COLOR_ARG = "bgColor"
 const val BG_COLOR_DIM_ARG = "bgColorDim"
 
-@HiltViewModel
-class TvSeasonDetailViewModel @Inject constructor(
+@AssistedInject
+class TvSeasonDetailViewModel(
 	private val getSeasonDetailUseCase: GetSeasonDetailUseCase,
 	private val rateEpisodeUseCase: RateTvShowEpisodeUseCase,
 	private val changeEpisodeRatingUseCase: ChangeTvShowEpisodeRatingUseCase,
 	private val deleteEpisodeRatingUseCase: DeleteTvShowEpisodeRatingUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val getEpisodeDetailUseCase: GetEpisodeDetailUseCase,
-	private val savedStateHandle: SavedStateHandle,
+	@Assisted private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
+	@AssistedFactory
+	@ViewModelAssistedFactoryKey(TvSeasonDetailViewModel::class)
+	@ContributesIntoMap(AppScope::class)
+	fun interface Factory : ViewModelAssistedFactory {
+		override fun create(extras: CreationExtras): TvSeasonDetailViewModel {
+			return create(extras.createSavedStateHandle())
+		}
+		fun create(@Assisted savedStateHandle: SavedStateHandle): TvSeasonDetailViewModel
+	}
 
 	private val seriesId: Int
 		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])

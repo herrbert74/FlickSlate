@@ -42,7 +42,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.movies.ui.R
@@ -67,7 +67,7 @@ fun MovieDetailScreen(
 	setTitle: (String) -> Unit,
 	setBackgroundColor: (Color) -> Unit,
 	modifier: Modifier = Modifier,
-	viewModel: MovieDetailViewModel = hiltViewModel(),
+	viewModel: MovieDetailViewModel = assistedMetroViewModel(),
 ) {
 	val resultStore = LocalResultStore.current
 

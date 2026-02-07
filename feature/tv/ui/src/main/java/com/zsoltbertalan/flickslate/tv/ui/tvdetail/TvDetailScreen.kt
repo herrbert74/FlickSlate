@@ -41,7 +41,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
@@ -69,7 +69,7 @@ fun TvDetailScreen(
 	modifier: Modifier = Modifier,
 	seasonNumber: Int? = null,
 	episodeNumber: Int? = null,
-	viewModel: TvDetailViewModel = hiltViewModel(),
+	viewModel: TvDetailViewModel = assistedMetroViewModel(),
 ) {
 	val resultStore = LocalResultStore.current
 

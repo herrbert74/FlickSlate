@@ -1,12 +1,14 @@
 package com.zsoltbertalan.flickslate
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.zsoltbertalan.flickslate.di.AppGraph
+import dev.zacsweers.metro.createGraphFactory
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
-@HiltAndroidApp
 class FlickSlateApp : Application() {
+
+	val appGraph: AppGraph by lazy { createGraphFactory<AppGraph.Factory>().create(this) }
 
 	override fun onCreate() {
 		super.onCreate()
