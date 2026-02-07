@@ -1,0 +1,18 @@
+abi_change_movie_data {
+    tasks = [":app:assembleDebug"]
+    apply-abi-change-to = ["feature/movies/data/src/main/java/com/zsoltbertalan/flickslate/movies/data/repository/MoviesAccessor.kt"]
+    show-build-cache-size = true
+}
+
+non_abi_change_movie_data {
+    tasks = [":app:assembleDebug"]
+    apply-non-abi-change-to = ["feature/movies/data/src/main/java/com/zsoltbertalan/flickslate/movies/data/network/NowPlayingMoviesRemoteDataSource.kt"]
+    show-build-cache-size = true
+}
+
+clean_build {
+    tasks = ["clean", ":app:assembleDebug"]
+    cleanup-tasks = ["clean"]
+    clear-build-cache-before = BUILD
+    show-build-cache-size = true
+}

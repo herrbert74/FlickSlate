@@ -1,6 +1,0 @@
-clean_build {
-    tasks = ["clean", ":app:assembleDebug"]
-    cleanup-tasks = ["clean"]
-    clear-build-cache-before = BUILD
-    show-build-cache-size = true
-}
