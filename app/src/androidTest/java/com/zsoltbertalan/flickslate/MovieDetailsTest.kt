@@ -20,34 +20,17 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
-import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieFavoritesAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieRatingsAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
-import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
-@HiltAndroidTest
-@UninstallModules(
-	AutoBindMovieRatingsAccessorActivityRetainedModule::class,
-	AutoBindMovieFavoritesAccessorActivityRetainedModule::class,
-)
 @RunWith(AndroidJUnit4::class)
 class MovieDetailsTest {
 
-	@get:Rule(order = 0)
-	val hiltAndroidRule = HiltAndroidRule(this)
-
-	@get:Rule(order = 1)
+	@get:Rule
 	val composeTestRule = AndroidComposeTestRule<ActivityScenarioRule<FlickSlateActivity>, FlickSlateActivity>(
 		activityRule = ActivityScenarioRule(
 			Intent(
@@ -64,21 +47,16 @@ class MovieDetailsTest {
 		}
 	)
 
-	@BindValue
-	val fakeRatingsRepository: MovieRatingsRepository = FakeMovieRatingsRepository()
-
-	@BindValue
-	val fakeMovieFavoritesRepository: MovieFavoritesRepository = FakeMovieFavoritesRepository()
-
-	@Inject
-	lateinit var fakeAccountRepository: FakeAccountRepository
-
-	@Inject
-	lateinit var fakeMoviesRepository: FakeMoviesRepository
+	private lateinit var fakeAccountRepository: FakeAccountRepository
+	private lateinit var fakeMoviesRepository: FakeMoviesRepository
 
 	@Before
 	fun setUp() {
-		hiltAndroidRule.inject()
+		composeTestRule.activityRule.scenario.onActivity { activity ->
+			val testOverrides = activity.application.asTestOverrides()
+			fakeAccountRepository = testOverrides.fakeAccountRepository
+			fakeMoviesRepository = testOverrides.fakeMoviesRepository
+		}
 	}
 
 	private fun navigateToMovieDetails() {

@@ -14,7 +14,7 @@ interface SearchDatabaseModule {
 
 		@Provides
 		@SingleIn(ActivityRetainedScope::class)
-		fun provideSearchDatabase(application: Application): SearchDatabase =
+		internal fun provideSearchDatabase(application: Application): SearchDatabase =
 			Room.databaseBuilder(application, SearchDatabase::class.java, "searchDatabase").build()
 
 	}

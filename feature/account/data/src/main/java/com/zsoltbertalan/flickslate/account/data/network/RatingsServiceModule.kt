@@ -8,14 +8,11 @@ import retrofit2.Retrofit
 
 @ContributesTo(ActivityRetainedScope::class)
 interface RatingsServiceModule {
-	companion object {
 
-		@Provides
-		@SingleIn(ActivityRetainedScope::class)
-		fun provideRatingsService(retroFit: Retrofit): RatingsService {
-			return retroFit.create(RatingsService::class.java)
-		}
-
+	@Provides
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideRatingsService(retroFit: Retrofit): RatingsService {
+		return retroFit.create(RatingsService::class.java)
 	}
 
 }

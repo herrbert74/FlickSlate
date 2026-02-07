@@ -12,13 +12,13 @@ interface TvServiceModule {
 
 		@Provides
 		@SingleIn(ActivityRetainedScope::class)
-		fun provideTvService(retroFit: Retrofit): TvService {
+		internal fun provideTvService(retroFit: Retrofit): TvService {
 			return retroFit.create(TvService::class.java)
 		}
 
 		@Provides
 		@SingleIn(ActivityRetainedScope::class)
-		fun provideSetTvFavoriteService(retroFit: Retrofit): SetTvFavoriteService {
+		internal fun provideSetTvFavoriteService(retroFit: Retrofit): SetTvFavoriteService {
 			return retroFit.create(SetTvFavoriteService::class.java)
 		}
 

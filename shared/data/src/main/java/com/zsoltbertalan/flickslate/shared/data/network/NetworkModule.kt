@@ -21,7 +21,7 @@ interface NetworkModule {
 
 		@Provides
 		@SingleIn(AppScope::class)
-		fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
+		internal fun provideFlickSlateRetrofit(authInterceptor: Interceptor): Retrofit {
 			val logging = HttpLoggingInterceptor()
 			logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -41,7 +41,7 @@ interface NetworkModule {
 
 		@Provides
 		@SingleIn(AppScope::class)
-		fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
+		internal fun provideAuthInterceptor(): Interceptor = Interceptor { chain ->
 			val original = chain.request()
 			val originalHttpUrl = original.url
 

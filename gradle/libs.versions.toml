@@ -205,7 +205,6 @@ coil-base = { module = "io.coil-kt:coil-base", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-compose-base = { module = "io.coil-kt:coil-compose-base", version.ref = "coil" }
 
-
 #decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 #decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 
@@ -326,7 +325,6 @@ kotlinx-serializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serializat
 #mvikotlin-logging = { module = "com.arkivanov.mvikotlin:mvikotlin-logging", version.ref = "mviKotlin" }
 
 metro-runtime = { module = "dev.zacsweers.metro:runtime", version.ref = "metro" }
-metrox-android = { module = "dev.zacsweers.metro:metrox-android", version.ref = "metro" }
 metrox-viewmodel = { module = "dev.zacsweers.metro:metrox-viewmodel", version.ref = "metro" }
 metrox-viewmodelCompose = { module = "dev.zacsweers.metro:metrox-viewmodel-compose", version.ref = "metro" }
 

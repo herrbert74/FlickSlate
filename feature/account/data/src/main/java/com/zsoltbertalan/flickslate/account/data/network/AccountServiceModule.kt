@@ -8,14 +8,11 @@ import retrofit2.Retrofit
 
 @ContributesTo(ActivityRetainedScope::class)
 interface AccountServiceModule {
-	companion object {
 
-		@Provides
-		@SingleIn(ActivityRetainedScope::class)
-		fun provideAccountService(retroFit: Retrofit): AccountService {
-			return retroFit.create(AccountService::class.java)
-		}
-
+	@Provides
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideAccountService(retroFit: Retrofit): AccountService {
+		return retroFit.create(AccountService::class.java)
 	}
 
 }

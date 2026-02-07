@@ -15,41 +15,18 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
-import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieFavoritesAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.movies.data.repository.AutoBindMovieRatingsAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
-import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
-import com.zsoltbertalan.flickslate.tv.data.repository.AutoBindTvFavoritesAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.tv.data.repository.AutoBindTvRatingsAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.tv.domain.api.TvFavoritesRepository
-import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
-@HiltAndroidTest
-@UninstallModules(
-	AutoBindMovieRatingsAccessorActivityRetainedModule::class,
-	AutoBindMovieFavoritesAccessorActivityRetainedModule::class,
-	AutoBindTvRatingsAccessorActivityRetainedModule::class,
-	AutoBindTvFavoritesAccessorActivityRetainedModule::class,
-)
 @RunWith(AndroidJUnit4::class)
 class AccountListRefreshTest {
 
-	@get:Rule(order = 0)
-	val hiltAndroidRule = HiltAndroidRule(this)
-
-	@get:Rule(order = 1)
+	@get:Rule
 	val composeTestRule = AndroidComposeTestRule<ActivityScenarioRule<FlickSlateActivity>, FlickSlateActivity>(
 		activityRule = ActivityScenarioRule(
 			Intent(
@@ -66,30 +43,18 @@ class AccountListRefreshTest {
 		}
 	)
 
-	@BindValue
-	val fakeMovieRatingsRepository: MovieRatingsRepository = FakeMovieRatingsRepository()
-
-	@BindValue
-	val fakeMovieFavoritesRepository: MovieFavoritesRepository = FakeMovieFavoritesRepository()
-
-	@BindValue
-	val fakeTvRatingsRepository: TvRatingsRepository = FakeTvRatingsRepository()
-
-	@BindValue
-	val fakeTvFavoritesRepository: TvFavoritesRepository = FakeTvFavoritesRepository()
-
-	@Inject
-	lateinit var fakeAccountRepository: FakeAccountRepository
-
-	@Inject
-	lateinit var fakeMoviesRepository: FakeMoviesRepository
-
-	@Inject
-	lateinit var fakeTvRepository: FakeTvRepository
+	private lateinit var fakeAccountRepository: FakeAccountRepository
+	private lateinit var fakeMoviesRepository: FakeMoviesRepository
+	private lateinit var fakeTvRepository: FakeTvRepository
 
 	@Before
 	fun setUp() {
-		hiltAndroidRule.inject()
+		composeTestRule.activityRule.scenario.onActivity { activity ->
+			val testOverrides = activity.application.asTestOverrides()
+			fakeAccountRepository = testOverrides.fakeAccountRepository
+			fakeMoviesRepository = testOverrides.fakeMoviesRepository
+			fakeTvRepository = testOverrides.fakeTvRepository
+		}
 		fakeAccountRepository.isLoggedIn = true
 		AccountListTestState.resetToDefaults()
 	}

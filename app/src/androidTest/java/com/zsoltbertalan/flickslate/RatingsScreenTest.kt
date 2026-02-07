@@ -7,52 +7,49 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsScreen
 import com.zsoltbertalan.flickslate.account.ui.ratings.RatingsViewModel
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
+import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@HiltAndroidTest
 class RatingsScreenTest {
 
-	@get:Rule(order = 0)
-	val hiltAndroidRule = HiltAndroidRule(this)
-
-	@get:Rule(order = 1)
+	@get:Rule
 	val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
 	@Before
 	fun setUp() {
-		hiltAndroidRule.inject()
 		AccountListTestState.resetToDefaults()
 	}
 
 	@Test
 	fun ratingsScreen_whenLoaded_showsRatedContent() {
 		with(composeTestRule) {
+			val metroVmf = (activity.application as FlickSlateApp).appGraph.metroViewModelFactory
 			setContent {
-				val resultStore = rememberResultStore()
-				val viewModel = hiltViewModel<RatingsViewModel>()
-				CompositionLocalProvider(LocalResultStore provides resultStore) {
-					RatingsScreen(
-						ratedMovies = viewModel.ratedMoviesPaginationState,
-						ratedTvShows = viewModel.ratedTvShowsPaginationState,
-						ratedTvEpisodes = viewModel.ratedTvEpisodesPaginationState,
-						navigateToMovieDetails = { },
-						navigateToTvShowDetails = { },
-						navigateToTvEpisodeDetails = { _, _, _ -> },
-						onRefresh = viewModel::refresh,
-					)
+				CompositionLocalProvider(LocalMetroViewModelFactory provides metroVmf) {
+					val resultStore = rememberResultStore()
+					val viewModel = metroViewModel<RatingsViewModel>()
+					CompositionLocalProvider(LocalResultStore provides resultStore) {
+						RatingsScreen(
+							ratedMovies = viewModel.ratedMoviesPaginationState,
+							ratedTvShows = viewModel.ratedTvShowsPaginationState,
+							ratedTvEpisodes = viewModel.ratedTvEpisodesPaginationState,
+							navigateToMovieDetails = { },
+							navigateToTvShowDetails = { },
+							navigateToTvEpisodeDetails = { _, _, _ -> },
+							onRefresh = viewModel::refresh,
+						)
+					}
 				}
 			}
 

@@ -74,12 +74,6 @@ android {
 
 	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
-	sourceSets {
-		getByName("androidTest") {
-			java.setSrcDirs(emptyList<File>())
-		}
-	}
-
 }
 
 kotlin {
@@ -126,7 +120,6 @@ dependencies {
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.fragmentKtx) // transitive
-	implementation(libs.metrox.android)
 	implementation(libs.metrox.viewmodelCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)

@@ -12,7 +12,7 @@ interface SearchServiceModule {
 
 		@Provides
 		@SingleIn(ActivityRetainedScope::class)
-		fun provideSearchService(retroFit: Retrofit): SearchService {
+		internal fun provideSearchService(retroFit: Retrofit): SearchService {
 			return retroFit.create(SearchService::class.java)
 		}
 

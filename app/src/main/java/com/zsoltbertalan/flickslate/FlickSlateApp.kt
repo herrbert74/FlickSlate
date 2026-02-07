@@ -6,9 +6,9 @@ import dev.zacsweers.metro.createGraphFactory
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
 
-class FlickSlateApp : Application() {
+open class FlickSlateApp : Application() {
 
-	val appGraph: AppGraph by lazy { createGraphFactory<AppGraph.Factory>().create(this) }
+	open val appGraph: AppGraph by lazy { createGraphFactory<AppGraph.Factory>().create(this) }
 
 	override fun onCreate() {
 		super.onCreate()

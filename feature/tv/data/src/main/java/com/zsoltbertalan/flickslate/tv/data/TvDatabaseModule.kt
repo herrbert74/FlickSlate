@@ -10,13 +10,10 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesTo(ActivityRetainedScope::class)
 interface TvDatabaseModule {
-	companion object {
 
-		@Provides
-		@SingleIn(ActivityRetainedScope::class)
-		fun provideMoviesDatabase(application: Application): TvDatabase =
-			Room.databaseBuilder(application, TvDatabase::class.java, "tvDatabase").build()
-
-	}
+	@Provides
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideMoviesDatabase(application: Application): TvDatabase =
+		Room.databaseBuilder(application, TvDatabase::class.java, "tvDatabase").build()
 
 }

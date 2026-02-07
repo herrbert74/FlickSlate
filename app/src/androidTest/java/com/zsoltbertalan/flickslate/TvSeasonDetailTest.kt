@@ -16,28 +16,16 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.zsoltbertalan.flickslate.main.FlickSlateActivity
 import com.zsoltbertalan.flickslate.shared.ui.compose.waitUntilAtLeastOneExistsCopy
-import com.zsoltbertalan.flickslate.tv.data.repository.AutoBindTvRatingsAccessorActivityRetainedModule
-import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
-@HiltAndroidTest
-@UninstallModules(AutoBindTvRatingsAccessorActivityRetainedModule::class)
 @RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
 class TvSeasonDetailTest {
 
-	@get:Rule(order = 0)
-	val hiltRule = HiltAndroidRule(this)
-
-	@get:Rule(order = 1)
+	@get:Rule
 	val composeRule = AndroidComposeTestRule<ActivityScenarioRule<FlickSlateActivity>, FlickSlateActivity>(
 		activityRule = ActivityScenarioRule(
 			Intent(
@@ -54,18 +42,16 @@ class TvSeasonDetailTest {
 		}
 	)
 
-	@BindValue
-	val fakeTvRatingsRepository: TvRatingsRepository = FakeTvRatingsRepository()
-
-	@Inject
-	lateinit var fakeAccountRepository: FakeAccountRepository
-
-	@Inject
-	lateinit var fakeTvRepository: FakeTvRepository
+	private lateinit var fakeAccountRepository: FakeAccountRepository
+	private lateinit var fakeTvRepository: FakeTvRepository
 
 	@Before
 	fun setup() {
-		hiltRule.inject()
+		composeRule.activityRule.scenario.onActivity { activity ->
+			val testOverrides = activity.application.asTestOverrides()
+			fakeAccountRepository = testOverrides.fakeAccountRepository
+			fakeTvRepository = testOverrides.fakeTvRepository
+		}
 		fakeAccountRepository.isLoggedIn = true
 		fakeTvRepository.tvDetail = TvMother.createTvDetailWithImages().copy(personalRating = 8f)
 	}

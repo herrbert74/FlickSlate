@@ -14,19 +14,20 @@ import kotlinx.coroutines.Dispatchers
 
 @ContributesTo(AppScope::class)
 interface SingletonModule {
+
+	@DefaultDispatcher
+	@Provides
+	fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+
+	@IoDispatcher
+	@Provides
+	fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+	@MainDispatcher
+	@Provides
+	fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
+
 	companion object {
-
-		@DefaultDispatcher
-		@Provides
-		fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
-
-		@IoDispatcher
-		@Provides
-		fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-		@MainDispatcher
-		@Provides
-		fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
 		@Provides
 		@SingleIn(AppScope::class)

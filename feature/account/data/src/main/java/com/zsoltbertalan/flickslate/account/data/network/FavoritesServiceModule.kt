@@ -8,13 +8,11 @@ import retrofit2.Retrofit
 
 @ContributesTo(ActivityRetainedScope::class)
 interface FavoritesServiceModule {
-	companion object {
 
-		@Provides
-		@SingleIn(ActivityRetainedScope::class)
-		fun provideFavoritesService(retrofit: Retrofit): FavoritesService {
-			return retrofit.create(FavoritesService::class.java)
-		}
-
+	@Provides
+	@SingleIn(ActivityRetainedScope::class)
+	fun provideFavoritesService(retrofit: Retrofit): FavoritesService {
+		return retrofit.create(FavoritesService::class.java)
 	}
+
 }
