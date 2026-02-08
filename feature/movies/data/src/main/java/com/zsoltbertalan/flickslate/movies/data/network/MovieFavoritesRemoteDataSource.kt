@@ -3,7 +3,7 @@ package com.zsoltbertalan.flickslate.movies.data.network
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.data.api.MovieFavoritesDataSource
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
@@ -13,8 +13,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class MovieFavoritesRemoteDataSource @Inject internal constructor(
 	private val setMovieFavoriteService: SetMovieFavoriteService,
 ) : MovieFavoritesDataSource.Remote {

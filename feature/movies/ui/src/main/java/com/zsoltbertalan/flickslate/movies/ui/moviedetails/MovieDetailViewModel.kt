@@ -16,8 +16,8 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.DeleteMovieRatingUseCa
 import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
@@ -44,9 +44,11 @@ class MovieDetailViewModel(
 	@ViewModelAssistedFactoryKey(MovieDetailViewModel::class)
 	@ContributesIntoMap(AppScope::class)
 	fun interface Factory : ViewModelAssistedFactory {
+
 		override fun create(extras: CreationExtras): MovieDetailViewModel {
 			return create(extras.createSavedStateHandle())
 		}
+
 		fun create(@Assisted savedStateHandle: SavedStateHandle): MovieDetailViewModel
 	}
 
@@ -225,7 +227,13 @@ class MovieDetailViewModel(
 	}
 
 	internal fun toastShown() {
-		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null, showFavoriteToast = false) }
+		_movieStateData.update {
+			it.copy(
+				showRatingToast = false,
+				ratingToastMessage = null,
+				showFavoriteToast = false
+			)
+		}
 	}
 }
 

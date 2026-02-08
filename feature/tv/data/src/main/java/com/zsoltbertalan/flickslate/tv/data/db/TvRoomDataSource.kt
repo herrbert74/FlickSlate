@@ -2,7 +2,6 @@ package com.zsoltbertalan.flickslate.tv.data.db
 
 import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
@@ -11,6 +10,7 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvShow
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class TvRoomDataSource @Inject internal constructor(
 	private val tvDatabase: TvDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,

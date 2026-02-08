@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey

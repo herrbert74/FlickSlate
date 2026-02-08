@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.di
 
 import androidx.lifecycle.ViewModel
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.Provider

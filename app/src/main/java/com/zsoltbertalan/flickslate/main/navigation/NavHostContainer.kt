@@ -46,7 +46,7 @@ fun NavHostContainer(
 	setBackgroundColor: (Color) -> Unit,
 	setMoviesListsReady: (Boolean) -> Unit,
 	modifier: Modifier = Modifier,
-	viewModel: MoviesViewModel = metroViewModel<MoviesViewModel>(),
+	moviesViewModel: MoviesViewModel = metroViewModel<MoviesViewModel>(),
 	searchViewModel: SearchViewModel = metroViewModel<SearchViewModel>(),
 	tvViewModel: TvViewModel = metroViewModel<TvViewModel>(),
 	accountViewModel: AccountViewModel = metroViewModel<AccountViewModel>(),
@@ -55,13 +55,15 @@ fun NavHostContainer(
 
 	val moviesListsReady by remember {
 		derivedStateOf {
-			val popularReady = viewModel.popularMoviesPaginationState.internalState.value.isFirstPageCompleted
-			val nowPlayingReady = viewModel.nowPlayingMoviesPaginationState.internalState.value.isFirstPageCompleted
-			val upcomingReady = viewModel.upcomingMoviesPaginationState.internalState.value.isFirstPageCompleted
+			val popularReady = moviesViewModel.popularMoviesPaginationState.internalState.value.isFirstPageCompleted
+			val nowPlayingReady =
+				moviesViewModel.nowPlayingMoviesPaginationState.internalState.value.isFirstPageCompleted
+			val upcomingReady = moviesViewModel.upcomingMoviesPaginationState.internalState.value.isFirstPageCompleted
 			popularReady && nowPlayingReady && upcomingReady
 		}
 	}
 
+	val allKeys by remember(navigationState) { derivedStateOf { navigationState.backStacks.values.flatten().toSet() } }
 	val currentSetMoviesListsReady by rememberUpdatedState(setMoviesListsReady)
 
 	LaunchedEffect(moviesListsReady) {
@@ -71,9 +73,9 @@ fun NavHostContainer(
 	val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
 		entry<Destination.Movies> {
 			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
-			val popularMovies = viewModel.popularMoviesPaginationState
-			val nowPlaying = viewModel.nowPlayingMoviesPaginationState
-			val upcoming = viewModel.upcomingMoviesPaginationState
+			val popularMovies = moviesViewModel.popularMoviesPaginationState
+			val nowPlaying = moviesViewModel.nowPlayingMoviesPaginationState
+			val upcoming = moviesViewModel.upcomingMoviesPaginationState
 			MoviesScreen(
 				popularMoviesPaginatedState = popularMovies,
 				nowPlayingMoviesPaginatedState = nowPlaying,
@@ -82,6 +84,7 @@ fun NavHostContainer(
 				navigator.navigate(Destination.MovieDetails(id))
 			}
 		}
+
 		entry<Destination.Tv> {
 			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
 			val topRatedTv = tvViewModel.tvPaginationState
@@ -89,6 +92,7 @@ fun NavHostContainer(
 				navigator.navigate(Destination.TvDetails(id))
 			}
 		}
+
 		entry<Destination.Search> {
 			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
 			val coroutineScope = rememberCoroutineScope()
@@ -111,6 +115,7 @@ fun NavHostContainer(
 				}
 			)
 		}
+
 		entry<Destination.Account> {
 			setTitle(stringResource(com.zsoltbertalan.flickslate.shared.ui.R.string.app_name))
 			val account by accountViewModel.loggedInEvent.collectAsStateWithLifecycle(null)
@@ -135,51 +140,60 @@ fun NavHostContainer(
 				},
 			)
 		}
+
 		entry<Destination.MovieDetails> { key ->
-			MovieDetailScreen(
-				movieId = key.movieId,
-				setTitle = setTitle,
-				setBackgroundColor = setBackgroundColor
-			)
+			EntryScope(key, isInBackstack = { allKeys.contains(key) }) {
+				MovieDetailScreen(
+					movieId = key.movieId,
+					setTitle = setTitle,
+					setBackgroundColor = setBackgroundColor
+				)
+			}
 		}
 
 		entry<Destination.TvDetails> { key ->
-			TvDetailScreen(
-				seriesId = key.seriesId,
-				seasonNumber = key.seasonNumber,
-				episodeNumber = key.episodeNumber,
-				setTitle = setTitle,
-				setBackgroundColor = setBackgroundColor,
-				navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
-					navigator.navigate(
-						Destination.SeasonDetails(
-							tvShowId,
-							seasonNumber,
-							bgColor.toArgb(),
-							bgColorDim.toArgb()
+			EntryScope(key, isInBackstack = { allKeys.contains(key) }) {
+				TvDetailScreen(
+					seriesId = key.seriesId,
+					seasonNumber = key.seasonNumber,
+					episodeNumber = key.episodeNumber,
+					setTitle = setTitle,
+					setBackgroundColor = setBackgroundColor,
+					navigateToSeasonDetails = { tvShowId, seasonNumber, bgColor, bgColorDim, _ ->
+						navigator.navigate(
+							Destination.SeasonDetails(
+								tvShowId,
+								seasonNumber,
+								bgColor.toArgb(),
+								bgColorDim.toArgb()
+							)
 						)
-					)
-				}
-			)
+					}
+				)
+			}
 		}
 
 		entry<Destination.SeasonDetails> { key ->
-			TvSeasonDetailScreen(
-				seriesId = key.seriesId,
-				seasonNumber = key.seasonNumber,
-				bgColor = key.bgColor,
-				bgColorDim = key.bgColorDim,
-			)
+			EntryScope(key, isInBackstack = { allKeys.contains(key) }) {
+				TvSeasonDetailScreen(
+					seriesId = key.seriesId,
+					seasonNumber = key.seasonNumber,
+					bgColor = key.bgColor,
+					bgColorDim = key.bgColorDim,
+				)
+			}
 		}
 
 		entry<Destination.GenreMovies> { key ->
-			GenreDetailScreen(
-				genreId = key.genreId,
-				genreName = key.genreName,
-				setTitle = setTitle,
-				setBackgroundColor = setBackgroundColor,
-			) { id ->
-				navigator.navigate(Destination.MovieDetails(id))
+			EntryScope(key, isInBackstack = { allKeys.contains(key) }) {
+				GenreDetailScreen(
+					genreId = key.genreId,
+					genreName = key.genreName,
+					setTitle = setTitle,
+					setBackgroundColor = setBackgroundColor,
+				) { id ->
+					navigator.navigate(Destination.MovieDetails(id))
+				}
 			}
 		}
 	}

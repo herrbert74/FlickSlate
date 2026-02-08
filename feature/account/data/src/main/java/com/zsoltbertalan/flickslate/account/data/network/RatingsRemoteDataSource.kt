@@ -12,15 +12,15 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedTvEpisode
 import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class RatingsRemoteDataSource @Inject internal constructor(
 	private val ratingsService: RatingsService,
 ) : RatingsDataSource.Remote {

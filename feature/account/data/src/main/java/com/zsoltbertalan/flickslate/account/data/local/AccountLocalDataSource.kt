@@ -4,14 +4,14 @@ import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import com.zsoltbertalan.flickslate.account.data.api.AccountDataSource
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class AccountLocalDataSource @Inject internal constructor(
 	val application: Application
 ) : AccountDataSource.Local {

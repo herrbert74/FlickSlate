@@ -10,7 +10,6 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.usecase.ChangeTvShowEpisodeRatingUseCase
@@ -18,6 +17,7 @@ import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvShowEpisodeRatingU
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetEpisodeDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.GetSeasonDetailUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowEpisodeUseCase
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject

@@ -12,17 +12,17 @@ import com.zsoltbertalan.flickslate.shared.data.getresult.backoffRetryPolicy
 import com.zsoltbertalan.flickslate.shared.data.getresult.fetchCacheThenRemote
 import com.zsoltbertalan.flickslate.shared.data.network.model.images.toImagesReply
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class MoviesAccessor @Inject internal constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,

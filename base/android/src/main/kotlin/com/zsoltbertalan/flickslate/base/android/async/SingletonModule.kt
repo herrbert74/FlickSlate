@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import com.zsoltbertalan.flickslate.base.kotlin.async.DefaultDispatcher
 import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
 import com.zsoltbertalan.flickslate.base.kotlin.async.MainDispatcher
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn

@@ -6,7 +6,6 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.toTvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
@@ -19,13 +18,14 @@ import com.zsoltbertalan.flickslate.tv.data.network.model.toTvSeasonDetails
 import com.zsoltbertalan.flickslate.tv.data.network.model.toTvShowsReply
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
 
-@ContributesBinding(ActivityRetainedScope::class)
-@SingleIn(ActivityRetainedScope::class)
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
 class TvRemoteDataSource @Inject internal constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {

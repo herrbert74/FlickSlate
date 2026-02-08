@@ -1,7 +1,7 @@
 package com.zsoltbertalan.flickslate.shared.data.network
 
 import com.zsoltbertalan.flickslate.shared.data.BuildConfig
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn

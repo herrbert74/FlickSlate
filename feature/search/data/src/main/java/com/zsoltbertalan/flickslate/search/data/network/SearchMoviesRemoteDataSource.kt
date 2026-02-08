@@ -5,13 +5,13 @@ import com.zsoltbertalan.flickslate.search.data.api.SearchMoviesDataSource
 import com.zsoltbertalan.flickslate.shared.data.network.model.MoviesReplyDto
 import com.zsoltbertalan.flickslate.shared.data.network.model.toPagingReply
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
-import com.zsoltbertalan.flickslate.shared.domain.di.ActivityRetainedScope
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
-@SingleIn(ActivityRetainedScope::class)
+@SingleIn(AppScope::class)
 class SearchMoviesRemoteDataSource @Inject constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {

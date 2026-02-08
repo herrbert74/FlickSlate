@@ -8,8 +8,8 @@ import com.zsoltbertalan.flickslate.account.domain.model.FavoriteMovie
 import com.zsoltbertalan.flickslate.account.domain.model.FavoriteTvShow
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetFavoriteMoviesUseCase
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetFavoriteTvShowsUseCase
-import com.zsoltbertalan.flickslate.shared.domain.di.AppScope
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
