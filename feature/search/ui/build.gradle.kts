@@ -1,7 +1,6 @@
 plugins {
-	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.kotlin.composeCompiler)
 	id("android-library-convention")
+	alias(libs.plugins.kotlin.composeCompiler)
 	id("metro-convention")
 	id("ui-convention")
 }
@@ -32,5 +31,4 @@ dependencies {
 
 	implementation(libs.androidx.composeAnimation)
 	implementation(libs.androidx.composeAnimationCore)
-	implementation(libs.metrox.viewmodelCompose)
 }

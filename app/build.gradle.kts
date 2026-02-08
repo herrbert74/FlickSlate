@@ -120,7 +120,6 @@ dependencies {
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.fragmentKtx) // transitive
-	implementation(libs.metrox.viewmodelCompose)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)

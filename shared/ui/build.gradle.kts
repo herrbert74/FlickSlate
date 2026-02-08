@@ -1,10 +1,9 @@
 plugins {
-	alias(libs.plugins.androidLibrary)
+	id("android-library-convention")
 	alias(libs.plugins.kotlin.composeCompiler)
 	alias(libs.plugins.compose.screenshotTesting)
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
-	id("android-library-convention")
 }
 
 android {
