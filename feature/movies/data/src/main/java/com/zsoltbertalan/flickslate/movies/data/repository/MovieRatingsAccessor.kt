@@ -3,13 +3,14 @@ package com.zsoltbertalan.flickslate.movies.data.repository
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.data.api.MovieRatingsDataSource
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import se.ansman.dagger.auto.AutoBind
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
-@AutoBind
-@ActivityRetainedScoped
-internal class MovieRatingsAccessor @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class MovieRatingsAccessor @Inject internal constructor(
 	private val movieRatingsRemoteDataSource: MovieRatingsDataSource.Remote,
 ) : MovieRatingsRepository {
 

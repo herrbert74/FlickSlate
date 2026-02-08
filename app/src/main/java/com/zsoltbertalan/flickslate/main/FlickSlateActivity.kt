@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,8 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.zsoltbertalan.flickslate.base.kotlin.async.IoDispatcher
-import com.zsoltbertalan.flickslate.base.kotlin.async.MainDispatcher
+import com.zsoltbertalan.flickslate.FlickSlateApp
 import com.zsoltbertalan.flickslate.main.navigation.Destination
 import com.zsoltbertalan.flickslate.main.navigation.NavHostContainer
 import com.zsoltbertalan.flickslate.main.navigation.Navigator
@@ -30,26 +30,15 @@ import com.zsoltbertalan.flickslate.shared.ui.R
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.FlickSlateTopAppBar
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.FlickSlateTheme
-import dagger.hilt.android.AndroidEntryPoint
+import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
 import kotlinx.collections.immutable.persistentSetOf
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 private const val MINIMUM_LAUNCH_ANIMATION_DURATION = 1000L
 private const val EXIT_ANIMATION_DURATION = 1200L
 private const val COMPOSE_VIEW_FADE_DURATION_OFFSET = 600L
 
-@AndroidEntryPoint
 class FlickSlateActivity : ComponentActivity() {
-
-	@Inject
-	@MainDispatcher
-	lateinit var mainContext: CoroutineDispatcher
-
-	@Inject
-	@IoDispatcher
-	lateinit var ioContext: CoroutineDispatcher
 
 	var splashDecorator: SplashScreenDecorator? = null
 
@@ -84,8 +73,10 @@ class FlickSlateActivity : ComponentActivity() {
 		}
 
 		super.onCreate(savedInstanceState)
+		val metroVmf = (application as FlickSlateApp).appGraph.metroViewModelFactory
 		setContent {
-			FlickSlateTheme {
+			CompositionLocalProvider(LocalMetroViewModelFactory provides metroVmf) {
+				FlickSlateTheme {
 				val bg = Colors.surfaceDim
 				val (title, setTitle) = remember { mutableStateOf(getString(R.string.app_name)) }
 				val (showBack, setShowBack) = remember { mutableStateOf(false) }
@@ -180,6 +171,7 @@ class FlickSlateActivity : ComponentActivity() {
 						)
 					}
 				}
+			}
 			}
 		}
 	}

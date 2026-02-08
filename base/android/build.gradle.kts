@@ -1,10 +1,7 @@
 plugins {
-	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.dagger.hiltAndroid)
-	alias(libs.plugins.ksp)
-	alias(libs.plugins.kotlin.serialization)
 	id("android-library-convention")
-	id("dagger-convention")
+	alias(libs.plugins.kotlin.serialization)
+	id("metro-convention")
 }
 
 android {
@@ -19,11 +16,10 @@ android {
 }
 
 dependencies {
+	api(project(":shared:domain"))
 	implementation(project(":base:kotlin"))
 	implementation(platform(libs.androidx.compose.bom))
 
 	api(libs.kotlinx.coroutinesCore)
-	implementation(libs.dagger.hiltAndroid)
-	implementation(libs.dagger.hiltCore)
 
 }

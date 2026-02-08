@@ -7,11 +7,12 @@ import com.zsoltbertalan.flickslate.shared.data.network.model.toPagingReply
 import com.zsoltbertalan.flickslate.shared.data.util.safeCall
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
-@ViewModelScoped
-internal class SearchMoviesRemoteDataSource @Inject constructor(
+@SingleIn(AppScope::class)
+class SearchMoviesRemoteDataSource @Inject internal constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {
 

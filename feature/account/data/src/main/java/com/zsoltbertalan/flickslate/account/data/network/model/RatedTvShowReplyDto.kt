@@ -8,7 +8,7 @@ import retrofit2.Response
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-internal data class RatedTvShowReplyDto(
+data class RatedTvShowReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,

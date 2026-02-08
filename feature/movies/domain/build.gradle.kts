@@ -1,5 +1,6 @@
 plugins {
 	id("android-library-convention")
+	id("metro-convention")
 	alias(libs.plugins.kotlin.serialization)
 }
 
@@ -16,7 +17,6 @@ dependencies {
 	api(project(":base:kotlin"))
 	api(project(":shared:domain"))
 	api(project(":feature:account:domain"))
-	api(libs.inject) // transitive
 	api(libs.kotlinx.collectionsImmutableJvm)
 
 	implementation(libs.kotlinResult.result)

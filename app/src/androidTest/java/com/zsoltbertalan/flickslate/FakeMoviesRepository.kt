@@ -12,11 +12,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FakeMoviesRepository @Inject constructor() : MoviesRepository {
+class FakeMoviesRepository : MoviesRepository {
 
 	var movieDetail: MovieDetail = MovieDetailMother.createMovieDetail()
 

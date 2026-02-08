@@ -10,19 +10,20 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.toPageData
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvPageEntity
 import com.zsoltbertalan.flickslate.tv.data.db.model.toTvShow
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import se.ansman.dagger.auto.AutoBind
-import javax.inject.Inject
 
-@AutoBind
-@ViewModelScoped
-internal class TvRoomDataSource @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class TvRoomDataSource @Inject internal constructor(
 	private val tvDatabase: TvDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : TvDataSource.Local {

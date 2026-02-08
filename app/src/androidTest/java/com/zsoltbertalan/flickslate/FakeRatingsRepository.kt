@@ -10,11 +10,8 @@ import com.zsoltbertalan.flickslate.account.domain.model.RatedTvShow
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import javax.inject.Inject
 
-@ActivityRetainedScoped
-class FakeRatingsRepository @Inject constructor() : RatingsRepository {
+class FakeRatingsRepository : RatingsRepository {
 
 	override suspend fun getRatedMovies(
 		accountId: Int,

@@ -22,7 +22,7 @@ import com.zsoltbertalan.flickslate.movies.data.db.model.UpcomingMoviesPageEntit
 	],
 	version = 2
 )
-internal abstract class MoviesDatabase : RoomDatabase() {
+abstract class MoviesDatabase : RoomDatabase() {
 
 	abstract fun popularMoviesDao(): PopularMoviesDao
 	abstract fun popularMoviesPageDao(): PopularMoviesPageDao

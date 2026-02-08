@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.zsoltbertalan.flickslate.search.data.db.model.GenreMoviesPageEntity
 
 @Dao
-internal interface GenreMoviesPageDao {
+interface GenreMoviesPageDao {
 
 	@Query("SELECT * FROM genremoviespages WHERE page LIKE :page")
 	fun getPageData(page: Int): List<GenreMoviesPageEntity>

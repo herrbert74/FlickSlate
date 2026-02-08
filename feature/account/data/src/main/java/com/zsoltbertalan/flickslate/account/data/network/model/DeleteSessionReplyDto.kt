@@ -4,4 +4,4 @@ import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming")
 @Serializable
-internal data class DeleteSessionReplyDto(val success: Boolean)
+data class DeleteSessionReplyDto(val success: Boolean)

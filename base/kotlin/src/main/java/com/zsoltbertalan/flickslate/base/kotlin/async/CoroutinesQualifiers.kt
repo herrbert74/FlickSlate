@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.base.kotlin.async
 
-import javax.inject.Qualifier
+import dev.zacsweers.metro.Qualifier
 
 /**
  * These classes are provided in the base.android module to keep this module free from Hilt and Android dependencies.

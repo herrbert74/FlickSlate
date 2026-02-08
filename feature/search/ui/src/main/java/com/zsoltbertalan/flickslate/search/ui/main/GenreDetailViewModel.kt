@@ -2,7 +2,9 @@ package com.zsoltbertalan.flickslate.search.ui.main
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
@@ -10,15 +12,30 @@ import com.zsoltbertalan.flickslate.search.domain.api.GenreRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationInternalState
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.paging.PaginationState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactoryKey
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class GenreDetailViewModel @Inject constructor(
-	private val savedStateHandle: SavedStateHandle,
+@AssistedInject
+class GenreDetailViewModel(
+	@Assisted private val savedStateHandle: SavedStateHandle,
 	private val genreRepository: GenreRepository,
 ) : ViewModel() {
+
+	@AssistedFactory
+	@ViewModelAssistedFactoryKey(GenreDetailViewModel::class)
+	@ContributesIntoMap(AppScope::class)
+	fun interface Factory : ViewModelAssistedFactory {
+		override fun create(extras: CreationExtras): GenreDetailViewModel {
+			return create(extras.createSavedStateHandle())
+		}
+		fun create(@Assisted savedStateHandle: SavedStateHandle): GenreDetailViewModel
+	}
 
 	private val genreId: Int
 		get() = checkNotNull(savedStateHandle["genreId"])

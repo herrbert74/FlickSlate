@@ -7,11 +7,8 @@ import com.zsoltbertalan.flickslate.account.domain.model.AccountMother
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FakeAccountRepository @Inject constructor() : AccountRepository {
+class FakeAccountRepository : AccountRepository {
 
 	var isLoggedIn = true
 

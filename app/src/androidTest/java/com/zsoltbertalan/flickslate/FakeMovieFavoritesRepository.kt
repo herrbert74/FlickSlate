@@ -3,11 +3,8 @@ package com.zsoltbertalan.flickslate
 import com.github.michaelbull.result.Ok
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import javax.inject.Inject
 
-@ActivityRetainedScoped
-class FakeMovieFavoritesRepository @Inject constructor() : MovieFavoritesRepository {
+class FakeMovieFavoritesRepository : MovieFavoritesRepository {
 
 	override suspend fun setMovieFavorite(
 		accountId: Int,

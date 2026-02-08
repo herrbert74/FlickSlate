@@ -10,7 +10,7 @@ import retrofit2.Response
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-internal data class FavoriteMovieReplyDto(
+data class FavoriteMovieReplyDto(
 	val page: Int? = null,
 	val total_pages: Int? = null,
 	val total_results: Int? = null,

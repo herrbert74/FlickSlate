@@ -5,11 +5,14 @@ import com.zsoltbertalan.flickslate.search.data.network.SearchMoviesRemoteDataSo
 import com.zsoltbertalan.flickslate.search.domain.api.SearchRepository
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
-@ViewModelScoped
-internal class SearchAccessor @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class SearchAccessor @Inject internal constructor(
 	private val searchMoviesRemoteDataSource: SearchMoviesRemoteDataSource
 ) : SearchRepository {
 

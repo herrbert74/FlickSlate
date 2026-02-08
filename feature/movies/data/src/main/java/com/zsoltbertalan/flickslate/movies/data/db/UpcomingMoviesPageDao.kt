@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.zsoltbertalan.flickslate.movies.data.db.model.UpcomingMoviesPageEntity
 
 @Dao
-internal interface UpcomingMoviesPageDao {
+interface UpcomingMoviesPageDao {
 
 	@Query("SELECT * FROM upcomingmoviespages WHERE page LIKE :page")
 	fun getPageData(page: Int): List<UpcomingMoviesPageEntity>

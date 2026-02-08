@@ -4,4 +4,4 @@ import kotlinx.serialization.Serializable
 
 @Suppress("ConstructorParameterNaming", "PropertyName")
 @Serializable
-internal data class CreateSessionReplyDto(val success: Boolean, val session_id: String)
+data class CreateSessionReplyDto(val success: Boolean, val session_id: String)

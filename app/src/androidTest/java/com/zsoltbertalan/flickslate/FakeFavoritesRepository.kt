@@ -9,11 +9,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import javax.inject.Inject
 
-@ActivityRetainedScoped
-class FakeFavoritesRepository @Inject constructor() : FavoritesRepository {
+class FakeFavoritesRepository : FavoritesRepository {
 
 	override suspend fun getFavoriteMovies(
 		accountId: Int,

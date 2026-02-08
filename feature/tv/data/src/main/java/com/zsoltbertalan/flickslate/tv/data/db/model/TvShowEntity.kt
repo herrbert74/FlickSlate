@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.TvShow
 
 @Entity(tableName = "TvShows")
-internal data class TvShowEntity(
+data class TvShowEntity(
 
 	@PrimaryKey
 	val id: Int = 0,

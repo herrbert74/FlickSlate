@@ -11,11 +11,11 @@ import com.zsoltbertalan.flickslate.movies.domain.api.MoviesRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailWithImages
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
 
-class MovieDetailsUseCase @Inject constructor(
+class MovieDetailsUseCase @Inject internal constructor(
 	private val moviesRepository: MoviesRepository,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) {

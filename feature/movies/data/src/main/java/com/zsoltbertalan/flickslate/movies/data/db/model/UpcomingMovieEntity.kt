@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 
 @Entity(tableName = "upcomingMovies")
-internal data class UpcomingMovieEntity(
+data class UpcomingMovieEntity(
 	@PrimaryKey
 	val id: Int = 0,
 

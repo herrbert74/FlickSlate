@@ -1,19 +1,18 @@
 package com.zsoltbertalan.flickslate.account.data.network
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Retrofit
 
-@Module
-@InstallIn(ActivityRetainedComponent::class)
-internal class FavoritesServiceModule {
+@ContributesTo(AppScope::class)
+interface FavoritesServiceModule {
 
 	@Provides
-	@ActivityRetainedScoped
+	@SingleIn(AppScope::class)
 	fun provideFavoritesService(retrofit: Retrofit): FavoritesService {
 		return retrofit.create(FavoritesService::class.java)
 	}
+
 }

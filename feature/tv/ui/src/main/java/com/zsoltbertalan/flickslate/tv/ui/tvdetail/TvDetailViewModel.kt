@@ -2,7 +2,9 @@ package com.zsoltbertalan.flickslate.tv.ui.tvdetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
@@ -14,20 +16,25 @@ import com.zsoltbertalan.flickslate.tv.domain.usecase.DeleteTvRatingUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.RateTvShowUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.SetTvFavoriteUseCase
 import com.zsoltbertalan.flickslate.tv.domain.usecase.TvDetailsUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 const val SERIES_ID_ARG = "seriesId"
 const val SEASON_NUMBER_ARG = "seasonNumber"
 const val EPISODE_NUMBER_ARG = "episodeNumber"
 
-@HiltViewModel
-class TvDetailViewModel @Inject constructor(
-	private val savedStateHandle: SavedStateHandle,
+@AssistedInject
+class TvDetailViewModel(
+	@Assisted private val savedStateHandle: SavedStateHandle,
 	private val tvDetailsUseCase: TvDetailsUseCase,
 	private val rateTvShowUseCase: RateTvShowUseCase,
 	private val changeTvRatingUseCase: ChangeTvRatingUseCase,
@@ -35,6 +42,16 @@ class TvDetailViewModel @Inject constructor(
 	private val setTvFavoriteUseCase: SetTvFavoriteUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) : ViewModel() {
+
+	@AssistedFactory
+	@ViewModelAssistedFactoryKey(TvDetailViewModel::class)
+	@ContributesIntoMap(AppScope::class)
+	fun interface Factory : ViewModelAssistedFactory {
+		override fun create(extras: CreationExtras): TvDetailViewModel {
+			return create(extras.createSavedStateHandle())
+		}
+		fun create(@Assisted savedStateHandle: SavedStateHandle): TvDetailViewModel
+	}
 
 	private val seriesId: Int
 		get() = checkNotNull(savedStateHandle[SERIES_ID_ARG])

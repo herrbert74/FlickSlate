@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Suppress("PropertyName", "ConstructorParameterNaming")
 @Serializable
-internal data class SeasonDto(
+data class SeasonDto(
 	val air_date: String?,
 	val episode_count: Int?,
 	val id: Int,

@@ -6,14 +6,15 @@ import com.zsoltbertalan.flickslate.search.data.network.model.GenreReplyDto
 import com.zsoltbertalan.flickslate.search.data.network.model.toGenresReply
 import com.zsoltbertalan.flickslate.shared.data.util.safeCallWithMetadata
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Response
-import se.ansman.dagger.auto.AutoBind
-import javax.inject.Inject
 
-@AutoBind
-@ViewModelScoped
-internal class GenreRemoteDataSource @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class GenreRemoteDataSource @Inject internal constructor(
 	private val searchService: SearchService
 ) : GenreDataSource.Remote {
 

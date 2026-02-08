@@ -15,12 +15,15 @@ import com.zsoltbertalan.flickslate.shared.data.util.runCatchingApi
 import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-@ActivityRetainedScoped
-internal class MoviesAccessor @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class MoviesAccessor @Inject internal constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,
 	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote,

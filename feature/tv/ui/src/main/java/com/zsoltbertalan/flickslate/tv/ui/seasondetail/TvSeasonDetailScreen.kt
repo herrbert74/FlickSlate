@@ -35,7 +35,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.BASE_IMAGE_PATH
@@ -46,6 +45,7 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.Colors
 import com.zsoltbertalan.flickslate.shared.ui.compose.design.Dimens
 import com.zsoltbertalan.flickslate.shared.ui.navigation.LocalResultStore
 import com.zsoltbertalan.flickslate.tv.ui.R
+import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 
 @Composable
 fun TvSeasonDetailScreen(
@@ -54,7 +54,7 @@ fun TvSeasonDetailScreen(
 	bgColor: Int,
 	bgColorDim: Int,
 	modifier: Modifier = Modifier,
-	viewModel: TvSeasonDetailViewModel = hiltViewModel(),
+	viewModel: TvSeasonDetailViewModel = assistedMetroViewModel(),
 ) {
 	val resultStore = LocalResultStore.current
 

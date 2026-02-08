@@ -12,7 +12,7 @@ import com.zsoltbertalan.flickslate.tv.data.db.model.TvShowEntity
 	],
 	version = 1
 )
-internal abstract class TvDatabase : RoomDatabase() {
+abstract class TvDatabase : RoomDatabase() {
 
 	abstract fun tvShowsDao(): TvDao
 	abstract fun tvShowsPageDao(): TvPageDao

@@ -11,11 +11,11 @@ import com.zsoltbertalan.flickslate.shared.domain.model.images.ImagesReply
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetail
 import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
 
-class TvDetailsUseCase @Inject constructor(
+class TvDetailsUseCase @Inject internal constructor(
 	private val tvRepository: TvRepository,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) {

@@ -6,7 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-internal interface SetMovieFavoriteService {
+interface SetMovieFavoriteService {
 
 	@POST("account/{account_id}/favorite")
 	suspend fun setMovieFavorite(

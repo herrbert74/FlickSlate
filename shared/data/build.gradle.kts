@@ -1,9 +1,7 @@
 plugins {
-	alias(libs.plugins.androidLibrary)
-	alias(libs.plugins.kotlin.serialization)
-	alias(libs.plugins.ksp)
-	id("dagger-convention")
 	id("android-library-convention")
+	alias(libs.plugins.kotlin.serialization)
+	id("metro-convention")
 }
 
 val tmdbApiKey: String by project
@@ -48,7 +46,6 @@ dependencies {
 	implementation(libs.retrofit.converterKotlinxSerialization)
 	api(libs.retrofit)
 	implementation(libs.timber)
-	implementation(libs.dagger.hiltCore)
 
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.jUnit)
@@ -56,10 +53,6 @@ dependencies {
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotlinx.coroutinesTest)
-
-	kspTest(libs.androidx.hiltCompiler)
-	kspTest(libs.dagger.compiler)
-	kspTest(libs.dagger.hiltCompiler)
 
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
 	testFixturesImplementation(libs.kotlinx.serializationJson)

@@ -8,19 +8,20 @@ import com.zsoltbertalan.flickslate.search.data.db.model.toGenre
 import com.zsoltbertalan.flickslate.shared.data.util.runCatchingUnit
 import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import se.ansman.dagger.auto.AutoBind
-import javax.inject.Inject
 
-@AutoBind
-@ViewModelScoped
-internal class GenresRoomDataSource @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class GenresRoomDataSource @Inject internal constructor(
 	private val searchDatabase: SearchDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreDataSource.Local {

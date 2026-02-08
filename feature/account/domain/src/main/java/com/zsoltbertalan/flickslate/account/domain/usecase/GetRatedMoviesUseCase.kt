@@ -5,10 +5,10 @@ import com.zsoltbertalan.flickslate.account.domain.api.RatingsRepository
 import com.zsoltbertalan.flickslate.account.domain.model.RatedMovie
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
-import javax.inject.Inject
 
-class GetRatedMoviesUseCase @Inject constructor(
+class GetRatedMoviesUseCase @Inject internal constructor(
 	private val ratingsRepository: RatingsRepository,
 	private val getAccountIdUseCase: GetAccountIdUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,

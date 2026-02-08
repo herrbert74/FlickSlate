@@ -7,11 +7,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Movie
 import com.zsoltbertalan.flickslate.shared.domain.model.MovieMother
 import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
-import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Inject
 
-@ViewModelScoped
-class FakeSearchRepository @Inject constructor() : SearchRepository {
+class FakeSearchRepository : SearchRepository {
 
 	override suspend fun getSearchResult(query: String, page: Int): Outcome<PagingReply<Movie>> =
 		Ok(PagingReply(MovieMother.createMovieList(), true, PageData()))

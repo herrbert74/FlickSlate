@@ -5,11 +5,8 @@ import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetail
 import com.zsoltbertalan.flickslate.movies.domain.model.MovieDetailMother
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FakeMovieRatingsRepository @Inject constructor() : MovieRatingsRepository {
+class FakeMovieRatingsRepository : MovieRatingsRepository {
 
 	var movieDetail: MovieDetail = MovieDetailMother.createMovieDetail()
 

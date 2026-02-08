@@ -8,11 +8,14 @@ import com.zsoltbertalan.flickslate.account.domain.api.AccountRepository
 import com.zsoltbertalan.flickslate.base.kotlin.result.Failure
 import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.shared.domain.model.Account
-import dagger.hilt.android.scopes.ActivityRetainedScoped
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 
-@ActivityRetainedScoped
-internal class AccountAccessor @Inject constructor(
+@ContributesBinding(AppScope::class)
+@SingleIn(AppScope::class)
+class AccountAccessor @Inject internal constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
 	private val accountLocalDataSource: AccountDataSource.Local
 ) : AccountRepository {

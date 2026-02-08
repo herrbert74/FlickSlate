@@ -1,20 +1,21 @@
 package com.zsoltbertalan.flickslate.search.data.network
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metro.SingleIn
 import retrofit2.Retrofit
 
-@Module
-@InstallIn(ViewModelComponent::class)
-internal class SearchServiceModule {
+@ContributesTo(AppScope::class)
+interface SearchServiceModule {
+	companion object {
 
-	@Provides
-	@ViewModelScoped
-	fun provideSearchService(retroFit: Retrofit): SearchService {
-		return retroFit.create(SearchService::class.java)
+		@Provides
+		@SingleIn(AppScope::class)
+		internal fun provideSearchService(retroFit: Retrofit): SearchService {
+			return retroFit.create(SearchService::class.java)
+		}
+
 	}
 
 }

@@ -5,7 +5,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.Genre
 import com.zsoltbertalan.flickslate.shared.domain.model.GenresReply
 import kotlinx.coroutines.flow.Flow
 
-internal interface GenreDataSource {
+interface GenreDataSource {
 
 	interface Local {
 

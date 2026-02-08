@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PageData
 import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import kotlinx.coroutines.flow.Flow
 
-internal interface NowPlayingMoviesDataSource {
+interface NowPlayingMoviesDataSource {
 
 	interface Local {
 

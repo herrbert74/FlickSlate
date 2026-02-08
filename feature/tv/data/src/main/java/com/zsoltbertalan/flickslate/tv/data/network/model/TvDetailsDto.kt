@@ -12,7 +12,7 @@ private const val YEAR_CHARS = 4
 
 @Serializable
 @Suppress("PropertyName", "ConstructorParameterNaming")
-internal data class TvDetailsDto(
+data class TvDetailsDto(
 	val popularity: Float? = null,
 	val vote_count: Int? = null,
 	val poster_path: String? = null,
@@ -36,13 +36,13 @@ internal data class TvDetailsDto(
 )
 
 @Serializable
-internal data class AccountStatesDto(
+data class AccountStatesDto(
 	val rated: JsonElement? = null,
 	val favorite: Boolean = false,
 )
 
 @Serializable
-internal data class RatedDto(
+data class RatedDto(
 	val value: Float? = null,
 )
 

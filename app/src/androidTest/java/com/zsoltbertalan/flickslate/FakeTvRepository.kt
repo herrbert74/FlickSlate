@@ -14,11 +14,8 @@ import com.zsoltbertalan.flickslate.tv.domain.model.TvDetailWithImages
 import com.zsoltbertalan.flickslate.tv.domain.model.TvMother
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FakeTvRepository @Inject constructor() : TvRepository {
+class FakeTvRepository : TvRepository {
 
 	var tvDetail: TvDetailWithImages = TvMother.createTvDetailWithImages()
 	var tvEpisodeDetail: TvEpisodeDetail = TvMother.createTvEpisodeDetail()

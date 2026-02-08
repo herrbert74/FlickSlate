@@ -3,7 +3,9 @@ package com.zsoltbertalan.flickslate.movies.ui.moviedetails
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.zsoltbertalan.flickslate.account.domain.usecase.GetSessionIdUseCase
@@ -15,16 +17,21 @@ import com.zsoltbertalan.flickslate.movies.domain.usecase.MovieDetailsUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.RateMovieUseCase
 import com.zsoltbertalan.flickslate.movies.domain.usecase.SetMovieFavoriteUseCase
 import com.zsoltbertalan.flickslate.shared.ui.compose.component.rating.RatingToastMessage
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MovieDetailViewModel @Inject constructor(
-	private val savedStateHandle: SavedStateHandle,
+@AssistedInject
+class MovieDetailViewModel(
+	@Assisted private val savedStateHandle: SavedStateHandle,
 	private val movieDetailsUseCase: MovieDetailsUseCase,
 	private val rateMovieUseCase: RateMovieUseCase,
 	private val changeMovieRatingUseCase: ChangeMovieRatingUseCase,
@@ -32,6 +39,18 @@ class MovieDetailViewModel @Inject constructor(
 	private val setMovieFavoriteUseCase: SetMovieFavoriteUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase
 ) : ViewModel() {
+
+	@AssistedFactory
+	@ViewModelAssistedFactoryKey(MovieDetailViewModel::class)
+	@ContributesIntoMap(AppScope::class)
+	fun interface Factory : ViewModelAssistedFactory {
+
+		override fun create(extras: CreationExtras): MovieDetailViewModel {
+			return create(extras.createSavedStateHandle())
+		}
+
+		fun create(@Assisted savedStateHandle: SavedStateHandle): MovieDetailViewModel
+	}
 
 	private val _movieStateData = MutableStateFlow(MovieDetailState())
 	internal val movieStateData = _movieStateData.asStateFlow()
@@ -208,7 +227,13 @@ class MovieDetailViewModel @Inject constructor(
 	}
 
 	internal fun toastShown() {
-		_movieStateData.update { it.copy(showRatingToast = false, ratingToastMessage = null, showFavoriteToast = false) }
+		_movieStateData.update {
+			it.copy(
+				showRatingToast = false,
+				ratingToastMessage = null,
+				showFavoriteToast = false
+			)
+		}
 	}
 }
 
