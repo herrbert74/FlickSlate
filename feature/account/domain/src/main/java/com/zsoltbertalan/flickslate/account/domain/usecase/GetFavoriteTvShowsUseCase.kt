@@ -8,7 +8,7 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 
-class GetFavoriteTvShowsUseCase @Inject constructor(
+class GetFavoriteTvShowsUseCase @Inject internal constructor(
 	private val favoritesRepository: FavoritesRepository,
 	private val getAccountIdUseCase: GetAccountIdUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,

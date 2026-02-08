@@ -11,10 +11,9 @@ import dev.zacsweers.metrox.viewmodel.MetroViewModelFactory
 import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
 import kotlin.reflect.KClass
 
-@Inject
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class FlickSlateViewModelFactory(
+class FlickSlateViewModelFactory @Inject internal constructor(
 	override val viewModelProviders: Map<KClass<out ViewModel>, Provider<ViewModel>>,
 	override val assistedFactoryProviders: Map<KClass<out ViewModel>, Provider<ViewModelAssistedFactory>>,
 	override val manualAssistedFactoryProviders:

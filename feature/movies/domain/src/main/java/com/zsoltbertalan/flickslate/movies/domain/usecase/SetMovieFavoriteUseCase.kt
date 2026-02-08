@@ -8,7 +8,7 @@ import com.zsoltbertalan.flickslate.movies.domain.api.MovieFavoritesRepository
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 
-class SetMovieFavoriteUseCase @Inject constructor(
+class SetMovieFavoriteUseCase @Inject internal constructor(
 	private val movieFavoritesRepository: MovieFavoritesRepository,
 	private val getAccountIdUseCase: GetAccountIdUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,

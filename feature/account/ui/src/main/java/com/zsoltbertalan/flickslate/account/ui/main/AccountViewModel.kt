@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(AccountViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class AccountViewModel @Inject constructor(private val accountRepository: AccountRepository) : ViewModel() {
+class AccountViewModel @Inject internal constructor(private val accountRepository: AccountRepository) : ViewModel() {
 
 	private val _loggedInEvent = MutableStateFlow<Account?>(null)
 	val loggedInEvent = _loggedInEvent.asSharedFlow()

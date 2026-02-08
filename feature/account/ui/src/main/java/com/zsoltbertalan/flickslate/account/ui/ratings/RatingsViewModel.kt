@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(RatingsViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class RatingsViewModel @Inject constructor(
+class RatingsViewModel @Inject internal constructor(
 	private val getRatedMoviesUseCase: GetRatedMoviesUseCase,
 	private val getRatedTvShowsUseCase: GetRatedTvShowsUseCase,
 	private val getRatedTvShowEpisodesUseCase: GetRatedTvShowEpisodesUseCase,

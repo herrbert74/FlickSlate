@@ -6,7 +6,7 @@ import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import dev.zacsweers.metro.Inject
 
-class DeleteMovieRatingUseCase @Inject constructor(
+class DeleteMovieRatingUseCase @Inject internal constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val movieRatingsRepository: MovieRatingsRepository,
 ) {
