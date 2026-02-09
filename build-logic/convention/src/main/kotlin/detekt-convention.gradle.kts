@@ -11,6 +11,7 @@ plugins {
 tasks.register<Detekt>("detektAll") {
 	parallel = true
 	setSource(files(rootDir))
+	pluginClasspath.from(configurations.detektPlugins)
 	reports {
 		xml {
 			required = false
@@ -35,4 +36,5 @@ tasks.register<Detekt>("detektAll") {
 dependencies {
 	detektPlugins(libs.detekt.compose)
 	detektPlugins(libs.detekt.formatting)
+	detektPlugins(project(":rules"))
 }

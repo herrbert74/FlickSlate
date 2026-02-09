@@ -1,0 +1,14 @@
+public final class com/zsoltbertalan/flickslate/rules/FlickSlateRuleSetProvider : io/gitlab/arturbosch/detekt/api/RuleSetProvider {
+	public fun <init> ()V
+	public fun getRuleSetId ()Ljava/lang/String;
+	public fun instance (Lio/gitlab/arturbosch/detekt/api/Config;)Lio/gitlab/arturbosch/detekt/api/RuleSet;
+}
+
+public final class com/zsoltbertalan/flickslate/rules/NoSpaceIndentationRule : io/gitlab/arturbosch/detekt/api/Rule {
+	public fun <init> ()V
+	public fun <init> (Lio/gitlab/arturbosch/detekt/api/Config;)V
+	public synthetic fun <init> (Lio/gitlab/arturbosch/detekt/api/Config;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getIssue ()Lio/gitlab/arturbosch/detekt/api/Issue;
+	public fun visitKtFile (Lorg/jetbrains/kotlin/psi/KtFile;)V
+}
+
