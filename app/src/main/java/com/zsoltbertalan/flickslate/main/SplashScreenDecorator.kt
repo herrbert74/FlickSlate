@@ -21,110 +21,111 @@ import kotlin.time.Duration.Companion.milliseconds
  * animated branding during app startup, not static images.
  */
 class SplashScreenDecorator private constructor(
-    activity: Activity,
-    private val config: SplashScreenConfig
+	activity: Activity,
+	private val config: SplashScreenConfig
 ) {
 
-    companion object {
-        /** Factory method because constructors with builders feel awkward. */
-        fun create(
-            activity: Activity,
-            builder: SplashScreenConfigBuilder.() -> Unit
-        ): SplashScreenDecorator = SplashScreenDecorator(
-            activity,
-            SplashScreenConfigBuilder()
-                .apply(builder)
-                .build()
-        )
-    }
+	companion object {
 
-    /** Composables need to know when to start their exit animations. */
-    val isVisible: MutableState<Boolean> = mutableStateOf(true)
+		/** Factory method because constructors with builders feel awkward. */
+		fun create(
+			activity: Activity,
+			builder: SplashScreenConfigBuilder.() -> Unit
+		): SplashScreenDecorator = SplashScreenDecorator(
+			activity,
+			SplashScreenConfigBuilder()
+				.apply(builder)
+				.build()
+		)
+	}
 
-    /** AndroidX requires this callback to control dismissal timing. */
-    var shouldKeepOnScreen: Boolean = true
+	/** Composables need to know when to start their exit animations. */
+	val isVisible: MutableState<Boolean> = mutableStateOf(true)
 
-    @Suppress("UNUSED", "UnusedPrivateProperty")
-    private val splashScreen: SplashScreen = activity.installSplashScreen().apply {
-        setOnExitAnimationListener(::handleExitAnimation)
-        setKeepOnScreenCondition { shouldKeepOnScreen }
-    }
+	/** AndroidX requires this callback to control dismissal timing. */
+	var shouldKeepOnScreen: Boolean = true
 
-    /** System splash ends → inject our Compose content for custom animations. */
-    private fun handleExitAnimation(splashScreenViewProvider: SplashScreenViewProvider) {
-        val parentViewGroup = splashScreenViewProvider.view.parent as ViewGroup
-        val composeView = createComposeView(splashScreenViewProvider, parentViewGroup)
-        parentViewGroup.addView(composeView)
-    }
+	@Suppress("UNUSED", "UnusedPrivateProperty")
+	private val splashScreen: SplashScreen = activity.installSplashScreen().apply {
+		setOnExitAnimationListener(::handleExitAnimation)
+		setKeepOnScreenCondition { shouldKeepOnScreen }
+	}
 
-    /** Wraps user's Composable in a View because AndroidX works with View hierarchy. */
-    private fun createComposeView(
-        splashScreenViewProvider: SplashScreenViewProvider,
-        parentViewGroup: ViewGroup
-    ): ComposeView = ComposeView(splashScreenViewProvider.view.context).apply {
-        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindow)
+	/** System splash ends → inject our Compose content for custom animations. */
+	private fun handleExitAnimation(splashScreenViewProvider: SplashScreenViewProvider) {
+		val parentViewGroup = splashScreenViewProvider.view.parent as ViewGroup
+		val composeView = createComposeView(splashScreenViewProvider, parentViewGroup)
+		parentViewGroup.addView(composeView)
+	}
 
-        setContent {
-            config.content(
-                SplashScreenController(
-                    decorator = this@SplashScreenDecorator,
-                    onStartExitAnimation = {
-                        performExitAnimation(
-                            systemSplashView = splashScreenViewProvider.view,
-                            composeView = this@apply,
-                            parentViewGroup = parentViewGroup,
-                            splashScreenViewProvider = splashScreenViewProvider
-                        )
-                    }
-                )
-            )
-        }
-    }
+	/** Wraps user's Composable in a View because AndroidX works with View hierarchy. */
+	private fun createComposeView(
+		splashScreenViewProvider: SplashScreenViewProvider,
+		parentViewGroup: ViewGroup
+	): ComposeView = ComposeView(splashScreenViewProvider.view.context).apply {
+		setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindow)
 
-    /**
-     * Fades both system and custom views simultaneously.
-     * Staggered timing prevents jarring visual jumps during transition.
-     */
-    private fun performExitAnimation(
-        systemSplashView: View,
-        composeView: ComposeView,
-        parentViewGroup: ViewGroup,
-        splashScreenViewProvider: SplashScreenViewProvider
-    ) {
-        val baseDuration = config.exitAnimationDuration
+		setContent {
+			config.content(
+				SplashScreenController(
+					decorator = this@SplashScreenDecorator,
+					onStartExitAnimation = {
+						performExitAnimation(
+							systemSplashView = splashScreenViewProvider.view,
+							composeView = this@apply,
+							parentViewGroup = parentViewGroup,
+							splashScreenViewProvider = splashScreenViewProvider
+						)
+					}
+				)
+			)
+		}
+	}
 
-        if (baseDuration == 0L) {
-            parentViewGroup.removeView(systemSplashView)
-            parentViewGroup.removeView(composeView)
-            splashScreenViewProvider.remove()
-            return
-        }
+	/**
+	 * Fades both system and custom views simultaneously.
+	 * Staggered timing prevents jarring visual jumps during transition.
+	 */
+	private fun performExitAnimation(
+		systemSplashView: View,
+		composeView: ComposeView,
+		parentViewGroup: ViewGroup,
+		splashScreenViewProvider: SplashScreenViewProvider
+	) {
+		val baseDuration = config.exitAnimationDuration
 
-        // Fade out the system splash screen
-        ObjectAnimator.ofFloat(systemSplashView, View.ALPHA, 0f).apply {
-            duration = baseDuration
-            doOnEnd { parentViewGroup.removeView(systemSplashView) }
-            start()
-        }
+		if (baseDuration == 0L) {
+			parentViewGroup.removeView(systemSplashView)
+			parentViewGroup.removeView(composeView)
+			splashScreenViewProvider.remove()
+			return
+		}
 
-        // Fade out the compose view with configurable offset
-        ObjectAnimator.ofFloat(composeView, View.ALPHA, 0f).apply {
-            duration = baseDuration + config.composeViewFadeDurationOffset
-            doOnEnd {
-                parentViewGroup.removeView(composeView)
-                splashScreenViewProvider.remove()
-            }
-            start()
-        }
-    }
+		// Fade out the system splash screen
+		ObjectAnimator.ofFloat(systemSplashView, View.ALPHA, 0f).apply {
+			duration = baseDuration
+			doOnEnd { parentViewGroup.removeView(systemSplashView) }
+			start()
+		}
 
-    /** Signals Composables to start exit animations. They control timing, not us.
-     * Note: This only updates the state. The actual exit animation must be triggered
-     * by the Composable content when ready.
-     */
-    fun dismiss() {
-        isVisible.value = false
-    }
+		// Fade out the compose view with configurable offset
+		ObjectAnimator.ofFloat(composeView, View.ALPHA, 0f).apply {
+			duration = baseDuration + config.composeViewFadeDurationOffset
+			doOnEnd {
+				parentViewGroup.removeView(composeView)
+				splashScreenViewProvider.remove()
+			}
+			start()
+		}
+	}
+
+	/** Signals Composables to start exit animations. They control timing, not us.
+	 * Note: This only updates the state. The actual exit animation must be triggered
+	 * by the Composable content when ready.
+	 */
+	fun dismiss() {
+		isVisible.value = false
+	}
 }
 
 /** API for Composables to observe state and trigger animations. */
@@ -132,11 +133,12 @@ data class SplashScreenController(
 	private val decorator: SplashScreenDecorator,
 	private val onStartExitAnimation: () -> Unit
 ) {
-    /** For triggering custom Compose animations when splash should exit. */
-    val isVisible: MutableState<Boolean> get() = decorator.isVisible
 
-    /** Call this when your Composable animations finish. */
-    fun startExitAnimation() = onStartExitAnimation()
+	/** For triggering custom Compose animations when splash should exit. */
+	val isVisible: MutableState<Boolean> get() = decorator.isVisible
+
+	/** Call this when your Composable animations finish. */
+	fun startExitAnimation() = onStartExitAnimation()
 }
 
 /** Configuration for splash screen content and animation timing. */
@@ -148,29 +150,30 @@ data class SplashScreenConfig(
 
 /** DSL builder because configuration objects with 7+ fields become unwieldy. */
 class SplashScreenConfigBuilder {
-    private var content: (@Composable (SplashScreenController) -> Unit)? = null
 
-    /** Default duration for exit animations in milliseconds */
-    var exitAnimationDuration: Long = 600.milliseconds.inWholeMilliseconds
+	private var content: (@Composable (SplashScreenController) -> Unit)? = null
 
-    /** Additional duration for compose view fade out in milliseconds */
-    var composeViewFadeDurationOffset: Long = 200.milliseconds.inWholeMilliseconds
+	/** Default duration for exit animations in milliseconds */
+	var exitAnimationDuration: Long = 600.milliseconds.inWholeMilliseconds
 
-    /** Your custom Composable with access to animation triggers. */
-    fun content(block: @Composable SplashScreenController.() -> Unit) {
-        this.content = block
-    }
+	/** Additional duration for compose view fade out in milliseconds */
+	var composeViewFadeDurationOffset: Long = 200.milliseconds.inWholeMilliseconds
 
-    /** Validates and creates the final config. */
-    internal fun build(): SplashScreenConfig {
-        require(exitAnimationDuration >= 0) { "Exit animation duration must be positive" }
-        require(composeViewFadeDurationOffset >= 0) { "Compose view fade duration offset cannot be negative" }
-        return SplashScreenConfig(
-            content = requireNotNull(content) { "Composable content must be provided for splash screen" },
-            exitAnimationDuration = exitAnimationDuration,
-            composeViewFadeDurationOffset = composeViewFadeDurationOffset
-        )
-    }
+	/** Your custom Composable with access to animation triggers. */
+	fun content(block: @Composable SplashScreenController.() -> Unit) {
+		this.content = block
+	}
+
+	/** Validates and creates the final config. */
+	internal fun build(): SplashScreenConfig {
+		require(exitAnimationDuration >= 0) { "Exit animation duration must be positive" }
+		require(composeViewFadeDurationOffset >= 0) { "Compose view fade duration offset cannot be negative" }
+		return SplashScreenConfig(
+			content = requireNotNull(content) { "Composable content must be provided for splash screen" },
+			exitAnimationDuration = exitAnimationDuration,
+			composeViewFadeDurationOffset = composeViewFadeDurationOffset
+		)
+	}
 }
 
 /**
@@ -196,5 +199,5 @@ class SplashScreenConfigBuilder {
  * splashScreen.dismiss()
  */
 fun Activity.splash(
-    builder: SplashScreenConfigBuilder.() -> Unit
+	builder: SplashScreenConfigBuilder.() -> Unit
 ): SplashScreenDecorator = SplashScreenDecorator.create(this, builder)
