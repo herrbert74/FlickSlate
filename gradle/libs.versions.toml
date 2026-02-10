@@ -192,6 +192,7 @@ androidx-testRunner = { module = "androidx.test:runner", version.ref = "androidx
 #androidx-testRules = { module = "androidx.test:rules", version.ref = "androidx-testRules" }
 #androidx-testUiAutomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 
+assertj = "org.assertj:assertj-core:3.27.7"
 
 #baBeStudios-baseKotlin = { module ="io.bitbucket.babestudios:base-kotlin", version.ref = "babestudios-base"}
 baBeStudios-baseData = { module = "io.bitbucket.babestudios:base-data", version.ref = "babestudios-base" }
@@ -211,6 +212,7 @@ coil-compose-base = { module = "io.coil-kt:coil-compose-base", version.ref = "co
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
+detekt-testUtils = { module = "io.gitlab.arturbosch.detekt:detekt-test-utils", version.ref = "detekt" }
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "detekt-compose" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
@@ -256,9 +258,10 @@ guava-jre = { module = "com.google.guava:guava", version.ref = "guava" }
 #javaPoet = { module = "com.squareup:javapoet", version.ref = "javaPoet" } ":1.13.0"
 
 jUnit = { group = "junit", name = "junit", version.ref = "jUnit" }
-#jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
-#jUnit5-jupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
-#jUnit5-jupiterParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
+jUnit5-jupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
+jUnit5-jupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
+jUnit5-jupiterParams = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
+jUnit5-platformLauncher = { module = "org.junit.platform:junit-platform-launcher", version = "1.10.0" }
 #jUnit5-vintageEngine = { module = "org.junit.jupiter:junit-vintage-engine", version.ref = "jUnit5" }
 
 #klock = "com.soywiz.korlibs.klock:klock:4.0.10"

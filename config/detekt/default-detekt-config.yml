@@ -625,7 +625,7 @@ style:
     active: false
     maxChainedCalls: 5
   MaxLineLength:
-    active: true
+    active: false
     maxLineLength: 120
     excludePackageStatements: true
     excludeImportStatements: true
@@ -785,3 +785,10 @@ flickslate:
   NoSpaceIndentation:
     active: true
     tabWidth: 4
+  MaxLineLengthTabs:
+    active: true
+    maxLineLength: 120
+    excludePackageStatements: true
+    excludeImportStatements: true
+    excludeCommentStatements: true
+    excludeRawStrings: true

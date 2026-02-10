@@ -12,6 +12,7 @@ class FlickSlateRuleSetProvider : RuleSetProvider {
 			ruleSetId,
 			listOf(
 				NoSpaceIndentationRule(config),
+				MaxLineLengthTabs(config),
 			)
 		)
 	}
