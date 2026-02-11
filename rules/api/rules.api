@@ -4,6 +4,18 @@ public final class com/zsoltbertalan/flickslate/rules/FlickSlateRuleSetProvider 
 	public fun instance (Lio/gitlab/arturbosch/detekt/api/Config;)Lio/gitlab/arturbosch/detekt/api/RuleSet;
 }
 
+public final class com/zsoltbertalan/flickslate/rules/MaxLineLengthTabs : io/gitlab/arturbosch/detekt/api/Rule {
+	public static final field Companion Lcom/zsoltbertalan/flickslate/rules/MaxLineLengthTabs$Companion;
+	public fun <init> ()V
+	public fun <init> (Lio/gitlab/arturbosch/detekt/api/Config;)V
+	public synthetic fun <init> (Lio/gitlab/arturbosch/detekt/api/Config;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getIssue ()Lio/gitlab/arturbosch/detekt/api/Issue;
+	public fun visitKtFile (Lorg/jetbrains/kotlin/psi/KtFile;)V
+}
+
+public final class com/zsoltbertalan/flickslate/rules/MaxLineLengthTabs$Companion {
+}
+
 public final class com/zsoltbertalan/flickslate/rules/NoSpaceIndentationRule : io/gitlab/arturbosch/detekt/api/Rule {
 	public fun <init> ()V
 	public fun <init> (Lio/gitlab/arturbosch/detekt/api/Config;)V

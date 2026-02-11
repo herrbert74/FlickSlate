@@ -102,7 +102,10 @@ class MoviesViewModelTest {
 
 	@Test
 	fun `when user is logged in now playing movies call uses user region`() = runTest {
-		moviesViewModel.nowPlayingMoviesPaginationState.onRequestPage(moviesViewModel.nowPlayingMoviesPaginationState, 1)
+		moviesViewModel.nowPlayingMoviesPaginationState.onRequestPage(
+			moviesViewModel.nowPlayingMoviesPaginationState,
+			1
+		)
 
 		advanceUntilIdle()
 		coVerify(exactly = 1) { moviesRepository.getNowPlayingMovies(1, "GB") }

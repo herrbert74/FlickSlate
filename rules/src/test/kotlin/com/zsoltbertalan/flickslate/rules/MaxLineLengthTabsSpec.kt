@@ -1,3 +1,5 @@
+@file:Suppress("flickslate:NoSpaceIndentation")
+
 package com.zsoltbertalan.flickslate.rules
 
 import io.github.detekt.test.utils.compileContentForTest
@@ -19,6 +21,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `a kt file with some long lines` {
+
 		private val file = compileContentForTest(
 			"""
                 class MaxLineLength {
@@ -124,26 +127,26 @@ class MaxLineLengthTabsSpec {
 			"""
                 class MaxLineLengthSuppressed {
                     companion object {
-                        @Suppress("MaxLineLength")
+                        @Suppress("MaxLineLengthTabs")
                         val LOREM_IPSUM = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
                 
-                        @Suppress("MaxLineLength")
+                        @Suppress("MaxLineLengthTabs")
                         val A_VERY_LONG_MULTI_LINE = $TQ
                             This is anotehr very very very very very very very very, very long multiline String that will break the MaxLineLength"
                         $TQ.trimIndent()
                     }
                 
-                    @Suppress("MaxLineLength")
+                    @Suppress("MaxLineLengthTabs")
                     val loremIpsumField = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
                 
-                    @Suppress("MaxLineLength")
+                    @Suppress("MaxLineLengthTabs")
                     val longMultiLineField = $TQ
                             This is anotehr very very very very very very very very
                             very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very
                             very long multiline String that will break the MaxLineLength
                         $TQ.trimIndent()
                 
-                    @Suppress("MaxLineLength")
+                    @Suppress("MaxLineLengthTabs")
                     val longMultiLineFieldWithLineBreaks =
                         $TQ
                             This is anotehr very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very
@@ -157,7 +160,7 @@ class MaxLineLengthTabsSpec {
                             println("It's indeed a very long String")
                         }
                 
-                        @Suppress("MaxLineLength")
+                        @Suppress("MaxLineLengthTabs")
                         val hello = anIncrediblyLongAndComplexMethodNameThatProbablyShouldBeMuchShorterButForTheSakeOfTheTestItsNot()
                         val loremIpsum = getLoremIpsum()
                 
@@ -170,14 +173,14 @@ class MaxLineLengthTabsSpec {
                         return "Hello"
                     }
                 
-                    @Suppress("MaxLineLength")
+                    @Suppress("MaxLineLengthTabs")
                     fun getLoremIpsum() = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
                 }
                 
-                @Suppress("MaxLineLength")
+                @Suppress("MaxLineLengthTabs")
                 class AClassWithSuperLongNameItIsSooooLongThatIHaveTroubleThinkingAboutAVeryLongNameManThisIsReallyHardToFillAllTheNecessaryCharacters
                 
-                @Suppress("MaxLineLength")
+                @Suppress("MaxLineLengthTabs")
                 class AClassWithReallyLongCommentsInside {
                     /*
                      a really long line that is inside a normal comment ------------------------------------------------------------------------------------------------>
@@ -201,6 +204,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `a kt file with a long package name and long import statements` {
+
 		val code = """
             package anIncrediblyLongAndComplexPackageNameThatProbablyShouldBeMuchShorterButForTheSakeOfTheTestItsNot
             
@@ -255,6 +259,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `a kt file with a long package name, long import statements, a long line and long comments` {
+
 		private val file = compileContentForTest(
 			"""
                 class MaxLineLengthWithLongComments {
@@ -331,6 +336,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `a kt file with a long package name, long import statements and a long line` {
+
 		val code = """
             package anIncrediblyLongAndComplexPackageNameThatProbablyShouldBeMuchShorterButForTheSakeOfTheTestItsNot
             
@@ -489,6 +495,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `code containing comment with long markdown url` {
+
 		@Test
 		fun `should not report for long markdown url in kdoc`() {
 			val code = """
@@ -546,6 +553,7 @@ class MaxLineLengthTabsSpec {
 
 	@Nested
 	inner class `code containing comment with long reference url` {
+
 		@Test
 		fun `should not report for long markdown url in kdoc`() {
 			val code = """
@@ -589,6 +597,81 @@ class MaxLineLengthTabsSpec {
 			)
 
 			assertThat(rule.compileAndLint(code)).hasSize(3)
+		}
+	}
+
+	@Nested
+	inner class `code with tabs instead of spaces` {
+
+		@Test
+		fun `should report line with tabs that exceeds max length when tabs are converted to spaces`() {
+			val code = """class TestWithTabs {
+					fun shortMethod() {
+						val thisLineHasTabsAndShouldBeReportedBecauseItsVeryLongWhenTabsAreConvertedToSpaces = "test"
+					}
+				}"""
+			val rule = MaxLineLengthTabs(
+				TestConfig(
+					MAX_LINE_LENGTH to "80",
+				)
+			)
+
+			val findings = rule.compileAndLint(code)
+			assertThat(findings).hasSize(1)
+		}
+
+		@Test
+		fun `should not report line with tabs that is within max length when tabs are converted to spaces`() {
+			val code = """class TestWithTabs {
+					fun shortMethod() {
+						val shortLine = "test"
+					}
+				}
+				"""
+			val rule = MaxLineLengthTabs(
+				TestConfig(
+					MAX_LINE_LENGTH to "80",
+				)
+			)
+
+			val findings = rule.compileAndLint(code)
+			assertThat(findings).isEmpty()
+		}
+
+		@Test
+		fun `should correctly count multiple tabs as multiple spaces`() {
+			val code = """class TestWithMultipleTabs {
+							fun deeplyNestedMethod() {
+								val thisLineHasManyTabsAndShouldBeReported = "test"
+							}
+						}
+					"""
+			val rule = MaxLineLengthTabs(
+				TestConfig(
+					MAX_LINE_LENGTH to "60",
+				)
+			)
+
+			val findings = rule.compileAndLint(code)
+			assertThat(findings).hasSize(1)
+		}
+
+		@Test
+		fun `should handle mixed tabs and spaces correctly`() {
+			val code = """class TestWithMixedTabs {
+					fun mixedMethod() {
+						val mixedTabsAndSpacesLineThatIsQuiteLongAndShouldDefinitelyBeReported = "test"
+					}
+				}
+			"""
+			val rule = MaxLineLengthTabs(
+				TestConfig(
+					MAX_LINE_LENGTH to "70",
+				)
+			)
+
+			val findings = rule.compileAndLint(code)
+			assertThat(findings).hasSize(1)
 		}
 	}
 }

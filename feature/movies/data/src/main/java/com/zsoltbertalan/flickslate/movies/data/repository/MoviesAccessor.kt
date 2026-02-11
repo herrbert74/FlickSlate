@@ -99,7 +99,11 @@ class MoviesAccessor @Inject internal constructor(
 
 	override suspend fun getMovieDetails(movieId: Int, sessionId: String?): Outcome<MovieDetail> {
 		return moviesService.runCatchingApi {
-			getMovieDetails(movieId = movieId, sessionId = sessionId, appendToResponse = "account_states").toMovieDetail()
+			getMovieDetails(
+				movieId = movieId,
+				sessionId = sessionId,
+				appendToResponse = "account_states"
+			).toMovieDetail()
 		}
 	}
 

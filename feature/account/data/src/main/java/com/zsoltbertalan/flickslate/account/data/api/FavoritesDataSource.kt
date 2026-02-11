@@ -11,6 +11,10 @@ interface FavoritesDataSource {
 
 		suspend fun getFavoriteMovies(accountId: Int, sessionId: String, page: Int): Outcome<PagingReply<FavoriteMovie>>
 
-		suspend fun getFavoriteTvShows(accountId: Int, sessionId: String, page: Int): Outcome<PagingReply<FavoriteTvShow>>
+		suspend fun getFavoriteTvShows(
+			accountId: Int,
+			sessionId: String,
+			page: Int
+		): Outcome<PagingReply<FavoriteTvShow>>
 	}
 }

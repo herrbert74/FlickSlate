@@ -27,7 +27,12 @@ class FakeRatingsRepository : RatingsRepository {
 						RatedMovie(
 							movie = when (movieId) {
 								0 -> RatedMovieMother.createRatedMovieList().first().movie
-								else -> RatedMovieMother.createRatedMovieList().first().movie.copy(id = movieId, title = "Movie $movieId")
+								else ->
+									RatedMovieMother
+										.createRatedMovieList()
+										.first()
+										.movie
+										.copy(id = movieId, title = "Movie $movieId")
 							},
 							rating = rating
 						)

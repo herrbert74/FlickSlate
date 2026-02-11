@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.psi.KtFile
 private const val DEFAULT_TAB_WIDTH = 4
 
 class NoSpaceIndentationRule(config: Config = Config.empty) : Rule(config) {
+
 	override val issue = Issue(
 		id = "NoSpaceIndentation",
 		severity = Severity.Style,
@@ -23,7 +24,6 @@ class NoSpaceIndentationRule(config: Config = Config.empty) : Rule(config) {
 	private val tabWidth: Int by config(DEFAULT_TAB_WIDTH)
 
 	override fun visitKtFile(file: KtFile) {
-		println("Visit. Tab width: $tabWidth")
 		super.visitKtFile(file)
 		val text = file.text
 		val lines = text.split("\n")
@@ -31,23 +31,16 @@ class NoSpaceIndentationRule(config: Config = Config.empty) : Rule(config) {
 		var lineNumber = 1
 		val effectiveTabWidth = if (tabWidth < 2) 2 else tabWidth
 		val spacePrefix = " ".repeat(effectiveTabWidth)
-		
+
 		lines.forEach { line ->
-			// val trimmed = line.trimStart()
 			if (line.startsWith(spacePrefix)) {
-				// Simple comment check: *, //, /*
-				// val isCommentContinuation = trimmed.startsWith("*")
-				// val isCommentStart = trimmed.startsWith("//") || trimmed.startsWith("/*")
-				
-				// if (!isCommentContinuation && !isCommentStart) {
-					report(
-						CodeSmell(
-							issue = issue,
-							entity = Entity.from(file, offset),
-							message = "Line $lineNumber uses spaces for indentation. Use tabs instead."
-						)
+				report(
+					CodeSmell(
+						issue = issue,
+						entity = Entity.from(file, offset),
+						message = "Line $lineNumber uses spaces for indentation. Use tabs instead."
 					)
-				// }
+				)
 			}
 			offset += line.length + 1
 			lineNumber++

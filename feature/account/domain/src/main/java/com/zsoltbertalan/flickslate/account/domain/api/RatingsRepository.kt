@@ -12,6 +12,10 @@ interface RatingsRepository {
 
 	suspend fun getRatedTvShows(accountId: Int, sessionId: String, page: Int): Outcome<PagingReply<RatedTvShow>>
 
-	suspend fun getRatedTvShowEpisodes(accountId: Int, sessionId: String, page: Int): Outcome<PagingReply<RatedTvEpisode>>
+	suspend fun getRatedTvShowEpisodes(
+		accountId: Int,
+		sessionId: String,
+		page: Int
+	): Outcome<PagingReply<RatedTvEpisode>>
 
 }

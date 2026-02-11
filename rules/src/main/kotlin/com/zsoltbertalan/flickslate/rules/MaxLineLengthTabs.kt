@@ -64,13 +64,14 @@ class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
 		val file = element.file
 
 		for (line in lines) {
+			val normalizedLine = if (line.contains("\t")) normalizeTabsToSpaces(line) else line
 			offset += line.length
 			if (!isValidLine(file, offset, line)) {
 				val ktElement = findFirstMeaningfulKtElementInParents(file, offset, line) ?: file
 				val location = Location.from(file, offset - line.length).let { location ->
 					Location(
 						source = location.source,
-						endSource = SourceLocation(location.source.line, line.length + 1),
+						endSource = SourceLocation(location.source.line, normalizedLine.length + 1),
 						text = TextLocation(offset - line.length, offset),
 						filePath = location.filePath,
 					)
@@ -83,11 +84,16 @@ class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
 	}
 
 	private fun isValidLine(file: KtFile, offset: Int, line: String): Boolean {
+		val normalizedLine = if (line.contains("\t")) normalizeTabsToSpaces(line) else line
 		val isUrl = line.lastArgumentMatchesUrl()
 		val isMarkdownOrRefUrl =
 			line.lastArgumentMatchesMarkdownUrlSyntax() ||
 				line.lastArgumentMatchesKotlinReferenceUrlSyntax()
-		return line.length <= maxLineLength || isIgnoredStatement(file, offset, line) || isUrl || isMarkdownOrRefUrl
+		return normalizedLine.length <= maxLineLength || isIgnoredStatement(
+			file,
+			offset,
+			line
+		) || isUrl || isMarkdownOrRefUrl
 	}
 
 	private fun isIgnoredStatement(file: KtFile, offset: Int, line: String): Boolean {
@@ -124,12 +130,18 @@ class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
 	}
 
 	companion object {
+
 		private const val DEFAULT_IDEA_LINE_LENGTH = 120
+		private const val TAB_SIZE = 4
 		private val BLANK_OR_QUOTES = """[\s"]*""".toRegex()
 
 		private fun findFirstMeaningfulKtElementInParents(file: KtFile, offset: Int, line: String): PsiElement? {
 			return findKtElementInParents(file, offset, line)
 				.firstOrNull { !BLANK_OR_QUOTES.matches(it.text) }
+		}
+
+		private fun normalizeTabsToSpaces(line: String): String {
+			return line.replace("\t", " ".repeat(TAB_SIZE))
 		}
 	}
 }

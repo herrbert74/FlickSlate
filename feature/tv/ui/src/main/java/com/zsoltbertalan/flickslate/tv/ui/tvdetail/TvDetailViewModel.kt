@@ -47,9 +47,11 @@ class TvDetailViewModel(
 	@ViewModelAssistedFactoryKey(TvDetailViewModel::class)
 	@ContributesIntoMap(AppScope::class)
 	fun interface Factory : ViewModelAssistedFactory {
+
 		override fun create(extras: CreationExtras): TvDetailViewModel {
 			return create(extras.createSavedStateHandle())
 		}
+
 		fun create(@Assisted savedStateHandle: SavedStateHandle): TvDetailViewModel
 	}
 
@@ -66,7 +68,8 @@ class TvDetailViewModel(
 	val tvStateData = _tvStateData.asStateFlow()
 
 	fun load(id: Int, season: Int? = null, episode: Int? = null) {
-		val isSameArgs = savedStateHandle.get<Int>(SERIES_ID_ARG) == id && seasonNumber == season && episodeNumber == episode
+		val isSameArgs =
+			savedStateHandle.get<Int>(SERIES_ID_ARG) == id && seasonNumber == season && episodeNumber == episode
 		if (isSameArgs && _tvStateData.value.tvDetail != null) return
 		savedStateHandle[SERIES_ID_ARG] = id
 		if (season != null) savedStateHandle[SEASON_NUMBER_ARG] = season
