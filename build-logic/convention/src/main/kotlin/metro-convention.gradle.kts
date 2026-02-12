@@ -1,5 +1,11 @@
-plugins {
-	alias(libs.plugins.metro)
+listOf(
+	"org.jetbrains.kotlin.jvm",
+	"org.jetbrains.kotlin.android",
+	"org.jetbrains.kotlin.multiplatform"
+).forEach { pluginId ->
+	pluginManager.withPlugin(pluginId) {
+		apply(plugin = "dev.zacsweers.metro")
+	}
 }
 
 fun excludeFrom(excluded: List<String>, action: () -> Unit) {
