@@ -15,31 +15,31 @@ import dev.zacsweers.metro.SingleIn
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
 class RatingsAccessor @Inject internal constructor(
-    private val ratingsRemoteDataSource: RatingsDataSource.Remote,
+	private val ratingsRemoteDataSource: RatingsDataSource.Remote,
 ) : RatingsRepository {
 
-    override suspend fun getRatedMovies(
+	override suspend fun getRatedMovies(
 		accountId: Int,
 		sessionId: String,
 		page: Int
 	): Outcome<PagingReply<RatedMovie>> {
-        return ratingsRemoteDataSource.getRatedMovies(accountId, sessionId, page)
-    }
+		return ratingsRemoteDataSource.getRatedMovies(accountId, sessionId, page)
+	}
 
-    override suspend fun getRatedTvShows(
+	override suspend fun getRatedTvShows(
 		accountId: Int,
 		sessionId: String,
 		page: Int
 	): Outcome<PagingReply<RatedTvShow>> {
-        return ratingsRemoteDataSource.getRatedTvShows(accountId, sessionId, page)
-    }
+		return ratingsRemoteDataSource.getRatedTvShows(accountId, sessionId, page)
+	}
 
-    override suspend fun getRatedTvShowEpisodes(
+	override suspend fun getRatedTvShowEpisodes(
 		accountId: Int,
 		sessionId: String,
 		page: Int
 	): Outcome<PagingReply<RatedTvEpisode>> {
-        return ratingsRemoteDataSource.getRatedTvShowEpisodes(accountId, sessionId, page)
-    }
+		return ratingsRemoteDataSource.getRatedTvShowEpisodes(accountId, sessionId, page)
+	}
 
 }

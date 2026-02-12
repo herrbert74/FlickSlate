@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 class ChangeTvRatingUseCaseTest {
+
 	private val getSessionIdUseCase: GetSessionIdUseCase = mockk()
 	private val tvRatingsRepository: TvRatingsRepository = mockk()
 	private val useCase = ChangeTvRatingUseCase(getSessionIdUseCase, tvRatingsRepository)
@@ -36,7 +37,9 @@ class ChangeTvRatingUseCaseTest {
 	fun `execute returns failure when repository fails`() = runTest {
 		val failure = Failure.ServerError("boom")
 		coEvery { getSessionIdUseCase.execute() } returns Ok("session")
-		coEvery { tvRatingsRepository.rateTvShow(tvShowId = 42, rating = 7.5f, sessionId = "session") } returns Err(failure)
+		coEvery { tvRatingsRepository.rateTvShow(tvShowId = 42, rating = 7.5f, sessionId = "session") } returns Err(
+			failure
+		)
 
 		useCase.execute(tvShowId = 42, rating = 7.5f) shouldBeEqual Err(failure)
 	}

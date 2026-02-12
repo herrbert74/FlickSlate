@@ -24,7 +24,11 @@ interface NowPlayingMoviesDataSource {
 
 	interface Remote {
 
-		suspend fun getNowPlayingMovies(etag: String? = null, page: Int?, region: String? = null): Outcome<PagingReply<Movie>>
+		suspend fun getNowPlayingMovies(
+			etag: String? = null,
+			page: Int?,
+			region: String? = null
+		): Outcome<PagingReply<Movie>>
 
 	}
 

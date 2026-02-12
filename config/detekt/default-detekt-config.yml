@@ -12,7 +12,7 @@ config:
   warningsAsErrors: false
   checkExhaustiveness: false
   # when writing own rules with new properties, exclude the property path e.g.: 'my_rule_set,.*>.*>[my_property]'
-  excludes: "reach.*,reach>.*>.*"
+  excludes: "flickslate.*,flickslate>.*>.*"
 
 processors:
   active: true
@@ -625,7 +625,7 @@ style:
     active: false
     maxChainedCalls: 5
   MaxLineLength:
-    active: true
+    active: false
     maxLineLength: 120
     excludePackageStatements: true
     excludeImportStatements: true
@@ -780,10 +780,15 @@ style:
     excludeImports:
       - 'java.util.*'
 
-reach:
+flickslate:
   active: true
-  NonExhaustiveWhen:
-    active: false
-  FunctionNameLength:
+  NoSpaceIndentation:
     active: true
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
+    tabWidth: 4
+  MaxLineLengthTabs:
+    active: true
+    maxLineLength: 120
+    excludePackageStatements: true
+    excludeImportStatements: true
+    excludeCommentStatements: true
+    excludeRawStrings: true

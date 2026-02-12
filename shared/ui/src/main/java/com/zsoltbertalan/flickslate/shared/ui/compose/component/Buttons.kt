@@ -22,44 +22,44 @@ import com.zsoltbertalan.flickslate.shared.ui.compose.design.smallDimensions
 
 @Composable
 fun FilledButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    shape: Shape = RoundedCornerShape(smallDimensions.marginNormal),
-    buttonColors: ButtonColors = ButtonDefaults.buttonColors(),
-    content: @Composable RowScope.() -> Unit,
+	onClick: () -> Unit,
+	modifier: Modifier = Modifier,
+	enabled: Boolean = true,
+	shape: Shape = RoundedCornerShape(smallDimensions.marginNormal),
+	buttonColors: ButtonColors = ButtonDefaults.buttonColors(),
+	content: @Composable RowScope.() -> Unit,
 ) {
-    Button(
-        onClick = onClick,
-        modifier = modifier.defaultMinSize(
-            minWidth = smallDimensions.buttonWidthShort,
-            minHeight = smallDimensions.buttonHeight
-        ),
-        enabled = enabled,
-        colors = buttonColors,
-        content = content,
-        shape = shape,
-    )
+	Button(
+		onClick = onClick,
+		modifier = modifier.defaultMinSize(
+			minWidth = smallDimensions.buttonWidthShort,
+			minHeight = smallDimensions.buttonHeight
+		),
+		enabled = enabled,
+		colors = buttonColors,
+		content = content,
+		shape = shape,
+	)
 }
 
 @PreviewLightDark
 @Composable
 private fun FilledTextButtonPreview() {
-    FlickSlateTheme {
-        Surface {
-            FilledButton(
-                onClick = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(2.dp)
-                    .background(color = MaterialTheme.colorScheme.surface),
-            ) {
-                Text(
-                    text = "Season 1",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                )
-            }
-        }
-    }
+	FlickSlateTheme {
+		Surface {
+			FilledButton(
+				onClick = {},
+				modifier = Modifier
+					.fillMaxWidth()
+					.padding(2.dp)
+					.background(color = MaterialTheme.colorScheme.surface),
+			) {
+				Text(
+					text = "Season 1",
+					style = MaterialTheme.typography.bodyMedium,
+					color = MaterialTheme.colorScheme.onPrimary,
+				)
+			}
+		}
+	}
 }

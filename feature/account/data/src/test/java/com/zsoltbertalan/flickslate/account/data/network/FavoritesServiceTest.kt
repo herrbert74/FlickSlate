@@ -42,7 +42,8 @@ class FavoritesServiceTest {
 	@Test
 	fun `getFavoriteMovies returns success`() = runTest {
 		val dto = FavoriteMovieReplyDtoMother.createFavoriteMovieReplyDto()
-		val data = successResponseCall(server, dto) { api.getFavoriteMovies(accountId = 1, sessionId = "session", page = 1) }
+		val data =
+			successResponseCall(server, dto) { api.getFavoriteMovies(accountId = 1, sessionId = "session", page = 1) }
 
 		data.body() shouldBe dto
 	}
@@ -58,14 +59,16 @@ class FavoritesServiceTest {
 	@Test
 	fun `getFavoriteTvShows returns success`() = runTest {
 		val dto = FavoriteTvShowReplyDtoMother.createFavoriteTvShowReplyDto()
-		val data = successResponseCall(server, dto) { api.getFavoriteTvShows(accountId = 1, sessionId = "session", page = 1) }
+		val data =
+			successResponseCall(server, dto) { api.getFavoriteTvShows(accountId = 1, sessionId = "session", page = 1) }
 
 		data.body() shouldBe dto
 	}
 
 	@Test
 	fun `getFavoriteTvShows returns error`() = runTest {
-		val data = failureResponseCall(server) { api.getFavoriteTvShows(accountId = 1, sessionId = "session", page = 1) }
+		val data =
+			failureResponseCall(server) { api.getFavoriteTvShows(accountId = 1, sessionId = "session", page = 1) }
 
 		data.message() shouldBe "Client Error"
 		data.errorBody()?.string() shouldBe "message = \"Client error\""
