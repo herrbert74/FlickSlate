@@ -62,7 +62,7 @@ private class EntryViewModelStoreOwner(
 
 	override val defaultViewModelProviderFactory: ViewModelProvider.Factory
 		get() = (parentEntry as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory
-			?: ViewModelProvider.NewInstanceFactory.instance
+			?: ViewModelProvider.NewInstanceFactory()
 
 	override val defaultViewModelCreationExtras: CreationExtras
 		get() = MutableCreationExtras(defaultArgs).apply {
