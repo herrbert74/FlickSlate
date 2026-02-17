@@ -8,7 +8,8 @@ import com.zsoltbertalan.flickslate.tv.domain.api.TvFavoritesRepository
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 
-class SetTvFavoriteUseCase @Inject internal constructor(
+@Inject
+class SetTvFavoriteUseCase internal constructor(
 	private val tvFavoritesRepository: TvFavoritesRepository,
 	private val getAccountIdUseCase: GetAccountIdUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,

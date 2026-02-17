@@ -21,7 +21,8 @@ import kotlinx.coroutines.withContext
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class GenresRoomDataSource @Inject internal constructor(
+@Inject
+class GenresRoomDataSource internal constructor(
 	private val searchDatabase: SearchDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : GenreDataSource.Local {

@@ -13,7 +13,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class FavoritesAccessor @Inject internal constructor(
+@Inject
+class FavoritesAccessor internal constructor(
 	private val favoritesRemoteDataSource: FavoritesDataSource.Remote,
 ) : FavoritesRepository {
 

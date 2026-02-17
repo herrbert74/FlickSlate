@@ -12,7 +12,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class AccountLocalDataSource @Inject internal constructor(
+@Inject
+class AccountLocalDataSource internal constructor(
 	val application: Application
 ) : AccountDataSource.Local {
 

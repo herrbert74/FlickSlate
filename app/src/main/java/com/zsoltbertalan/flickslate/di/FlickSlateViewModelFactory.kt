@@ -13,7 +13,8 @@ import kotlin.reflect.KClass
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class FlickSlateViewModelFactory @Inject internal constructor(
+@Inject
+class FlickSlateViewModelFactory internal constructor(
 	override val viewModelProviders: Map<KClass<out ViewModel>, Provider<ViewModel>>,
 	override val assistedFactoryProviders: Map<KClass<out ViewModel>, Provider<ViewModelAssistedFactory>>,
 	override val manualAssistedFactoryProviders:

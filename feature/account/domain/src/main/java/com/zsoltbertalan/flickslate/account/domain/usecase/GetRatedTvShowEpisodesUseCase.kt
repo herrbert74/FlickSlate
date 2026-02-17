@@ -8,7 +8,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.PagingReply
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 
-class GetRatedTvShowEpisodesUseCase @Inject internal constructor(
+@Inject
+class GetRatedTvShowEpisodesUseCase internal constructor(
 	private val ratingsRepository: RatingsRepository,
 	private val getAccountIdUseCase: GetAccountIdUseCase,
 	private val getSessionIdUseCase: GetSessionIdUseCase,

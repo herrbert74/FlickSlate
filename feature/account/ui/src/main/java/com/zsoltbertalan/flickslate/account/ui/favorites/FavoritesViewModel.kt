@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(FavoritesViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class FavoritesViewModel @Inject internal constructor(
+@Inject
+class FavoritesViewModel internal constructor(
 	private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
 	private val getFavoriteTvShowsUseCase: GetFavoriteTvShowsUseCase,
 ) : ViewModel() {

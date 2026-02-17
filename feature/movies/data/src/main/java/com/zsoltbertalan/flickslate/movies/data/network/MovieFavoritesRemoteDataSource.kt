@@ -15,7 +15,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class MovieFavoritesRemoteDataSource @Inject internal constructor(
+@Inject
+class MovieFavoritesRemoteDataSource internal constructor(
 	private val setMovieFavoriteService: SetMovieFavoriteService,
 ) : MovieFavoritesDataSource.Remote {
 

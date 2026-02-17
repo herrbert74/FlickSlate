@@ -9,7 +9,8 @@ import dev.zacsweers.metrox.viewmodel.ViewModelKey
 
 @ViewModelKey(NavScopedViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class NavScopedViewModel @Inject internal constructor() : ViewModel() {
+@Inject
+class NavScopedViewModel internal constructor() : ViewModel() {
 
 	private val stores = mutableMapOf<Any, ViewModelStore>()
 

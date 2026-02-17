@@ -23,7 +23,8 @@ import kotlinx.coroutines.withContext
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class NowPlayingMoviesRoomDataSource @Inject internal constructor(
+@Inject
+class NowPlayingMoviesRoomDataSource internal constructor(
 	private val moviesDatabase: MoviesDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : NowPlayingMoviesDataSource.Local {

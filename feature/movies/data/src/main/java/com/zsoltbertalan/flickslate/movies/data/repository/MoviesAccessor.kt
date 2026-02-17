@@ -23,7 +23,8 @@ import kotlinx.coroutines.flow.Flow
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class MoviesAccessor @Inject internal constructor(
+@Inject
+class MoviesAccessor internal constructor(
 	private val moviesService: MoviesService,
 	private val popularMoviesDataSource: PopularMoviesDataSource.Local,
 	private val popularMoviesRemoteDataSource: PopularMoviesDataSource.Remote,

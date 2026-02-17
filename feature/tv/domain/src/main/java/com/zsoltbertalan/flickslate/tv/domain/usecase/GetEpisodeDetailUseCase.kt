@@ -7,7 +7,8 @@ import com.zsoltbertalan.flickslate.shared.domain.model.TvEpisodeDetail
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import dev.zacsweers.metro.Inject
 
-class GetEpisodeDetailUseCase @Inject internal constructor(
+@Inject
+class GetEpisodeDetailUseCase internal constructor(
 	private val tvRepository: TvRepository,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) {

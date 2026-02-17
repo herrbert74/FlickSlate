@@ -15,7 +15,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class AccountAccessor @Inject internal constructor(
+@Inject
+class AccountAccessor internal constructor(
 	private val accountRemoteDataSource: AccountDataSource.Remote,
 	private val accountLocalDataSource: AccountDataSource.Local
 ) : AccountRepository {
