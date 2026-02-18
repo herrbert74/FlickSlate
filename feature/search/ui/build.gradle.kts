@@ -29,6 +29,8 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(testFixtures(project(":shared:ui")))
 	testImplementation(libs.kotlinx.coroutinesTest)
+	testImplementation(libs.metrox.viewmodel)
+	testImplementation(libs.metrox.viewmodelCompose)
 
 	testImplementation(libs.androidx.activity)
 	testImplementation(libs.androidx.composeUiTest) // transitive
