@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(SearchViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class SearchViewModel @Inject internal constructor(
+@Inject
+class SearchViewModel internal constructor(
 	private val genreRepository: GenreRepository,
 	private val searchRepository: SearchRepository
 ) : ViewModel() {

@@ -12,7 +12,8 @@ import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 
 @SingleIn(AppScope::class)
-class SearchMoviesRemoteDataSource @Inject internal constructor(
+@Inject
+class SearchMoviesRemoteDataSource internal constructor(
 	private val searchService: SearchService
 ) : SearchMoviesDataSource.Remote {
 

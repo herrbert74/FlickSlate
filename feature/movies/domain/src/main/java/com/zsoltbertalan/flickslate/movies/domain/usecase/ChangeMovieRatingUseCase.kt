@@ -6,7 +6,8 @@ import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.movies.domain.api.MovieRatingsRepository
 import dev.zacsweers.metro.Inject
 
-class ChangeMovieRatingUseCase @Inject internal constructor(
+@Inject
+class ChangeMovieRatingUseCase internal constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val movieRatingsRepository: MovieRatingsRepository,
 ) {

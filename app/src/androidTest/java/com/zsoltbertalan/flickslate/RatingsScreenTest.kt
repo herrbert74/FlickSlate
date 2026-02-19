@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
@@ -24,7 +25,7 @@ import org.junit.runner.RunWith
 class RatingsScreenTest {
 
 	@get:Rule
-	val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
+	val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
 	@Before
 	fun setUp() {

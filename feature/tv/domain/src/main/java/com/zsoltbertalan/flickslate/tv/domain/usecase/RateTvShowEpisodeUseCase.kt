@@ -6,7 +6,8 @@ import com.zsoltbertalan.flickslate.base.kotlin.result.Outcome
 import com.zsoltbertalan.flickslate.tv.domain.api.TvRatingsRepository
 import dev.zacsweers.metro.Inject
 
-class RateTvShowEpisodeUseCase @Inject internal constructor(
+@Inject
+class RateTvShowEpisodeUseCase internal constructor(
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 	private val tvRatingsRepository: TvRatingsRepository,
 ) {

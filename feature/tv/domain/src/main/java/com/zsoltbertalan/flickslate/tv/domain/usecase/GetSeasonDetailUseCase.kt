@@ -5,7 +5,8 @@ import com.zsoltbertalan.flickslate.tv.domain.api.TvRepository
 import com.zsoltbertalan.flickslate.tv.domain.model.SeasonDetail
 import dev.zacsweers.metro.Inject
 
-class GetSeasonDetailUseCase @Inject internal constructor(
+@Inject
+class GetSeasonDetailUseCase internal constructor(
 	private val tvRepository: TvRepository
 ) {
 

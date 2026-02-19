@@ -12,7 +12,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class SearchAccessor @Inject internal constructor(
+@Inject
+class SearchAccessor internal constructor(
 	private val searchMoviesRemoteDataSource: SearchMoviesRemoteDataSource
 ) : SearchRepository {
 

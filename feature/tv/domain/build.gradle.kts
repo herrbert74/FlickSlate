@@ -31,11 +31,13 @@ dependencies {
 	implementation(libs.kotlinx.coroutinesCore)
 
 	testImplementation(libs.jUnit)
+	testImplementation(libs.mockk.library)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotlinx.coroutinesTest)
 
+	testFixturesApi(libs.kotlin.stdlib)
 	testFixturesApi(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)

@@ -14,7 +14,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class RatingsAccessor @Inject internal constructor(
+@Inject
+class RatingsAccessor internal constructor(
 	private val ratingsRemoteDataSource: RatingsDataSource.Remote,
 ) : RatingsRepository {
 

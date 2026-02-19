@@ -32,7 +32,6 @@ dependencies {
 	api(libs.androidx.composeRuntime)
 	api(libs.kotlinx.collectionsImmutableJvm)
 	api(libs.kotlinx.coroutinesCore)
-
 	implementation(libs.androidx.annotation)
 	implementation(libs.androidx.composeMaterial3)
 	implementation(libs.androidx.composeMaterialIconsCore)
@@ -45,6 +44,7 @@ dependencies {
 	implementation(libs.androidx.composeUiTooling)
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.paletteKtx)
+	implementation(libs.coil)
 	implementation(libs.coil.base)
 	implementation(libs.coil.compose)
 	implementation(libs.coil.compose.base)
@@ -60,6 +60,7 @@ dependencies {
 	testFixturesImplementation(libs.androidx.composeUiTest)
 	testFixturesImplementation(libs.androidx.testExtJUnit)
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)
+	testFixturesImplementation(libs.kotlin.stdlib)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 	screenshotTestImplementation(libs.android.screenshotValidationApi)

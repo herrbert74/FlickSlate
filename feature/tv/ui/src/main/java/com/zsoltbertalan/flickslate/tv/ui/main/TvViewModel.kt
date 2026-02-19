@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(TvViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class TvViewModel @Inject internal constructor(private val tvRepository: TvRepository) : ViewModel() {
+@Inject
+class TvViewModel internal constructor(private val tvRepository: TvRepository) : ViewModel() {
 
 	val tvPaginationState = PaginationState<Int, TvShow>(
 		initialPageKey = 1,

@@ -3,14 +3,9 @@ plugins {
 }
 
 dependencies {
-	"implementation"(project(":base:kotlin"))
-	"implementation"(project(":shared:domain"))
-
-	if (project.parent?.name == "movies") {
-		"api"(project(":shared:data"))
-	} else {
-		"implementation"(project(":shared:data"))
-	}
+	"api"(project(":base:kotlin"))
+	"api"(project(":shared:data"))
+	"api"(project(":shared:domain"))
 
 	"api"(libs.retrofit)
 
@@ -36,6 +31,7 @@ dependencies {
 	"ksp"(libs.androidx.roomCompiler)
 
 	"testImplementation"(libs.jUnit)
+	"testImplementation"(libs.mockk.library)
 	"testImplementation"(libs.mockk.core)
 	"testImplementation"(libs.mockk.dsl) // transitive
 	"testImplementation"(libs.kotlinx.coroutinesTest)

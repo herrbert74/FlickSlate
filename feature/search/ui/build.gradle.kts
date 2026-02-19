@@ -16,12 +16,6 @@ android {
 	}
 	testOptions.unitTests.isIncludeAndroidResources = true
 
-	sourceSets {
-		getByName("test") {
-			java.setSrcDirs(emptyList<File>())
-			kotlin.setSrcDirs(emptyList<File>())
-		}
-	}
 }
 
 dependencies {
@@ -31,4 +25,22 @@ dependencies {
 
 	implementation(libs.androidx.composeAnimation)
 	implementation(libs.androidx.composeAnimationCore)
+
+	testImplementation(testFixtures(project(":shared:domain")))
+	testImplementation(testFixtures(project(":shared:ui")))
+	testImplementation(libs.kotlinx.coroutinesTest)
+	testImplementation(libs.metrox.viewmodel)
+	testImplementation(libs.metrox.viewmodelCompose)
+
+	testImplementation(libs.androidx.activity)
+	testImplementation(libs.androidx.composeUiTest) // transitive
+	testImplementation(libs.androidx.composeUiTestJunit4)
+	testImplementation(libs.androidx.lifecycleCommon) // transitive
+	testImplementation(libs.androidx.lifecycleRuntimeCompose) // transitive
+	testImplementation(libs.androidx.lifecycleViewmodelCompose) // transitive
+	testImplementation(libs.androidx.testExtJUnit)
+	testImplementation(libs.jUnit)
+	testRuntimeOnly(libs.androidx.testCore) // transitive
+	testRuntimeOnly(libs.robolectric)
+
 }

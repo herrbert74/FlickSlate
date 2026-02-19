@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 
 @ViewModelKey(MoviesViewModel::class)
 @ContributesIntoMap(AppScope::class)
-class MoviesViewModel @Inject internal constructor(
+@Inject
+class MoviesViewModel internal constructor(
 	private val moviesRepository: MoviesRepository,
 	private val accountRepository: AccountRepository
 ) : ViewModel() {

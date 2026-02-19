@@ -23,7 +23,8 @@ import kotlinx.coroutines.withContext
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class TvRoomDataSource @Inject internal constructor(
+@Inject
+class TvRoomDataSource internal constructor(
 	private val tvDatabase: TvDatabase,
 	@param:IoDispatcher private val ioContext: CoroutineDispatcher,
 ) : TvDataSource.Local {

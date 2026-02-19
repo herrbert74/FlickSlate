@@ -10,7 +10,8 @@ import dev.zacsweers.metro.SingleIn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class MovieRatingsAccessor @Inject internal constructor(
+@Inject
+class MovieRatingsAccessor internal constructor(
 	private val movieRatingsRemoteDataSource: MovieRatingsDataSource.Remote,
 ) : MovieRatingsRepository {
 

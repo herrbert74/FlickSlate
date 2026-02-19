@@ -19,7 +19,8 @@ import kotlinx.coroutines.flow.Flow
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class TvAccessor @Inject internal constructor(
+@Inject
+class TvAccessor internal constructor(
 	private val tvDataSource: TvDataSource.Local,
 	private val tvRemoteDataSource: TvDataSource.Remote,
 ) : TvRepository {

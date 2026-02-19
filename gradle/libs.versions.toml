@@ -182,9 +182,11 @@ androidx-sqlite = "androidx.sqlite:sqlite:2.6.2"
 
 androidx-testCore = { group = "androidx.test", name = "core", version.ref = "androidx-testCore" }
 androidx-testCoreKtx = { module = "androidx.test:core-ktx", version.ref = "androidx-testCore" }
+# https://developer.android.com/jetpack/androidx/releases/test#monitor_180_2
+androidx-testMonitor = "androidx.test:monitor:1.8.0"
 #androidx-testEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-testEspresso" }
-#androidx-testEspressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidx-test-espresso" }
-#androidx-testEspressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidx-test-espresso" }
+#androidx-testEspressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "androidx-testEspresso" }
+#androidx-testEspressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "androidx-testEspresso" }
 androidx-testExtJUnit = { module = "androidx.test.ext:junit", version.ref = "androidx-testExtJUnit" }
 #androidx-testExtJUnitKtx = "androidx.test.ext:junit-ktx:1.2.1"
 androidx-testRunner = { module = "androidx.test:runner", version.ref = "androidx-testRunner" }
@@ -205,6 +207,7 @@ baBeStudios-baseData = { module = "io.bitbucket.babestudios:base-data", version.
 coil-base = { module = "io.coil-kt:coil-base", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-compose-base = { module = "io.coil-kt:coil-compose-base", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 
 #decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 #decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
@@ -281,7 +284,7 @@ kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", versi
 kotlin-metadataJvm = { module = "org.jetbrains.kotlin:kotlin-metadata-jvm", version.ref = "kotlin" }
 kotlin-parcelizeRuntime = { module = "org.jetbrains.kotlin:kotlin-parcelize-runtime", version.ref = "kotlin" }
 #kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-#kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 #kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 #kotlin-testJUnit = { module = "org.jetbrains.kotlin:kotlin-test-jUnit", version.ref = "kotlin" }
 
@@ -332,7 +335,8 @@ metro-runtime = { module = "dev.zacsweers.metro:runtime", version.ref = "metro" 
 metrox-viewmodel = { module = "dev.zacsweers.metro:metrox-viewmodel", version.ref = "metro" }
 metrox-viewmodelCompose = { module = "dev.zacsweers.metro:metrox-viewmodel-compose", version.ref = "metro" }
 
-mockk-core = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-library = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-core = { module = "io.mockk:mockk-core", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 mockk-dsl = { module = "io.mockk:mockk-dsl", version.ref = "mockk" }
 

@@ -49,7 +49,9 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.androidx.roomTesting)
 	testImplementation(libs.androidx.testCore)
+	testImplementation(libs.androidx.testMonitor)
 	testImplementation(libs.robolectric)
 
+	testFixturesApi(libs.kotlin.stdlib)
 	testFixturesImplementation(project(":shared:data"))
 }

@@ -19,6 +19,7 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.coroutinesCore)
+	testFixturesApi(libs.kotlin.stdlib)
 	testFixturesApi(project(":shared:domain"))
 	testFixturesImplementation(project(":feature:tv:domain"))
 	testFixturesImplementation(testFixtures(project(":feature:tv:domain")))

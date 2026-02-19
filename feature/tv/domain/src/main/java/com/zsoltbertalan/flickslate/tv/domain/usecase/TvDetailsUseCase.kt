@@ -15,7 +15,8 @@ import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-class TvDetailsUseCase @Inject internal constructor(
+@Inject
+class TvDetailsUseCase internal constructor(
 	private val tvRepository: TvRepository,
 	private val getSessionIdUseCase: GetSessionIdUseCase,
 ) {

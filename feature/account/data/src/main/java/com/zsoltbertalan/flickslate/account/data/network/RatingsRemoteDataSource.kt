@@ -21,7 +21,8 @@ import retrofit2.Response
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class RatingsRemoteDataSource @Inject internal constructor(
+@Inject
+class RatingsRemoteDataSource internal constructor(
 	private val ratingsService: RatingsService,
 ) : RatingsDataSource.Remote {
 

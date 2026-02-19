@@ -82,7 +82,7 @@ kotlin {
 
 dependencies {
 
-	implementation(project(":base:kotlin"))
+	compileOnly(project(":base:kotlin"))
 	implementation(project(":base:android"))
 	implementation(project(":feature:account:data"))
 	implementation(project(":feature:account:domain"))
@@ -91,7 +91,6 @@ dependencies {
 	implementation(project(":feature:movies:domain"))
 	implementation(project(":feature:movies:ui"))
 	implementation(project(":feature:search:data"))
-	implementation(project(":feature:search:domain"))
 	implementation(project(":feature:search:ui"))
 	implementation(project(":feature:tv:data"))
 	implementation(project(":feature:tv:domain"))
@@ -108,10 +107,12 @@ dependencies {
 	implementation(libs.androidx.annotation)
 	implementation(platform(libs.androidx.compose.bom))
 	implementation(libs.androidx.composeAnimation)
+	implementation(libs.androidx.composeAnimationCore)
 	implementation(libs.androidx.composeFoundation)
 	implementation(libs.androidx.composeFoundationLayout)
 	implementation(libs.androidx.composeRuntime)
 	implementation(libs.androidx.composeRuntimeSaveable)
+	implementation(libs.androidx.composeUiGeometry)
 	implementation(libs.androidx.composeUiGraphics)
 	implementation(libs.androidx.composeUiText)
 	implementation(libs.androidx.composeUiUnit)
@@ -119,7 +120,7 @@ dependencies {
 	implementation(libs.androidx.composeUiToolingPreview)
 	implementation(libs.androidx.composeUi)
 	implementation(libs.androidx.composeMaterial3)
-	implementation(libs.androidx.fragmentKtx) // transitive
+	implementation(libs.androidx.coreKtx)
 	implementation(libs.androidx.lifecycleCommon)
 	implementation(libs.androidx.lifecycleRuntimeCompose)
 	implementation(libs.androidx.lifecycleViewmodel)
@@ -141,15 +142,16 @@ dependencies {
 	// Needed for createComposeRule, NOT ONLY for createAndroidComposeRule, as in the docs
 	debugRuntimeOnly(libs.androidx.composeUiTestManifest)
 
-	testImplementation(libs.mockk.core)
+	testImplementation(libs.mockk.library)
 	testImplementation(libs.kotlinx.coroutinesTest)
 
+	androidTestImplementation(project(":base:kotlin"))
+	androidTestImplementation(project(":feature:search:domain"))
 	androidTestImplementation(testFixtures(project(":feature:account:domain")))
 	androidTestImplementation(testFixtures(project(":feature:movies:domain")))
 	androidTestImplementation(testFixtures(project(":feature:tv:domain")))
 	androidTestImplementation(testFixtures(project(":shared:domain")))
 	androidTestImplementation(testFixtures(project(":shared:ui")))
-	androidTestImplementation(libs.androidx.fragmentKtx) // transitive
 	androidTestImplementation(libs.androidx.testCoreKtx)
 	androidTestImplementation(libs.androidx.testExtJUnit)
 	androidTestImplementation(libs.androidx.testRunner)
@@ -158,7 +160,7 @@ dependencies {
 	androidTestImplementation(libs.androidx.composeUiTestJunit4Android)
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)
-	androidTestImplementation(libs.mockk.core)
+	androidTestImplementation(libs.mockk.library)
 
 	screenshotTestImplementation(libs.androidx.composeUiTooling)
 	screenshotTestImplementation(libs.android.screenshotValidationApi)

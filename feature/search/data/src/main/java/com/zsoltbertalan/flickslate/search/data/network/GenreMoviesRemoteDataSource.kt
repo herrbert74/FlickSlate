@@ -14,7 +14,8 @@ import retrofit2.Response
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class GenreMoviesRemoteDataSource @Inject internal constructor(
+@Inject
+class GenreMoviesRemoteDataSource internal constructor(
 	private val searchService: SearchService
 ) : GenreMoviesDataSource.Remote {
 

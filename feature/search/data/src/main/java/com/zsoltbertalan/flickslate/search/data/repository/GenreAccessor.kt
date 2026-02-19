@@ -18,7 +18,8 @@ import kotlinx.coroutines.flow.flowOn
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class GenreAccessor @Inject internal constructor(
+@Inject
+class GenreAccessor internal constructor(
 	private val genreDataSource: GenreDataSource.Local,
 	private val genreRemoteDataSource: GenreDataSource.Remote,
 	private val genreMoviesDataSource: GenreMoviesDataSource.Local,

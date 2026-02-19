@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate
 
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.assertIsDisplayed
@@ -28,7 +29,7 @@ import org.junit.runner.RunWith
 class SearchScreenTest {
 
 	@get:Rule
-	val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
+	val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
 	@Test
 	fun search() {

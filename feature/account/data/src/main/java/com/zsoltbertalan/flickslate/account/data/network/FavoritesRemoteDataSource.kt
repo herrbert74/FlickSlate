@@ -18,7 +18,8 @@ import retrofit2.Response
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class FavoritesRemoteDataSource @Inject internal constructor(
+@Inject
+class FavoritesRemoteDataSource internal constructor(
 	private val favoritesService: FavoritesService,
 ) : FavoritesDataSource.Remote {
 

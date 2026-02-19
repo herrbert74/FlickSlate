@@ -26,7 +26,8 @@ import retrofit2.Response
 
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
-class TvRemoteDataSource @Inject internal constructor(
+@Inject
+class TvRemoteDataSource internal constructor(
 	private val tvService: TvService
 ) : TvDataSource.Remote {
 

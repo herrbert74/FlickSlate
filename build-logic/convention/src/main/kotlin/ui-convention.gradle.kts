@@ -56,11 +56,17 @@ dependencies {
 	"implementation"(libs.timber)
 
 	"testImplementation"(libs.jUnit)
-	"testImplementation"(libs.mockk.core)
+	"testImplementation"(libs.mockk.library)
+	excludeFrom(listOf("search")) {
+		"testImplementation"(libs.mockk.core)
+	}
 	"testImplementation"(libs.kotlinx.coroutinesTest)
 
 	if (project.parent?.name != "search") {
 		"testImplementation"(libs.kotest.assertionsShared)
+	}
+	if (project.parent?.name == "search") {
+		"testRuntimeOnly"(libs.androidx.testCore)
 	}
 }
 
