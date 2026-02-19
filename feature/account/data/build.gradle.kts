@@ -27,9 +27,6 @@ room {
 
 dependencies {
 	api(project(":feature:account:domain"))
-	implementation(project(":shared:domain"))
-
-	implementation(project(":shared:data"))
 
 	api(libs.retrofit)
 
@@ -47,8 +44,6 @@ dependencies {
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.kotlinx.coroutinesTest)
 	testImplementation(libs.kotlinx.serializationJson)
-	testImplementation(libs.mockk.core)
-	testImplementation(libs.mockk.dsl) // transitive
 	testImplementation(libs.okhttp3.mockWebServer)
 	testImplementation(libs.retrofit.converterKotlinxSerialization)
 	testImplementation(libs.robolectric)

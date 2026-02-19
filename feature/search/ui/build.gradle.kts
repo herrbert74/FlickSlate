@@ -39,8 +39,8 @@ dependencies {
 	testImplementation(libs.androidx.lifecycleRuntimeCompose) // transitive
 	testImplementation(libs.androidx.lifecycleViewmodelCompose) // transitive
 	testImplementation(libs.androidx.testExtJUnit)
-	testImplementation(libs.androidx.testCore) // transitive
 	testImplementation(libs.jUnit)
+	testRuntimeOnly(libs.androidx.testCore) // transitive
 	testRuntimeOnly(libs.robolectric)
 
 }

@@ -50,11 +50,13 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.mockk.library)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.mockk.dsl)
 	testImplementation(libs.kotlinx.coroutinesTest)
 
 	testFixturesImplementation(libs.okhttp3.mockWebServer)
+	testFixturesImplementation(libs.kotlin.stdlib)
 	testFixturesImplementation(libs.kotlinx.serializationJson)
 	testFixturesImplementation(libs.retrofit)
 }

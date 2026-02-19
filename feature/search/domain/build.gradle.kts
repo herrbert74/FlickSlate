@@ -1,6 +1,5 @@
 plugins {
 	id("android-library-convention")
-	id("metro-convention")
 	alias(libs.plugins.kotlin.serialization)
 }
 

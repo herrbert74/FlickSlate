@@ -22,6 +22,7 @@ android {
 
 dependencies {
 	api(libs.kotlinx.serializationCore)
+	testFixturesApi(libs.kotlin.stdlib)
 
 	implementation(libs.kotlin.parcelizeRuntime)
 	implementation(libs.timber)

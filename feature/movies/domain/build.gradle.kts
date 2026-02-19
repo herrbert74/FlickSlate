@@ -22,12 +22,14 @@ dependencies {
 	implementation(libs.kotlinResult.result)
 	implementation(libs.kotlinResult.coroutines)
 	implementation(libs.kotlinx.coroutinesCore)
+	testFixturesApi(libs.kotlin.stdlib)
 	testFixturesImplementation(project(":shared:domain"))
 
 	testFixturesCompileOnly(libs.kotlinx.collectionsImmutableJvm)
 
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.mockk.library)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.mockk.dsl)
 }
