@@ -1,9 +1,9 @@
 package com.zsoltbertalan.flickslate.shared.data.util
 
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.runCatching
 import com.zsoltbertalan.flickslate.shared.data.getresult.handle
+import kotlinx.coroutines.CancellationException
 import timber.log.Timber
 
 /**
@@ -24,8 +24,16 @@ inline fun <T, V> T.runCatchingApi(block: T.() -> V) = runCatching(block)
 	}
 
 /**
- * [runCatching] version that handles all Throwable exceptions, and logs them.
+ * [runCatching] version that handles all Throwable exceptions, logs them, and rethrows
+ * CancellationException.
  * Use it to save data for example, when return type is Unit.
  */
 inline fun <V> runCatchingUnit(block: () -> V) = runCatching(block)
-	.onFailure { Timber.d("zsoltbertalan* runCatchingUnit: ${it.message}") }
+	.mapError {
+		if (it is CancellationException) {
+			throw it
+		}
+
+		Timber.d("zsoltbertalan* runCatchingUnit: ${it.message}")
+		it
+	}

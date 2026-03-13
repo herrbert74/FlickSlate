@@ -50,6 +50,8 @@ dependencies {
 	testImplementation(testFixtures(project(":shared:domain")))
 	testImplementation(libs.jUnit)
 	testImplementation(libs.kotest.assertionsCore)
+	testImplementation(libs.kotlin.test)
+	testImplementation(libs.kotlin.testJUnit)
 	testImplementation(libs.mockk.library)
 	testImplementation(libs.mockk.core)
 	testImplementation(libs.mockk.dsl)
