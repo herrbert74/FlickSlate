@@ -9,7 +9,7 @@ on:
 jobs:
   profile_and_upload:
     name: Run Gradle Profiler and Upload to New Relic
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up Homebrew

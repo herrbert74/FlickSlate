@@ -8,7 +8,7 @@ on:
 jobs:
   upload_loc:
     name: Upload Lines of Code to New Relic
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v6
