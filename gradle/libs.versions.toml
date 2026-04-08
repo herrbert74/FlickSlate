@@ -87,7 +87,7 @@ android-screenshotValidationApi = { module = "com.android.tools.screenshot:scree
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 #androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-annotation = "androidx.annotation:annotation:1.9.1"
+androidx-annotation = "androidx.annotation:annotation:1.10.0"
 #androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 #androidx-appCompatResources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "androidx-appcompat" }
 #androidx-browser = "androidx.browser:browser:1.8.0"
