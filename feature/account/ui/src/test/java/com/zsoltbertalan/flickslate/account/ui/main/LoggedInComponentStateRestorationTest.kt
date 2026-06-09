@@ -1,9 +1,10 @@
 package com.zsoltbertalan.flickslate.account.ui.main
 
+import android.os.Build
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.StateRestorationTester
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -14,8 +15,10 @@ import com.zsoltbertalan.flickslate.shared.ui.navigation.rememberResultStore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class LoggedInComponentStateRestorationTest {
 
 	@get:Rule

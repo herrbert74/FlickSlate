@@ -55,7 +55,7 @@ dependencies {
 	testImplementation(libs.androidx.testExtJUnit)
 	testRuntimeOnly(libs.androidx.testCore) // transitive
 	testImplementation(libs.jUnit)
-	testRuntimeOnly(libs.robolectric)
+	testImplementation(libs.robolectric)
 
 }
 

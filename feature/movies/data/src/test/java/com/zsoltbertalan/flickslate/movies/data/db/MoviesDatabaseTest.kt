@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
+import android.os.Build
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.zsoltbertalan.flickslate.movies.data.db.model.NowPlayingMovieEntity
@@ -13,9 +14,11 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import java.io.IOException
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class MoviesDatabaseTest {
 
 	private lateinit var db: MoviesDatabase

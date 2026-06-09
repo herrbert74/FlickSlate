@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.search.ui.main
 
+import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -7,7 +8,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.requestFocus
@@ -18,12 +19,13 @@ import dev.zacsweers.metrox.viewmodel.LocalMetroViewModelFactory
 import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestDispatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class SearchScreenTest {
 
 	@get:Rule
@@ -66,7 +68,7 @@ class SearchScreenTest {
 			CoroutineScope(mainDispatcherRule.dispatcher).launch {
 				searchViewModel.emitEvent(SearchEvent.SearchQuery("AAA"))
 			}
-			(mainDispatcherRule.dispatcher as TestDispatcher).scheduler.advanceUntilIdle()
+			mainDispatcherRule.dispatcher.scheduler.advanceUntilIdle()
 
 		}
 		composeTestRule.waitUntilAtLeastOneExistsCopy(hasTestTag("SearchResultColumn"), timeoutMillis = 5_000L)

@@ -1,5 +1,6 @@
 package com.zsoltbertalan.flickslate.movies.data.db
 
+import android.os.Build
 import androidx.room.testing.MigrationTestHelper
 import androidx.test.platform.app.InstrumentationRegistry
 import io.kotest.matchers.shouldBe
@@ -8,8 +9,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class MoviesDatabaseMigrationTest {
 
 	private val testDb = "migration-test"
