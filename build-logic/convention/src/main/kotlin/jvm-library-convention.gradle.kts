@@ -8,7 +8,5 @@ kotlin {
 	jvmToolchain(libs.versions.jdk.get().toInt())
 
 	@OptIn(ExperimentalAbiValidation::class)
-	abiValidation {
-		enabled = true
-	}
+	abiValidation()
 }

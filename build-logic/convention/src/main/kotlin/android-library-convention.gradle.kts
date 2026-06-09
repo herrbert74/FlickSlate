@@ -1,6 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
@@ -19,11 +18,9 @@ extensions.configure<LibraryExtension>("android") {
 	}
 }
 
-extensions.configure<KotlinProjectExtension>("kotlin") {
+extensions.configure<KotlinAndroidProjectExtension>("kotlin") {
 	jvmToolchain(libs.versions.jdk.get().toInt())
-}
 
-@OptIn(ExperimentalAbiValidation::class)
-extensions.findByType<AbiValidationExtension>()?.apply {
-	this.enabled.set(true)
+	@OptIn(ExperimentalAbiValidation::class)
+	abiValidation()
 }
