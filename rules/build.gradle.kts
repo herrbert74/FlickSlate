@@ -8,6 +8,7 @@ tasks.withType<Test>().configureEach {
 
 dependencies {
 	compileOnly(libs.detekt.api)
+	implementation(libs.detekt.psi.utils)
 	testImplementation(libs.detekt.test)
 	testImplementation(libs.detekt.testUtils)
 	testImplementation(libs.kotest.assertionsCore)

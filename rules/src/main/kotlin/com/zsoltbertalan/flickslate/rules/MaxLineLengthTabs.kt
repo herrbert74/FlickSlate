@@ -1,25 +1,26 @@
 package com.zsoltbertalan.flickslate.rules
 
-import io.gitlab.arturbosch.detekt.api.CodeSmell
-import io.gitlab.arturbosch.detekt.api.Config
-import io.gitlab.arturbosch.detekt.api.Debt
-import io.gitlab.arturbosch.detekt.api.Entity
-import io.gitlab.arturbosch.detekt.api.Issue
-import io.gitlab.arturbosch.detekt.api.Location
-import io.gitlab.arturbosch.detekt.api.Rule
-import io.gitlab.arturbosch.detekt.api.Severity
-import io.gitlab.arturbosch.detekt.api.SourceLocation
-import io.gitlab.arturbosch.detekt.api.TextLocation
-import io.gitlab.arturbosch.detekt.api.config
-import io.gitlab.arturbosch.detekt.api.internal.ActiveByDefault
-import io.gitlab.arturbosch.detekt.api.internal.Configuration
-import io.gitlab.arturbosch.detekt.rules.lastArgumentMatchesKotlinReferenceUrlSyntax
-import io.gitlab.arturbosch.detekt.rules.lastArgumentMatchesMarkdownUrlSyntax
-import io.gitlab.arturbosch.detekt.rules.lastArgumentMatchesUrl
-import org.jetbrains.kotlin.com.intellij.psi.PsiElement
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
+import dev.detekt.api.ActiveByDefault
+import dev.detekt.api.Config
+import dev.detekt.api.Configuration
+import dev.detekt.api.Entity
+import dev.detekt.api.Finding
+import dev.detekt.api.Location
+import dev.detekt.api.Rule
+import dev.detekt.api.SourceLocation
+import dev.detekt.api.TextLocation
+import dev.detekt.api.config
+import dev.detekt.psi.absolutePath
+import dev.detekt.psi.lastArgumentMatchesKotlinReferenceUrlSyntax
+import dev.detekt.psi.lastArgumentMatchesMarkdownUrlSyntax
+import dev.detekt.psi.lastArgumentMatchesUrl
+import org.jetbrains.kotlin.KtPsiSourceFileLinesMapping
+import org.jetbrains.kotlin.diagnostics.DiagnosticUtils.getLineAndColumnRangeInPsiFile
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtStringTemplateExpression
-import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
+import org.jetbrains.kotlin.psi.psiUtil.getNonStrictParentOfType
 
 /**
  * This rule reports lines of code which exceed a defined maximum line length.
@@ -28,14 +29,10 @@ import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
  * in the codebase will help make the code more uniform.
  */
 @ActiveByDefault(since = "1.0.0")
-class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
-
-	override val issue = Issue(
-		javaClass.simpleName,
-		Severity.Style,
-		"Line detected, which is longer than the defined maximum line length in the code style.",
-		Debt.FIVE_MINS
-	)
+class MaxLineLengthTabs(config: Config = Config.empty) : Rule(
+	config,
+	description = "Line detected, which is longer than the defined maximum line length in the code style."
+) {
 
 	@Suppress("MemberNameEqualsClassName")
 	@Configuration("maximum line length")
@@ -55,58 +52,51 @@ class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
 
 	override fun visitKtFile(file: KtFile) {
 		super.visitKtFile(file)
-		visit(file.toFileContent())
-	}
 
-	private fun visit(element: KtFileContent) {
-		var offset = 0
-		val lines = element.content
-		val file = element.file
+		val sourceFileLinesMapping = KtPsiSourceFileLinesMapping(file)
 
-		for (line in lines) {
-			val normalizedLine = if (line.contains("\t")) normalizeTabsToSpaces(line) else line
-			offset += line.length
-			if (!isValidLine(file, offset, line)) {
-				val ktElement = findFirstMeaningfulKtElementInParents(file, offset, line) ?: file
-				val location = Location.from(file, offset - line.length).let { location ->
-					Location(
-						source = location.source,
-						endSource = SourceLocation(location.source.line, normalizedLine.length + 1),
-						text = TextLocation(offset - line.length, offset),
-						filePath = location.filePath,
-					)
-				}
-				report(CodeSmell(issue, Entity.from(ktElement, location), issue.description))
+		file.text.lineSequence().withIndex()
+			.filter { (index, _) -> index < sourceFileLinesMapping.linesCount }
+			.filterNot { (index, line) ->
+				isValidLine(file, { sourceFileLinesMapping.getLineStartOffset(index) }, line)
 			}
-
-			offset += 1 // '\n'
-		}
+			.forEach { (index, line) ->
+				val offset = sourceFileLinesMapping.getLineStartOffset(index)
+				val ktElement = findFirstMeaningfulKtElementInParents(file, offset, line) ?: file
+				val textRange = TextRange(offset, offset + line.length)
+				val lineAndColumnRange = getLineAndColumnRangeInPsiFile(file, textRange)
+				val location = Location(
+					source = SourceLocation(lineAndColumnRange.start.line, lineAndColumnRange.start.column),
+					endSource = SourceLocation(lineAndColumnRange.end.line, lineAndColumnRange.end.column),
+					text = TextLocation(offset, offset + line.length),
+					path = file.absolutePath(),
+				)
+				report(Finding(Entity.from(ktElement, location), description))
+			}
 	}
 
-	private fun isValidLine(file: KtFile, offset: Int, line: String): Boolean {
+	private fun isValidLine(file: KtFile, offset: () -> Int, line: String): Boolean {
 		val normalizedLine = if (line.contains("\t")) normalizeTabsToSpaces(line) else line
-		val isUrl = line.lastArgumentMatchesUrl()
-		val isMarkdownOrRefUrl =
+		return normalizedLine.length <= maxLineLength ||
+			isIgnoredStatement(file, offset, line) ||
+			line.lastArgumentMatchesUrl() ||
 			line.lastArgumentMatchesMarkdownUrlSyntax() ||
-				line.lastArgumentMatchesKotlinReferenceUrlSyntax()
-		return normalizedLine.length <= maxLineLength || isIgnoredStatement(
-			file,
-			offset,
-			line
-		) || isUrl || isMarkdownOrRefUrl
+			line.lastArgumentMatchesKotlinReferenceUrlSyntax()
 	}
 
-	private fun isIgnoredStatement(file: KtFile, offset: Int, line: String): Boolean {
-		return containsIgnoredPackageStatement(line) ||
+	private fun isIgnoredStatement(file: KtFile, offset: () -> Int, line: String): Boolean =
+		containsIgnoredPackageStatement(line) ||
 			containsIgnoredImportStatement(line) ||
 			containsIgnoredCommentStatement(line) ||
 			containsIgnoredRawString(file, offset, line)
-	}
 
-	private fun containsIgnoredRawString(file: KtFile, offset: Int, line: String): Boolean {
+	private fun containsIgnoredRawString(file: KtFile, offset: () -> Int, line: String): Boolean {
 		if (!excludeRawStrings) return false
 
-		return findKtElementInParents(file, offset, line).lastOrNull()?.isInsideRawString() == true
+		return findKtElementInParents(file, offset(), line)
+			.sortedBy { it.textOffset }
+			.lastOrNull()
+			?.isInsideRawString() == true
 	}
 
 	private fun containsIgnoredPackageStatement(line: String): Boolean {
@@ -135,17 +125,12 @@ class MaxLineLengthTabs(config: Config = Config.empty) : Rule(config) {
 		private const val TAB_SIZE = 4
 		private val BLANK_OR_QUOTES = """[\s"]*""".toRegex()
 
-		private fun findFirstMeaningfulKtElementInParents(file: KtFile, offset: Int, line: String): PsiElement? {
-			return findKtElementInParents(file, offset, line)
-				.firstOrNull { !BLANK_OR_QUOTES.matches(it.text) }
-		}
+		private fun findFirstMeaningfulKtElementInParents(file: KtFile, offset: Int, line: String): PsiElement? =
+			findKtElementInParents(file, offset, line).firstOrNull { !BLANK_OR_QUOTES.matches(it.text) }
 
-		private fun normalizeTabsToSpaces(line: String): String {
-			return line.replace("\t", " ".repeat(TAB_SIZE))
-		}
+		private fun normalizeTabsToSpaces(line: String): String = line.replace("\t", " ".repeat(TAB_SIZE))
 	}
 }
 
-private fun PsiElement.isInsideRawString(): Boolean {
-	return this is KtStringTemplateExpression || getParentOfType<KtStringTemplateExpression>(false) != null
-}
+private fun PsiElement.isInsideRawString(): Boolean =
+	this is KtStringTemplateExpression || getNonStrictParentOfType<KtStringTemplateExpression>() != null

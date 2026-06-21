@@ -48,8 +48,8 @@ coil = "2.7.0"
 #crashlyticsPlugin = "3.0.4"
 #decompose = "3.3.0"
 dependencyAnalysis = "3.15.0"
-detekt = "1.23.8"
-detekt-compose = "0.4.28"
+detekt = "2.0.0-alpha.5"
+detekt-compose = "0.6.2"
 #diamondedge-logging = "2.0.3"
 #essenty = "2.5.0"
 #facebook = "16.1.2"
@@ -212,12 +212,13 @@ coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 #decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 #decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 
-detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
-detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
-detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
-detekt-testUtils = { module = "io.gitlab.arturbosch.detekt:detekt-test-utils", version.ref = "detekt" }
+detekt-api = { module = "dev.detekt:detekt-api", version.ref = "detekt" }
+detekt-psi-utils= { module = "dev.detekt:detekt-psi-utils", version.ref = "detekt" }
+detekt-cli = { module = "dev.detekt:detekt-cli", version.ref = "detekt" }
+detekt-test = { module = "dev.detekt:detekt-test", version.ref = "detekt" }
+detekt-testUtils = { module = "dev.detekt:detekt-test-utils", version.ref = "detekt" }
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version.ref = "detekt-compose" }
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-formatting = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }
 
 #diamondedge-logging = { module = "com.diamondedge:logging", version.ref = "diamondedge-logging" }
 
@@ -381,7 +382,7 @@ compose-screenshotTesting = { id = "com.android.compose.screenshot", version.ref
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" } #fine-grained plugin
 #dependencyAnalysisBuildHealth = { id = "com.autonomousapps.build-health", version.ref = "dependency-analysis" } #settings plugin
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 #gradleDoctor = { id = "com.osacky.doctor", version.ref = "gradleDoctor" }
 #graphql = { id = "com.apollographql.apollo", version.ref = "graphql" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
