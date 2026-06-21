@@ -164,8 +164,33 @@ fun calculateLinesOfCode(subprojectInfos: List<Pair<String, File>>): LocResults 
 	return LocResults(results)
 }
 
+private fun moduleName(prefix: String, dirName: String): String =
+	if (prefix.isEmpty()) dirName else "$prefix:$dirName"
+
+private fun hasGradleSubprojects(dir: File): Boolean =
+	dir.listFiles()?.any { it.isDirectory && File(it, "build.gradle.kts").exists() } == true
+
+private fun shouldScanSubdirectory(subDir: File): Boolean =
+	subDir.isDirectory && !subDir.name.startsWith(".") && subDir.name != "build"
+
+private fun scanSubprojects(
+	dir: File,
+	prefix: String,
+	subprojects: MutableList<Pair<String, File>>,
+) {
+	if (!dir.isDirectory) return
+
+	if (File(dir, "build.gradle.kts").exists() && !hasGradleSubprojects(dir)) {
+		subprojects.add(moduleName(prefix, dir.name) to dir)
+	}
+
+	val childPrefix = moduleName(prefix, dir.name)
+	dir.listFiles()
+		?.filter(::shouldScanSubdirectory)
+		?.forEach { scanSubprojects(it, childPrefix, subprojects) }
+}
+
 fun getSubProjectInfos(projectRoot: File): List<Pair<String, File>> {
-	// Read settings.gradle.kts to discover all subprojects
 	val settingsFile = File(projectRoot, "settings.gradle.kts")
 	if (!settingsFile.exists()) {
 		System.err.println("Error: settings.gradle.kts not found")
@@ -173,42 +198,12 @@ fun getSubProjectInfos(projectRoot: File): List<Pair<String, File>> {
 	}
 
 	val subprojects = mutableListOf<Pair<String, File>>()
-
-	// Manually discover subprojects by scanning the directory structure
-	// Looking for build.gradle.kts files in subdirectories
 	val topLevelDirs = listOf("app", "base", "feature", "shared", "build-logic")
 
-	fun scanDirectory(dir: File, prefix: String = "") {
-		if (!dir.isDirectory) return
-
-		val buildFile = File(dir, "build.gradle.kts")
-		if (buildFile.exists()) {
-			// Check if it has subdirectories with build files
-			val hasSubprojects = dir.listFiles()?.any {
-				it.isDirectory && File(it, "build.gradle.kts").exists()
-			} ?: false
-
-			if (!hasSubprojects) {
-				val moduleName = if (prefix.isEmpty()) dir.name else "$prefix:${dir.name}"
-				subprojects.add(moduleName to dir)
-			}
-		}
-
-		// Recursively scan subdirectories
-		dir.listFiles()?.forEach { subDir ->
-			if (subDir.isDirectory && !subDir.name.startsWith(".") && subDir.name != "build") {
-				val newPrefix = if (prefix.isEmpty()) dir.name else "$prefix:${dir.name}"
-				scanDirectory(subDir, newPrefix)
-			}
-		}
-	}
-
-	topLevelDirs.forEach { dirName ->
-		val dir = File(projectRoot, dirName)
-		if (dir.exists()) {
-			scanDirectory(dir)
-		}
-	}
+	topLevelDirs
+		.map { File(projectRoot, it) }
+		.filter { it.exists() }
+		.forEach { scanSubprojects(it, prefix = "", subprojects) }
 
 	println("Found ${subprojects.size} subprojects")
 	subprojects.forEach { (name, _) ->

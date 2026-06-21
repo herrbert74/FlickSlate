@@ -1,4 +1,4 @@
-formatting:
+ktlint:
   active: true
   android: false
   autoCorrect: true

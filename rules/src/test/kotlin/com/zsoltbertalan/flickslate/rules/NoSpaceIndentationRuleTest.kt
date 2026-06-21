@@ -1,6 +1,6 @@
 package com.zsoltbertalan.flickslate.rules
 
-import io.gitlab.arturbosch.detekt.test.lint
+import dev.detekt.test.lint
 import io.kotest.matchers.collections.shouldHaveSize
 import org.junit.jupiter.api.Test
 
