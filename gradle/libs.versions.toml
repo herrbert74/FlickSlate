@@ -18,7 +18,7 @@ kotlin = "2.4.0"
 kotlinx-collections = "0.5.1"
 #kotlinx-datetime = "0.7.1-0.6.x-compat"
 kotlinx-serialization = "1.11.0"
-ksp = "2.3.9"
+ksp = "2.3.10"
 
 #other
 
