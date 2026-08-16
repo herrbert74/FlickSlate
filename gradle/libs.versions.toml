@@ -133,7 +133,7 @@ androidx-composeMaterial3 = { module = "androidx.compose.material3:material3" }
 androidx-coreKtx = "androidx.core:core-ktx:1.19.0" #Bundle
 
 #androidx-datastore = "androidx.datastore:datastore-preferences:1.1.1"
-androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.8.9"
+androidx-fragmentKtx = "androidx.fragment:fragment-ktx:1.9.0"
 
 androidx-lifecycleCommon = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidx-lifecycle" }
 #androidx-lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
