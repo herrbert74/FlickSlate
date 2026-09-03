@@ -393,4 +393,4 @@ room = { id = "androidx.room", version.ref = "androidx-room" }
 
 # This is replaced by KGP, but KGP generates empty files for Android modules as of 2.2.10:
 # https://kotlinlang.org/docs/gradle-binary-compatibility-validation.html
-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.18.1" }
+binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.18.2" }
