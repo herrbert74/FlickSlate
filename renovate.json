@@ -8,5 +8,19 @@
     "org.hamcrest:hamcrest-core",
     "com.michael-bull.kotlin-result:kotlin-result",
     "com.michael-bull.kotlin-result:kotlin-result-coroutines"
+  ],
+  "packageRules": [
+    {
+      "description": "Java is pinned to JDK 25 LTS; bump manually on the next LTS",
+      "matchDatasources": [
+        "java-version"
+      ],
+      "matchPackageNames": [
+        "java",
+        "java-jdk",
+        "java-jre"
+      ],
+      "enabled": false
+    }
   ]
 }
