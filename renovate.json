@@ -21,6 +21,14 @@
         "java-jre"
       ],
       "enabled": false
+    },
+    {
+      "description": "Keep Kotlin compiler plugins and libraries in one PR. The JVM plugin is not linked to the JetBrains/kotlin source, so Renovate otherwise opens a second PR for the same version catalog entry.",
+      "matchPackageNames": [
+        "/^org\\.jetbrains\\.kotlin($|[.:])/"
+      ],
+      "groupName": "kotlin monorepo",
+      "groupSlug": "kotlin-monorepo"
     }
   ]
 }
