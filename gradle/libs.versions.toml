@@ -75,7 +75,7 @@ okhttp = "5.5.0"
 okio = "3.18.2"
 #parcelize-darwin = "0.2.4"
 retrofit = "3.0.0"
-robolectric = "4.16.1"
+robolectric = "4.17"
 #skie = "0.10.4"
 #uri-kmp = "0.0.20"
 
