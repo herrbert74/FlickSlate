@@ -1,6 +1,6 @@
 #!/usr/bin/env kotlin
 
-@file:DependsOn("com.google.code.gson:gson:2.14.0")
+@file:DependsOn("com.google.code.gson:gson:2.15.0")
 
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
