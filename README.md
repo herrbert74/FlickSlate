@@ -22,7 +22,10 @@ file to avoid committing it accidentally. That's it! You are all set up!
 - Dependency injection with [Dagger](https://github.com/google/dagger) and [Hilt](https://dagger.dev/hilt/)
 - Database using [androidx-room](https://developer.android.com/training/data-storage/room/)
 - Some modules contain shared [Gradle test fixtures modules](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)
-- Using [Compose Preview Screenshot Testing](https://developer.android.com/studio/preview/compose-screenshot-testing) to verify UI
+- Using [Compose Preview Screenshot Testing](https://developer.android.com/studio/preview/compose-screenshot-testing-with-testsuites) to verify UI
+
+Run screenshot tests with `./gradlew :app:testDebugScreenshotTestDefaultTestSuite :feature:movies:ui:testDebugScreenshotTestDefaultTestSuite :shared:ui:testDebugScreenshotTestDefaultTestSuite`.
+To update reference images, run `updateDebugScreenshotTestDefaultTestSuite` in the relevant module. References are stored in `src/screenshotTestDefaultDebug/reference/`.
 
 ## 🏛 Architecture
 

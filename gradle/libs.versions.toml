@@ -10,7 +10,7 @@ targetSdkVersion = "37"
 
 #platform
 
-androidGradlePlugin = "9.4.1"
+androidGradlePlugin = "9.5.0"
 #androidGradlePlugin = "7.3.1" # For IntelliJ plugin runIde
 coroutines = "1.11.0"
 jdk = "21"
@@ -371,7 +371,6 @@ androidApplication = { id = "com.android.application", version.ref = "androidGra
 #androidKotlinMultiPlatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
 androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 #buildKonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
-compose-screenshotTesting = { id = "com.android.compose.screenshot", version.ref = "compose-screenshotTesting" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" } #fine-grained plugin
 #dependencyAnalysisBuildHealth = { id = "com.autonomousapps.build-health", version.ref = "dependency-analysis" } #settings plugin

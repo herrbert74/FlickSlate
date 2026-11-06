@@ -1,7 +1,6 @@
 plugins {
 	id("android-library-convention")
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.compose.screenshotTesting)
 	id("coil-convention")
 	id("metro-convention")
 	id("ui-convention")
@@ -17,8 +16,16 @@ android {
 		}
 	}
 
-	@Suppress("UnstableApiUsage")
-	experimentalProperties["android.experimental.enableScreenshotTest"] = true
+	testOptions {
+		screenshotTests.create("screenshotTest") {
+			engineVersion = libs.versions.compose.screenshotTesting.get()
+			targetVariants.add("debug")
+			dependencies {
+				implementation(libs.androidx.composeUiTooling)
+				implementation(libs.android.screenshotValidationApi)
+			}
+		}
+	}
 }
 
 dependencies {
@@ -38,9 +45,6 @@ dependencies {
 
 	testImplementation(libs.kotest.assertionsCore)
 	testImplementation(libs.mockk.dsl) // transitive
-
-	screenshotTestImplementation(libs.androidx.composeUiTooling)
-	screenshotTestImplementation(libs.android.screenshotValidationApi)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
