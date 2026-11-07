@@ -1,7 +1,6 @@
 plugins {
 	id("android-library-convention")
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.compose.screenshotTesting)
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
 }
@@ -19,8 +18,16 @@ android {
 	@Suppress("UnstableApiUsage")
 	testFixtures.enable = true
 
-	@Suppress("UnstableApiUsage")
-	experimentalProperties["android.experimental.enableScreenshotTest"] = true
+	testOptions {
+		screenshotTests.create("screenshotTest") {
+			engineVersion = libs.versions.compose.screenshotTesting.get()
+			targetVariants.add("debug")
+			dependencies {
+				implementation(libs.androidx.composeUiTooling)
+				implementation(libs.android.screenshotValidationApi)
+			}
+		}
+	}
 }
 
 dependencies {
@@ -61,9 +68,6 @@ dependencies {
 	testFixturesImplementation(libs.androidx.testExtJUnit)
 	testFixturesImplementation(libs.androidx.composeUiTestJunit4Android)
 	testFixturesImplementation(libs.kotlin.stdlib)
-
-	screenshotTestImplementation(libs.androidx.composeUiTooling)
-	screenshotTestImplementation(libs.android.screenshotValidationApi)
 
 }
 

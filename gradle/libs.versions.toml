@@ -41,7 +41,7 @@ androidx-splashscreen = "1.2.0"
 #androidx-work = "2.9.1"
 babestudios-base = "3.2.1"
 buildKonfig = "0.17.1"
-compose-screenshotTesting = "0.0.1-alpha16"
+compose-screenshotTesting = "0.0.1-alpha17"
 #chucker = "4.0.0"
 coil = "2.7.0"
 #crashlyticsPlugin = "3.0.4"
@@ -371,7 +371,6 @@ androidApplication = { id = "com.android.application", version.ref = "androidGra
 #androidKotlinMultiPlatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
 androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 #buildKonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
-compose-screenshotTesting = { id = "com.android.compose.screenshot", version.ref = "compose-screenshotTesting" }
 #crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" } #fine-grained plugin
 #dependencyAnalysisBuildHealth = { id = "com.autonomousapps.build-health", version.ref = "dependency-analysis" } #settings plugin

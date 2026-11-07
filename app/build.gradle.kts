@@ -3,7 +3,6 @@
 plugins {
 	alias(libs.plugins.androidApplication)
 	alias(libs.plugins.kotlin.composeCompiler)
-	alias(libs.plugins.compose.screenshotTesting)
 	alias(libs.plugins.dependencyAnalysis)
 	alias(libs.plugins.kotlin.serialization)
 	id("kotlin-parcelize")
@@ -50,6 +49,14 @@ android {
 	testOptions {
 		packaging { jniLibs { useLegacyPackaging = true } }
 		unitTests.isReturnDefaultValues = true
+		screenshotTests.create("screenshotTest") {
+			engineVersion = libs.versions.compose.screenshotTesting.get()
+			targetVariants.add("debug")
+			dependencies {
+				implementation(libs.androidx.composeUiTooling)
+				implementation(libs.android.screenshotValidationApi)
+			}
+		}
 	}
 	packaging {
 		resources.excludes.add("MANIFEST.MF")
@@ -71,8 +78,6 @@ android {
 		resources.excludes.add("kotlin/collections/collections.kotlin_builtins")
 		resources.excludes.add("kotlin/annotation/annotation.kotlin_builtins")
 	}
-
-	experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
 }
 
@@ -161,9 +166,6 @@ dependencies {
 	androidTestImplementation(libs.jUnit)
 	androidTestImplementation(libs.mockk.android)
 	androidTestImplementation(libs.mockk.library)
-
-	screenshotTestImplementation(libs.androidx.composeUiTooling)
-	screenshotTestImplementation(libs.android.screenshotValidationApi)
 
 }
 
